@@ -108,7 +108,6 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const stage = new Element();
   const panel = new Element();
   const grid = new Element();
-  const toggle = new Element();
   const continueLink = new Element();
   continueLink.hidden = true;
   const root = new Element();
@@ -123,7 +122,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const tiles = products.map(product => new Element({ productLink: product.id }));
   grid.children = tiles;
 
-  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle, '#story-continue': continueLink };
+  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#story-continue': continueLink };
   section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.collections = { '[data-preview]': slides };
   section.getBoundingClientRect = () => {
@@ -177,7 +176,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   }
 
   flushFrames();
-  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, toggle, continueLink, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
+  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, continueLink, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
 }
 
 test('only the four supplied products become selectable states', () => {
@@ -222,13 +221,15 @@ test('native forward and reverse scrolling synchronize chapters, previews, navig
     const focusBefore = f.document.activeElement;
     f.scrollTo(checkpoints[index]);
     f.assertSynchronized(f.products[index].id);
-    const channels = f.products[index].color.slice(1).match(/../g).map(value => parseInt(value, 16));
-    assert.equal(f.stage.style.backgroundColor, `rgb(${channels.join(',')})`);
+    const product = f.products[index];
+    const background = product.id === 'messaging' ? product.accent : product.color;
+    const channels = background.slice(1).match(/../g).map(value => parseInt(value, 16));
+    assert.equal(f.stage.style.backgroundColor, `rgba(${channels.join(',')},0.12)`);
     assert.equal(f.document.activeElement, focusBefore, 'ordinary scrolling does not move keyboard focus');
   }
 });
 
-test('introductory loop runs only while visible, supports pause, and stops for hidden tabs and product progression', () => {
+test('introductory loop runs without playback controls only while visible and stops for hidden tabs and product progression', () => {
   const f = fixture();
   assert.equal(f.timers.size, 0, 'offscreen introduction does not autoplay');
   f.api.selectProduct('cases', { hash: false });
@@ -241,12 +242,6 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   [...f.timers.values()][0]();
   assert.notEqual(f.api.getState().previewIndex, firstPreview, 'timer advances the decorative preview');
 
-  f.click(f.toggle);
-  assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.textContent, 'Resume preview');
-  f.click(f.toggle);
-  assert.equal(f.timers.size, 1);
-
   f.document.hidden = true;
   f.document.dispatch('visibilitychange');
   assert.equal(f.timers.size, 0);
@@ -258,7 +253,6 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   f.api.selectProduct('messaging');
   assert.equal(f.continueLink.hidden, false);
   assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.hidden, true);
 });
 
 test('desktop resize preserves the chosen product and keeps state synchronized', () => {
@@ -290,7 +284,6 @@ test('reduced-motion change restores all semantic chapters and matching static n
   assert.equal(f.section.classList.contains('story-enhanced'), false);
   assert.equal(f.section.style.height, '');
   assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.hidden, true);
   assert.equal(f.continueLink.hidden, false, 'the selected product keeps the link visible in static mode');
   for (const chapter of f.chapters) {
     assert.equal(chapter.inert, false);
@@ -304,7 +297,6 @@ test('reduced-motion change restores all semantic chapters and matching static n
 test('initial static mode remains readable and direct product hashes resolve correctly', () => {
   const staticView = fixture({ enhanced: false });
   assert.equal(staticView.api.getState().enhanced, false);
-  assert.equal(staticView.toggle.hidden, true);
   assert.equal(staticView.continueLink.hidden, true);
   assert.ok(staticView.chapters.every(chapter => !chapter.inert && chapter.getAttribute('aria-hidden') === null));
   staticView.scrollTo(staticView.sectionStart - 500);

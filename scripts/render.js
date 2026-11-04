@@ -16,6 +16,9 @@ const preview = (p, cls = '') => p.preview
   ? `<img class="${cls}" src="${escape(p.preview)}" width="1920" height="1080" alt="${escape(p.name)} product interface" loading="lazy" decoding="async">`
   : `<div class="preview-placeholder ${cls}" role="img" aria-label="${escape(p.name)} UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>${escape(p.name)}</span><span>UI screenshot — awaiting approved asset.</span></span></div>`;
 const sectionLink = (p, cls = '') => `<a class="${cls}" href="${config.homeBase}#${p.id}" data-pillar="${p.id}">${p.label}</a>`;
+const heroSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
+  .replace('<svg ', '<svg class="hero-slashes" aria-hidden="true" ')
+  .replace(/<path ([^>]+)\/>/g, (_, attributes) => `<g class="hero-slash-flight"><path class="hero-slash-shape" pathLength="1" ${attributes.replace(' fill="white"', '')}/></g>`);
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -25,6 +28,8 @@ const html = `<!doctype html>
   <meta name="description" content="${escape(c.foundation.paragraphs[0])}">
   <title>INDICE Platform</title>
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="${escape(config.logoIcon)}" as="image">
+  <link rel="preload" href="${escape(config.logoTop)}" as="image">
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
@@ -34,18 +39,18 @@ const html = `<!doctype html>
 </head>
 <body>
   <a class="skip-link" href="#main-content">${c.navigation.skip}</a>
+  <a class="hero-brand" id="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
   <main id="main-content" tabindex="-1">
     <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
-      <div class="hero-top"><a class="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a></div>
+      <div class="hero-top"></div>
       <div class="hero-composition">
         <h1 id="hero-title">${escape(c.hero.title).replace(' ', ' <span>')}</span></h1>
         <div class="hero-art">
-          <svg class="hero-slashes" viewBox="0 0 440 560" width="440" height="560" fill="none" aria-hidden="true"><g class="hero-slash-flight"><path class="hero-slash-shape" d="M22 65H114L230 495H138Z" vector-effect="non-scaling-stroke"/></g><g class="hero-slash-flight"><path class="hero-slash-shape" d="M176 65H268L384 495H292Z" vector-effect="non-scaling-stroke"/></g></svg>
-          <button class="art-motion-toggle" data-hero-art-toggle type="button" aria-label="Pause hero artwork animation" aria-pressed="false"><svg class="art-pause-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="M7 5v10M13 5v10" stroke="currentColor" stroke-width="1.5"/></svg><svg class="art-play-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="m7 5 8 5-8 5V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+          ${heroSlashes}
         </div>
         <div class="hero-baseline"><p class="hero-motto">${c.hero.motto.replace('. ', '.<br>')}</p></div>
       </div>
-      <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label"><span>${p.number}</span>${p.label}</span><span class="pillar-headline">${p.headline}</span>${arrow}</a>`).join('')}</div>
+      <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label"><span>${p.number}</span>${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${arrow}</span></a>`).join('')}</div>
     </section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
@@ -54,9 +59,8 @@ const html = `<!doctype html>
       <div class="foundation-layout">
         <div class="foundation-art">
           <div class="foundation-shapes" aria-hidden="true"><div class="foundation-plane plane-one art-piece" data-art-piece></div><div class="foundation-plane plane-two art-piece" data-art-piece></div><div class="foundation-plane plane-three art-piece" data-art-piece></div><div class="foundation-slash art-piece" data-art-piece></div><span class="art-coordinate coordinate-one art-piece" data-art-piece>+</span><span class="art-coordinate coordinate-two art-piece" data-art-piece>+</span></div>
-          <button class="art-motion-toggle" data-art-toggle type="button" aria-label="Pause artwork animation" aria-pressed="false"><svg class="art-pause-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="M7 5v10M13 5v10" stroke="currentColor" stroke-width="1.5"/></svg><svg class="art-play-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="m7 5 8 5-8 5V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
         </div>
-        <div class="foundation-text" data-reveal>${c.foundation.paragraphs.map(p => `<p>${p}</p>`).join('')}<div class="actions">${demo()}<a class="text-link" href="#products">${c.foundation.explore}${arrow}</a></div></div>
+        <div class="foundation-text" data-reveal>${c.foundation.paragraphs.map(p => `<p>${p}</p>`).join('')}<div class="foundation-details">${c.foundation.items.map(item => `<div><h3>${escape(item.title)}</h3><p>${escape(item.description)}</p></div>`).join('')}</div><div class="actions">${demo()}<a class="text-link" href="#products">${c.foundation.explore}${down}</a></div></div>
       </div>
     </section>
 
@@ -74,7 +78,6 @@ const html = `<!doctype html>
         <nav class="product-navigation" aria-label="Product showcase">${products.map((p,i) => `<button type="button" data-select-product="${p.id}" aria-controls="product-${p.id}"><span class="product-nav-index" aria-hidden="true">0${i+1}</span>${p.name}</button>`).join('')}</nav>
         <div class="story-copy">${products.map((p,i) => `<article class="product-chapter" id="product-${p.id}" data-product="${p.id}" style="--product-color:${p.id === 'messaging' ? p.accent : p.color}" aria-labelledby="title-${p.id}" tabindex="-1"><div class="chapter-content"><div class="chapter-logo">${logo(p)}</div><h3 id="title-${p.id}">${p.name}</h3><p class="chapter-description">${p.description}</p>${p.destination ? `<a class="button explore-button" href="${escape(p.destination)}">Explore ${p.name}${arrow}</a>` : `<button type="button" class="button explore-button" disabled aria-describedby="unavailable-${p.id}">Explore ${p.name}${arrow}</button><p class="unavailable-note" id="unavailable-${p.id}">${c.navigation.unavailable}</p>`}</div><div class="static-preview">${preview(p)}</div></article>`).join('')}</div>
         <div class="preview-panel" aria-label="Product UI preview"><div class="preview-viewport">${products.map((p,i) => `<div class="preview-slide${i===0?' is-active':''}" data-preview="${p.id}">${preview(p)}</div>`).join('')}</div></div>
-        <button id="preview-toggle" class="preview-toggle" type="button">Pause preview</button>
       </div>
     </section>
 
@@ -94,11 +97,10 @@ const html = `<!doctype html>
       <div class="panel-section-links" aria-label="Sections">${c.hero.pillars.map(p => sectionLink(p)).join('')}</div>
       <div class="panel-heading"><span>${c.navigation.products}</span><span class="panel-note">${c.navigation.unavailable}</span></div>
       <div class="panel-product-grid">${products.map(p => `<div class="panel-product">${logo(p)}<p>${p.tagline}</p></div>`).join('')}</div>
-      <a class="text-link panel-explore" id="panel-explore-all" href="${config.homeBase}#products">${c.navigation.exploreAll}${arrow}</a>
+      <a class="text-link panel-explore" id="panel-explore-all" href="${config.homeBase}#products">${c.navigation.exploreAll}${down}</a>
     </div>
     <div class="desktop-nav-links">${sectionLink(c.hero.pillars[0])}<button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">${c.navigation.products}<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 7 3-3 3 3" stroke="currentColor" stroke-width="1.3"/></svg></button>${sectionLink(c.hero.pillars[2])}</div>
     <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">${c.navigation.menu}<span aria-hidden="true">+</span></button>
-    ${demo('nav-demo')}
   </nav>
 </body>
 </html>

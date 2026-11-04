@@ -4,8 +4,7 @@
 
   const art = document.querySelector('.foundation-art');
   const pieces = [...(art?.querySelectorAll('[data-art-piece]') || [])];
-  const toggle = art?.querySelector('[data-art-toggle]');
-  if (!art || !pieces.length || !toggle) return;
+  if (!art || !pieces.length) return;
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const pointer = matchMedia('(hover: hover) and (pointer: fine)');
@@ -16,7 +15,6 @@
   let pointerPosition = null;
   let centers = [];
   let visible = false;
-  let paused = false;
   let connected = false;
 
   function resetRepulsion() {
@@ -35,7 +33,7 @@
   }
 
   function updateMotion() {
-    const running = connected && visible && !paused && !reduced.matches && !document.hidden;
+    const running = connected && visible && !reduced.matches && !document.hidden;
     art.classList.toggle('is-animating', running);
     if (!running || !pointer.matches) resetRepulsion();
   }
@@ -78,8 +76,7 @@
   }
 
   function onPointerMove(event) {
-    if (event.pointerType === 'touch' || !pointer.matches || !art.classList.contains('is-animating') ||
-      event.target.closest('[data-art-toggle]')) {
+    if (event.pointerType === 'touch' || !pointer.matches || !art.classList.contains('is-animating')) {
       resetRepulsion();
       return;
     }
@@ -102,14 +99,6 @@
     }
   }
 
-  function onPause() {
-    paused = !paused;
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'Resume artwork animation' : 'Pause artwork animation');
-    resetRepulsion();
-    updateMotion();
-  }
-
   function connect() {
     if (connected) return;
     connected = true;
@@ -119,7 +108,6 @@
     art.addEventListener('pointermove', onPointerMove, { passive: true, signal });
     art.addEventListener('pointerleave', resetRepulsion, { signal });
     art.addEventListener('pointercancel', resetRepulsion, { signal });
-    toggle.addEventListener('click', onPause, { signal });
     window.addEventListener('scroll', onScroll, { passive: true, signal });
     window.addEventListener('resize', onLayoutChange, { passive: true, signal });
     window.addEventListener('blur', resetRepulsion, { signal });
