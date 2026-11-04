@@ -641,6 +641,9 @@ section:focus,article:focus,main:focus {
   border-color:var(--product-color);
   box-shadow:0 12px 28px #201f1e08
 }
+.tile-messaging:hover {
+  border-color:var(--product-accent)
+}
 .tile-iam {
   margin-top:66px;
   min-height:310px
@@ -726,7 +729,11 @@ section:focus,article:focus,main:focus {
 }
 .tile-messaging .tile-motif {
   width:95px;
-  opacity:.1
+  opacity:.1;
+  background:var(--product-accent)
+}
+.tile-messaging .tile-motif::after {
+  background:var(--product-accent)
 }
 .tile-risk .tile-motif {
   height:100%;
