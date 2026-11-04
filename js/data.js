@@ -7,10 +7,10 @@ globalThis.INDICE_DATA = {
     demoAction() { /* Future demo action intentionally unwired for this phase. */ }
   },
   copy: {
-    navigation: { foundation: 'Foundation', products: 'Products', services: 'Services', menu: 'Menu', close: 'Close', exploreAll: 'Explore all products', unavailable: 'Product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
-    hero: { title: 'INDICE Platform', motto: 'Solid foundations. Greater possibilities.', more: 'View more', pillars: [
+    navigation: { foundation: 'Foundation', products: 'Suite', services: 'Services', menu: 'Menu', close: 'Close', exploreAll: 'Explore all products', unavailable: 'Product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
+    hero: { title: 'INDICE Platform', motto: 'Solid foundations. Greater possibilities.', pillars: [
       { id: 'foundation', number: '01', label: 'Foundation', headline: 'Built on experience. Engineered to evolve.' },
-      { id: 'products', number: '02', label: 'Products', headline: 'Focused capabilities. Flexible combinations.' },
+      { id: 'products', number: '02', label: 'Suite', headline: 'Focused capabilities. Flexible combinations.' },
       { id: 'services', number: '03', label: 'Services', headline: 'Expertise that brings it all together.' }
     ] },
     foundation: { label: 'Platform Foundation', title: 'A strong foundation for robust digital solutions.', paragraphs: [

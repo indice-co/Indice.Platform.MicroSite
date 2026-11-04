@@ -10,26 +10,34 @@
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
+  <script defer src="js/hero-art.js"></script>
+  <script defer src="js/foundation-art.js"></script>
   <script defer src="js/showcase.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <main id="main-content" tabindex="-1">
     <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
-      <div class="hero-top"><a class="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="assets/logos/indice platform grey.svg" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a><span class="hero-marker" aria-hidden="true"><i></i><i></i></span></div>
+      <div class="hero-top"><a class="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="assets/logos/indice platform grey.svg" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a></div>
       <div class="hero-composition">
         <h1 id="hero-title">INDICE <span>Platform</span></h1>
-        <div class="hero-slashes" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="hero-baseline"><p class="hero-motto">Solid foundations.<br>Greater possibilities.</p><a class="text-link view-more" href="#foundation">View more<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+        <div class="hero-art">
+          <svg class="hero-slashes" viewBox="0 0 440 560" width="440" height="560" fill="none" aria-hidden="true"><g class="hero-slash-flight"><path class="hero-slash-shape" d="M22 65H114L230 495H138Z" vector-effect="non-scaling-stroke"/></g><g class="hero-slash-flight"><path class="hero-slash-shape" d="M176 65H268L384 495H292Z" vector-effect="non-scaling-stroke"/></g></svg>
+          <button class="art-motion-toggle" data-hero-art-toggle type="button" aria-label="Pause hero artwork animation" aria-pressed="false"><svg class="art-pause-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="M7 5v10M13 5v10" stroke="currentColor" stroke-width="1.5"/></svg><svg class="art-play-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="m7 5 8 5-8 5V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="hero-baseline"><p class="hero-motto">Solid foundations.<br>Greater possibilities.</p></div>
       </div>
-      <div class="pillar-grid"><a class="pillar" href="#foundation"><span class="pillar-label"><span>01</span>Foundation</span><span class="pillar-headline">Built on experience. Engineered to evolve.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="pillar" href="#products"><span class="pillar-label"><span>02</span>Products</span><span class="pillar-headline">Focused capabilities. Flexible combinations.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="pillar" href="#services"><span class="pillar-label"><span>03</span>Services</span><span class="pillar-headline">Expertise that brings it all together.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+      <div class="pillar-grid"><a class="pillar" href="#foundation"><span class="pillar-label"><span>01</span>Foundation</span><span class="pillar-headline">Built on experience. Engineered to evolve.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="pillar" href="#products"><span class="pillar-label"><span>02</span>Suite</span><span class="pillar-headline">Focused capabilities. Flexible combinations.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="pillar" href="#services"><span class="pillar-label"><span>03</span>Services</span><span class="pillar-headline">Expertise that brings it all together.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
     </section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">Platform Foundation</span><span class="section-number" aria-hidden="true">01 /</span></div>
       <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal>A strong foundation for robust digital solutions.</h2>
       <div class="foundation-layout">
-        <div class="foundation-art" aria-hidden="true"><div class="foundation-plane plane-one"></div><div class="foundation-plane plane-two"></div><div class="foundation-plane plane-three"></div><div class="foundation-slash"></div><span class="art-coordinate coordinate-one">+</span><span class="art-coordinate coordinate-two">+</span></div>
+        <div class="foundation-art">
+          <div class="foundation-shapes" aria-hidden="true"><div class="foundation-plane plane-one art-piece" data-art-piece></div><div class="foundation-plane plane-two art-piece" data-art-piece></div><div class="foundation-plane plane-three art-piece" data-art-piece></div><div class="foundation-slash art-piece" data-art-piece></div><span class="art-coordinate coordinate-one art-piece" data-art-piece>+</span><span class="art-coordinate coordinate-two art-piece" data-art-piece>+</span></div>
+          <button class="art-motion-toggle" data-art-toggle type="button" aria-label="Pause artwork animation" aria-pressed="false"><svg class="art-pause-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="M7 5v10M13 5v10" stroke="currentColor" stroke-width="1.5"/></svg><svg class="art-play-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="m7 5 8 5-8 5V5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+        </div>
         <div class="foundation-text" data-reveal><p>INDICE Platform combines engineering foundations, adaptable products, and implementation expertise to support the development and evolution of digital solutions.</p><p>INDICE’s open-source libraries, established engineering practices, and cloud deployment and monitoring patterns provide a shared foundation for secure software development and reliable operations.</p><div class="actions"><button class="button demo-button " type="button" data-demo>Request a demo<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><a class="text-link" href="#products">Explore the suite<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a></div></div>
       </div>
     </section>
@@ -64,14 +72,13 @@
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="assets/logos/indice platform grey.svg" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
 
   <nav class="floating-nav" id="site-nav" aria-label="Main navigation">
-    <div class="products-panel" id="products-panel" role="region" aria-label="Products" hidden>
-      <div class="panel-section-links" aria-label="Sections"><a class="" href="#foundation" data-pillar="foundation">Foundation</a><a class="" href="#products" data-pillar="products">Products</a><a class="" href="#services" data-pillar="services">Services</a></div>
-      <div class="panel-heading"><span>Products</span><span class="panel-note">Product pages are not available in this preview.</span></div>
+    <div class="products-panel" id="products-panel" role="region" aria-label="Suite" hidden>
+      <div class="panel-section-links" aria-label="Sections"><a class="" href="#foundation" data-pillar="foundation">Foundation</a><a class="" href="#products" data-pillar="products">Suite</a><a class="" href="#services" data-pillar="services">Services</a></div>
+      <div class="panel-heading"><span>Suite</span><span class="panel-note">Product pages are not available in this preview.</span></div>
       <div class="panel-product-grid"><div class="panel-product"><img class="product-logo " src="assets/logos/cases-logo.svg" width="132" height="32" alt="Cases" loading="lazy" decoding="async"><p>Case management and business workflows</p></div><div class="panel-product"><img class="product-logo " src="assets/logos/identity-admin-logo.svg" width="114" height="32" alt="IAM" loading="lazy" decoding="async"><p>Identity and access management</p></div><div class="panel-product"><img class="product-logo " src="assets/logos/messaging-logo.svg" width="176" height="32" alt="Messaging" loading="lazy" decoding="async"><p>Multichannel campaigns and notifications</p></div><div class="panel-product"><img class="product-logo " src="assets/logos/risk-logo.svg" width="112" height="32" alt="Risk" loading="lazy" decoding="async"><p>Risk assessment for transactions and activity</p></div></div>
       <a class="text-link panel-explore" id="panel-explore-all" href="#products">Explore all products<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a>
     </div>
-    <a class="nav-brand" href="#hero" aria-label="INDICE Platform home"><img src="assets/logos/indice platform grey.svg" width="1490" height="400" alt="INDICE Platform"></a>
-    <div class="desktop-nav-links"><a class="" href="#foundation" data-pillar="foundation">Foundation</a><button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">Products<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 7 3-3 3 3" stroke="currentColor" stroke-width="1.3"/></svg></button><a class="" href="#services" data-pillar="services">Services</a></div>
+    <div class="desktop-nav-links"><a class="" href="#foundation" data-pillar="foundation">Foundation</a><button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">Suite<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 7 3-3 3 3" stroke="currentColor" stroke-width="1.3"/></svg></button><a class="" href="#services" data-pillar="services">Services</a></div>
     <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">Menu<span aria-hidden="true">+</span></button>
     <button class="button demo-button nav-demo" type="button" data-demo>Request a demo<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button>
   </nav>

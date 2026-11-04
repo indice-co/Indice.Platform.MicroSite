@@ -21,7 +21,13 @@
   --nav-clearance:calc(var(--nav-height) + var(--nav-bottom) + 32px);
   --ease:cubic-bezier(.2,.75,.25,1);
   --duration:.65s;
-  --reveal-distance:24px
+  --reveal-distance:24px;
+  --art-float-duration:9s;
+  --art-repel-duration:350ms;
+  --hero-slash-grey:#8b8880;
+  --hero-flight-duration:1.6s;
+  --hero-fill-delay:2.15s;
+  --hero-color-duration:12s
 }
 *,*::before,*::after {
   box-sizing:border-box
@@ -121,7 +127,7 @@ section:focus,article:focus,main:focus {
   align-items:center;
   gap:24px;
   min-height:44px;
-  font-size:14px;
+  font-size:16px;
   font-weight:600;
   line-height:1.4
 }
@@ -176,12 +182,12 @@ section:focus,article:focus,main:focus {
   margin-bottom:56px
 }
 .eyebrow {
-  font-size:12px;
+  font-size:14px;
   letter-spacing:.09em;
   font-weight:650
 }
 .section-number {
-  font-size:14px
+  font-size:16px
 }
 .display-heading {
   font-size:clamp(40px,5.1vw,86px);
@@ -208,18 +214,6 @@ section:focus,article:focus,main:focus {
 }
 .hero-brand {
   width:155px
-}
-.hero-marker {
-  display:flex;
-  gap:5px;
-  transform:skew(17deg);
-  padding-right:8px
-}
-.hero-marker i {
-  display:block;
-  width:7px;
-  height:22px;
-  background:var(--ink)
 }
 .hero-composition {
   position:relative;
@@ -254,49 +248,87 @@ section:focus,article:focus,main:focus {
   letter-spacing:-.035em;
   animation:hero-enter .9s .13s var(--ease) both
 }
-.view-more {
-  padding-bottom:3px;
-  animation:hero-enter .9s .22s var(--ease) both
-}
-.view-more .arrow {
-  width:17px;
-  height:20px
-}
-.view-more:hover .arrow {
-  transform:translateY(4px)
-}
-.hero-slashes {
+.hero-art {
   position:absolute;
-  z-index:-1;
-  right:3%;
-  top:12%;
+  z-index:1;
+  right:1%;
+  top:0;
   width:34%;
-  height:75%;
-  transform:rotate(-18deg);
-  display:flex;
-  gap:8%;
-  align-items:center;
+  height:90%;
   pointer-events:none
 }
-.hero-slashes span {
-  height:90%;
-  width:34%;
-  background:linear-gradient(135deg,#eeece6 4%,#c8c4b9 64%,#bdb7a9);
-  box-shadow:18px 20px 30px #201f1e10;
-  animation:slash-enter 1.4s var(--ease) both
+.hero-slashes {
+  width:100%;
+  height:100%;
+  overflow:visible
 }
-.hero-slashes span:nth-child(2) {
-  background:var(--ink);
-  height:79%;
-  width:16%;
-  animation-delay:.1s
+.hero-slash-flight {
+  transform-box:fill-box;
+  transform-origin:center
 }
-.hero-slashes span:nth-child(3) {
-  background:var(--red);
-  height:50%;
-  width:3%;
-  align-self:flex-end;
-  animation-delay:.2s
+.hero-slash-shape {
+  fill:var(--hero-slash-grey);
+  stroke:var(--hero-slash-grey);
+  stroke-width:1.6;
+  stroke-linejoin:miter
+}
+.hero-art.art-ready .hero-slash-flight {
+  animation:hero-slash-arrive var(--hero-flight-duration) var(--ease) var(--flight-delay,.25s) both;
+  animation-play-state:paused
+}
+.hero-slash-flight:nth-child(2) {
+  --flight-delay:.43s
+}
+.hero-art.art-ready .hero-slash-shape {
+  animation:hero-slash-fill .7s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .7s) infinite;
+  animation-play-state:paused
+}
+.hero-art.is-animating .hero-slash-flight,.hero-art.is-animating .hero-slash-shape {
+  animation-play-state:running
+}
+.hero-art .art-motion-toggle {
+  top:auto;
+  bottom:0;
+  right:0;
+  pointer-events:auto
+}
+@keyframes hero-slash-arrive {
+  0% {
+    opacity:0;
+    transform:translate3d(-20px,-110vh,0) rotate(-7deg)
+  }
+  12% {
+    opacity:1
+  }
+  85% {
+    transform:translate3d(0,8px,0) rotate(.5deg)
+  }
+  100% {
+    opacity:1;
+    transform:translate3d(0,0,0) rotate(0deg)
+  }
+}
+@keyframes hero-slash-fill {
+  from {
+    fill:transparent
+  }
+  to {
+    fill:var(--hero-slash-grey)
+  }
+}
+@keyframes hero-slash-color {
+  0%,10%,100% {
+    fill:var(--hero-slash-grey);
+    stroke:var(--hero-slash-grey)
+  }
+  35%,42% {
+    fill:var(--red);
+    stroke:var(--red)
+  }
+  68%,75% {
+    fill:var(--ink);
+    stroke:var(--ink)
+  }
 }
 .pillar-grid {
   display:grid;
@@ -331,7 +363,7 @@ section:focus,article:focus,main:focus {
   color:var(--muted)
 }
 .pillar-headline {
-  font-size:clamp(14px,1.15vw,18px);
+  font-size:clamp(16px,1.15vw,18px);
   line-height:1.45;
   letter-spacing:-.02em;
   max-width:240px
@@ -390,40 +422,89 @@ section:focus,article:focus,main:focus {
   perspective:800px;
   isolation:isolate
 }
+.foundation-shapes {
+  position:absolute;
+  inset:0;
+  perspective:800px;
+  pointer-events:none
+}
+.art-piece {
+  --art-transform:rotate(0deg);
+  --float-x:3px;
+  --float-y:-8px;
+  translate:var(--repel-x,0px) var(--repel-y,0px);
+  animation:foundation-drift var(--float-duration,var(--art-float-duration)) ease-in-out var(--float-delay,0s) infinite;
+  animation-play-state:paused;
+  transition:translate var(--art-repel-duration) var(--ease);
+  pointer-events:none
+}
+.foundation-art.is-animating .art-piece {
+  animation-play-state:running;
+  will-change:transform,translate
+}
+@keyframes foundation-drift {
+  0%,100% {
+    transform:translate3d(0,0,0) var(--art-transform)
+  }
+  50% {
+    transform:translate3d(var(--float-x),var(--float-y),0) var(--art-transform)
+  }
+}
 .foundation-plane {
+  --art-transform:rotateX(54deg) rotateZ(-28deg);
   position:absolute;
   left:12%;
   top:21%;
   width:75%;
   height:58%;
   border:1px solid #201f1e44;
-  transform:rotateX(54deg) rotateZ(-28deg);
+  transform:var(--art-transform);
   background:var(--beige)
 }
 .plane-one {
+  --float-x:-4px;
+  --float-y:-9px;
+  --float-duration:8.6s;
+  --float-delay:-1.8s;
   top:36%;
   background:var(--ink);
   border-color:var(--ink)
 }
 .plane-two {
+  --float-x:6px;
+  --float-y:-14px;
+  --float-duration:10s;
+  --float-delay:-4s;
   top:23%;
   background:#dedad0cf
 }
 .plane-three {
+  --float-x:-6px;
+  --float-y:-11px;
+  --float-duration:9.4s;
+  --float-delay:-6s;
   top:9%;
   background:#f1efe9b5
 }
 .foundation-slash {
+  --art-transform:skew(17deg) rotate(-28deg);
+  --float-x:7px;
+  --float-y:-18px;
+  --float-duration:8.4s;
+  --float-delay:-2.2s;
   position:absolute;
   width:13%;
   height:48%;
   background:var(--red);
   top:12%;
   left:45%;
-  transform:skew(17deg) rotate(-28deg);
+  transform:var(--art-transform);
   box-shadow:15px 20px 0 #dc46502b
 }
 .art-coordinate {
+  --float-x:-2px;
+  --float-y:-4px;
+  --float-duration:12s;
   position:absolute;
   font-weight:300;
   font-size:22px;
@@ -434,8 +515,42 @@ section:focus,article:focus,main:focus {
   bottom:15%
 }
 .coordinate-two {
+  --float-x:2px;
+  --float-delay:-5s;
   right:2%;
   top:8%
+}
+.art-motion-toggle {
+  display:none;
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:0;
+  width:44px;
+  height:44px;
+  padding:13px;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--paper);
+  transition:background .2s,border-color .2s
+}
+.art-ready .art-motion-toggle {
+  display:inline-flex
+}
+.art-motion-toggle:hover {
+  background:var(--beige);
+  border-color:var(--ink)
+}
+.art-motion-toggle:active {
+  background:#e5e2da
+}
+.art-play-icon,.art-motion-toggle[aria-pressed=true] .art-pause-icon {
+  display:none
+}
+.art-motion-toggle[aria-pressed=true] .art-play-icon {
+  display:block
 }
 .metrics {
   display:grid;
@@ -463,7 +578,7 @@ section:focus,article:focus,main:focus {
   font-weight:400
 }
 .metric p {
-  font-size:12px;
+  font-size:14px;
   line-height:1.5;
   max-width:185px;
   margin-top:18px;
@@ -547,7 +662,7 @@ section:focus,article:focus,main:focus {
   justify-content:space-between;
   align-items:end;
   gap:30px;
-  font-size:14px;
+  font-size:16px;
   line-height:1.6;
   max-width:100%
 }
@@ -641,7 +756,7 @@ section:focus,article:focus,main:focus {
   transform:scaleX(var(--progress,0))
 }
 .story-continue {
-  font-size:12px;
+  font-size:14px;
   gap:14px
 }
 .story-continue .arrow {
@@ -795,7 +910,7 @@ section:focus,article:focus,main:focus {
   border:1px solid var(--line);
   border-radius:3px;
   background:transparent;
-  font-size:12px;
+  font-size:14px;
   font-weight:600;
   transition:background .2s,color .2s
 }
@@ -894,7 +1009,7 @@ section:focus,article:focus,main:focus {
   margin-bottom:22px
 }
 .story-enhanced .chapter-description {
-  font-size:14px;
+  font-size:16px;
   margin-bottom:25px
 }
 .story-enhanced .static-preview {
@@ -925,7 +1040,7 @@ section:focus,article:focus,main:focus {
   justify-content:space-between;
   align-items:center;
   padding:0 10px 10px;
-  font-size:12px;
+  font-size:14px;
   font-weight:600
 }
 .preview-window-marks {
@@ -965,7 +1080,7 @@ section:focus,article:focus,main:focus {
   font-size:42px
 }
 .story-enhanced .placeholder-caption>span:last-child {
-  font-size:14px
+  font-size:16px
 }
 .story-enhanced .preview-toggle {
   display:inline-flex;
@@ -980,7 +1095,7 @@ section:focus,article:focus,main:focus {
   border:1px solid var(--line);
   border-radius:30px;
   background:var(--paper);
-  font-size:12px
+  font-size:14px
 }
 .story-enhanced .product-navigation {
   display:flex;
@@ -1042,7 +1157,7 @@ section:focus,article:focus,main:focus {
   padding:35px 0 45px
 }
 .service-number {
-  font-size:12px
+  font-size:14px
 }
 .service-row h3 {
   font-size:24px;
@@ -1051,7 +1166,7 @@ section:focus,article:focus,main:focus {
   max-width:290px
 }
 .service-row p {
-  font-size:14px;
+  font-size:16px;
   line-height:1.8;
   max-width:360px;
   color:var(--muted)
@@ -1126,7 +1241,7 @@ section:focus,article:focus,main:focus {
   border:1px dashed #201f1e3c;
   max-width:900px;
   padding:38px 20px;
-  font-size:12px;
+  font-size:14px;
   color:var(--muted)
 }
 .contact {
@@ -1153,7 +1268,7 @@ section:focus,article:focus,main:focus {
 .contact-bottom>p {
   max-width:420px;
   color:#dedad0c7;
-  font-size:14px;
+  font-size:16px;
   line-height:1.8
 }
 .contact-bottom .button {
@@ -1209,16 +1324,6 @@ section:focus,article:focus,main:focus {
   width:max-content;
   max-width:calc(100% - 32px)
 }
-.nav-brand {
-  width:128px;
-  flex-shrink:0;
-  min-height:44px;
-  display:flex;
-  align-items:center
-}
-.nav-brand img {
-  width:100%
-}
 .desktop-nav-links {
   display:flex;
   align-items:center;
@@ -1230,7 +1335,7 @@ section:focus,article:focus,main:focus {
   gap:7px;
   position:relative;
   min-height:44px;
-  font-size:12px;
+  font-size:14px;
   font-weight:500;
   white-space:nowrap;
   border:0;
@@ -1270,9 +1375,9 @@ section:focus,article:focus,main:focus {
 .products-panel {
   position:absolute;
   bottom:calc(100% + 12px);
-  left:0;
-  width:100%;
-  min-width:640px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(640px,calc(100vw - 32px));
   padding:25px 28px 18px;
   background:var(--paper);
   border:1px solid #201f1e25;
@@ -1292,7 +1397,7 @@ section:focus,article:focus,main:focus {
   gap:20px;
   border-bottom:1px solid var(--line);
   padding-bottom:15px;
-  font-size:12px;
+  font-size:14px;
   font-weight:600
 }
 .panel-note {
@@ -1323,7 +1428,7 @@ section:focus,article:focus,main:focus {
   display:flex;
   justify-content:space-between;
   border-top:1px solid var(--line);
-  font-size:12px;
+  font-size:14px;
   padding:10px 0 0;
   gap:25px
 }
@@ -1359,16 +1464,6 @@ section:focus,article:focus,main:focus {
     transform:none
   }
 }
-@keyframes slash-enter {
-  from {
-    opacity:0;
-    transform:translateY(35px)
-  }
-  to {
-    opacity:1;
-    transform:none
-  }
-}
 @media(min-width:1700px) {
   .hero {
     padding-top:40px
@@ -1379,8 +1474,8 @@ section:focus,article:focus,main:focus {
   .hero-composition {
     padding:50px 0
   }
-  .hero-slashes {
-    right:7%
+  .hero-art {
+    right:4%
   }
   .section-pad {
     padding-top:140px;
@@ -1436,11 +1531,11 @@ section:focus,article:focus,main:focus {
   .hero h1 {
     font-size:clamp(96px,13.5vw,140px)
   }
-  .hero-slashes {
-    width:35%;
-    right:-4%;
-    top:13%;
-    height:70%
+  .hero-art {
+    width:32%;
+    right:0;
+    top:5%;
+    height:84%
   }
   .hero-motto {
     font-size:25px
@@ -1467,7 +1562,7 @@ section:focus,article:focus,main:focus {
     height:300px
   }
   .foundation-text {
-    font-size:14px
+    font-size:16px
   }
   .foundation-text>p:first-child {
     font-size:17px
@@ -1494,7 +1589,7 @@ section:focus,article:focus,main:focus {
     padding:24px
   }
   .tile-bottom {
-    font-size:12px;
+    font-size:14px;
     gap:12px
   }
   .tile-logo .product-logo {
@@ -1558,33 +1653,36 @@ section:focus,article:focus,main:focus {
   .hero-brand {
     width:136px
   }
-  .hero-marker i {
-    height:18px;
-    width:6px
-  }
   .hero-composition {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-content:center;
+    align-items:center;
+    gap:24px 12px;
     padding:70px 0 50px
   }
   .hero h1 {
+    grid-column:1/-1;
     font-size:clamp(79px,14.8vw,112px);
     max-width:100%
   }
-  .hero-slashes {
-    right:-16%;
-    width:42%;
-    height:59%;
-    top:13%;
-    opacity:.6
+  .hero-art {
+    position:relative;
+    grid-column:2;
+    grid-row:2;
+    right:auto;
+    top:auto;
+    width:100%;
+    height:220px
   }
   .hero-baseline {
+    grid-column:1;
+    grid-row:2;
     display:block;
-    margin-top:35px
+    margin-top:0
   }
   .hero-motto {
     font-size:23px
-  }
-  .view-more {
-    margin-top:22px
   }
   .pillar-grid {
     gap:20px
@@ -1600,7 +1698,7 @@ section:focus,article:focus,main:focus {
     margin-bottom:14px
   }
   .pillar-headline {
-    font-size:12px;
+    font-size:14px;
     line-height:1.5
   }
   .pillar>.arrow {
@@ -1620,7 +1718,7 @@ section:focus,article:focus,main:focus {
     font-size:10px
   }
   .section-number {
-    font-size:12px
+    font-size:14px
   }
   .display-heading {
     font-size:clamp(38px,7vw,56px)
@@ -1639,7 +1737,7 @@ section:focus,article:focus,main:focus {
   }
   .foundation-text {
     max-width:none;
-    font-size:14px
+    font-size:16px
   }
   .foundation-text>p:first-child {
     font-size:18px
@@ -1671,7 +1769,7 @@ section:focus,article:focus,main:focus {
     display:block
   }
   .products-introduction>p,.services-introduction>div {
-    font-size:14px;
+    font-size:16px;
     margin-top:30px;
     max-width:530px
   }
@@ -1730,7 +1828,7 @@ section:focus,article:focus,main:focus {
     font-size:55px
   }
   .chapter-description {
-    font-size:14px;
+    font-size:16px;
     margin-bottom:28px;
     max-width:400px
   }
@@ -1818,14 +1916,11 @@ section:focus,article:focus,main:focus {
   }
   .floating-nav {
     width:calc(100% - 24px);
-    max-width:510px;
+    max-width:340px;
     padding:8px 8px 8px 15px;
     gap:14px;
     justify-content:space-between;
     border-radius:8px
-  }
-  .nav-brand {
-    width:105px
   }
   .desktop-nav-links {
     display:none
@@ -1860,7 +1955,7 @@ section:focus,article:focus,main:focus {
     height:15px
   }
   .products-panel {
-    min-width:0;
+    width:min(510px,calc(100vw - 24px));
     padding:20px;
     bottom:calc(100% + 8px);
     max-height:calc(100svh - var(--nav-clearance))
@@ -1873,7 +1968,7 @@ section:focus,article:focus,main:focus {
     margin-bottom:20px
   }
   .panel-section-links a {
-    font-size:12px;
+    font-size:14px;
     min-height:40px;
     display:flex;
     align-items:center
@@ -1918,11 +2013,8 @@ section:focus,article:focus,main:focus {
   .hero h1 {
     font-size:17.3vw
   }
-  .hero-slashes {
-    width:38%;
-    right:-14%;
-    height:55%;
-    top:20%
+  .hero-art {
+    height:190px
   }
   .hero-motto {
     font-size:22px
@@ -1999,9 +2091,6 @@ section:focus,article:focus,main:focus {
   .product-nav-dot {
     margin-left:0
   }
-  .nav-brand {
-    width:94px
-  }
   .floating-nav {
     gap:7px;
     padding-left:12px
@@ -2022,9 +2111,6 @@ section:focus,article:focus,main:focus {
   }
 }
 @media(max-width:360px) {
-  .nav-brand {
-    width:82px
-  }
   .floating-nav {
     gap:5px;
     padding-left:10px
@@ -2055,8 +2141,8 @@ section:focus,article:focus,main:focus {
   .hero-composition {
     padding:35px 0
   }
-  .hero-slashes {
-    height:78%;
+  .hero-art {
+    height:90%;
     top:2%
   }
   .hero-motto {
@@ -2093,8 +2179,34 @@ section:focus,article:focus,main:focus {
   .preview-panel {
     will-change:auto
   }
+  .foundation-art .art-piece {
+    translate:none!important;
+    will-change:auto
+  }
+  .art-ready .art-motion-toggle {
+    display:none
+  }
+  .hero-slash-flight {
+    opacity:1;
+    transform:none
+  }
+  .hero-slash-shape {
+    fill:var(--red);
+    stroke:var(--red)
+  }
 }
 @media print {
+  .hero-slash-flight,.hero-slash-shape {
+    animation:none!important
+  }
+  .foundation-art .art-piece {
+    animation:none!important;
+    translate:none!important;
+    will-change:auto
+  }
+  .art-motion-toggle {
+    display:none!important
+  }
   .floating-nav,.skip-link,.story-topline,.product-navigation,.preview-panel,.preview-toggle {
     display:none!important
   }

@@ -40,7 +40,7 @@
         return;
       }
       opener = event.currentTarget;
-      panel.setAttribute('aria-label', mobileQuery.matches ? 'Main menu' : 'Products');
+      panel.setAttribute('aria-label', mobileQuery.matches ? 'Main menu' : globalThis.INDICE_DATA.copy.navigation.products);
       panel.hidden = false;
       triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'true'));
       navigation?.classList.add('panel-open');

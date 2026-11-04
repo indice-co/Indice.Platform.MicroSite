@@ -93,7 +93,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   const outside = new Element('button');
   const firstMobileLink = new Element('a', { href: '#foundation' });
   const exploreAll = new Element('a', { href: '#products' });
-  const panel = new Element('div', { 'aria-label': 'Products' }, [firstMobileLink, exploreAll]);
+  const panel = new Element('div', { 'aria-label': 'Suite' }, [firstMobileLink, exploreAll]);
   panel.hidden = true;
   panel.focusable = [firstMobileLink, exploreAll];
   firstMobileLink.visible = mobile;
@@ -184,12 +184,12 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     click, event, scroll, resizeMobile };
 }
 
-test('keyboard opening enters the Products panel and Escape restores its trigger', () => {
+test('keyboard opening enters the Suite panel and Escape restores its trigger', () => {
   const page = fixture();
   page.desktopTrigger.focus();
   page.click(page.desktopTrigger, { detail: 0 });
   assert.equal(page.panel.hidden, false);
-  assert.equal(page.panel.getAttribute('aria-label'), 'Products');
+  assert.equal(page.panel.getAttribute('aria-label'), 'Suite');
   assert.equal(page.desktopTrigger.getAttribute('aria-expanded'), 'true');
   assert.equal(page.document.activeElement, page.exploreAll, 'hidden mobile links are skipped');
   const escape = page.event(page.exploreAll, { key: 'Escape' });

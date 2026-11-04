@@ -20,6 +20,8 @@ No package installation is needed. Node 20 or newer is recommended for developme
 - `scripts/render.js`: semantic page template and static/animated preview rendering. Run the build command after changing this file or data.
 - `css/styles.css`: corporate tokens, layout, responsive alternatives, motion, floating bar and showcase styles. Main breakpoints are 1000px/720px for the enhanced story and 760px for the mobile bar.
 - `js/main.js`: nonmodal navigation panel, anchor focus, active pillars and optional reveals.
+- `js/hero-art.js`: two outlined hero slashes fly in from above once, fill grey, then cycle grey, red and warm black. CSS controls the sequence and timing; this script manages visibility, reduced motion and pause/resume.
+- `js/foundation-art.js`: visible-only Foundation artwork float, cursor repulsion, pause control and reduced-motion handling. Float timing and per-layer movement are configured alongside the artwork styles in `css/styles.css`.
 - `js/showcase.js`: shared state for native scrolling, grid links, local navigation, preview loop, resize and motion preference changes.
 - `assets/logos/`: six supplied SVGs copied intact.
 - `assets/fonts/`: self-hosted Manrope variable font and SIL Open Font License, obtained from the [Google Fonts Manrope source](https://github.com/google/fonts/tree/main/ofl/manrope).
@@ -40,6 +42,6 @@ The sticky desktop story uses a bounded native scroll area: panel introduction, 
 
 ## Verification status
 
-Build, JavaScript syntax, structural/content checks and 19 interaction state tests pass. Browser access was unavailable in this session (browser host unavailable; native app access timed out), so responsive screenshots and real-browser keyboard/motion checks remain to be performed. The supplied brand PDF was rendered and visually inspected. Web reference pages were inspected as text; their live visual motion could not be reviewed.
+Build, JavaScript syntax, structural/content checks and 31 interaction state tests pass. Browser access was unavailable in this session (browser host unavailable; native app access timed out), so responsive screenshots and real-browser keyboard/motion checks remain to be performed. The supplied brand PDF was rendered and visually inspected. Web reference pages were inspected as text; their live visual motion could not be reviewed.
 
 No files were published or deployed.
