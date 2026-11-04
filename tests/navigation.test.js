@@ -90,6 +90,9 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   }
 
   const root = new Element();
+  const brandImage = new Element('img');
+  const brand = new Element('a', {}, [brandImage]);
+  brand.querySelector = () => brandImage;
   const outside = new Element('button');
   const firstMobileLink = new Element('a', { href: '#foundation' });
   const exploreAll = new Element('a', { href: '#products' });
@@ -114,9 +117,10 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     link.dataset.pillar = pillar;
     return link;
   });
-  const demoButtons = [new Element('button'), new Element('button'), new Element('button')];
   const reveal = new Element();
+  const demoButtons = [new Element('button'), new Element('button')];
   const elements = {
+    'hero-brand': brand,
     'products-panel': panel, 'site-nav': navigation, 'products-trigger': desktopTrigger,
     'menu-trigger': mobileTrigger, foundation, products, services,
   };
@@ -178,11 +182,28 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     firstMobileLink.visible = next;
     mobileMedia.dispatch('change');
   }
-  return { document, browser, root, panel, desktopTrigger, mobileTrigger, outside,
+  return { document, browser, root, brand, brandImage, panel, desktopTrigger, mobileTrigger, outside,
     firstMobileLink, exploreAll, foundation, products, services, pillarLinks, demoButtons,
     reveal, frames, observed, observers, motionMedia, sandbox, historyWrites, Element,
     click, event, scroll, resizeMobile };
 }
+
+test('fixed brand swaps assets by scroll direction and restores the main logo at the top', () => {
+  const page = fixture();
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
+  page.scroll(500);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice icon.svg');
+  assert(page.brand.classList.contains('is-compact'));
+  page.scroll(300);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice top.svg');
+  page.scroll(300);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice top.svg');
+  page.scroll(0);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
+  assert(!page.brand.classList.contains('is-compact'));
+  page.scroll(-5);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
+});
 
 test('keyboard opening enters the Suite panel and Escape restores its trigger', () => {
   const page = fixture();

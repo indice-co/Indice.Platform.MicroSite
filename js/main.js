@@ -14,6 +14,23 @@
     const { signal } = controller;
     const panel = document.getElementById('products-panel');
     const navigation = document.getElementById('site-nav');
+    const brand = document.getElementById('hero-brand');
+    const brandImage = brand?.querySelector('img');
+    let previousScroll = 0;
+    function updateBrand() {
+      if (!brandImage) return;
+      const current = Math.max(0, window.scrollY);
+      const atTop = current <= 0;
+      const { logo, logoIcon, logoTop } = globalThis.INDICE_DATA.config;
+      const source = atTop ? logo : current < previousScroll ? logoTop : current > previousScroll ? logoIcon : brandImage.getAttribute('src');
+      if (brandImage.getAttribute('src') !== source) brandImage.setAttribute('src', source);
+      brandImage.setAttribute('width', atTop ? '1490' : '400');
+      brandImage.setAttribute('height', '400');
+      brand.classList.toggle('is-compact', !atTop);
+      previousScroll = current;
+    }
+    window.addEventListener('scroll', updateBrand, { passive: true, signal });
+    updateBrand();
     const desktopTrigger = document.getElementById('products-trigger');
     const mobileTrigger = document.getElementById('menu-trigger');
     const triggers = [desktopTrigger, mobileTrigger].filter(Boolean);

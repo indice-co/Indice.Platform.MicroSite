@@ -108,7 +108,6 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const stage = new Element();
   const panel = new Element();
   const grid = new Element();
-  const toggle = new Element();
   const previewName = new Element();
   const progress = new Element();
   const root = new Element();
@@ -123,7 +122,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const tiles = products.map(product => new Element({ productLink: product.id }));
   grid.children = tiles;
 
-  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle, '.story-progress': progress };
+  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '.story-progress': progress };
   section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.selectors = { '.preview-product-name': previewName };
   panel.collections = { '[data-preview]': slides };
@@ -179,7 +178,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   }
 
   flushFrames();
-  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, toggle, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
+  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
 }
 
 test('only the four supplied products become selectable states', () => {
@@ -226,7 +225,7 @@ test('native forward and reverse scrolling synchronize chapters, previews, navig
   }
 });
 
-test('introductory loop runs only while visible, supports pause, and stops for hidden tabs and product progression', () => {
+test('introductory loop runs without playback controls only while visible and stops for hidden tabs and product progression', () => {
   const f = fixture();
   assert.equal(f.timers.size, 0, 'offscreen introduction does not autoplay');
   f.api.selectProduct('cases', { hash: false });
@@ -238,12 +237,6 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   [...f.timers.values()][0]();
   assert.notEqual(f.api.getState().previewIndex, firstPreview, 'timer advances the decorative preview');
 
-  f.click(f.toggle);
-  assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.textContent, 'Resume preview');
-  f.click(f.toggle);
-  assert.equal(f.timers.size, 1);
-
   f.document.hidden = true;
   f.document.dispatch('visibilitychange');
   assert.equal(f.timers.size, 0);
@@ -254,7 +247,6 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   assert.equal(f.timers.size, 0, 'loop stops when panel leaves viewport');
   f.api.selectProduct('messaging');
   assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.hidden, true);
 });
 
 test('desktop resize preserves the chosen product and keeps state synchronized', () => {
@@ -281,7 +273,6 @@ test('reduced-motion change restores all semantic chapters and matching static n
   assert.equal(f.section.classList.contains('story-enhanced'), false);
   assert.equal(f.section.style.height, '');
   assert.equal(f.timers.size, 0);
-  assert.equal(f.toggle.hidden, true);
   for (const chapter of f.chapters) {
     assert.equal(chapter.inert, false);
     assert.equal(chapter.getAttribute('aria-hidden'), null);
@@ -294,7 +285,6 @@ test('reduced-motion change restores all semantic chapters and matching static n
 test('initial static mode remains readable and direct product hashes resolve correctly', () => {
   const staticView = fixture({ enhanced: false });
   assert.equal(staticView.api.getState().enhanced, false);
-  assert.equal(staticView.toggle.hidden, true);
   assert.ok(staticView.chapters.every(chapter => !chapter.inert && chapter.getAttribute('aria-hidden') === null));
   const linkedView = fixture({ hash: '#product-risk' });
   linkedView.assertSynchronized('risk');

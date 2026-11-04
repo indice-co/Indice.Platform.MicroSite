@@ -39,11 +39,8 @@ function fixture({ reduced = false, fine = true, observers = true } = {}) {
     }
     setAttribute(name, value) { this.attributes.set(name, value); }
     getAttribute(name) { return this.attributes.get(name); }
-    closest() { return this.isToggle ? this : null; }
   }
   const art = new Element();
-  const toggle = new Element();
-  toggle.isToggle = true;
   const pieces = Array.from({ length: 6 }, (_, index) => {
     const piece = new Element();
     piece.offsetLeft += index * 30;
@@ -53,7 +50,6 @@ function fixture({ reduced = false, fine = true, observers = true } = {}) {
   let top = 200;
   art.getBoundingClientRect = () => ({ left: 100, top, width: 500, height: 330, right: 600, bottom: top + 330 });
   art.querySelectorAll = () => pieces;
-  art.querySelector = () => toggle;
   const document = new Events();
   document.hidden = false;
   document.querySelector = () => art;
@@ -91,7 +87,7 @@ function fixture({ reduced = false, fine = true, observers = true } = {}) {
   };
   const offsets = piece => ['--repel-x', '--repel-y'].map(name => parseFloat(piece.properties.get(name) || '0'));
   const zero = () => pieces.every(piece => offsets(piece).every(value => value === 0));
-  return { art, toggle, pieces, document, browser, frames, reducedMedia, pointerMedia, intersection, resize,
+  return { art, pieces, document, browser, frames, reducedMedia, pointerMedia, intersection, resize,
     flush, move, offsets, zero, setTop: value => { top = value; } };
 }
 
@@ -142,27 +138,20 @@ test('touch, coarse pointer and reduced-motion modes never repel; reduced motion
   assert(!fixture({ reduced: true }).art.classList.contains('is-animating'));
 });
 
-test('pause stops float and interaction and persists across visibility changes until resumed', () => {
+test('hidden tabs stop float and interaction, then automatically resume without playback controls', () => {
   const page = fixture();
   page.move();
-  page.toggle.dispatch('click');
-  assert.equal(page.toggle.getAttribute('aria-pressed'), 'true');
-  assert.equal(page.toggle.getAttribute('aria-label'), 'Resume artwork animation');
-  assert(page.zero());
-  assert(!page.art.classList.contains('is-animating'));
   page.document.hidden = true;
   page.document.dispatch('visibilitychange');
-  page.document.hidden = false;
-  page.document.dispatch('visibilitychange');
+  assert(page.zero());
   assert(!page.art.classList.contains('is-animating'));
   page.move();
   assert(page.zero());
-  page.toggle.dispatch('click');
-  assert.equal(page.toggle.getAttribute('aria-pressed'), 'false');
-  assert.equal(page.toggle.getAttribute('aria-label'), 'Pause artwork animation');
+  page.document.hidden = false;
+  page.document.dispatch('visibilitychange');
   assert(page.art.classList.contains('is-animating'));
-  page.move(230, 330, { target: page.toggle });
-  assert(page.zero(), 'hovering the pause control does not disturb the artwork');
+  page.move();
+  assert(!page.zero());
 });
 
 test('offscreen and hidden artwork pauses and resets without losing the ability to resume', () => {
@@ -198,13 +187,11 @@ test('page lifecycle cancels work and observers then reconnects once for a persi
   page.browser.dispatch('pagehide');
   assert.equal(page.frames.size, 0);
   assert.equal(page.art.count('pointermove'), 0);
-  assert.equal(page.toggle.count('click'), 0);
   assert(page.intersection[0].disconnected);
   assert(page.resize[0].disconnected);
   assert(!page.art.classList.contains('is-animating'));
   page.browser.dispatch('pageshow', { persisted: true });
   page.browser.dispatch('pageshow', { persisted: true });
   assert.equal(page.art.count('pointermove'), 1);
-  assert.equal(page.toggle.count('click'), 1);
   assert(page.art.classList.contains('is-animating'));
 });

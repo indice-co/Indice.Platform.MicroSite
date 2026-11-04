@@ -4,6 +4,8 @@ globalThis.INDICE_DATA = {
     homeBase: '',
     logo: 'assets/logos/indice platform grey.svg',
     logoWhite: 'assets/logos/indice platform white.svg',
+    logoIcon: 'assets/logos/indice icon.svg',
+    logoTop: 'assets/logos/indice top.svg',
     demoAction() { /* Future demo action intentionally unwired for this phase. */ }
   },
   copy: {
@@ -14,8 +16,12 @@ globalThis.INDICE_DATA = {
       { id: 'services', number: '03', label: 'Services', headline: 'Expertise that brings it all together.' }
     ] },
     foundation: { label: 'Platform Foundation', title: 'A strong foundation for robust digital solutions.', paragraphs: [
-      'INDICE Platform combines engineering foundations, adaptable products, and implementation expertise to support the development and evolution of digital solutions.',
-      'INDICE’s open-source libraries, established engineering practices, and cloud deployment and monitoring patterns provide a shared foundation for secure software development and reliable operations.'
+      'The technological foundation behind INDICE solutions combines reusable tools, engineering expertise, cloud practices, and in-depth fintech experience.'
+    ], items: [
+      { title: 'Open-source libraries', description: 'Proven, reusable INDICE tools that enable faster and more secure software development.' },
+      { title: 'Engineering expertise', description: 'Years of software development experience supported by established engineering practices.' },
+      { title: 'Cloud practices', description: 'Proven approaches to application deployment and continuous monitoring that support stability and availability.' },
+      { title: 'Fintech experience', description: 'Deep understanding of the financial sector’s requirements, regulations, and operational complexities.' }
     ], explore: 'Explore the suite' },
     metrics: [
       { value: '[XX]', label: 'Organisations using INDICE products' },

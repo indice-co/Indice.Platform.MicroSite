@@ -12,7 +12,6 @@
   const slides = [...panel.querySelectorAll('[data-preview]')];
   const navigation = [...section.querySelectorAll('[data-select-product]')];
   const grid = document.querySelector('#products .product-grid');
-  const toggle = section.querySelector('#preview-toggle');
   const previewName = panel.querySelector('.preview-product-name');
   const progress = section.querySelector('.story-progress');
   const media = matchMedia('(min-width: 1000px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)');
@@ -24,7 +23,6 @@
     phase: 'static',
     activeIndex: -1,
     previewIndex: 0,
-    paused: false,
     visible: false,
     units: 0,
   };
@@ -62,7 +60,7 @@
 
   function updateLoop() {
     const canRun = state.enhanced && state.visible && state.activeIndex < 0 &&
-      !state.paused && !document.hidden && !disposed;
+      !document.hidden && !disposed;
     if (!canRun) {
       stopLoop();
       return;
@@ -98,10 +96,6 @@
       else button.removeAttribute('aria-current');
     });
     if (index >= 0) showPreview(index);
-    if (toggle) {
-      toggle.hidden = !state.enhanced || index >= 0;
-      toggle.inert = toggle.hidden;
-    }
     if (changed) updateLoop();
   }
 
@@ -242,7 +236,6 @@
       else {
         state.phase = 'static';
         section.dataset.phase = 'static';
-        if (toggle) toggle.hidden = true;
         requestRender();
       }
       return;
@@ -285,14 +278,6 @@
     });
   }
 
-  function onPause() {
-    state.paused = !state.paused;
-    toggle.textContent = state.paused ? 'Resume preview' : 'Pause preview';
-    toggle.setAttribute('aria-label', state.paused ? 'Resume automatic product preview' : 'Pause automatic product preview');
-    toggle.setAttribute('aria-pressed', String(state.paused));
-    updateLoop();
-  }
-
   function teardown() {
     disposed = true;
     stopLoop();
@@ -308,7 +293,6 @@
     window.removeEventListener('hashchange', fromHash);
     window.removeEventListener('load', fromHash);
     media.removeEventListener('change', configure);
-    toggle?.removeEventListener('click', onPause);
     releaseGrid();
   }
 
@@ -324,7 +308,6 @@
     window.addEventListener('hashchange', fromHash);
     window.addEventListener('load', fromHash, { once: true });
     media.addEventListener('change', configure);
-    toggle?.addEventListener('click', onPause);
     showPreview(state.previewIndex);
     configure();
     if (state.enhanced) measure();
