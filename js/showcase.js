@@ -40,7 +40,7 @@
     return [0, 2, 4].map(offset => parseInt(clean.slice(offset, offset + 2), 16));
   };
   const mixColor = (from, to, amount) => from.map((channel, index) => Math.round(channel + (to[index] - channel) * amount));
-  const productColor = index => color(products[index].color);
+  const productColor = index => color(products[index].id === 'messaging' ? products[index].accent : products[index].color);
 
   function showPreview(index) {
     state.previewIndex = index;
@@ -113,11 +113,11 @@
     state.phase = phase;
     section.dataset.phase = phase;
 
-    const panelWidth = Math.min(width * 0.82, 1180, (viewport - 220) * 1.6);
-    const finalWidth = Math.min(width * 0.46, 850);
+    const panelWidth = Math.min(width * 0.96, 1400, (viewport - 100) * 1.8);
+    const finalWidth = Math.min(width * 0.68, 1000);
     panel.style.width = `${panelWidth}px`;
-    stage.style.setProperty('--panel-scale', String((0.87 + arrival * 0.13) * (1 + (finalWidth / panelWidth - 1) * transformation)));
-    stage.style.setProperty('--panel-x', `${width * 0.235 * transformation}px`);
+    stage.style.setProperty('--panel-scale', String((0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation)));
+    stage.style.setProperty('--panel-x', `${(width * 0.22 + 30) * transformation}px`);
     stage.style.setProperty('--panel-y', `${viewport * (0.16 * (1 - arrival) - 0.07)}px`);
     stage.style.setProperty('--panel-opacity', String(arrival));
     stage.style.setProperty('--copy-opacity', String(reveal));
@@ -133,10 +133,9 @@
       const fraction = clamp(((units - INTRO) / PRODUCT - index) / 0.22);
       const from = index === 0 ? [222, 218, 208] : productColor(index - 1);
       const channels = mixColor(from, productColor(index), ease(fraction));
-      stage.style.backgroundColor = `rgb(${channels.join(',')})`;
+      stage.style.backgroundColor = `rgba(${channels.join(',')},0.12)`;
     }
     if (progress) progress.style.setProperty('--progress', String(clamp((units - INTRO) / (products.length * PRODUCT))));
-
     const panelRect = panel.getBoundingClientRect();
     state.visible = arrival > 0.15 && panelRect.bottom > 0 && panelRect.top < viewport &&
       panelRect.right > 0 && panelRect.left < width;

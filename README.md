@@ -25,13 +25,14 @@ No package installation is needed. Node 20 or newer is recommended for developme
 - `js/foundation-art.js`: visible-only Foundation artwork float, cursor repulsion and reduced-motion handling. Float timing and per-layer movement are configured alongside the artwork styles in `css/styles.css`.
 - `js/showcase.js`: shared state for native scrolling, grid links, local navigation, preview loop, resize and motion preference changes.
 - `assets/logos/`: supplied SVGs copied intact, including `INDICE_slashes.svg`. The renderer inlines its original paths and viewBox for the hero, adding animation attributes without modifying the source asset. Hero strokes scale with the paths so normalized outline dashes cover the full perimeter at every responsive size.
+- `assets/uis/`: approved dashboard screenshots for Cases, IAM and Messaging.
 - `assets/fonts/`: self-hosted Manrope variable font and SIL Open Font License, obtained from the [Google Fonts Manrope source](https://github.com/google/fonts/tree/main/ofl/manrope).
 
 The sticky desktop story uses a bounded native scroll area: panel introduction, panel transformation, then one reading segment per supplied product. Direct selection jumps to the matching segment and bypasses the introduction. Autoplay runs only while the introductory panel is visible, and pauses offscreen or when the tab is hidden. Animation play/pause controls are intentionally omitted throughout the page; automatic visibility handling and reduced-motion preferences remain supported. Mobile, short screens, reduced motion and missing sticky/inert support use static stacked presentations. The Services shortcut bypasses the visual sequence.
 
 ## Explicit placeholders and assumptions
 
-- All four UI screenshots are missing. Neutral, labelled image placeholders are intentional; no product interfaces were invented. Set each product's `preview` path when approved screenshots arrive. Aspect ratios are reserved; offscreen images are lazy-loaded.
+- Cases, IAM and Messaging use their supplied dashboard screenshots. Risk still uses a neutral, labelled placeholder until an approved screenshot is available. Preview images are lazy-loaded.
 - Approved chapter descriptions are missing. Each chapter uses its supplied product name and an explicit description placeholder. Product analyses informed factual understanding only.
 - Metrics remain the supplied `[XX]` values; customer logos use the supplied approved placeholder label.
 - Product pages do not exist. Explore buttons are disabled and described accessibly; menu entries are informational. Future URLs are centralized as `destination` fields.

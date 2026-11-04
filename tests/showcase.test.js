@@ -123,8 +123,8 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   grid.children = tiles;
 
   section.selectors = { '.story-stage': stage, '.preview-panel': panel, '.story-progress': progress };
-  section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.selectors = { '.preview-product-name': previewName };
+  section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.collections = { '[data-preview]': slides };
   section.getBoundingClientRect = () => {
     const height = parseFloat(section.style.height) || 4000;
@@ -219,8 +219,10 @@ test('native forward and reverse scrolling synchronize chapters, previews, navig
     const focusBefore = f.document.activeElement;
     f.scrollTo(checkpoints[index]);
     f.assertSynchronized(f.products[index].id);
-    const channels = f.products[index].color.slice(1).match(/../g).map(value => parseInt(value, 16));
-    assert.equal(f.stage.style.backgroundColor, `rgb(${channels.join(',')})`);
+    const product = f.products[index];
+    const background = product.id === 'messaging' ? product.accent : product.color;
+    const channels = background.slice(1).match(/../g).map(value => parseInt(value, 16));
+    assert.equal(f.stage.style.backgroundColor, `rgba(${channels.join(',')},0.12)`);
     assert.equal(f.document.activeElement, focusBefore, 'ordinary scrolling does not move keyboard focus');
   }
 });
