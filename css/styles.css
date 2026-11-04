@@ -734,26 +734,10 @@ section:focus,article:focus,main:focus {
 }
 .story-topline {
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-end;
   align-items:center;
   padding:16px var(--gutter);
   background:var(--beige)
-}
-.story-progress {
-  display:block;
-  width:100px;
-  height:2px;
-  background:#201f1e25;
-  position:relative
-}
-.story-progress::after {
-  content:'';
-  display:block;
-  width:100%;
-  height:100%;
-  background:var(--ink);
-  transform-origin:left;
-  transform:scaleX(var(--progress,0))
 }
 .story-continue {
   font-size:14px;
@@ -764,10 +748,10 @@ section:focus,article:focus,main:focus {
   height:17px
 }
 .product-chapter {
-  background:var(--product-color);
+  background:color-mix(in srgb,var(--product-color) 12%,transparent);
   display:grid;
-  grid-template-columns:1fr 1.15fr;
-  gap:7%;
+  grid-template-columns:.9fr 1.3fr;
+  gap:4%;
   align-items:center;
   padding:90px var(--gutter);
   min-height:640px;
@@ -775,7 +759,7 @@ section:focus,article:focus,main:focus {
   scroll-margin-top:20px
 }
 .chapter-content {
-  background:var(--paper);
+  background:transparent;
   padding:30px;
   border-radius:5px;
   max-width:510px
@@ -820,17 +804,22 @@ section:focus,article:focus,main:focus {
 }
 .static-preview {
   min-width:0;
-  border-radius:7px;
-  border:1px solid #fff5;
-  background:var(--paper);
-  padding:9px;
-  box-shadow:0 24px 65px #0002
+  border:0;
+  background:transparent;
+  padding:0;
+  box-shadow:none
+}
+.static-preview>img {
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover
 }
 .preview-placeholder {
   aspect-ratio:16/10;
   position:relative;
   background:#e5e2da;
-  border:1px solid #201f1e24;
+  border:0;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -926,17 +915,6 @@ section:focus,article:focus,main:focus {
   font-size:9px;
   opacity:.65
 }
-.product-nav-dot {
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:currentColor;
-  opacity:0;
-  margin-left:3px
-}
-.is-active .product-nav-dot {
-  opacity:1
-}
 /* The same panel moves from the center into the dedicated preview area. */
 .story-enhanced {
   /* Start while all four logos still occupy the viewport, before the panel arrives. */
@@ -964,9 +942,6 @@ section:focus,article:focus,main:focus {
   padding:8px 14px;
   border-radius:3px;
   min-height:42px
-}
-.story-enhanced .story-progress {
-  background:#fff8
 }
 .story-enhanced .story-copy {
   position:absolute;
@@ -1020,43 +995,24 @@ section:focus,article:focus,main:focus {
   position:absolute;
   left:50%;
   top:50%;
-  width:min(82vw,1180px);
-  aspect-ratio:16/10;
+  width:min(96vw,1400px);
+  aspect-ratio:16/9;
   transform:translate(calc(-50% + var(--panel-x,0px)),calc(-50% + var(--panel-y,0px))) scale(var(--panel-scale,1));
   transform-origin:center;
   opacity:var(--panel-opacity,0);
-  padding:10px;
-  background:var(--paper);
-  border:1px solid #201f1e20;
-  border-radius:8px;
-  box-shadow:0 30px 100px #201f1e20;
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
   will-change:transform;
   pointer-events:none;
   z-index:3
 }
-.preview-panel-header {
-  height:34px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 10px 10px;
-  font-size:14px;
-  font-weight:600
-}
-.preview-window-marks {
-  display:flex;
-  gap:5px
-}
-.preview-window-marks i {
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:#201f1e3c
-}
 .preview-viewport {
   position:relative;
   width:100%;
-  height:calc(100% - 34px);
+  height:100%;
   overflow:hidden
 }
 .preview-slide {
@@ -1836,8 +1792,8 @@ section:focus,article:focus,main:focus {
     max-width:none
   }
   .static-preview {
-    padding:7px;
-    max-width:650px;
+    padding:0;
+    max-width:760px;
     width:100%;
     align-self:center
   }
@@ -1850,9 +1806,6 @@ section:focus,article:focus,main:focus {
   .story-topline {
     padding-top:10px;
     padding-bottom:18px
-  }
-  .story-progress {
-    width:65px
   }
   .story-continue {
     font-size:10px
@@ -2088,9 +2041,6 @@ section:focus,article:focus,main:focus {
     gap:7px;
     padding:10px 11px
   }
-  .product-nav-dot {
-    margin-left:0
-  }
   .floating-nav {
     gap:7px;
     padding-left:12px
@@ -2240,7 +2190,7 @@ section:focus,article:focus,main:focus {
     opacity:1;
     visibility:visible;
     transform:none;
-    background:var(--product-color);
+    background:color-mix(in srgb,var(--product-color) 12%,transparent);
     padding:40px
   }
   .story-enhanced .static-preview {

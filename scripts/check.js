@@ -5,6 +5,12 @@ const path = require('node:path');
 require('../js/data.js');
 const { copy, products } = globalThis.INDICE_DATA;
 const root = path.resolve(__dirname, '..');
+const previews = {
+  cases: 'assets/uis/cases dashboard.png',
+  iam: 'assets/uis/iam dashboard.png',
+  messaging: 'assets/uis/messaging dashboard.png',
+  risk: null,
+};
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
@@ -34,7 +40,8 @@ for (const product of products) {
   assert(html.includes(`id="product-${product.id}"`));
   assert(html.includes(`data-preview="${product.id}"`));
   assert.equal(product.destination, null);
-  assert.equal(product.preview, null);
+  assert.equal(product.preview, previews[product.id]);
+  if (product.preview) assert(html.includes(`src="${product.preview}"`));
 }
 assert(css.includes('prefers-reduced-motion:reduce'));
-console.log('Homepage structure, copy, assets, anchors, ARIA targets, four states, and placeholder checks passed.');
+console.log('Homepage structure, copy, assets, anchors, ARIA targets, and four product states passed.');

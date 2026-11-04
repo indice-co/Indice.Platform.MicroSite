@@ -38,9 +38,9 @@ globalThis.INDICE_DATA = {
   // Colors are verified SVG icon colors, provisionally used as presentation backgrounds.
   // Add future products only when their approved assets/copy are supplied; the story is data-driven.
   products: [
-    { id: 'cases', name: 'Cases', tagline: 'Case management and business workflows', logo: 'assets/logos/cases-logo.svg', color: '#12707A', accent: '#F2B632', description: '[Product description — awaiting approved copy.]', destination: null, preview: null },
-    { id: 'iam', name: 'IAM', tagline: 'Identity and access management', logo: 'assets/logos/identity-admin-logo.svg', color: '#3D5AFE', accent: '#A3E635', description: '[Product description — awaiting approved copy.]', destination: null, preview: null },
-    { id: 'messaging', name: 'Messaging', tagline: 'Multichannel campaigns and notifications', logo: 'assets/logos/messaging-logo.svg', color: '#5B4FE0', accent: '#FF7A59', description: '[Product description — awaiting approved copy.]', destination: null, preview: null },
+    { id: 'cases', name: 'Cases', tagline: 'Case management and business workflows', logo: 'assets/logos/cases-logo.svg', color: '#12707A', accent: '#F2B632', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/cases dashboard.png' },
+    { id: 'iam', name: 'IAM', tagline: 'Identity and access management', logo: 'assets/logos/identity-admin-logo.svg', color: '#3D5AFE', accent: '#A3E635', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/iam dashboard.png' },
+    { id: 'messaging', name: 'Messaging', tagline: 'Multichannel campaigns and notifications', logo: 'assets/logos/messaging-logo.svg', color: '#5B4FE0', accent: '#FF7A59', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/messaging dashboard.png' },
     { id: 'risk', name: 'Risk', tagline: 'Risk assessment for transactions and activity', logo: 'assets/logos/risk-logo.svg', color: '#0F7C8C', accent: '#FF4F7B', description: '[Product description — awaiting approved copy.]', destination: null, preview: null }
   ]
 };

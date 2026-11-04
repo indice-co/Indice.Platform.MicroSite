@@ -109,8 +109,6 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const panel = new Element();
   const grid = new Element();
   const toggle = new Element();
-  const previewName = new Element();
-  const progress = new Element();
   const root = new Element();
   const chapters = products.map((product, index) => {
     const chapter = new Element({ product: product.id });
@@ -123,9 +121,8 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const tiles = products.map(product => new Element({ productLink: product.id }));
   grid.children = tiles;
 
-  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle, '.story-progress': progress };
+  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle };
   section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
-  panel.selectors = { '.preview-product-name': previewName };
   panel.collections = { '[data-preview]': slides };
   section.getBoundingClientRect = () => {
     const height = parseFloat(section.style.height) || 4000;
@@ -175,7 +172,6 @@ function fixture({ enhanced = true, hash = '' } = {}) {
     assert.deepEqual(navigation.filter(item => item.getAttribute('aria-current') === 'true').map(item => item.dataset.selectProduct), [id]);
     assert.deepEqual(slides.filter(item => item.classList.contains('is-active')).map(item => item.dataset.preview), [id]);
     assert.deepEqual(chapters.filter(item => item.classList.contains('is-active')).map(item => item.dataset.product), [id]);
-    assert.equal(previewName.textContent, products.find(product => product.id === id).name);
   }
 
   flushFrames();
