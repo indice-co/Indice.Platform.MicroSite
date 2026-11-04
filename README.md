@@ -1,27 +1,45 @@
-# Indice Platform Microsite
+# INDICE Platform homepage
 
-A plain static microsite built with HTML, CSS, and JavaScript — no frameworks or build tools required.
+Responsive, buildless HTML/CSS/JavaScript. No runtime dependencies, external services, backend, or deployment configuration. `index.html` is pre-rendered so all substantive content and product presentations remain available without JavaScript.
 
-## Structure
+## Run and verify
 
-```
-index.html      Main page
-css/styles.css  Styles
-js/main.js      Scripts
-```
+Open `index.html` directly, or run `python -m http.server 8080` and visit `http://localhost:8080`.
 
-## Run locally
-
-Open `index.html` directly in a browser, or serve the folder with any static server, e.g.:
-
-```
-npx serve .
+```sh
+npm run build   # regenerate index.html after editing data or the template
+npm run check   # syntax, copy, structure, assets, anchors and ARIA references
+npm test        # scroll-story behavior tests with a mock DOM
 ```
 
-or with Python:
+No package installation is needed. Node 20 or newer is recommended for development checks.
 
-```
-python -m http.server 8080
-```
+## Editable sources
 
-Then visit http://localhost:8080.
+- `js/data.js`: approved copy, placeholder metrics, shared product IDs, assets, provisional colors, future product destinations and the deliberately empty demo action. Adding products here extends the generated grid, story, preview loop and navigation. Only the four supplied products are included.
+- `scripts/render.js`: semantic page template and static/animated preview rendering. Run the build command after changing this file or data.
+- `css/styles.css`: corporate tokens, layout, responsive alternatives, motion, floating bar and showcase styles. Main breakpoints are 1000px/720px for the enhanced story and 760px for the mobile bar.
+- `js/main.js`: nonmodal navigation panel, anchor focus, active pillars and optional reveals.
+- `js/showcase.js`: shared state for native scrolling, grid links, local navigation, preview loop, resize and motion preference changes.
+- `assets/logos/`: six supplied SVGs copied intact.
+- `assets/fonts/`: self-hosted Manrope variable font and SIL Open Font License, obtained from the [Google Fonts Manrope source](https://github.com/google/fonts/tree/main/ofl/manrope).
+
+The sticky desktop story uses a bounded native scroll area: panel introduction, panel transformation, then one reading segment per supplied product. Direct selection jumps to the matching segment and bypasses the introduction. Autoplay runs only while the introductory panel is visible, and pauses offscreen, when the tab is hidden, or on request. Mobile, short screens, reduced motion and missing sticky/inert support use static stacked presentations. The Services shortcut bypasses the visual sequence.
+
+## Explicit placeholders and assumptions
+
+- All four UI screenshots are missing. Neutral, labelled image placeholders are intentional; no product interfaces were invented. Set each product's `preview` path when approved screenshots arrive. Aspect ratios are reserved; offscreen images are lazy-loaded.
+- Approved chapter descriptions are missing. Each chapter uses its supplied product name and an explicit description placeholder. Product analyses informed factual understanding only.
+- Metrics remain the supplied `[XX]` values; customer logos use the supplied approved placeholder label.
+- Product pages do not exist. Explore buttons are disabled and described accessibly; menu entries are informational. Future URLs are centralized as `destination` fields.
+- All three demo buttons have normal button states and deliberately no business effect. Future wiring belongs in `config.demoAction`.
+- The PDF's preferred secondary bare website wordmark was not supplied. The intact combined Platform lockup is used provisionally at a legible size. Replacement requires approved artwork.
+- Corporate colors match the brand PDF. Product section backgrounds use verified primary icon colors from supplied SVGs provisionally; complete approved product palettes are still needed.
+- Product SVGs retain original live-text font references (Commissioner, Geist, Manrope, IBM Plex Sans). Those product font files were not supplied; the original SVG fallback behavior is retained. Manrope is supplied locally for the page.
+- The approved six-product suite wording is preserved while only Cases, IAM, Messaging and Risk are rendered. The obsolete carousel-placeholder instruction is superseded by the interactive showcase brief.
+
+## Verification status
+
+Build, JavaScript syntax, structural/content checks and 19 interaction state tests pass. Browser access was unavailable in this session (browser host unavailable; native app access timed out), so responsive screenshots and real-browser keyboard/motion checks remain to be performed. The supplied brand PDF was rendered and visually inspected. Web reference pages were inspected as text; their live visual motion could not be reviewed.
+
+No files were published or deployed.
