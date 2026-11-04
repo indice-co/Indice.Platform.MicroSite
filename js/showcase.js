@@ -13,6 +13,7 @@
   const navigation = [...section.querySelectorAll('[data-select-product]')];
   const grid = document.querySelector('#products .product-grid');
   const toggle = section.querySelector('#preview-toggle');
+  const continueLink = section.querySelector('#story-continue');
   const media = matchMedia('(min-width: 1000px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)');
   const supportsStory = CSS.supports('position', 'sticky') && 'inert' in HTMLElement.prototype;
   const INTRO = 1.1;
@@ -95,6 +96,7 @@
       else button.removeAttribute('aria-current');
     });
     if (index >= 0) showPreview(index);
+    if (continueLink) continueLink.hidden = index < 0;
     if (toggle) {
       toggle.hidden = !state.enhanced || index >= 0;
       toggle.inert = toggle.hidden;
@@ -117,7 +119,7 @@
     section.dataset.phase = phase;
 
     const panelWidth = Math.min(width * 0.96, 1400, (viewport - 100) * 1.8);
-    const finalWidth = Math.min(width * 0.68, 1000);
+    const finalWidth = width * 0.68;
     panel.style.width = `${panelWidth}px`;
     stage.style.setProperty('--panel-scale', String((0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation)));
     stage.style.setProperty('--panel-x', `${(width * 0.22 + 30) * transformation}px`);
@@ -163,7 +165,7 @@
         const bounds = section.getBoundingClientRect();
         if (bounds.top >= innerHeight || bounds.bottom <= 0) return;
         const probe = innerHeight * 0.35;
-        let index = 0;
+        let index = -1;
         chapters.forEach((chapter, chapterIndex) => {
           if (chapter.getBoundingClientRect().top <= probe) index = chapterIndex;
         });

@@ -109,6 +109,8 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const panel = new Element();
   const grid = new Element();
   const toggle = new Element();
+  const continueLink = new Element();
+  continueLink.hidden = true;
   const root = new Element();
   const chapters = products.map((product, index) => {
     const chapter = new Element({ product: product.id });
@@ -121,7 +123,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const tiles = products.map(product => new Element({ productLink: product.id }));
   grid.children = tiles;
 
-  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle };
+  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#preview-toggle': toggle, '#story-continue': continueLink };
   section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.collections = { '[data-preview]': slides };
   section.getBoundingClientRect = () => {
@@ -175,16 +177,20 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   }
 
   flushFrames();
-  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, toggle, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
+  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, toggle, continueLink, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
 }
 
 test('only the four supplied products become selectable states', () => {
   const f = fixture();
   assert.deepEqual(Array.from(f.products, product => product.id), ['cases', 'iam', 'messaging', 'risk']);
+  assert.equal(f.continueLink.hidden, true, 'continue link is hidden before a product section is reached');
   for (const product of f.products) {
     f.api.selectProduct(product.id);
     f.assertSynchronized(product.id);
+    assert.equal(f.continueLink.hidden, false, 'continue link appears in product sections');
   }
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.2);
+  assert.equal(f.continueLink.hidden, true, 'continue link hides again before the Cases section');
   const previousScroll = f.sandbox.scrollY;
   f.api.selectProduct('unavailable-product');
   assert.equal(f.sandbox.scrollY, previousScroll);
@@ -229,6 +235,7 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   const firstProductPosition = f.sandbox.scrollY;
   f.scrollTo(f.sectionStart + (firstProductPosition - f.sectionStart) * 0.4);
   assert.equal(f.api.getState().product, null);
+  assert.equal(f.continueLink.hidden, true, 'continue link stays hidden during the introduction');
   assert.equal(f.timers.size, 1, 'visible introductory preview autoplays');
   const firstPreview = f.api.getState().previewIndex;
   [...f.timers.values()][0]();
@@ -249,6 +256,7 @@ test('introductory loop runs only while visible, supports pause, and stops for h
   f.scrollTo(0);
   assert.equal(f.timers.size, 0, 'loop stops when panel leaves viewport');
   f.api.selectProduct('messaging');
+  assert.equal(f.continueLink.hidden, false);
   assert.equal(f.timers.size, 0);
   assert.equal(f.toggle.hidden, true);
 });
@@ -261,8 +269,13 @@ test('desktop resize preserves the chosen product and keeps state synchronized',
   f.browser.dispatch('resize');
   f.flushFrames();
   f.assertSynchronized('messaging');
+  assert.ok(f.panel.getBoundingClientRect().right > f.sandbox.innerWidth, 'preview extends beyond a standard desktop viewport');
   f.scrollTo(f.sandbox.scrollY + 1);
   f.assertSynchronized('messaging');
+  f.sandbox.innerWidth = 3200;
+  f.browser.dispatch('resize');
+  f.flushFrames();
+  assert.ok(f.panel.getBoundingClientRect().right > f.sandbox.innerWidth, 'preview extends beyond an ultrawide desktop viewport');
 });
 
 test('reduced-motion change restores all semantic chapters and matching static navigation', () => {
@@ -278,6 +291,7 @@ test('reduced-motion change restores all semantic chapters and matching static n
   assert.equal(f.section.style.height, '');
   assert.equal(f.timers.size, 0);
   assert.equal(f.toggle.hidden, true);
+  assert.equal(f.continueLink.hidden, false, 'the selected product keeps the link visible in static mode');
   for (const chapter of f.chapters) {
     assert.equal(chapter.inert, false);
     assert.equal(chapter.getAttribute('aria-hidden'), null);
@@ -291,7 +305,12 @@ test('initial static mode remains readable and direct product hashes resolve cor
   const staticView = fixture({ enhanced: false });
   assert.equal(staticView.api.getState().enhanced, false);
   assert.equal(staticView.toggle.hidden, true);
+  assert.equal(staticView.continueLink.hidden, true);
   assert.ok(staticView.chapters.every(chapter => !chapter.inert && chapter.getAttribute('aria-hidden') === null));
+  staticView.scrollTo(staticView.sectionStart - 500);
+  assert.equal(staticView.continueLink.hidden, true, 'link stays hidden before Cases enters the reading area');
+  staticView.scrollTo(staticView.sectionStart - 200);
+  assert.equal(staticView.continueLink.hidden, false, 'link appears when Cases reaches the reading area');
   const linkedView = fixture({ hash: '#product-risk' });
   linkedView.assertSynchronized('risk');
   assert.equal(linkedView.timers.size, 0);
