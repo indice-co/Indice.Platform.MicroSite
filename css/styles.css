@@ -771,13 +771,13 @@ section:focus,article:focus,main:focus {
   color:var(--muted)
 }
 .explore-button {
-  background:var(--beige);
-  color:var(--muted);
-  border:1px solid #201f1e2e;
   min-width:185px
 }
-.explore-button:disabled:hover {
-  background:var(--beige)
+.explore-button:disabled,.explore-button:disabled:hover {
+  background:var(--beige);
+  color:var(--muted);
+  border-color:#201f1e2e;
+  transform:none
 }
 .unavailable-note {
   font-size:10px;
