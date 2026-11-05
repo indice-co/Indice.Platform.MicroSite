@@ -4,9 +4,6 @@
   --cases-dark:#0b4a51;
   --cases-soft:color-mix(in srgb,var(--cases-color) 9%,var(--paper))
 }
-.cases-page .hero-brand {
-  --brand-width:195px
-}
 .cases-hero-layout>div:first-child>.product-logo {
   height:52px
 }
@@ -430,8 +427,7 @@
   flex-shrink:0
 }
 .cases-section {
-  background:var(--paper);
-  border-top:1px solid var(--line)
+  background:var(--paper)
 }
 .cases-page .section-top {
   margin-bottom:48px;
@@ -501,6 +497,11 @@
 }
 .cases-work {
   background:linear-gradient(var(--beige),var(--cases-soft))
+}
+.cases-work>*,.cases-scenarios>* {
+  max-width:1440px;
+  margin-left:auto;
+  margin-right:auto
 }
 .cases-icon {
   width:44px;
@@ -842,8 +843,7 @@
   overflow:hidden;
   background:var(--ink);
   color:var(--paper);
-  padding-bottom:calc(var(--nav-clearance) + 60px);
-  border-top:4px solid var(--cases-color)
+  padding-bottom:calc(var(--nav-clearance) + 60px)
 }
 .cases-final::after {
   content:'';
@@ -923,9 +923,6 @@
   }
 }
 @media(max-width:760px) {
-  .cases-page .hero-brand {
-    --brand-width:168px
-  }
   .cases-art-badge {
     right:0;
     top:-8px
