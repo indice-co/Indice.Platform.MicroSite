@@ -735,21 +735,6 @@ section:focus,article:focus,main:focus {
 .story-stage {
   position:relative
 }
-.story-topline {
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  padding:16px var(--gutter);
-  background:var(--beige)
-}
-.story-continue {
-  font-size:16px;
-  gap:14px
-}
-.story-continue .arrow {
-  width:17px;
-  height:17px
-}
 .product-chapter {
   background:color-mix(in srgb,var(--product-color) 12%,transparent);
   display:grid;
@@ -887,7 +872,7 @@ section:focus,article:focus,main:focus {
   padding:18px var(--gutter);
   background:var(--paper)
 }
-.story-ready .product-navigation {
+.story-ready.story-products:not(.story-enhanced) .product-navigation {
   display:flex;
   position:sticky;
   top:0;
@@ -928,20 +913,6 @@ section:focus,article:focus,main:focus {
   height:100svh;
   overflow:hidden;
   isolation:isolate
-}
-.story-enhanced .story-topline {
-  position:absolute;
-  inset:24px var(--gutter) auto;
-  z-index:5;
-  padding:0;
-  background:transparent;
-  pointer-events:auto
-}
-.story-enhanced .story-continue {
-  background:var(--paper);
-  padding:8px 14px;
-  border-radius:3px;
-  min-height:42px
 }
 .story-enhanced .story-copy {
   position:absolute;
@@ -1036,7 +1007,7 @@ section:focus,article:focus,main:focus {
   font-size:16px
 }
 .story-enhanced .product-navigation {
-  display:flex;
+  display:none;
   position:absolute;
   top:auto;
   bottom:var(--nav-clearance);
@@ -1046,6 +1017,9 @@ section:focus,article:focus,main:focus {
   background:transparent;
   pointer-events:auto;
   z-index:5
+}
+.story-enhanced.story-products .product-navigation {
+  display:flex
 }
 .story-enhanced :focus-visible {
   outline:2px solid white;
@@ -1829,13 +1803,6 @@ section:focus,article:focus,main:focus {
   .placeholder-caption>span:last-child {
     font-size:12px
   }
-  .story-topline {
-    padding-top:10px;
-    padding-bottom:18px
-  }
-  .story-continue {
-    font-size:10px
-  }
   .story-ready .product-navigation {
     gap:7px;
     padding-top:15px;
@@ -2150,7 +2117,7 @@ section:focus,article:focus,main:focus {
     translate:none!important;
     will-change:auto
   }
-  .floating-nav,.hero-brand,.skip-link,.story-topline,.product-navigation,.preview-panel {
+  .floating-nav,.hero-brand,.skip-link,.product-navigation,.preview-panel {
     display:none!important
   }
   .hero {
