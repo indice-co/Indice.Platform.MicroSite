@@ -22,6 +22,12 @@ module.exports = function renderCases() {
   ];
   const icon = index => `<svg class="cases-icon" viewBox="0 0 44 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[index]}</svg>`;
   const capabilityArt = index => `<div class="cases-capability-art cases-art-${index}" aria-hidden="true">${icon(index)}<div class="cases-art-lines"><i></i><i></i><i></i></div><span class="cases-art-node">${index === 1 ? '&#10003;' : index === 2 ? '&#9679;' : '0' + (index + 1)}</span></div>`;
+  const capabilities = [
+    ['Configurable forms and workflows', 'Shape forms, workflow steps and available actions around each case type.'],
+    ['Assignment and independent approvals', 'Route work to staff and require a different person to review and approve it.'],
+    ['Controlled visibility and access', 'Keep internal steps and notes private. Customers see published updates; staff access follows their permissions.'],
+    ['Case history and workload visibility', 'Follow the case timeline, data versions, comments and attachments. Use case lists and reports to understand the work in hand.']
+  ];
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -36,6 +42,7 @@ module.exports = function renderCases() {
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
   <script defer src="js/cases-art.js"></script>
+  <script defer src="js/cases-tabs.js"></script>
 </head>
 <body class="cases-page" style="--cases-color:${cases.color};--cases-gold:${cases.accent}">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -70,7 +77,7 @@ module.exports = function renderCases() {
 
     <section class="cases-section section-pad" id="cases-challenge" aria-labelledby="challenge-title">
       ${top('The challenge', '01')}
-      <div class="cases-intro" data-reveal><h2 id="challenge-title">Clear updates.<br>Space to work privately.</h2><div><p>Requests move between teams and approvals while customers need clear status updates and staff need space to work privately.</p><p>Customers see published updates while internal review steps and notes stay private.</p></div></div>
+      <div class="cases-intro" data-reveal><h2 id="challenge-title">Clear updates.<br>Space to work privately.</h2><ol class="cases-challenge-points" role="list"><li><span aria-hidden="true">01</span><p>Requests move between teams and approvals while customers need clear status updates and staff need space to work privately.</p></li><li><span aria-hidden="true">02</span><p>Customers see published updates while internal review steps and notes stay private.</p></li></ol></div>
     </section>
 
     <section class="cases-section cases-work section-pad" id="cases-how" aria-labelledby="how-title">
@@ -91,12 +98,10 @@ module.exports = function renderCases() {
     <section class="cases-section section-pad" id="cases-capabilities" aria-labelledby="capabilities-title">
       ${top('Key capabilities', '03')}
       <h2 id="capabilities-title" data-reveal">The tools behind a clear path.</h2>
-      <div class="cases-capabilities">${[
-        ['Configurable forms and workflows', 'Shape forms, workflow steps and available actions around each case type.'],
-        ['Assignment and independent approvals', 'Route work to staff and require a different person to review and approve it.'],
-        ['Controlled visibility and access', 'Keep internal steps and notes private. Customers see published updates; staff access follows their permissions.'],
-        ['Case history and workload visibility', 'Follow the case timeline, data versions, comments and attachments. Use case lists and reports to understand the work in hand.']
-      ].map(([title, text],i) => `<article data-reveal style="--reveal-index:${i%2}">${capabilityArt(i)}<div class="cases-capability-copy"><span class="cases-small" aria-hidden="true">0${i+1}</span><h3>${title}</h3><p>${text}</p></div></article>`).join('')}</div>
+      <div class="cases-capabilities">
+        <div class="cases-capability-tabs" role="tablist" aria-label="Key capabilities" aria-orientation="vertical" hidden>${capabilities.map(([title],i) => `<button type="button" role="tab" id="capability-tab-${i}" aria-controls="capability-panel-${i}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}"><span aria-hidden="true">0${i+1}</span><span>${title}</span></button>`).join('')}</div>
+        <div class="cases-capability-panels">${capabilities.map(([title, text],i) => `<article id="capability-panel-${i}">${capabilityArt(i)}<div class="cases-capability-copy"><span class="cases-small" aria-hidden="true">0${i+1}</span><h3>${title}</h3><p>${text}</p></div></article>`).join('')}</div>
+      </div>
     </section>
 
     <section class="cases-section cases-scenarios section-pad" id="cases-fit" aria-labelledby="fit-title">

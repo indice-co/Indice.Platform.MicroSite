@@ -105,11 +105,15 @@ test('Cases hero reuses an undistorted official homepage slash in product gold',
 test('Challenge section uses the dark logo teal with light text and dividers', () => {
   const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
   const rule = css.match(/#cases-challenge \{([^}]+)\}/)[1];
-  assert(rule.includes('background:var(--cases-dark)'));
+  assert(rule.includes('background:linear-gradient(110deg,#052e36,#14616a,var(--cases-dark),#082f45)'));
   assert(rule.includes('color:var(--white)'));
   assert(rule.includes('--muted:var(--paper)'));
   assert(rule.includes('--line:#ffffff33'));
   assert.match(css, /#cases-challenge \.section-top \{\s+color:inherit/);
+  assert(rule.includes('animation:cases-challenge-gradient 10s ease-in-out infinite'));
+  assert(!css.includes('#cases-challenge .cases-intro {'));
+  assert(html.includes('<ol class="cases-challenge-points" role="list">'));
+  assert.equal((html.match(/<li><span aria-hidden="true">0[12]<\/span><p>/g) || []).length, 2);
 });
 
 test('Cases section menu sticks outside the clipped hero and reserves anchor clearance', () => {
@@ -118,6 +122,13 @@ test('Cases section menu sticks outside the clipped hero and reserves anchor cle
   const rule = css.match(/\.cases-page-links \{([^}]+)\}/)[1];
   assert(rule.includes('position:sticky'));
   assert(rule.includes('top:0'));
-  assert(rule.includes('background:var(--paper)'));
+  assert(rule.includes('background:linear-gradient(to right,#ffffff00,var(--white))'));
   assert.match(css, /\.cases-page section \{\s+scroll-margin-top:/);
+});
+
+test('capability tabs preserve all four illustrations and readable no-script panels', () => {
+  assert(html.includes('js/cases-tabs.js'));
+  assert.equal((html.match(/role="tab" id="capability-tab-/g) || []).length, 4);
+  assert.equal((html.match(/<article id="capability-panel-\d">/g) || []).length, 4);
+  assert(html.includes('aria-orientation="vertical" hidden'));
 });
