@@ -32,6 +32,11 @@ const contactLines = c.contact.title.split('. ').map((sentence, index, sentences
 const heroSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
   .replace('<svg ', '<svg class="hero-slashes" aria-hidden="true" ')
   .replace(/<path ([^>]+)\/>/g, (_, attributes) => `<g class="hero-slash-flight"><path class="hero-slash-shape" pathLength="1" ${attributes.replace(' fill="white"', '')}/></g>`);
+let contactSlashIndex = 0;
+const contactSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
+  .replace('<svg ', '<svg class="contact-slash" aria-hidden="true" ')
+  .replace(/<path /g, () => `<path class="contact-slash-${contactSlashIndex++ === 0 ? 'second' : 'first'}" `)
+  .replace(/ fill="white"/g, '');
 const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -103,7 +108,7 @@ const html = `<!doctype html>
     </section>
 
     <section class="customers section-pad" id="customers" aria-labelledby="customers-title"><h2 id="customers-title" data-reveal>${c.customers.title}</h2><ul class="customer-logos" aria-label="Customers">${c.customers.logos.map((client,i) => `<li data-reveal style="--reveal-index:${i}"><div class="customer-logo">${logo(client, 'client-image')}</div></li>`).join('')}</ul></section>
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s"><div class="contact-slash" aria-hidden="true"></div><h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
 

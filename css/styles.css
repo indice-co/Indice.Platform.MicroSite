@@ -1215,24 +1215,18 @@ section:focus,article:focus,main:focus {
 }
 .contact-slash {
   position:absolute;
-  right:9%;
+  right:1%;
   top:10%;
-  width:12%;
+  width:34%;
   height:80%;
-  background:var(--red);
-  transform:skew(17deg);
   opacity:.9;
   z-index:-1
 }
-.contact-slash::after {
-  content:'';
-  position:absolute;
-  right:-70%;
-  top:0;
-  width:65%;
-  height:100%;
-  background:var(--red);
-  opacity:.4
+.contact-slash-first {
+  fill:var(--red)
+}
+.contact-slash-second {
+  fill:#70252e
 }
 .contact-line {
   display:block;
@@ -1245,7 +1239,8 @@ section:focus,article:focus,main:focus {
   --contact-play-state:running
 }
 .contact-ready .contact-character {
-  animation:contact-type .001s steps(1,end) var(--character-delay) both;
+  opacity:1;
+  animation:contact-type .04s linear var(--character-delay) backwards;
   animation-play-state:var(--contact-play-state)
 }
 .contact-ready .contact-bottom>p,.contact-ready .contact-bottom>.button {
@@ -1253,34 +1248,37 @@ section:focus,article:focus,main:focus {
   animation-play-state:var(--contact-play-state)
 }
 .contact-ready .contact-bottom>.button {
-  animation-delay:calc(var(--typing-end) + 3.2s)
+  animation-delay:calc(var(--typing-end) + 3.6s)
 }
-.contact-ready .contact-slash {
+.contact-ready .contact-slash-first {
   animation:contact-light 2.4s ease-in-out calc(var(--typing-end) + .8s) both;
   animation-play-state:var(--contact-play-state)
 }
-.contact-ready .contact-slash::after {
-  animation:contact-flash 8s ease-in-out calc(var(--typing-end) + 3.2s) infinite both;
-  animation-play-state:var(--contact-play-state);
-  opacity:1
+.contact-ready .contact-slash-second {
+  animation:contact-slash-appear .4s ease calc(var(--typing-end) + 3.2s) both,contact-flash 8s ease-in-out calc(var(--typing-end) + 3.6s) infinite both;
+  animation-play-state:var(--contact-play-state)
 }
 @keyframes contact-type {
   from { opacity:0 }
-  to { opacity:1 }
+  50%,100% { opacity:1 }
 }
 @keyframes contact-enter {
   from { opacity:0; transform:translateY(40px) }
   to { opacity:1; transform:none }
 }
 @keyframes contact-light {
-  0%,24%,50% { background:var(--ink) }
-  12%,38% { background:#70252e }
-  75% { background:#70252e }
-  100% { background:var(--red) }
+  0%,24%,50% { fill:var(--ink) }
+  12%,38% { fill:#70252e }
+  75% { fill:#70252e }
+  100% { fill:var(--red) }
+}
+@keyframes contact-slash-appear {
+  from { opacity:0 }
+  to { opacity:1 }
 }
 @keyframes contact-flash {
-  0%,94%,100% { background:#70252e }
-  97% { background:var(--red) }
+  0%,94%,100% { fill:#70252e }
+  97% { fill:var(--red) }
 }
 .site-footer {
   padding:30px var(--gutter) calc(var(--nav-clearance) + 20px);
@@ -1893,7 +1891,7 @@ section:focus,article:focus,main:focus {
   }
   .contact-slash {
     right:8%;
-    width:15%;
+    width:32%;
     opacity:.4
   }
   .floating-nav {
@@ -2114,9 +2112,6 @@ section:focus,article:focus,main:focus {
   }
 }
 @media(prefers-reduced-motion:reduce) {
-  .contact-ready .contact-slash::after {
-    opacity:.4
-  }
   *,*::before,*::after {
     animation:none!important;
     transition:none!important;
@@ -2143,7 +2138,7 @@ section:focus,article:focus,main:focus {
   }
 }
 @media print {
-  .contact-ready .contact-character,.contact-ready .contact-bottom>p,.contact-ready .contact-bottom>.button,.contact-ready .contact-slash,.contact-ready .contact-slash::after {
+  .contact-ready .contact-character,.contact-ready .contact-bottom>p,.contact-ready .contact-bottom>.button,.contact-ready .contact-slash path {
     animation:none!important
   }
   .hero-brand,.hero h1,.hero-motto,.pillar {
