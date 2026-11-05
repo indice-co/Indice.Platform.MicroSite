@@ -18,6 +18,17 @@ const preview = (p, cls = '') => p.preview
   : `<div class="preview-placeholder ${cls}" role="img" aria-label="${escape(p.name)} UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>${escape(p.name)}</span><span>UI screenshot — awaiting approved asset.</span></span></div>`;
 const sectionLink = (p, cls = '') => `<a class="${cls}" href="${config.homeBase}#${p.id}" data-pillar="${p.id}">${p.label}</a>`;
 const suiteProducts = ['cases', 'iam', 'messaging', 'risk'].map(id => products.find(product => product.id === id));
+let contactTypingTime = 0;
+const contactLines = c.contact.title.split('. ').map((sentence, index, sentences) => {
+  const line = sentence + (index < sentences.length - 1 ? '.' : '');
+  const characters = [...line].map(character => {
+    const markup = `<span class="contact-character" style="--character-delay:${contactTypingTime.toFixed(3)}s">${escape(character)}</span>`;
+    contactTypingTime += .085;
+    return markup;
+  }).join('');
+  contactTypingTime += .45;
+  return `<span class="contact-line" aria-hidden="true">${characters}</span>`;
+}).join('');
 const heroSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
   .replace('<svg ', '<svg class="hero-slashes" aria-hidden="true" ')
   .replace(/<path ([^>]+)\/>/g, (_, attributes) => `<g class="hero-slash-flight"><path class="hero-slash-shape" pathLength="1" ${attributes.replace(' fill="white"', '')}/></g>`);
@@ -38,6 +49,7 @@ const html = `<!doctype html>
   <script defer src="js/metrics.js"></script>
   <script defer src="js/hero-art.js"></script>
   <script defer src="js/foundation-art.js"></script>
+  <script defer src="js/contact.js"></script>
   <script defer src="js/showcase.js"></script>
 </head>
 <body>
@@ -91,7 +103,7 @@ const html = `<!doctype html>
     </section>
 
     <section class="customers section-pad" id="customers" aria-labelledby="customers-title"><h2 id="customers-title" data-reveal>${c.customers.title}</h2><ul class="customer-logos" aria-label="Customers">${c.customers.logos.map((client,i) => `<li data-reveal style="--reveal-index:${i}"><div class="customer-logo">${logo(client, 'client-image')}</div></li>`).join('')}</ul></section>
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1"><div class="contact-slash" aria-hidden="true"></div><h2 class="display-heading" id="contact-title" data-reveal>${c.contact.title.replaceAll('. ', '.<br>')}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s"><div class="contact-slash" aria-hidden="true"></div><h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
 

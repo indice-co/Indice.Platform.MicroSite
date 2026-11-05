@@ -47,7 +47,7 @@ for (const [, reference] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[
 for (const [, reference] of css.matchAll(/url\('([^']+)'\)/g)) assert(fs.existsSync(path.resolve(root, 'css', reference)), `CSS asset exists: ${reference}`);
 for (const [, attributes] of html.matchAll(/<button\b([^>]+)>/g)) assert(/\btype="button"/.test(attributes), 'Buttons do not accidentally submit');
 for (const [, references] of html.matchAll(/aria-(?:labelledby|describedby|controls)="([^"]+)"/g)) for (const id of references.split(' ')) assert(ids.includes(id), `ARIA reference exists: ${id}`);
-const text = html.replace(/<br\s*\/?\s*>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+const text = html.replace(/<span class="contact-character"[^>]*>(.*?)<\/span>/g, '$1').replace(/<br\s*\/?\s*>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 const allCopy = value => typeof value === 'string' ? [value] : Array.isArray(value) ? value.flatMap(allCopy) : Object.values(value).flatMap(allCopy);
 // Field IDs and disclosure labels are configuration; substantive approved copy must render verbatim.
 for (const sentence of allCopy({ foundation: copy.foundation, metrics: copy.metrics, products: copy.products, services: copy.services, customers: { title: copy.customers.title }, contact: copy.contact })) assert(text.includes(sentence), `Approved text preserved: ${sentence}`);
