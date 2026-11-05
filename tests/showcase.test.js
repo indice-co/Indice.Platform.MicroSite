@@ -108,8 +108,6 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const stage = new Element();
   const panel = new Element();
   const grid = new Element();
-  const continueLink = new Element();
-  continueLink.hidden = true;
   const root = new Element();
   const chapters = products.map((product, index) => {
     const chapter = new Element({ product: product.id });
@@ -122,7 +120,7 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   const tiles = products.map(product => new Element({ productLink: product.id }));
   grid.children = tiles;
 
-  section.selectors = { '.story-stage': stage, '.preview-panel': panel, '#story-continue': continueLink };
+  section.selectors = { '.story-stage': stage, '.preview-panel': panel };
   section.collections = { '.product-chapter': chapters, '[data-select-product]': navigation, img: [] };
   panel.collections = { '[data-preview]': slides };
   section.getBoundingClientRect = () => {
@@ -176,24 +174,42 @@ function fixture({ enhanced = true, hash = '' } = {}) {
   }
 
   flushFrames();
-  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, continueLink, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
+  return { sandbox, browser, document, media, products, section, stage, panel, chapters, slides, navigation, tiles, grid, timers, flushFrames, scrollTo, click, assertSynchronized, api: sandbox.INDICE_SHOWCASE, sectionStart };
 }
 
 test('only the four supplied products become selectable states', () => {
   const f = fixture();
   assert.deepEqual(Array.from(f.products, product => product.id), ['cases', 'iam', 'messaging', 'risk']);
-  assert.equal(f.continueLink.hidden, true, 'continue link is hidden before a product section is reached');
+  assert.equal(f.section.classList.contains('story-products'), false, 'stepper stays hidden during the introduction');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 1.09);
+  assert.equal(f.section.classList.contains('story-products'), false, 'stepper stays hidden before Cases begins');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 1.11);
+  assert.equal(f.section.classList.contains('story-products'), true, 'stepper appears when Cases begins');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 1.09);
+  assert.equal(f.section.classList.contains('story-products'), false, 'stepper hides again before Cases begins');
   for (const product of f.products) {
     f.api.selectProduct(product.id);
     f.assertSynchronized(product.id);
-    assert.equal(f.continueLink.hidden, false, 'continue link appears in product sections');
+    assert.equal(f.section.classList.contains('story-products'), true, 'stepper appears in product sections');
   }
   f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.2);
-  assert.equal(f.continueLink.hidden, true, 'continue link hides again before the Cases section');
+  assert.equal(f.section.classList.contains('story-products'), false, 'stepper hides before the Cases section');
   const previousScroll = f.sandbox.scrollY;
   f.api.selectProduct('unavailable-product');
   assert.equal(f.sandbox.scrollY, previousScroll);
   f.assertSynchronized('risk');
+});
+
+test('product grid fades and becomes inert when the preview covers it', () => {
+  const f = fixture();
+  f.grid.getBoundingClientRect = () => f.panel.getBoundingClientRect();
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.05);
+  assert.ok(Number(f.grid.style.opacity) > 0 && Number(f.grid.style.opacity) < 1, 'grid fades with preview arrival');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.15);
+  assert.equal(f.grid.style.opacity, '0', 'grid is fully faded before the preview is appreciably visible');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.2);
+  assert.equal(f.grid.classList.contains('is-covered'), true);
+  assert.equal(f.grid.inert, true);
 });
 
 test('nonlinear grid and local navigation choices survive the next native scroll frame', () => {
@@ -236,7 +252,7 @@ test('introductory loop runs without playback controls only while visible and st
   const firstProductPosition = f.sandbox.scrollY;
   f.scrollTo(f.sectionStart + (firstProductPosition - f.sectionStart) * 0.4);
   assert.equal(f.api.getState().product, null);
-  assert.equal(f.continueLink.hidden, true, 'continue link stays hidden during the introduction');
+  assert.equal(f.section.classList.contains('story-products'), false, 'stepper stays hidden during the introduction');
   assert.equal(f.timers.size, 1, 'visible introductory preview autoplays');
   const firstPreview = f.api.getState().previewIndex;
   [...f.timers.values()][0]();
@@ -251,7 +267,7 @@ test('introductory loop runs without playback controls only while visible and st
   f.scrollTo(0);
   assert.equal(f.timers.size, 0, 'loop stops when panel leaves viewport');
   f.api.selectProduct('messaging');
-  assert.equal(f.continueLink.hidden, false);
+  assert.equal(f.section.classList.contains('story-products'), true);
   assert.equal(f.timers.size, 0);
 });
 
@@ -284,7 +300,7 @@ test('reduced-motion change restores all semantic chapters and matching static n
   assert.equal(f.section.classList.contains('story-enhanced'), false);
   assert.equal(f.section.style.height, '');
   assert.equal(f.timers.size, 0);
-  assert.equal(f.continueLink.hidden, false, 'the selected product keeps the link visible in static mode');
+  assert.equal(f.section.classList.contains('story-products'), true, 'the selected product keeps navigation visible in static mode');
   for (const chapter of f.chapters) {
     assert.equal(chapter.inert, false);
     assert.equal(chapter.getAttribute('aria-hidden'), null);
@@ -297,12 +313,11 @@ test('reduced-motion change restores all semantic chapters and matching static n
 test('initial static mode remains readable and direct product hashes resolve correctly', () => {
   const staticView = fixture({ enhanced: false });
   assert.equal(staticView.api.getState().enhanced, false);
-  assert.equal(staticView.continueLink.hidden, true);
   assert.ok(staticView.chapters.every(chapter => !chapter.inert && chapter.getAttribute('aria-hidden') === null));
   staticView.scrollTo(staticView.sectionStart - 500);
-  assert.equal(staticView.continueLink.hidden, true, 'link stays hidden before Cases enters the reading area');
+  assert.equal(staticView.section.classList.contains('story-products'), false, 'stepper stays hidden before Cases enters the reading area');
   staticView.scrollTo(staticView.sectionStart - 200);
-  assert.equal(staticView.continueLink.hidden, false, 'link appears when Cases reaches the reading area');
+  assert.equal(staticView.section.classList.contains('story-products'), true, 'stepper appears when Cases reaches the reading area');
   const linkedView = fixture({ hash: '#product-risk' });
   linkedView.assertSynchronized('risk');
   assert.equal(linkedView.timers.size, 0);
