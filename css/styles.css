@@ -176,6 +176,9 @@ section:focus,article:focus,main:focus {
 .section-pad {
   padding:100px var(--gutter)
 }
+.products.section-pad,.services.section-pad {
+  padding-inline:max(var(--gutter),calc((100% - 1440px)/2))
+}
 .section-top {
   display:flex;
   justify-content:space-between;
@@ -625,8 +628,8 @@ section:focus,article:focus,main:focus {
   display:grid;
   grid-template-columns:3fr 2fr 3fr;
   gap:0;
-  width:60%;
-  margin:48px 0 0 22%;
+  width:100%;
+  margin:48px 0 0;
   position:relative;
   isolation:isolate;
   border-top:1px solid var(--line);
@@ -695,6 +698,22 @@ section:focus,article:focus,main:focus {
 }
 .product-tile:nth-last-child(-n+2) {
   border-bottom:0
+}
+.product-tile:nth-child(3)::before,.product-tile:nth-child(5)::before,
+.product-tile:nth-child(4)::after,.product-tile:nth-child(6)::after {
+  content:'';
+  position:absolute;
+  top:-1px;
+  width:24px;
+  height:1px;
+  background:var(--line);
+  pointer-events:none
+}
+.product-tile:nth-child(3)::before,.product-tile:nth-child(5)::before {
+  right:100%
+}
+.product-tile:nth-child(4)::after,.product-tile:nth-child(6)::after {
+  left:100%
 }
 .product-grid::before {
   content:'';
@@ -1628,9 +1647,7 @@ section:focus,article:focus,main:focus {
     font-size:13px
   }
   .product-grid {
-    margin-top:55px;
-    width:76%;
-    margin-left:12%
+    margin-top:55px
   }
   .product-tile {
     padding:24px

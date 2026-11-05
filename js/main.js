@@ -5,6 +5,7 @@
   const root = document.documentElement;
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const mobileQuery = window.matchMedia('(max-width: 760px)');
+  const brandHomeHref = document.getElementById('hero-brand')?.getAttribute('href');
   let controller;
   let revealObserver;
   let frame = 0;
@@ -23,6 +24,12 @@
       const atTop = current <= 0;
       const { logo, logoIcon, logoTop } = globalThis.INDICE_DATA.config;
       const source = atTop ? logo : current < previousScroll ? logoTop : current > previousScroll ? logoIcon : brandImage.getAttribute('src');
+      const topHref = brand.getAttribute('data-top-href');
+      if (topHref) {
+        const isTopIcon = source === logoTop;
+        brand.setAttribute('href', isTopIcon ? topHref : brandHomeHref);
+        brand.setAttribute('aria-label', isTopIcon ? 'Back to top' : 'INDICE Platform home');
+      }
       if (brandImage.getAttribute('src') !== source) brandImage.setAttribute('src', source);
       brandImage.setAttribute('width', atTop ? '1490' : '400');
       brandImage.setAttribute('height', '400');
