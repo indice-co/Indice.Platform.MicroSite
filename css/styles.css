@@ -1097,27 +1097,33 @@ section:focus,article:focus,main:focus {
   box-shadow:6px 8px 0 #dc46502b
 }
 .glyph-0 i:nth-child(1) {
-  top:34px;
+  top:28px;
+  background:transparent;
+  border-color:#201f1e66
+}
+.glyph-0 i:nth-child(2),.glyph-0 i:nth-child(3) {
+  width:28px;
+  height:22px
+}
+.glyph-0 i:nth-child(2) {
+  left:22px;
+  top:46px;
   background:var(--ink);
   border-color:var(--ink)
 }
-.glyph-0 i:nth-child(2) {
-  top:22px;
-  background:#dedad0cf
-}
 .glyph-0 i:nth-child(3) {
-  top:10px;
-  background:#f1efe9b5
+  left:46px;
+  top:28px;
+  background:var(--beige);
+  box-shadow:0 6px 0 #201f1e14
 }
 .glyph-0::after {
-  left:46px;
-  top:4px
-}
-.service-row:hover .glyph-0 i:nth-child(2) {
-  translate:0 -3px
+  left:12px;
+  top:6px;
+  height:30px
 }
 .service-row:hover .glyph-0 i:nth-child(3) {
-  translate:0 -7px
+  translate:0 -6px
 }
 .glyph-1 i {
   width:40px;
