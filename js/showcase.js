@@ -117,7 +117,7 @@
     panel.style.width = `${panelWidth}px`;
     stage.style.setProperty('--panel-scale', String((0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation)));
     stage.style.setProperty('--panel-x', `${(width * 0.22 + 30) * transformation}px`);
-    stage.style.setProperty('--panel-y', `${viewport * (0.16 * (1 - arrival) - 0.07)}px`);
+    stage.style.setProperty('--panel-y', `${viewport * (0.16 * (1 - arrival) - 0.07) + 20}px`);
     stage.style.setProperty('--panel-opacity', String(arrival));
     stage.style.setProperty('--copy-opacity', String(reveal));
     stage.style.setProperty('--copy-y', `${24 * (1 - reveal)}px`);

@@ -762,16 +762,19 @@ section:focus,article:focus,main:focus {
   scroll-margin-top:20px
 }
 .chapter-content {
+  position:relative;
+  top:-20px;
   background:transparent;
   padding:30px;
   border-radius:5px;
+  width:calc(100% - 10px);
   max-width:510px
 }
 .chapter-logo {
   margin-bottom:30px
 }
 .product-chapter h3 {
-  font-size:clamp(44px,5.3vw,90px);
+  font-size:36px;
   line-height:1.1;
   letter-spacing:-.06em;
   margin-bottom:24px
@@ -803,6 +806,8 @@ section:focus,article:focus,main:focus {
   display:none
 }
 .static-preview {
+  position:relative;
+  top:20px;
   min-width:0;
   border:0;
   background:transparent;
@@ -974,7 +979,6 @@ section:focus,article:focus,main:focus {
   margin-bottom:24px
 }
 .story-enhanced .product-chapter h3 {
-  font-size:clamp(44px,5.2vw,86px);
   margin-bottom:22px
 }
 .story-enhanced .chapter-description {
@@ -1489,6 +1493,9 @@ section:focus,article:focus,main:focus {
   .service-row h3 {
     font-size:21px
   }
+  .product-chapter h3 {
+    font-size:36px
+  }
   .pillar-grid {
     gap:28px
   }
@@ -1591,9 +1598,6 @@ section:focus,article:focus,main:focus {
     min-height:560px;
     padding:65px var(--gutter);
     gap:4%
-  }
-  .product-chapter h3 {
-    font-size:54px
   }
   .chapter-description {
     font-size:13px
@@ -1807,7 +1811,7 @@ section:focus,article:focus,main:focus {
     max-width:none
   }
   .product-chapter h3 {
-    font-size:55px
+    font-size:36px
   }
   .chapter-description {
     font-size:16px;
@@ -2036,9 +2040,6 @@ section:focus,article:focus,main:focus {
   .chapter-content {
     padding:24px
   }
-  .product-chapter h3 {
-    font-size:50px
-  }
   .placeholder-caption>span:first-child {
     font-size:28px
   }
@@ -2105,7 +2106,6 @@ section:focus,article:focus,main:focus {
     margin-bottom:18px
   }
   .story-enhanced .product-chapter h3 {
-    font-size:58px;
     margin-bottom:18px
   }
   .story-enhanced .chapter-description {
