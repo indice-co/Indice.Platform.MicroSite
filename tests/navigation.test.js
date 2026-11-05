@@ -340,6 +340,12 @@ test('reveals stay immediately available with reduced motion or missing animatio
   page.observers[0].callback([{ target: page.reveal, isIntersecting: true }]);
   assert.equal(page.reveal.classList.contains('is-revealed'), true);
   assert.equal(page.observed.has(page.reveal), false);
+  page.observers[0].callback([{ target: page.reveal, isIntersecting: false, boundingClientRect: { top: -100 } }]);
+  assert.equal(page.reveal.classList.contains('is-revealed'), true, 'scrolling down past content keeps it revealed');
+  page.observers[0].callback([{ target: page.reveal, isIntersecting: false, boundingClientRect: { top: 950 } }]);
+  assert.equal(page.reveal.classList.contains('is-revealed'), true, 'scrolling up does not reverse its reveal');
+  page.observers[0].callback([{ target: page.reveal, isIntersecting: true }]);
+  assert.equal(page.reveal.classList.contains('is-revealed'), true, 'content stays visible on re-entry');
   page.motionMedia.matches = true;
   page.motionMedia.dispatch('change');
   assert.equal(page.root.classList.contains('reveal-ready'), false);

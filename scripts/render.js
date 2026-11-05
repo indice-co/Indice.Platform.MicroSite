@@ -33,6 +33,7 @@ const html = `<!doctype html>
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
+  <script defer src="js/metrics.js"></script>
   <script defer src="js/hero-art.js"></script>
   <script defer src="js/foundation-art.js"></script>
   <script defer src="js/showcase.js"></script>
@@ -54,17 +55,17 @@ const html = `<!doctype html>
     </section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
-      <div class="section-top" data-reveal><span class="eyebrow">${c.foundation.label}</span><span class="section-number" aria-hidden="true">01 /</span></div>
-      <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal>${c.foundation.title}</h2>
+      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.foundation.label}</span><span class="section-number" aria-hidden="true" data-reveal style="--reveal-index:1">01 /</span></div>
+      <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal style="--reveal-index:2">${c.foundation.title}</h2>
       <div class="foundation-layout">
-        <div class="foundation-art">
+        <div class="foundation-art" data-reveal style="--reveal-index:3">
           <div class="foundation-shapes" aria-hidden="true"><div class="foundation-plane plane-one art-piece" data-art-piece></div><div class="foundation-plane plane-two art-piece" data-art-piece></div><div class="foundation-plane plane-three art-piece" data-art-piece></div><div class="foundation-slash art-piece" data-art-piece></div><span class="art-coordinate coordinate-one art-piece" data-art-piece>+</span><span class="art-coordinate coordinate-two art-piece" data-art-piece>+</span></div>
         </div>
-        <div class="foundation-text" data-reveal>${c.foundation.paragraphs.map(p => `<p>${p}</p>`).join('')}<div class="foundation-details">${c.foundation.items.map(item => `<div><h3>${escape(item.title)}</h3><p>${escape(item.description)}</p></div>`).join('')}</div><div class="actions">${demo()}<a class="text-link" href="#products">${c.foundation.explore}${down}</a></div></div>
+        <div class="foundation-text">${c.foundation.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${4+i}">${p}</p>`).join('')}<div class="foundation-details">${c.foundation.items.map((item,i) => `<div><h3 data-reveal style="--reveal-index:${4+c.foundation.paragraphs.length+i*2}">${escape(item.title)}</h3><p data-reveal style="--reveal-index:${5+c.foundation.paragraphs.length+i*2}">${escape(item.description)}</p></div>`).join('')}</div><div class="actions"><div data-reveal style="--reveal-index:${4+c.foundation.paragraphs.length+c.foundation.items.length*2}">${demo()}</div><a class="text-link" href="#products" data-reveal style="--reveal-index:${5+c.foundation.paragraphs.length+c.foundation.items.length*2}">${c.foundation.explore}${down}</a></div></div>
       </div>
     </section>
 
-    <section class="metrics" id="metrics" aria-label="Platform metrics">${c.metrics.map((m,i) => `<div class="metric" data-reveal style="--reveal-index:${i}"><span class="metric-value">${m.value}</span><p>${m.label}</p></div>`).join('')}</section>
+    <section class="metrics" id="metrics" aria-label="Platform metrics">${c.metrics.map((m,i) => `<div class="metric" data-reveal style="--reveal-index:${i}"><span class="metric-value" data-count-value="${escape(m.value)}" aria-label="${escape(m.value)}">${m.value}</span><p>${m.label}</p></div>`).join('')}</section>
 
     <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">${c.products.label}</span><span class="section-number" aria-hidden="true">02 /</span></div>

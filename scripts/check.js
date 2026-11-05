@@ -13,6 +13,9 @@ const previews = {
 };
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+const foundation = html.match(/<section class="foundation\b[\s\S]*?<\/section>/)[0];
+const foundationRevealIndices = [...foundation.matchAll(/data-reveal style="--reveal-index:(\d+)"/g)].map(match => Number(match[1]));
+assert.deepEqual(foundationRevealIndices, Array.from({ length: 6 + copy.foundation.paragraphs.length + copy.foundation.items.length * 2 }, (_, index) => index), 'Foundation entrances have distinct, sequential delays');
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 assert.equal(new Set(ids).size, ids.length, 'IDs must be unique');
 assert.equal((html.match(/<h1\b/g) || []).length, 1, 'One H1');
@@ -26,7 +29,7 @@ const navigation = html.match(/<nav class="floating-nav"[\s\S]*?<\/nav>/)?.[0];
 assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA stays outside the floating navigation');
 assert(!html.includes('nav-demo'), 'Screen-level demo CTA is removed');
 assert(!/data-(?:hero-)?art-toggle|art-motion-toggle|preview-toggle|art-(?:pause|play)-icon/.test(html), 'Animation playback controls are not rendered');
-assert.equal((html.match(/class="metric-value">\[XX\]/g) || []).length, 4);
+assert.deepEqual([...html.matchAll(/data-count-value="([^"]+)"/g)].map(match => match[1]), ['42', '280', '+300.000', '+25']);
 assert(!/Product carousel|reserved for the next phase|coming.soon|Agents|Workers/.test(html));
 assert(!/href="#"|href="\/products|mailto:|<form\b|<iframe\b/.test(html));
 for (const id of ['hero', 'foundation', 'metrics', 'products', 'product-showcase', 'services', 'customers', 'contact']) assert(ids.includes(id));

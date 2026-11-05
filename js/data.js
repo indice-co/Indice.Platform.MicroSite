@@ -24,10 +24,10 @@ globalThis.INDICE_DATA = {
       { title: 'Fintech experience', description: 'Deep understanding of the financial sector’s requirements, regulations, and operational complexities.' }
     ], explore: 'Explore the suite' },
     metrics: [
-      { value: '[XX]', label: 'Organisations using INDICE products' },
-      { value: '[XX]', label: 'Production implementations' },
-      { value: '[XX]', label: 'Users served across deployments' },
-      { value: '[XX]', label: 'Years of platform development' }
+      { value: '42', label: 'Organisations using INDICE products' },
+      { value: '280', label: 'Production implementations' },
+      { value: '+300.000', label: 'Users served across deployments' },
+      { value: '+25', label: 'Years of platform development' }
     ],
     products: { label: 'Platform Suite', title: 'Six products. A platform of possibilities.', introduction: 'Six products address recurring business and technology needs. Available individually or in combination, they support solutions adapted to each organisation’s requirements and deployed in its own environment.' },
     services: { label: 'Platform Services', title: 'From platform capabilities to working solutions.', paragraphs: [

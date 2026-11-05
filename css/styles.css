@@ -1443,6 +1443,14 @@ section:focus,article:focus,main:focus {
 .reveal-ready .display-heading.is-revealed {
   transform:none
 }
+.reveal-ready .foundation [data-reveal] {
+  transform:translateY(64px);
+  transition-duration:1.4s;
+  transition-delay:calc(var(--reveal-index,0)*140ms)
+}
+.reveal-ready .foundation [data-reveal].is-revealed {
+  transform:none
+}
 @keyframes hero-enter {
   from {
     opacity:0;
