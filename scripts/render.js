@@ -3,20 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('../js/data.js');
 const { copy: c, products, config } = globalThis.INDICE_DATA;
-const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-const arrow = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg>';
+const { escape, arrow, down, demo, logo, navigation } = require('./shared.js');
 const diagonalDown = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg>';
-const down = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.5"/></svg>';
-const demo = (classes = '') => `<button class="button demo-button ${classes}" type="button" data-demo>${c.navigation.demo}${arrow}</button>`;
-const logo = (p, cls = '') => {
-  const svg = fs.readFileSync(path.join(__dirname, '..', p.logo), 'utf8');
-  const [, width, height] = svg.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
-  return `<img class="product-logo ${cls}" src="${escape(p.logo)}" width="${width}" height="${height}" alt="${escape(p.name)}" loading="lazy" decoding="async">`;
-};
 const preview = (p, cls = '') => p.preview
   ? `<img class="${cls}" src="${escape(p.preview)}" width="1920" height="1080" alt="${escape(p.name)} product interface" loading="lazy" decoding="async">`
   : `<div class="preview-placeholder ${cls}" role="img" aria-label="${escape(p.name)} UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>${escape(p.name)}</span><span>UI screenshot — awaiting approved asset.</span></span></div>`;
-const sectionLink = (p, cls = '') => `<a class="${cls}" href="${config.homeBase}#${p.id}" data-pillar="${p.id}">${p.label}</a>`;
 const suiteProducts = ['cases', 'iam', 'messaging', 'risk'].map(id => products.find(product => product.id === id));
 let contactTypingTime = 0;
 const contactLines = c.contact.title.split('. ').map((sentence, index, sentences) => {
@@ -111,18 +102,10 @@ const html = `<!doctype html>
   </main>
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
 
-  <nav class="floating-nav" id="site-nav" aria-label="Main navigation">
-    <div class="products-panel" id="products-panel" role="region" aria-label="${escape(c.navigation.products)}" hidden>
-      <div class="panel-section-links" aria-label="Sections">${c.hero.pillars.map(p => sectionLink(p)).join('')}</div>
-      <div class="panel-heading"><span>${c.navigation.products}</span><span class="panel-note">${c.navigation.unavailable}</span></div>
-      <div class="panel-product-grid">${products.map(p => `<div class="panel-product">${logo(p)}<p>${p.tagline}</p></div>`).join('')}</div>
-      <a class="text-link panel-explore" id="panel-explore-all" href="${config.homeBase}#products">${c.navigation.exploreAll}${down}</a>
-    </div>
-    <div class="desktop-nav-links">${sectionLink(c.hero.pillars[0])}<button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">${c.navigation.products}<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 7 3-3 3 3" stroke="currentColor" stroke-width="1.3"/></svg></button>${sectionLink(c.hero.pillars[2])}</div>
-    <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">${c.navigation.menu}<span aria-hidden="true">+</span></button>
-  </nav>
+  ${navigation()}
 </body>
 </html>
 `;
 fs.writeFileSync(path.join(__dirname, '../index.html'), html, 'utf8');
 console.log(`Rendered homepage with ${products.length} products.`);
+require('./render-cases.js')();
