@@ -768,7 +768,7 @@ section:focus,article:focus,main:focus {
   padding:30px;
   border-radius:5px;
   width:calc(100% - 10px);
-  max-width:510px
+  max-width:500px
 }
 .chapter-logo {
   margin-bottom:30px
@@ -782,7 +782,6 @@ section:focus,article:focus,main:focus {
 .chapter-description {
   font-size:16px;
   line-height:1.65;
-  max-width:330px;
   margin-bottom:32px;
   color:var(--muted)
 }
@@ -799,8 +798,7 @@ section:focus,article:focus,main:focus {
   font-size:10px;
   line-height:1.6;
   color:var(--muted);
-  margin-top:14px;
-  max-width:230px
+  margin-top:14px
 }
 .preview-panel {
   display:none
@@ -955,7 +953,7 @@ section:focus,article:focus,main:focus {
   top:50%;
   left:var(--gutter);
   width:35%;
-  max-width:540px;
+  max-width:500px;
   min-height:0;
   display:block;
   padding:0;
@@ -973,6 +971,7 @@ section:focus,article:focus,main:focus {
 }
 .story-enhanced .chapter-content {
   padding:clamp(22px,2.2vw,38px);
+  padding-right:60px;
   max-width:none
 }
 .story-enhanced .chapter-logo {
@@ -1815,8 +1814,7 @@ section:focus,article:focus,main:focus {
   }
   .chapter-description {
     font-size:16px;
-    margin-bottom:28px;
-    max-width:400px
+    margin-bottom:28px
   }
   .unavailable-note {
     max-width:none
