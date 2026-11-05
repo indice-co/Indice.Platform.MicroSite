@@ -37,6 +37,7 @@ test('each hero pillar groups its arrow beside its headline without changing its
   assert.deepEqual(pillars.map(match => match[1]), ['foundation', 'products', 'services']);
   for (const [, , content] of pillars) {
     assert.match(content, /<span class="pillar-content"><span class="pillar-headline">[^<]+<\/span><svg class="arrow"[\s\S]*?<\/svg><\/span>$/);
+    assert.match(content, /<path d="M5 5 19 19M5 19h14V5"/, 'Pillar arrow points diagonally down and right');
   }
 });
 

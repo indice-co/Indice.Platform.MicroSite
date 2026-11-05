@@ -24,10 +24,10 @@ globalThis.INDICE_DATA = {
       { title: 'Fintech experience', description: 'Deep understanding of the financial sector’s requirements, regulations, and operational complexities.' }
     ], explore: 'Explore the suite' },
     metrics: [
-      { value: '[XX]', label: 'Organisations using INDICE products' },
-      { value: '[XX]', label: 'Production implementations' },
-      { value: '[XX]', label: 'Users served across deployments' },
-      { value: '[XX]', label: 'Years of platform development' }
+      { value: '42', label: 'Organisations using INDICE products' },
+      { value: '280', label: 'Production implementations' },
+      { value: '+300.000', label: 'Users served across deployments' },
+      { value: '+25', label: 'Years of platform development' }
     ],
     products: { label: 'Platform Suite', title: 'Six products. A platform of possibilities.', introduction: 'Six products address recurring business and technology needs. Available individually or in combination, they support solutions adapted to each organisation’s requirements and deployed in its own environment.' },
     services: { label: 'Platform Services', title: 'From platform capabilities to working solutions.', paragraphs: [
@@ -38,15 +38,20 @@ globalThis.INDICE_DATA = {
       { title: 'Product and system integration', description: 'Selected platform products connected with existing applications, systems, and infrastructure.' },
       { title: 'Continuous evolution and support', description: 'New features, regular security updates, vulnerability patching, and direct support from the INDICE team.' }
     ] },
-    customers: { title: 'Supporting digital progress across organisations.', placeholder: 'Customer logos — awaiting approved assets.' },
+    customers: { title: 'Supporting digital progress across organisations.', logos: [
+      { name: 'ACS', logo: 'assets/logos/clients-logos/ACS.svg' },
+      { name: 'Chania', logo: 'assets/logos/clients-logos/Chania.svg' },
+      { name: 'doValue', logo: 'assets/logos/clients-logos/doValue.svg' },
+      { name: 'ERGO', logo: 'assets/logos/clients-logos/Ergo.svg' }
+    ] },
     contact: { title: 'The foundation. The products. The expertise.', description: 'Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.' }
   },
   // Colors are verified SVG icon colors, provisionally used as presentation backgrounds.
   // Add future products only when their approved assets/copy are supplied; the story is data-driven.
   products: [
-    { id: 'cases', name: 'Cases', tagline: 'Case management and business workflows', logo: 'assets/logos/cases-logo.svg', color: '#12707A', accent: '#F2B632', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/cases dashboard.png' },
-    { id: 'iam', name: 'IAM', tagline: 'Identity and access management', logo: 'assets/logos/identity-admin-logo.svg', color: '#3D5AFE', accent: '#A3E635', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/iam dashboard.png' },
-    { id: 'messaging', name: 'Messaging', tagline: 'Multichannel campaigns and notifications', logo: 'assets/logos/messaging-logo.svg', color: '#5B4FE0', accent: '#FF7A59', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/messaging dashboard.png' },
-    { id: 'risk', name: 'Risk', tagline: 'Risk assessment for transactions and activity', logo: 'assets/logos/risk-logo.svg', color: '#0F7C8C', accent: '#FF4F7B', description: '[Product description — awaiting approved copy.]', destination: null, preview: null }
+    { id: 'cases', name: 'Cases', tagline: 'Case management and business workflows', logo: 'assets/logos/cases logo.svg', color: '#12707A', accent: '#F2B632', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/cases dashboard.png' },
+    { id: 'iam', name: 'IAM', tagline: 'Identity and access management', logo: 'assets/logos/iam logo.svg', color: '#3D5AFE', accent: '#A3E635', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/iam dashboard.png' },
+    { id: 'messaging', name: 'Messaging', tagline: 'Multichannel campaigns and notifications', logo: 'assets/logos/messaging logo.svg', color: '#5B4FE0', accent: '#FF7A59', description: '[Product description — awaiting approved copy.]', destination: null, preview: 'assets/uis/messaging dashboard.png' },
+    { id: 'risk', name: 'Risk', tagline: 'Risk assessment for transactions and activity', logo: 'assets/logos/risk logo.svg', color: '#0F7C8C', accent: '#FF4F7B', description: '[Product description — awaiting approved copy.]', destination: null, preview: null }
   ]
 };

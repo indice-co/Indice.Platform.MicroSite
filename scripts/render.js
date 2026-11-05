@@ -5,6 +5,7 @@ require('../js/data.js');
 const { copy: c, products, config } = globalThis.INDICE_DATA;
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const arrow = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg>';
+const diagonalDown = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg>';
 const down = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.5"/></svg>';
 const demo = (classes = '') => `<button class="button demo-button ${classes}" type="button" data-demo>${c.navigation.demo}${arrow}</button>`;
 const logo = (p, cls = '') => {
@@ -16,6 +17,7 @@ const preview = (p, cls = '') => p.preview
   ? `<img class="${cls}" src="${escape(p.preview)}" width="1920" height="1080" alt="${escape(p.name)} product interface" loading="lazy" decoding="async">`
   : `<div class="preview-placeholder ${cls}" role="img" aria-label="${escape(p.name)} UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>${escape(p.name)}</span><span>UI screenshot — awaiting approved asset.</span></span></div>`;
 const sectionLink = (p, cls = '') => `<a class="${cls}" href="${config.homeBase}#${p.id}" data-pillar="${p.id}">${p.label}</a>`;
+const suiteProducts = ['cases', 'iam', 'messaging', 'risk'].map(id => products.find(product => product.id === id));
 const heroSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
   .replace('<svg ', '<svg class="hero-slashes" aria-hidden="true" ')
   .replace(/<path ([^>]+)\/>/g, (_, attributes) => `<g class="hero-slash-flight"><path class="hero-slash-shape" pathLength="1" ${attributes.replace(' fill="white"', '')}/></g>`);
@@ -33,6 +35,7 @@ const html = `<!doctype html>
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
+  <script defer src="js/metrics.js"></script>
   <script defer src="js/hero-art.js"></script>
   <script defer src="js/foundation-art.js"></script>
   <script defer src="js/showcase.js"></script>
@@ -50,26 +53,26 @@ const html = `<!doctype html>
         </div>
         <div class="hero-baseline"><p class="hero-motto">${c.hero.motto.replace('. ', '.<br>')}</p></div>
       </div>
-      <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label"><span>${p.number}</span>${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${arrow}</span></a>`).join('')}</div>
+      <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label"><span>${p.number}</span>${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${diagonalDown}</span></a>`).join('')}</div>
     </section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
-      <div class="section-top" data-reveal><span class="eyebrow">${c.foundation.label}</span><span class="section-number" aria-hidden="true">01 /</span></div>
-      <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal>${c.foundation.title}</h2>
+      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.foundation.label}</span><span class="section-number" aria-hidden="true" data-reveal style="--reveal-index:1">01 /</span></div>
+      <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal style="--reveal-index:2">${c.foundation.title}</h2>
       <div class="foundation-layout">
-        <div class="foundation-art">
+        <div class="foundation-art" data-reveal style="--reveal-index:3">
           <div class="foundation-shapes" aria-hidden="true"><div class="foundation-plane plane-one art-piece" data-art-piece></div><div class="foundation-plane plane-two art-piece" data-art-piece></div><div class="foundation-plane plane-three art-piece" data-art-piece></div><div class="foundation-slash art-piece" data-art-piece></div><span class="art-coordinate coordinate-one art-piece" data-art-piece>+</span><span class="art-coordinate coordinate-two art-piece" data-art-piece>+</span></div>
         </div>
-        <div class="foundation-text" data-reveal>${c.foundation.paragraphs.map(p => `<p>${p}</p>`).join('')}<div class="foundation-details">${c.foundation.items.map(item => `<div><h3>${escape(item.title)}</h3><p>${escape(item.description)}</p></div>`).join('')}</div><div class="actions">${demo()}<a class="text-link" href="#products">${c.foundation.explore}${down}</a></div></div>
+        <div class="foundation-text">${c.foundation.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${4+i}">${p}</p>`).join('')}<div class="foundation-details">${c.foundation.items.map((item,i) => `<div><h3 data-reveal style="--reveal-index:${4+c.foundation.paragraphs.length+i*2}">${escape(item.title)}</h3><p data-reveal style="--reveal-index:${5+c.foundation.paragraphs.length+i*2}">${escape(item.description)}</p></div>`).join('')}</div><div class="actions"><div data-reveal style="--reveal-index:${4+c.foundation.paragraphs.length+c.foundation.items.length*2}">${demo()}</div><a class="text-link" href="#products" data-reveal style="--reveal-index:${5+c.foundation.paragraphs.length+c.foundation.items.length*2}">${c.foundation.explore}${down}</a></div></div>
       </div>
     </section>
 
-    <section class="metrics" id="metrics" aria-label="Platform metrics">${c.metrics.map((m,i) => `<div class="metric" data-reveal style="--reveal-index:${i}"><span class="metric-value">${m.value}</span><p>${m.label}</p></div>`).join('')}</section>
+    <section class="metrics" id="metrics" aria-label="Platform metrics">${c.metrics.map((m,i) => `<div class="metric" data-reveal style="--reveal-index:${i}"><span class="metric-value" data-count-value="${escape(m.value)}" aria-label="${escape(m.value)}">${m.value}</span><p>${m.label}</p></div>`).join('')}</section>
 
     <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">${c.products.label}</span><span class="section-number" aria-hidden="true">02 /</span></div>
-      <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>${c.products.title}</h2><p data-reveal>${c.products.introduction}</p></div>
-      <div class="product-grid">${products.map((p,i) => `<a class="product-tile tile-${p.id}" href="#product-${p.id}" data-product-link="${p.id}" style="--product-color:${p.color};--product-accent:${p.accent};--reveal-index:${i}" data-reveal><span class="tile-index" aria-hidden="true">0${i+1}</span><div class="tile-logo">${logo(p)}</div><span class="tile-bottom"><span>${p.tagline}</span><span class="tile-arrow">${arrow}</span></span><span class="tile-motif" aria-hidden="true"></span></a>`).join('')}</div>
+      <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>${escape(c.products.title).replace('. ', '.<br>')}</h2><p data-reveal>${c.products.introduction}</p></div>
+      <div class="product-grid">${suiteProducts.map((p,i) => `<div class="product-tile tile-${p.id}" style="--reveal-index:${i}" data-reveal><a class="tile-link" href="#product-${p.id}" data-product-link="${p.id}"><div class="tile-logo">${logo(p)}</div><span class="tile-description">${p.tagline}</span><span class="tile-learn">Learn more <span aria-hidden="true">&rarr;</span></span></a></div>`).join('')}${['Workers', 'DEX'].map((name,i) => `<div class="product-tile tile-placeholder" data-suite-placeholder="${name.toLowerCase()}" data-reveal style="--reveal-index:${i+4}"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">${name} lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&rarr;</span><span class="sr-only"> — ${name} is a placeholder, not available.</span></span></div>`).join('')}</div>
     </section>
 
     <section class="product-showcase" id="product-showcase" aria-label="Explore the products">
@@ -82,12 +85,12 @@ const html = `<!doctype html>
     </section>
 
     <section class="services section-pad" id="services" aria-labelledby="services-title" tabindex="-1">
-      <div class="section-top" data-reveal><span class="eyebrow">${c.services.label}</span><span class="section-number" aria-hidden="true">03 /</span></div>
-      <div class="services-introduction"><h2 class="display-heading" id="services-title" data-reveal>${c.services.title}</h2><div data-reveal>${c.services.paragraphs.map(p => `<p>${p}</p>`).join('')}</div></div>
-      <div class="service-list">${c.services.items.map((s,i) => `<article class="service-row" data-reveal><span class="service-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="service-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
+      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.services.label}</span><span class="section-number" aria-hidden="true" data-reveal style="--reveal-index:1">03 /</span></div>
+      <div class="services-introduction"><h2 class="display-heading" id="services-title" data-reveal style="--reveal-index:2">${c.services.title}</h2><div>${c.services.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${i+3}">${p}</p>`).join('')}</div></div>
+      <div class="service-list">${c.services.items.map((s,i) => `<article class="service-row" data-reveal style="--reveal-index:${i}"><span class="service-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="service-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
     </section>
 
-    <section class="customers section-pad" id="customers" aria-labelledby="customers-title"><h2 id="customers-title" data-reveal>${c.customers.title}</h2><div class="customer-placeholder">${c.customers.placeholder}</div></section>
+    <section class="customers section-pad" id="customers" aria-labelledby="customers-title"><h2 id="customers-title" data-reveal>${c.customers.title}</h2><ul class="customer-logos" aria-label="Customers">${c.customers.logos.map((client,i) => `<li data-reveal style="--reveal-index:${i}"><div class="customer-logo">${logo(client, 'client-image')}</div></li>`).join('')}</ul></section>
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1"><div class="contact-slash" aria-hidden="true"></div><h2 class="display-heading" id="contact-title" data-reveal>${c.contact.title.replaceAll('. ', '.<br>')}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
