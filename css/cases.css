@@ -272,8 +272,9 @@
   margin-top:0
 }
 .cases-page .panel-product[aria-current="page"] {
-  outline:1px solid var(--line);
-  outline-offset:8px
+  background:#e7e3da;
+  box-shadow:0 0 0 8px #e7e3da;
+  border-radius:4px
 }
 @media(max-width:999px) {
   .cases-hero-layout {
