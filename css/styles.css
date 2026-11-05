@@ -1047,7 +1047,7 @@ section:focus,article:focus,main:focus {
 }
 .service-row {
   display:grid;
-  grid-template-columns:50px 1fr 1fr 70px;
+  grid-template-columns:50px 1fr 1fr 100px;
   gap:4%;
   align-items:start;
   border-top:1px solid var(--line);
@@ -1069,55 +1069,115 @@ section:focus,article:focus,main:focus {
   color:var(--muted)
 }
 .service-glyph {
-  height:50px;
+  --plane:rotateX(54deg) rotateZ(-28deg);
   position:relative;
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  align-items:center
+  width:100px;
+  height:84px;
+  perspective:400px;
+  justify-self:end
+}
+.service-glyph i,.service-glyph::after {
+  position:absolute;
+  transition:translate .6s var(--ease)
 }
 .service-glyph i {
-  width:12px;
-  height:35px;
+  left:14px;
+  width:72px;
+  height:52px;
+  border:1px solid #201f1e44;
   background:var(--beige);
-  transform:skew(17deg)
+  transform:var(--plane)
 }
-.service-glyph i:nth-child(2) {
-  background:var(--ink)
+.service-glyph::after {
+  content:'';
+  width:12px;
+  height:46px;
+  background:var(--red);
+  transform:skew(17deg) rotate(-28deg);
+  box-shadow:6px 8px 0 #dc46502b
+}
+.glyph-0 i:nth-child(1) {
+  top:34px;
+  background:var(--ink);
+  border-color:var(--ink)
+}
+.glyph-0 i:nth-child(2) {
+  top:22px;
+  background:#dedad0cf
+}
+.glyph-0 i:nth-child(3) {
+  top:10px;
+  background:#f1efe9b5
+}
+.glyph-0::after {
+  left:46px;
+  top:4px
+}
+.service-row:hover .glyph-0 i:nth-child(2) {
+  translate:0 -3px
+}
+.service-row:hover .glyph-0 i:nth-child(3) {
+  translate:0 -7px
 }
 .glyph-1 i {
-  height:12px;
-  width:30px;
-  transform:rotate(-35deg);
-  position:absolute;
-  left:5px;
-  top:10px
+  width:40px;
+  height:34px
+}
+.glyph-1 i:nth-child(1) {
+  left:0;
+  top:34px;
+  background:var(--ink);
+  border-color:var(--ink)
 }
 .glyph-1 i:nth-child(2) {
-  left:20px;
-  top:23px
+  left:52px;
+  top:12px
 }
 .glyph-1 i:nth-child(3) {
-  left:36px;
-  top:10px
+  display:none
+}
+.glyph-1::after {
+  left:40px;
+  top:14px;
+  height:40px;
+  transform:skew(17deg) rotate(62deg)
+}
+.service-row:hover .glyph-1 i:nth-child(1) {
+  translate:4px -2px
+}
+.service-row:hover .glyph-1 i:nth-child(2) {
+  translate:-4px 2px
 }
 .glyph-2 i {
-  border:1px solid var(--ink);
-  background:transparent!important;
-  width:30px;
-  height:30px;
-  position:absolute;
-  left:12px;
-  top:6px;
-  transform:rotate(45deg)
+  width:34px;
+  height:30px
+}
+.glyph-2 i:nth-child(1) {
+  left:4px;
+  top:46px;
+  background:#f1efe9b5
 }
 .glyph-2 i:nth-child(2) {
-  left:24px;
-  top:16px;
-  border-color:#201f1e66
+  left:30px;
+  top:30px;
+  background:#dedad0cf
 }
 .glyph-2 i:nth-child(3) {
-  display:none
+  left:56px;
+  top:14px;
+  background:var(--ink);
+  border-color:var(--ink)
+}
+.glyph-2::after {
+  left:70px;
+  top:-8px;
+  height:34px
+}
+.service-row:hover .glyph-2 i:nth-child(2) {
+  translate:0 -3px
+}
+.service-row:hover .glyph-2 i:nth-child(3),.service-row:hover .glyph-2::after {
+  translate:0 -6px
 }
 .customers {
   background:var(--paper);
@@ -1458,8 +1518,12 @@ section:focus,article:focus,main:focus {
     font-size:clamp(32px,3.8vw,44px)
   }
   .service-row {
-    grid-template-columns:35px 1fr 1.15fr 50px;
+    grid-template-columns:35px 1fr 1.15fr 80px;
     gap:3%
+  }
+  .service-glyph {
+    transform:scale(.8);
+    transform-origin:right top
   }
   .service-row h3 {
     font-size:21px
@@ -2092,6 +2156,10 @@ section:focus,article:focus,main:focus {
   .foundation-art .art-piece {
     translate:none!important;
     will-change:auto
+  }
+  .service-glyph i,.service-glyph::after {
+    transition:none;
+    translate:none!important
   }
   .hero-slash-flight {
     opacity:1;
