@@ -102,8 +102,7 @@
   color:var(--cases-color)
 }
 .cases-section {
-  background:var(--paper);
-  border-top:1px solid var(--line)
+  background:var(--paper)
 }
 .cases-page .section-top {
   margin-bottom:48px
@@ -255,8 +254,7 @@
 .cases-final {
   background:var(--ink);
   color:var(--paper);
-  padding-bottom:calc(var(--nav-clearance) + 60px);
-  border-top:4px solid var(--cases-color)
+  padding-bottom:calc(var(--nav-clearance) + 60px)
 }
 .cases-final h2 {
   margin-top:24px;
