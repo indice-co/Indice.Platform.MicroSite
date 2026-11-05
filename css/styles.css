@@ -595,72 +595,70 @@ section:focus,article:focus,main:focus {
   margin-top:18px;
   color:var(--muted)
 }
-/* Asymmetrical four-product entry grid. */
+/* Open, ruled suite grid. Product showcase order remains independent. */
 .products {
   padding-top:110px;
   padding-bottom:180px
 }
-.products-introduction {
+.products-introduction,.services-introduction {
   display:grid;
-  grid-template-columns:1.35fr 1fr;
-  gap:12%;
+  grid-template-columns:1.1fr 1fr;
+  gap:8%;
   align-items:end
 }
-.products-introduction h2 {
-  max-width:800px
+.products-introduction h2,.services-introduction h2 {
+  grid-column:1/-1;
+  grid-row:1;
+  max-width:75%;
+  font-size:clamp(38px,3.8vw,64px)
 }
-.products-introduction>p {
+.products-introduction>p,.services-introduction>div {
   font-size:16px;
-  max-width:420px;
+  grid-column:2;
+  grid-row:1;
+  max-width:none;
   line-height:1.8;
+  padding-left:64px;
   padding-bottom:3px
 }
 .product-grid {
   display:grid;
-  grid-template-columns:1.15fr 1fr;
-  gap:24px;
-  margin-top:80px;
-  align-items:start
+  grid-template-columns:3fr 2fr 3fr;
+  gap:0;
+  width:60%;
+  margin:48px 0 0 22%;
+  position:relative;
+  isolation:isolate;
+  border-top:1px solid var(--line);
+  border-left:1px solid var(--line);
+  border-right:1px solid var(--line)
 }
 .product-tile {
   min-width:0;
   position:relative;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
-  min-height:300px;
-  padding:27px 34px;
-  background:var(--paper);
-  overflow:hidden;
-  border:1px solid transparent;
-  transition:transform .45s var(--ease),border-color .3s,box-shadow .3s;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:250px;
+  padding:40px 32px;
+  background:transparent;
+  border-bottom:1px solid var(--line);
   isolation:isolate
 }
-.product-tile:hover {
-  transform:translateY(-6px);
-  border-color:var(--product-color);
-  box-shadow:0 12px 28px #201f1e08
+.tile-link {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  max-width:100%
 }
-.tile-messaging:hover {
-  border-color:var(--product-accent)
-}
-.tile-iam {
-  margin-top:66px;
-  min-height:310px
-}
-.tile-messaging {
-  margin-top:-66px;
-  min-height:310px
-}
-.tile-risk {
-  min-height:300px
-}
-.tile-index {
-  font-size:12px;
-  color:var(--muted)
+.tile-link:focus-visible {
+  background:#ffffff26
 }
 .tile-logo {
-  padding:28px 0 34px
+  padding:0;
+  margin-bottom:12px;
+  width:100%
 }
 .product-logo {
   width:auto;
@@ -669,76 +667,66 @@ section:focus,article:focus,main:focus {
   object-fit:contain;
   object-position:left center
 }
-.tile-bottom {
-  position:relative;
-  z-index:2;
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:30px;
-  font-size:16px;
+.tile-description {
+  font-size:12px;
   line-height:1.6;
-  max-width:100%
+  max-width:240px
 }
-.tile-bottom>span:first-child {
-  max-width:270px
+.tile-learn {
+  font-size:12px;
+  font-weight:650;
+  margin-top:6px
 }
-.tile-arrow {
+.product-tile:nth-child(1),.product-tile:nth-child(4),.product-tile:nth-child(5) {
+  grid-column:span 2
+}
+.product-tile:first-child {
   display:grid;
-  place-items:center;
-  width:40px;
-  height:40px;
-  flex-shrink:0;
-  border:1px solid var(--line);
-  border-radius:50%;
-  transition:background .3s,color .3s
+  grid-template-columns:3fr 2fr;
+  align-content:center;
+  padding:40px 0
 }
-.tile-arrow .arrow {
-  width:18px;
-  height:18px
+.product-tile:first-child .tile-link {
+  min-width:0;
+  margin:0 32px
 }
-.product-tile:hover .tile-arrow {
-  background:var(--ink);
-  color:white;
-  border-color:var(--ink)
+.product-tile:nth-child(2),.product-tile:nth-child(6) {
+  border-left:1px solid var(--line)
 }
-.tile-motif {
-  position:absolute;
-  right:-16px;
-  top:0;
-  width:60px;
-  height:67%;
-  background:var(--product-color);
-  transform:skew(17deg);
-  opacity:.13;
-  z-index:-1
+.product-tile:nth-last-child(-n+2) {
+  border-bottom:0
 }
-.tile-motif::after {
+.product-grid::before {
   content:'';
   position:absolute;
-  right:75px;
-  top:0;
-  width:10px;
-  height:100%;
-  background:var(--product-color)
+  background:var(--line);
+  pointer-events:none;
+  z-index:-1
 }
-.tile-iam .tile-motif {
-  height:80%;
-  top:auto;
-  bottom:0
+.product-grid::before {
+  width:1px;
+  height:calc(100% + 100px);
+  top:-32px;
+  left:37.5%
 }
-.tile-messaging .tile-motif {
-  width:95px;
-  opacity:.1;
-  background:var(--product-accent)
+.tile-logo .product-logo {
+  width:auto;
+  height:40px;
+  max-width:100%
 }
-.tile-messaging .tile-motif::after {
-  background:var(--product-accent)
+.suite-placeholder-logo {
+  display:grid;
+  place-items:center;
+  width:100%;
+  max-width:220px;
+  height:56px;
+  margin-bottom:12px;
+  background:#807d8d;
+  color:white;
+  font-size:12px
 }
-.tile-risk .tile-motif {
-  height:100%;
-  width:28px;
-  right:14px
+.tile-placeholder .tile-learn {
+  margin-top:24px
 }
 /* Readable stacked presentations are the default, including without JS. */
 .product-showcase {
@@ -1075,25 +1063,18 @@ section:focus,article:focus,main:focus {
 .story-enhanced .placeholder-caption>span:last-child {
   font-size:20px
 }
-/* Neutral services, customer placeholder and closing statement. */
+/* Neutral services, customer logos and closing statement. */
 .services {
   position:relative;
   background:var(--paper);
   padding-top:110px
 }
-.services-introduction {
-  display:grid;
-  grid-template-columns:1.35fr 1fr;
-  gap:12%;
-  align-items:end
-}
 .services-introduction h2 {
-  max-width:800px
+  grid-column:1;
+  max-width:none
 }
 .services-introduction>div {
-  font-size:16px;
-  color:var(--muted);
-  max-width:440px
+  color:var(--muted)
 }
 .service-list {
   margin-top:90px
@@ -1186,13 +1167,31 @@ section:focus,article:focus,main:focus {
   max-width:630px;
   margin:auto
 }
-.customer-placeholder {
+.customer-logos {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:center;
+  gap:40px;
   margin:40px auto 0;
-  border:1px dashed #201f1e3c;
-  max-width:900px;
-  padding:38px 20px;
-  font-size:16px;
-  color:var(--muted)
+  max-width:1100px;
+  padding:0;
+  list-style:none
+}
+.customer-logo {
+  height:50px;
+  max-width:160px;
+  margin:auto
+}
+.customer-logo .client-image {
+  width:100%;
+  height:100%;
+  object-position:center
+}
+.customer-logo .client-image[alt="ACS"] {
+  transform:scale(.9)
+}
+.customer-logo .client-image[alt="ERGO"] {
+  transform:scale(.7)
 }
 .contact {
   position:relative;
@@ -1394,12 +1393,12 @@ section:focus,article:focus,main:focus {
 .reveal-ready .display-heading.is-revealed {
   transform:none
 }
-.reveal-ready .foundation [data-reveal] {
+.reveal-ready .foundation [data-reveal],.reveal-ready .services [data-reveal] {
   transform:translateY(64px);
   transition-duration:1.4s;
   transition-delay:calc(var(--reveal-index,0)*140ms)
 }
-.reveal-ready .foundation [data-reveal].is-revealed {
+.reveal-ready .foundation [data-reveal].is-revealed,.reveal-ready .services [data-reveal].is-revealed {
   transform:none
 }
 @keyframes hero-enter {
@@ -1441,7 +1440,10 @@ section:focus,article:focus,main:focus {
     gap:5%
   }
   .products-introduction,.services-introduction {
-    gap:7%
+    gap:5%
+  }
+  .products-introduction h2,.services-introduction h2 {
+    font-size:clamp(32px,3.8vw,44px)
   }
   .service-row {
     grid-template-columns:35px 1fr 1.15fr 50px;
@@ -1455,10 +1457,12 @@ section:focus,article:focus,main:focus {
   }
   .product-tile {
     padding:24px;
-    min-height:280px
   }
-  .tile-iam,.tile-messaging {
-    min-height:290px
+  .product-tile:first-child {
+    padding:24px 0
+  }
+  .product-tile:first-child .tile-link {
+    margin:0 24px
   }
   .chapter-content {
     padding:25px
@@ -1523,22 +1527,19 @@ section:focus,article:focus,main:focus {
     padding:0 20px
   }
   .products-introduction,.services-introduction {
-    grid-template-columns:1.3fr 1fr;
-    gap:6%
+    grid-template-columns:1fr 1.1fr;
+    gap:5%
   }
   .products-introduction>p,.services-introduction>div {
     font-size:13px
   }
   .product-grid {
     margin-top:55px;
-    gap:18px
+    width:76%;
+    margin-left:12%
   }
   .product-tile {
     padding:24px
-  }
-  .tile-bottom {
-    font-size:16px;
-    gap:12px
   }
   .product-chapter {
     min-height:560px;
@@ -1711,37 +1712,41 @@ section:focus,article:focus,main:focus {
     margin-top:30px;
     max-width:530px
   }
+  .products-introduction h2,.services-introduction h2 {
+    max-width:none
+  }
+  .products-introduction>p,.services-introduction>div {
+    padding-left:0;
+    max-width:none
+  }
   .product-grid {
     grid-template-columns:1fr 1fr;
-    gap:16px;
-    margin-top:40px
+    width:100%;
+    margin:40px 0 0
+  }
+  .product-tile:nth-child(n) {
+    grid-column:auto;
+    border-left:0;
+    border-right:0
   }
   .product-tile {
-    min-height:245px;
+    min-height:250px;
     padding:20px
   }
-  .tile-iam,.tile-messaging {
-    margin-top:0;
-    min-height:245px
+  .product-tile:first-child {
+    display:flex;
+    padding:20px
+  }
+  .product-tile:first-child .tile-link {
+    margin:0
   }
   .tile-logo {
-    padding:25px 0
+    padding:0
   }
-  .tile-bottom {
-    font-size:12px;
-    gap:12px;
-    align-items:center
-  }
-  .tile-arrow {
-    width:28px;
-    height:28px
-  }
-  .tile-arrow .arrow {
-    width:13px;
-    height:13px
-  }
-  .tile-index {
-    font-size:10px
+  .product-grid::before {
+    left:50%;
+    top:0;
+    height:100%
   }
   .product-chapter {
     display:flex;
@@ -1818,10 +1823,13 @@ section:focus,article:focus,main:focus {
   .customers h2 {
     font-size:28px
   }
-  .customer-placeholder {
-    font-size:12px;
-    padding:30px 15px;
+  .customer-logos {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:32px;
     margin-top:30px
+  }
+  .customer-logo {
+    height:40px
   }
   .contact h2 {
     font-size:clamp(47px,9.5vw,70px)
@@ -1964,15 +1972,14 @@ section:focus,article:focus,main:focus {
     min-height:230px;
     padding:22px 25px
   }
-  .tile-iam,.tile-messaging {
-    min-height:230px
+  .product-tile:first-child {
+    padding:22px 25px
   }
-  .tile-bottom {
-    font-size:13px
+  .product-tile:nth-last-child(2) {
+    border-bottom:1px solid var(--line)
   }
-  .tile-arrow {
-    width:35px;
-    height:35px
+  .product-grid::before {
+    display:none
   }
   .display-heading {
     font-size:39px

@@ -30,7 +30,16 @@ assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA st
 assert(!html.includes('nav-demo'), 'Screen-level demo CTA is removed');
 assert(!/data-(?:hero-)?art-toggle|art-motion-toggle|preview-toggle|art-(?:pause|play)-icon/.test(html), 'Animation playback controls are not rendered');
 assert.deepEqual([...html.matchAll(/data-count-value="([^"]+)"/g)].map(match => match[1]), ['42', '280', '+300.000', '+25']);
-assert(!/Product carousel|reserved for the next phase|coming.soon|Agents|Workers/.test(html));
+assert(!/Product carousel|reserved for the next phase|coming.soon|Agents/.test(html));
+assert.deepEqual([...html.matchAll(/data-suite-placeholder="([^"]+)"/g)].map(match => match[1]), ['workers', 'dex']);
+assert.equal((html.match(/class="product-tile /g) || []).length, 6, 'Suite has six visual slots');
+assert.equal((html.match(/<div class="product-tile tile-placeholder"/g) || []).length, 2, 'Placeholders are not navigable links');
+for (const name of ['iam', 'cases', 'risk', 'messaging']) {
+  assert(html.includes(`src="assets/logos/${name} logo.svg"`), `Suite uses the replacement ${name} logo`);
+}
+assert(html.includes('Six products.<br>A platform of possibilities.'), 'Suite title breaks after its first sentence');
+assert.deepEqual([...html.matchAll(/data-product-link="([^"]+)"/g)].map(match => match[1]), ['cases', 'iam', 'messaging', 'risk']);
+assert.equal((html.match(/<a class="tile-link" /g) || []).length, 4, 'Only product content is interactive, not the surrounding grid cell');
 assert(!/href="#"|href="\/products|mailto:|<form\b|<iframe\b/.test(html));
 for (const id of ['hero', 'foundation', 'metrics', 'products', 'product-showcase', 'services', 'customers', 'contact']) assert(ids.includes(id));
 for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(target), `Anchor exists: ${target}`);
@@ -41,7 +50,17 @@ for (const [, references] of html.matchAll(/aria-(?:labelledby|describedby|contr
 const text = html.replace(/<br\s*\/?\s*>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 const allCopy = value => typeof value === 'string' ? [value] : Array.isArray(value) ? value.flatMap(allCopy) : Object.values(value).flatMap(allCopy);
 // Field IDs and disclosure labels are configuration; substantive approved copy must render verbatim.
-for (const sentence of allCopy({ foundation: copy.foundation, metrics: copy.metrics, products: copy.products, services: copy.services, customers: copy.customers, contact: copy.contact })) assert(text.includes(sentence), `Approved text preserved: ${sentence}`);
+for (const sentence of allCopy({ foundation: copy.foundation, metrics: copy.metrics, products: copy.products, services: copy.services, customers: { title: copy.customers.title }, contact: copy.contact })) assert(text.includes(sentence), `Approved text preserved: ${sentence}`);
+assert(!html.includes('customer-placeholder'), 'Approved client logos replace the placeholder');
+assert.equal((html.match(/class="customer-logo"/g) || []).length, 4, 'All four supplied client logos render');
+const services = html.match(/<section class="services section-pad"[\s\S]*?<\/section>/)?.[0];
+assert(services, 'Services section is present');
+assert.equal((services.match(/data-reveal/g) || []).length, 8, 'Services labels, heading, paragraphs and rows reveal separately');
+assert.deepEqual([...services.matchAll(/--reveal-index:(\d+)/g)].map(match => Number(match[1])), [0, 1, 2, 3, 4, 0, 1, 2]);
+for (const client of copy.customers.logos) {
+  assert(html.includes(`alt="${client.name}"`), `Customer logo is named: ${client.name}`);
+  assert(html.includes(`src="${client.logo}"`), `Customer logo is rendered: ${client.name}`);
+}
 for (const product of products) {
   assert(text.includes(product.tagline));
   assert(html.includes(`id="product-${product.id}"`));
