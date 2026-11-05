@@ -12,8 +12,7 @@
   const slides = [...panel.querySelectorAll('[data-preview]')];
   const navigation = [...section.querySelectorAll('[data-select-product]')];
   const grid = document.querySelector('#products .product-grid');
-  const previewName = panel.querySelector('.preview-product-name');
-  const progress = section.querySelector('.story-progress');
+  const continueLink = section.querySelector('#story-continue');
   const media = matchMedia('(min-width: 1000px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)');
   const supportsStory = CSS.supports('position', 'sticky') && 'inert' in HTMLElement.prototype;
   const INTRO = 1.1;
@@ -50,7 +49,6 @@
       // The automatic introduction is decorative, never a live region.
       slide.setAttribute('aria-hidden', String(!active));
     });
-    if (previewName) previewName.textContent = products[index].name;
   }
 
   function stopLoop() {
@@ -96,6 +94,7 @@
       else button.removeAttribute('aria-current');
     });
     if (index >= 0) showPreview(index);
+    if (continueLink) continueLink.hidden = index < 0;
     if (changed) updateLoop();
   }
 
@@ -114,7 +113,7 @@
     section.dataset.phase = phase;
 
     const panelWidth = Math.min(width * 0.96, 1400, (viewport - 100) * 1.8);
-    const finalWidth = Math.min(width * 0.68, 1000);
+    const finalWidth = width * 0.68;
     panel.style.width = `${panelWidth}px`;
     stage.style.setProperty('--panel-scale', String((0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation)));
     stage.style.setProperty('--panel-x', `${(width * 0.22 + 30) * transformation}px`);
@@ -135,7 +134,6 @@
       const channels = mixColor(from, productColor(index), ease(fraction));
       stage.style.backgroundColor = `rgba(${channels.join(',')},0.12)`;
     }
-    if (progress) progress.style.setProperty('--progress', String(clamp((units - INTRO) / (products.length * PRODUCT))));
     const panelRect = panel.getBoundingClientRect();
     state.visible = arrival > 0.15 && panelRect.bottom > 0 && panelRect.top < viewport &&
       panelRect.right > 0 && panelRect.left < width;
@@ -161,7 +159,7 @@
         const bounds = section.getBoundingClientRect();
         if (bounds.top >= innerHeight || bounds.bottom <= 0) return;
         const probe = innerHeight * 0.35;
-        let index = 0;
+        let index = -1;
         chapters.forEach((chapter, chapterIndex) => {
           if (chapter.getBoundingClientRect().top <= probe) index = chapterIndex;
         });

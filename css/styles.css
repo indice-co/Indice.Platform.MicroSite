@@ -641,6 +641,9 @@ section:focus,article:focus,main:focus {
   border-color:var(--product-color);
   box-shadow:0 12px 28px #201f1e08
 }
+.tile-messaging:hover {
+  border-color:var(--product-accent)
+}
 .tile-iam {
   margin-top:66px;
   min-height:310px
@@ -660,9 +663,9 @@ section:focus,article:focus,main:focus {
   padding:28px 0 34px
 }
 .product-logo {
-  width:230px;
-  height:auto;
-  aspect-ratio:132/32;
+  width:auto;
+  height:40px;
+  max-width:none;
   object-fit:contain;
   object-position:left center
 }
@@ -726,7 +729,11 @@ section:focus,article:focus,main:focus {
 }
 .tile-messaging .tile-motif {
   width:95px;
-  opacity:.1
+  opacity:.1;
+  background:var(--product-accent)
+}
+.tile-messaging .tile-motif::after {
+  background:var(--product-accent)
 }
 .tile-risk .tile-motif {
   height:100%;
@@ -734,9 +741,6 @@ section:focus,article:focus,main:focus {
   right:14px
 }
 /* Readable stacked presentations are the default, including without JS. */
-.product-logo {
-  aspect-ratio:auto
-}
 .product-showcase {
   position:relative
 }
@@ -745,37 +749,10 @@ section:focus,article:focus,main:focus {
 }
 .story-topline {
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-end;
   align-items:center;
   padding:16px var(--gutter);
   background:var(--beige)
-}
-.story-progress {
-  display:block;
-  width:100px;
-  height:2px;
-  background:#201f1e25;
-  position:relative
-}
-.story-progress::after {
-  content:'';
-  display:block;
-  width:100%;
-  height:100%;
-  background:var(--ink);
-  transform-origin:left;
-  transform:scaleX(var(--progress,0))
-}
-.product-nav-dot {
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:currentColor;
-  opacity:0;
-  margin-left:3px
-}
-.is-active .product-nav-dot {
-  opacity:1
 }
 .story-continue {
   font-size:16px;
@@ -804,9 +781,6 @@ section:focus,article:focus,main:focus {
 }
 .chapter-logo {
   margin-bottom:30px
-}
-.chapter-logo .product-logo {
-  width:200px
 }
 .product-chapter h3 {
   font-size:clamp(44px,5.3vw,90px);
@@ -1014,9 +988,6 @@ section:focus,article:focus,main:focus {
 .story-enhanced .chapter-logo {
   margin-bottom:24px
 }
-.story-enhanced .chapter-logo .product-logo {
-  width:180px
-}
 .story-enhanced .product-chapter h3 {
   font-size:clamp(44px,5.2vw,86px);
   margin-bottom:22px
@@ -1047,29 +1018,10 @@ section:focus,article:focus,main:focus {
   pointer-events:none;
   z-index:3
 }
-.preview-panel-header {
-  height:34px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 10px 10px;
-  font-size:16px;
-  font-weight:600
-}
-.preview-window-marks {
-  display:flex;
-  gap:5px
-}
-.preview-window-marks i {
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:#201f1e3c
-}
 .preview-viewport {
   position:relative;
   width:100%;
-  height:calc(100% - 34px);
+  height:100%;
   overflow:hidden
 }
 .preview-slide {
@@ -1404,7 +1356,6 @@ section:focus,article:focus,main:focus {
   min-width:0
 }
 .panel-product .product-logo {
-  width:150px;
   margin-bottom:8px
 }
 .panel-product p {
@@ -1589,16 +1540,10 @@ section:focus,article:focus,main:focus {
     font-size:16px;
     gap:12px
   }
-  .tile-logo .product-logo {
-    width:210px
-  }
   .product-chapter {
     min-height:560px;
     padding:65px var(--gutter);
     gap:4%
-  }
-  .chapter-logo .product-logo {
-    width:175px
   }
   .product-chapter h3 {
     font-size:54px
@@ -1782,10 +1727,6 @@ section:focus,article:focus,main:focus {
   .tile-logo {
     padding:25px 0
   }
-  .tile-logo .product-logo {
-    width:100%;
-    max-width:210px
-  }
   .tile-bottom {
     font-size:12px;
     gap:12px;
@@ -1813,9 +1754,6 @@ section:focus,article:focus,main:focus {
   .chapter-content {
     padding:26px;
     max-width:none
-  }
-  .chapter-logo .product-logo {
-    width:185px
   }
   .product-chapter h3 {
     font-size:55px
@@ -1969,9 +1907,6 @@ section:focus,article:focus,main:focus {
     gap:23px 16px;
     padding:23px 0
   }
-  .panel-product .product-logo {
-    width:136px
-  }
   .panel-product p {
     font-size:10px
   }
@@ -2032,9 +1967,6 @@ section:focus,article:focus,main:focus {
   .tile-iam,.tile-messaging {
     min-height:230px
   }
-  .tile-logo .product-logo {
-    width:215px
-  }
   .tile-bottom {
     font-size:13px
   }
@@ -2072,9 +2004,6 @@ section:focus,article:focus,main:focus {
   }
   .panel-section-links {
     gap:20px
-  }
-  .panel-product .product-logo {
-    width:125px
   }
 }
 @media(max-width:360px) {
