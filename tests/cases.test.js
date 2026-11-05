@@ -87,7 +87,7 @@ test('hero screen supplies illustrative progress and keyboard-operable action ex
   const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
   assert(css.includes('cases-progress-grow 9s ease-in-out infinite'));
   assert(css.includes('animation-play-state:var(--art-play)'));
-  assert(css.includes('--brand-width:195px'));
+  assert(!css.includes('--brand-width'));
 });
 
 test('Cases hero reuses an undistorted official homepage slash in product gold', () => {

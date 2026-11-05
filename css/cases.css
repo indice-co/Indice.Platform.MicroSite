@@ -4,9 +4,6 @@
   --cases-dark:#0b4a51;
   --cases-soft:color-mix(in srgb,var(--cases-color) 9%,var(--paper))
 }
-.cases-page .hero-brand {
-  --brand-width:195px
-}
 .cases-hero-layout>div:first-child>.product-logo {
   height:52px
 }
@@ -841,9 +838,6 @@
   }
 }
 @media(max-width:760px) {
-  .cases-page .hero-brand {
-    --brand-width:168px
-  }
   .cases-art-badge {
     right:0;
     top:-8px
