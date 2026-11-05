@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  # Let the active deployment finish instead of leaving a Pages deployment lock.
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate
+        run: |
+          npm run check
+          node --test tests/deploy.test.js
+      - uses: actions/configure-pages@v5.0.0
+      - name: Stage public site files
+        run: |
+          mkdir -p "$RUNNER_TEMP/site"
+          cp index.html "$RUNNER_TEMP/site/"
+          cp -R css js assets "$RUNNER_TEMP/site/"
+      - uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.0

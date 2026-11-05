@@ -1,6 +1,6 @@
 # INDICE Platform homepage
 
-Responsive, buildless HTML/CSS/JavaScript. No runtime dependencies, external services, backend, or deployment configuration. `index.html` is pre-rendered so all substantive content and product presentations remain available without JavaScript.
+Responsive, buildless HTML/CSS/JavaScript. No runtime dependencies, external services, or backend. `index.html` is pre-rendered so all substantive content and product presentations remain available without JavaScript.
 
 ## Run and verify
 
@@ -13,6 +13,22 @@ npm test        # scroll-story behavior tests with a mock DOM
 ```
 
 No package installation is needed. Node 20 or newer is recommended for development checks.
+
+## GitHub Pages deployment
+
+In **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source instead of **Deploy from a branch**. This is required to replace the automatic `pages build and deployment` workflow with `.github/workflows/deploy.yml`; otherwise the two workflows can compete for the same Pages deployment lock.
+
+The workflow runs structural checks and deployment regression tests on pushes to `main` or manual dispatch, publishes only the committed `index.html`, `css`, `js` and `assets`, and deploys only from `main`. It does not regenerate the pre-rendered page. The repository-wide `pages` concurrency group queues runs without cancelling an active deployment.
+
+If deployment creation fails with HTTP 400 `due to in progress deployment`, wait for the deployment named in the error to finish or cancel it before retrying. The reported failure followed a previous deployment stuck in `updating_pages`: that job timed out and reported cancellation, but Pages still considered it active. Workflow concurrency cannot clear an already-stuck server-side deployment.
+
+An administrator with Pages write access can explicitly cancel the deployment using GitHub CLI (replace `DEPLOYMENT_ID` with the ID from the earlier deploy log):
+
+```sh
+gh api --method POST repos/indice-co/Indice.Platform.MicroSite/pages/deployments/DEPLOYMENT_ID/cancel
+```
+
+After cancellation has completed, manually run **Deploy to GitHub Pages** from `main`. If Pages continues to report the cancelled deployment as active, check GitHub's service status and contact GitHub Support; repeatedly rerunning the job or increasing its timeout will not clear the lock.
 
 ## Editable sources
 
@@ -46,4 +62,4 @@ The sticky desktop story uses a bounded native scroll area: panel introduction, 
 
 Build, JavaScript syntax, structural/content checks and 36 tests pass, including post-arrival slash repulsion and scroll-direction logo switching. Hero browser checks cover synchronized arrival/outline timing, staggered content, color changes, pillar arrow placement and 3x hover/focus growth, mobile overflow and reduced-motion visibility. Playback controls are absent; artwork and preview motion retain automatic visibility and reduced-motion handling. Full-page responsive screenshots and real-browser keyboard checks remain to be performed. The supplied brand PDF was rendered and visually inspected. Web reference pages were inspected as text; their live visual motion could not be reviewed.
 
-No files were published or deployed.
+Local verification does not publish or deploy files; deployment is performed by the Pages workflow.
