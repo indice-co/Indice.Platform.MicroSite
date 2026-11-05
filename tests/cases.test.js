@@ -59,9 +59,65 @@ test('product page IDs, assets, anchors and accessibility references resolve', (
     assert(fs.existsSync(path.join(root, asset)), asset);
   }
   assert(html.includes('class="skip-link" href="#main-content"'));
+  assert(html.includes('href="index.html" data-top-href="#cases-hero"'));
   const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
   assert(css.includes('--duration:.5s'));
   assert(css.includes('prefers-reduced-motion:reduce'));
   assert(!html.includes('js/showcase.js'));
   assert(!html.includes('js/contact.js'));
+});
+
+test('Cases design uses product-specific CTAs and illustrative product visuals', () => {
+  assert(html.includes('aria-label="On this page"'));
+  assert(html.includes('Illustrative customer update'));
+  assert.equal((html.match(/class="cases-capability-art /g) || []).length, 4);
+  assert(html.includes('class="cases-deployment-map"'));
+  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  assert(css.includes('.cases-page .demo-button'));
+  assert(css.includes('background:var(--cases-gold)'));
+  assert(html.includes('--cases-color:#12707A;--cases-gold:#F2B632'));
+});
+
+test('hero screen supplies illustrative progress and keyboard-operable action explanations', () => {
+  assert(html.includes('js/cases-art.js'));
+  assert(html.includes('aria-label="Illustrative workflow stages"'));
+  assert.equal((html.match(/<details><summary>/g) || []).length, 2);
+  assert(html.includes('Illustration only.'));
+  assert(html.includes('Private checkpoint'));
+  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  assert(css.includes('cases-progress-grow 9s ease-in-out infinite'));
+  assert(css.includes('animation-play-state:var(--art-play)'));
+  assert(css.includes('--brand-width:195px'));
+});
+
+test('Cases hero reuses an undistorted official homepage slash in product gold', () => {
+  const source = fs.readFileSync(path.join(root, 'assets/logos/INDICE_slashes.svg'), 'utf8');
+  const officialPath = [...source.matchAll(/<path d="([^"]+)"/g)][1][1];
+  assert(html.includes(`viewBox="0 0 124.6 201.7" aria-hidden="true"><path d="${officialPath}" fill="currentColor"/>`));
+  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  const rule = css.match(/\.cases-hero-slash \{([^}]+)\}/)[1];
+  assert(rule.includes('color:var(--cases-gold)'));
+  assert(rule.includes('width:auto'));
+  assert(!rule.includes('skew'));
+  assert(!css.includes('.cases-visual-grid::after'));
+});
+
+test('Challenge section uses the dark logo teal with light text and dividers', () => {
+  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  const rule = css.match(/#cases-challenge \{([^}]+)\}/)[1];
+  assert(rule.includes('background:var(--cases-dark)'));
+  assert(rule.includes('color:var(--white)'));
+  assert(rule.includes('--muted:var(--paper)'));
+  assert(rule.includes('--line:#ffffff33'));
+  assert.match(css, /#cases-challenge \.section-top \{\s+color:inherit/);
+});
+
+test('Cases section menu sticks outside the clipped hero and reserves anchor clearance', () => {
+  assert(html.indexOf('class="cases-page-links"') < html.indexOf('<section class="cases-hero'));
+  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  const rule = css.match(/\.cases-page-links \{([^}]+)\}/)[1];
+  assert(rule.includes('position:sticky'));
+  assert(rule.includes('top:0'));
+  assert(rule.includes('background:var(--paper)'));
+  assert.match(css, /\.cases-page section \{\s+scroll-margin-top:/);
 });

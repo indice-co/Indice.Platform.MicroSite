@@ -26,7 +26,7 @@ class Events {
   count(type) { return this.events.get(type)?.size || 0; }
 }
 
-function fixture({ mobile = false, reduced = false, observerAvailable = true, observerThrows = false } = {}) {
+function fixture({ mobile = false, reduced = false, observerAvailable = true, observerThrows = false, casesBrand = false } = {}) {
   const document = new Events();
   const browser = new Events();
   const mobileMedia = new Events();
@@ -91,7 +91,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
 
   const root = new Element();
   const brandImage = new Element('img');
-  const brand = new Element('a', {}, [brandImage]);
+  const brand = new Element('a', casesBrand ? { href: 'index.html', 'data-top-href': '#cases-hero' } : { href: '#hero' }, [brandImage]);
   brand.querySelector = () => brandImage;
   const outside = new Element('button');
   const firstMobileLink = new Element('a', { href: '#foundation' });
@@ -203,6 +203,27 @@ test('fixed brand swaps assets by scroll direction and restores the main logo at
   assert(!page.brand.classList.contains('is-compact'));
   page.scroll(-5);
   assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
+});
+
+test('Cases brand links home while its upward arrow links to the current page top', () => {
+  const page = fixture({ casesBrand: true });
+  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  page.scroll(500);
+  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  page.scroll(300);
+  assert.equal(page.brand.getAttribute('href'), '#cases-hero');
+  assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
+  page.scroll(300);
+  assert.equal(page.brand.getAttribute('href'), '#cases-hero');
+  page.browser.dispatch('pagehide');
+  page.browser.dispatch('pageshow', { persisted: true });
+  page.scroll(200);
+  assert.equal(page.brand.getAttribute('href'), '#cases-hero');
+  page.scroll(400);
+  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  page.scroll(0);
+  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  assert.equal(page.brand.getAttribute('aria-label'), 'INDICE Platform home');
 });
 
 test('keyboard opening enters the Suite panel and Escape restores its trigger', () => {
