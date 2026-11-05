@@ -896,15 +896,12 @@ section:focus,article:focus,main:focus {
   gap:10px;
   min-height:46px;
   padding:10px 16px;
-  border:1px solid var(--line);
+  border:1px solid var(--ink);
   border-radius:3px;
   background:transparent;
-  font-size:16px;
+  font-size:14px;
   font-weight:600;
   transition:background .2s,color .2s
-}
-.product-navigation button:hover {
-  background:var(--beige)
 }
 .product-navigation button.is-active {
   background:var(--ink);
@@ -1046,14 +1043,6 @@ section:focus,article:focus,main:focus {
   background:transparent;
   pointer-events:auto;
   z-index:5
-}
-.story-enhanced .product-navigation button {
-  background:var(--paper);
-  border-color:transparent
-}
-.story-enhanced .product-navigation button.is-active {
-  background:var(--ink);
-  color:white
 }
 .story-enhanced :focus-visible {
   outline:2px solid white;
@@ -1472,6 +1461,15 @@ section:focus,article:focus,main:focus {
   }
   .hero {
     min-height:790px
+  }
+}
+@media(min-width:761px) and (max-width:1100px) {
+  .story-ready .product-navigation {
+    justify-content:flex-end;
+    background:transparent
+  }
+  .product-navigation button:not(.is-active) {
+    background:var(--beige)
   }
 }
 @media(max-width:999px) {
