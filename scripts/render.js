@@ -80,6 +80,7 @@ const html = `<!doctype html>
     <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">${c.products.label}</span></div>
       <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>${escape(c.products.title).replace('. ', '.<br>')}</h2><p data-reveal>${c.products.introduction}</p></div>
+      <a class="text-link" href="cases-0.2.html">Cases 0.2${arrow}</a>
       <div class="product-grid">${suiteProducts.map((p,i) => `<div class="product-tile tile-${p.id}" style="--reveal-index:${i}" data-reveal><a class="tile-link" href="#product-${p.id}" data-product-link="${p.id}"><div class="tile-logo">${logo(p)}</div><span class="tile-description">${p.tagline}</span><span class="tile-learn">Learn more <span aria-hidden="true">&rarr;</span></span></a></div>`).join('')}${['Workers', 'DEX'].map((name,i) => `<div class="product-tile tile-placeholder" data-suite-placeholder="${name.toLowerCase()}" data-reveal style="--reveal-index:${i+4}"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">${name} lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&rarr;</span><span class="sr-only"> — ${name} is a placeholder, not available.</span></span></div>`).join('')}</div>
     </section>
 
@@ -109,3 +110,4 @@ const html = `<!doctype html>
 fs.writeFileSync(path.join(__dirname, '../index.html'), html, 'utf8');
 console.log(`Rendered homepage with ${products.length} products.`);
 require('./render-cases.js')();
+require('./render-cases-article.js')();

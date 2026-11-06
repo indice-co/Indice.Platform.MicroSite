@@ -1,6 +1,6 @@
 # INDICE Platform homepage
 
-Responsive, buildless HTML/CSS/JavaScript. No runtime dependencies, external services, backend, or deployment configuration. `index.html` is pre-rendered so all substantive content and product presentations remain available without JavaScript.
+Responsive, pre-rendered HTML/CSS/JavaScript. No backend or deployment configuration. All substantive content and product presentations remain available without JavaScript; the Cases 0.2 diagrams optionally load Mermaid from a CDN.
 
 ## Run and verify
 
@@ -12,7 +12,9 @@ npm run check   # syntax, copy, structure, assets, anchors and ARIA references
 npm test        # scroll-story behavior tests with a mock DOM
 ```
 
-No package installation is needed. Node 20 or newer is recommended for development checks.
+Run `npm install` before building. Node 22.12 or newer is recommended for development checks.
+
+The additional `cases-0.2.html` page keeps the original Cases hero and renders `cases-overview.md` for executives and engineering managers: fit, workflow, governance, deployment and implementation responsibilities. Five native technical disclosures provide optional depth without JavaScript. The complete supplied `cases-product.md` is preserved on `cases-reference.html`, linked from the overview and disclosures; planned features retain their next-release labels. Run `npm run build` after editing either Markdown source. Article layout lives in `css/cases-article.css`; tables and code scroll independently on small screens. `js/cases-article.js` tracks active sections in both menus and enhances diagrams with Mermaid 11.12.1 from jsDelivr; without JavaScript or network access diagram source remains readable. Both the homepage Suite section and product menu include a Cases 0.2 link.
 
 ## Editable sources
 
