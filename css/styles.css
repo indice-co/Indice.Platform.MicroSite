@@ -1455,7 +1455,7 @@ section:focus,article:focus,main:focus {
   margin-bottom:8px
 }
 .panel-product p {
-  font-size:12px;
+  font-size:13px;
   color:var(--muted);
   max-width:220px;
   line-height:1.5

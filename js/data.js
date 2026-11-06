@@ -13,7 +13,7 @@ globalThis.INDICE_DATA = {
     guide: null
   },
   copy: {
-    navigation: { foundation: 'Foundation', products: 'Suite', services: 'Services', menu: 'Menu', close: 'Close', exploreAll: 'Explore all products', unavailable: 'Other product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
+    navigation: { foundation: 'Foundation', products: 'Suite', services: 'Services', menu: 'Menu', close: 'Close', exploreAll: 'Explore all solutions', unavailable: 'Other product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
     hero: { title: 'INDICE Platform', motto: 'Solid foundations. Greater possibilities.', pillars: [
       { id: 'foundation', number: '01', label: 'Foundation', headline: 'Built on experience. Engineered to evolve.' },
       { id: 'products', number: '02', label: 'Suite', headline: 'Focused capabilities. Flexible combinations.' },
