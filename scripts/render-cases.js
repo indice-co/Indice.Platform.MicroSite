@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { escape, arrow, demo, logo, navigation } = require('./shared.js');
 
-module.exports = function renderCases(article = null) {
+module.exports = function renderCases(article) {
   const { config, products, casesPage } = globalThis.INDICE_DATA;
   const cases = products.find(product => product.id === 'cases');
   const slashPath = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
@@ -29,13 +29,13 @@ module.exports = function renderCases(article = null) {
     ['Case history and workload visibility', 'Follow the case timeline, data versions, comments and attachments. Use case lists and reports to understand the work in hand.']
   ];
   let html = `<!doctype html>
-<html lang="en">
+  <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#DEDAD0">
   <meta name="description" content="${escape(cases.description)}">
-  <title>INDICE Cases &mdash; Every case. A clear path forward.</title>
+  <title>Cases &mdash; Every case. A clear path forward.</title>
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/cases.css">
@@ -62,9 +62,9 @@ module.exports = function renderCases(article = null) {
         <div class="cases-visual-grid" aria-hidden="true"></div>
         <svg class="cases-hero-slash" width="124.6" height="201.7" viewBox="0 0 124.6 201.7" aria-hidden="true">${slashPath}</svg>
         <figure class="cases-detail">
-          <div class="cases-window-bar" aria-hidden="true"><span></span><span></span><span></span><span>INDICE Cases</span></div>
+          <div class="cases-window-bar" aria-hidden="true"><span></span><span></span><span></span><span>Cases</span></div>
           ${casesPage.detailScreenshot
-    ? `<img src="${escape(casesPage.detailScreenshot)}" alt="INDICE Cases case detail showing the timeline and available actions">`
+    ? `<img src="${escape(casesPage.detailScreenshot)}" alt="Cases case detail showing the timeline and available actions">`
     : `<div class="cases-detail-placeholder"><span class="cases-placeholder-label">Case detail screenshot &mdash; awaiting approved asset</span><div class="cases-screen-title"><div><span class="cases-small">Illustrative case / 0248</span><strong>Customer request</strong></div><span class="cases-status">In progress</span></div><div class="cases-screen-progress"><div class="cases-progress-track" aria-hidden="true"><span></span></div><ol aria-label="Illustrative workflow stages"><li>Assigned</li><li>In review</li><li>Decision</li></ol></div><div class="cases-preview-heading"><span>Case timeline</span><span>Available actions</span></div><div class="cases-preview-body"><ol class="cases-screen-timeline"><li><strong>Request received</strong><span>Customer submission</span></li><li><strong>Assigned to a team</strong><span>Internal review</span></li><li><strong>Pending second approval</strong><span>Private checkpoint</span></li></ol><div class="cases-screen-actions"><details><summary>Review case</summary><p>Illustration only. Staff review the case before a decision.</p></details><details><summary>View history</summary><p>The timeline keeps case updates and internal steps together.</p></details><span class="cases-screen-private">Staff view &middot; Internal notes stay private</span></div></div></div>`}
           <figcaption>${casesPage.detailScreenshot ? 'Case detail: timeline and available actions.' : 'Layout placeholder only, not a product screenshot. The supplied dashboard does not show case detail.'}</figcaption>
         </figure>
@@ -90,7 +90,7 @@ module.exports = function renderCases(article = null) {
       </div>
       <div class="cases-views" data-reveal>
         <article class="cases-view cases-customer"><p class="cases-small">Customer view / connected application</p><div class="cases-app-frame"><span class="cases-app-header">Your organisation's website or app</span><h3>Your request</h3><span class="cases-status">In progress</span><p>Published updates and customer-visible information.</p></div></article>
-        <article class="cases-view"><p class="cases-small">Staff view / Cases back office</p><div class="cases-app-frame"><span class="cases-app-header">INDICE Cases</span><h3>Internal review</h3><span class="cases-status cases-private">Pending second approval</span><p>Internal review steps and private notes stay with staff.</p></div></article>
+        <article class="cases-view"><p class="cases-small">Staff view / Cases back office</p><div class="cases-app-frame"><span class="cases-app-header">Cases</span><h3>Internal review</h3><span class="cases-status cases-private">Pending second approval</span><p>Internal review steps and private notes stay with staff.</p></div></article>
       </div>
       <p class="cases-caption">Illustrative views, not product screenshots. The customer view belongs to a connected application; it is not a standalone Cases customer portal.</p>
     </section>
@@ -121,24 +121,23 @@ module.exports = function renderCases(article = null) {
     </section>
 
     <section class="cases-final section-pad" id="cases-demo" aria-labelledby="demo-title">
-      <div data-reveal><p class="eyebrow">INDICE Cases</p><h2 id="demo-title">Every case.<br>A clear path forward.</h2><div class="cases-final-actions">${demo('button-light')}${guide('final-guide-note')}</div></div>
+      <div data-reveal><p class="eyebrow">Cases</p><h2 id="demo-title">Every case.<br>A clear path forward.</h2><div class="cases-final-actions">${demo('button-light')}${guide('final-guide-note')}</div></div>
     </section>
   </main>
   <footer class="site-footer"><a href="index.html" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
-  ${navigation('index.html')}
+  ${article ? '' : navigation('index.html')}
 </body>
 </html>
 `;
   if (article) {
-    html = html.replace('<title>INDICE Cases &mdash;', `<title>${escape(article.title)} &mdash;`)
+    html = html.replace('<html lang="en">', '<html lang="en" class="cases-reference-page">')
+      .replace('<title>Cases &mdash;', `<title>${escape(article.title)} &mdash;`)
       .replace('<body class="cases-page"', '<body class="cases-page cases-article-page"')
-      .replace('href="cases.html" aria-current="page"', 'href="cases.html"')
-      .replace('class="text-link panel-explore" href="cases-0.2.html"', `class="text-link panel-explore" href="cases-0.2.html"${article.filename === 'cases-0.2.html' ? ' aria-current="page"' : ''}`)
       .replace('  <script defer src="js/cases-tabs.js"></script>', '  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>\n  <script defer src="js/cases-article.js"></script>')
       .replace('</head>', '  <link rel="stylesheet" href="css/cases-article.css">\n</head>')
       .replace(/<nav class="cases-page-links"[^>]*>[\s\S]*?<\/nav>/, article.navigation)
       .replace(/    <section class="cases-section[\s\S]*?(?=  <\/main>)/, article.html);
   }
-  fs.writeFileSync(path.join(__dirname, article ? `../${article.filename}` : '../cases.html'), html, 'utf8');
-  console.log(`Rendered ${article ? article.title : 'INDICE Cases product page'}.`);
+  fs.writeFileSync(path.join(__dirname, `../${article.filename}`), html, 'utf8');
+  console.log(`Rendered ${article.title}.`);
 };

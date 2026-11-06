@@ -6,180 +6,115 @@ const vm = require('node:vm');
 require('../js/data.js');
 
 const root = path.join(__dirname, '..');
-const html = fs.readFileSync(path.join(root, 'cases.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const { products, casesPage } = globalThis.INDICE_DATA;
+const { products } = globalThis.INDICE_DATA;
 
-test('Cases has all seven sections in order and preserves supplied product copy', () => {
-  assert.deepEqual([...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map(match => match[1]), [
-    'cases-hero', 'cases-challenge', 'cases-how', 'cases-capabilities', 'cases-fit', 'cases-deployment', 'cases-demo'
-  ]);
+test('Cases has one generated internal page: the technical reference', () => {
+  assert(fs.existsSync(path.join(root, 'cases-reference.html')));
+  assert(!fs.existsSync(path.join(root, 'cases.html')));
+  assert(!fs.existsSync(path.join(root, 'cases-0.2.html')));
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert(html.includes('Every case.<br>A clear path forward.'));
-  assert(html.includes(products.find(product => product.id === 'cases').description));
-  assert(!html.includes('Draft copy'));
-  assert(!html.includes('Back to the suite'));
-  assert(html.includes('In progress'));
-  assert(html.includes('Pending second approval'));
-  assert(html.includes("Your organisation's website or app"));
-  assert(!/next release|Tailwind|daisyUI|manage\/|my\/|Elsa|<pre|<code/.test(html));
+  assert(html.includes('Cases technical reference'));
+  assert(!html.includes('Cases by Indice'));
+  assert(html.includes('IContactProvider'));
+  assert(html.includes('AddTranslationsResource'));
+  assert.match(html, /<h2 id="article-for-developers" class="article-chapter">[\s\S]*?<\/h2>\s*<p>This technical reference covers the hosting model, architecture, integration contracts, configuration and extension points your engineering team uses to deploy and operate Cases\.<\/p>/);
+  assert(html.includes('(next release)'));
+  assert.equal((html.match(/<pre class="mermaid"/g) || []).length, 4);
+  assert.equal((html.match(/<table>/g) || []).length, 3);
+  assert(html.includes('class="language-csharp"'));
 });
 
-test('missing detail screenshot and product PDF stay explicitly unavailable', () => {
-  assert.equal(casesPage.detailScreenshot, null);
-  assert.equal(casesPage.guide, null);
-  assert(html.includes('Case detail screenshot &mdash; awaiting approved asset'));
-  assert(!html.includes('cases dashboard.png'), 'Do not mislabel a dashboard as a detail screen');
-  assert.equal((html.match(/disabled aria-describedby="(?:deployment|final)-guide-note"/g) || []).length, 2);
-  assert(!/<a\b[^>]*\bdownload(?:[ >]|=)/.test(html));
-  assert.equal((html.match(/type="button" data-demo/g) || []).length, 2);
-  assert(!/mailto:|<form|<iframe/.test(html));
-});
-
-test('homepage and shared navigation expose Cases while other products remain unavailable', () => {
-  assert(home.includes('class="button explore-button" href="cases.html"'));
-  assert.equal(products.filter(product => product.destination).length, 1);
-  assert(home.includes('class="panel-product" href="cases.html"'));
-  assert(html.includes('class="panel-product" href="cases.html" aria-current="page"'));
-  for (const id of ['foundation', 'products', 'services']) assert(html.includes(`href="index.html#${id}"`));
-  for (const page of [home, html]) {
-    assert(page.includes('id="products-trigger"'));
-    assert(page.includes('id="menu-trigger"'));
-    assert(page.includes('aria-controls="products-panel" aria-expanded="false"'));
-  }
+test('homepage carousel and Suite panel point to the sole Cases page', () => {
+  const cases = products.find(product => product.id === 'cases');
+  assert.equal(cases.destination, 'cases-reference.html');
+  assert(home.includes('class="button explore-button" href="cases-reference.html"'));
+  assert(home.includes('class="panel-product" href="cases-reference.html"'));
   assert(home.includes('<div class="panel-heading"><span>Suite Solutions</span></div>'));
   assert(!home.includes('class="panel-note"'));
   assert(home.includes('Explore all solutions'));
-  assert(!home.includes('Explore all products'));
+  assert(!home.includes('Cases 0.2'));
+  assert(!home.includes('href="cases.html"'));
+  assert(!html.includes('class="cases-page-links"'));
+  assert.equal((html.match(/class="cases-toc-link"/g) || []).length, 8);
+  assert.equal((html.match(/class="chapter-copy"/g) || []).length, 8);
+  assert.equal((html.match(/data-copy-anchor/g) || []).length, 8);
+  assert(html.includes('id="chapter-copy-status" role="status" aria-live="polite"'));
+  const chapters = [...html.matchAll(/<h[23] id="([^"]+)" class="article-chapter">([\s\S]*?)<\/h[23]>/g)];
+  assert.equal(chapters.length, 8);
+  for (const [, id, content] of chapters) {
+    assert.match(content, /<button class="chapter-copy" type="button" data-copy-anchor[^>]*aria-label="Copy link to /, id);
+    assert(!content.includes('class="chapter-anchor"'), id);
+  }
+  assert(html.includes('class="cases-toc-link" href="#article-2-flows"'));
+  assert(html.includes('class="cases-toc-category">Product</h3>'));
+  assert(html.includes('class="cases-toc-category">Developer reference</h3>'));
+  assert(!html.includes('cases-toc-number'));
+  assert(html.includes('<nav class="cases-toc-nav" aria-label="Technical reference sections">'));
+  assert(!html.includes('class="floating-nav"'));
+  assert(!html.includes('id="site-nav"'));
+  assert.equal((html.match(/data-flowchart-open/g) || []).length, 4);
+  assert.equal((html.match(/data-flowchart-orientation="horizontal"/g) || []).length, 3);
+  assert.equal((html.match(/data-flowchart-orientation="vertical"/g) || []).length, 1);
+  assert(html.includes('aria-label="Open larger view of 4.1 High-level architecture"'));
+  for (const numberedTitle of ['1. Core features &amp; capabilities', '2. Flows', '3. Where Cases shines', '4. Architecture &amp; hosting', '5. Feature internals &amp; integration', '6. Configuration']) {
+    assert(html.includes(`<span class="chapter-heading-text">${numberedTitle}</span>`));
+  }
+  assert(!html.includes('🧰 1. Core features &amp; capabilities'));
+  assert(!html.includes('🔄 2. Flows'));
+  assert(html.includes('<dialog class="flowchart-dialog"'));
+  const articleCss = fs.readFileSync(path.join(root, 'css/cases-article.css'), 'utf8');
+  assert(articleCss.includes('.cases-toc-link[aria-current="location"]'));
+  assert(articleCss.includes('background:transparent'));
+  assert(articleCss.includes('.cases-article tbody tr:hover td'));
+  assert(articleCss.includes('.cases-article .mermaid svg g.node:hover .label-container'));
+  assert(articleCss.includes('.flowchart-dialog-canvas svg g.node:hover .label-container'));
+  assert(articleCss.includes('.flowchart-dialog[data-flowchart-orientation="horizontal"] .flowchart-dialog-canvas'));
+  assert(articleCss.includes('overflow-y:hidden'));
+  assert(articleCss.includes('border-radius:0'));
+  assert(articleCss.includes('font-size:27px'));
+  assert(articleCss.includes('letter-spacing:0'));
+  assert(articleCss.includes('background:var(--paper)'));
+  assert(articleCss.includes('border-left-color:var(--red)'));
+  const casesCss = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
+  assert.match(casesCss, /\.cases-lead \{\s+max-width:850px/);
+  assert.match(casesCss, /\.cases-hero-layout \{\s+display:grid;\s+grid-template-columns:minmax\(0,850px\) minmax\(0,1fr\)/);
+  assert.match(casesCss, /@media\(max-width:1375px\)\s*\{\s+\.cases-hero-layout \{\s+grid-template-columns:minmax\(0,850px\)/);
+  assert.match(casesCss, /@media\(min-width:1376px\)\s*\{\s+\.cases-hero-visual \{\s+top:130px/);
+  assert.match(casesCss, /@media\(min-width:761px\)\s*\{\s*\.cases-hero-layout>div:first-child\s*\{\s+position:relative;\s+top:80px/);
+  assert.match(articleCss, /\.cases-toc-link \{[\s\S]*?min-height:40px/);
+  assert.match(articleCss, /grid-template-columns:minmax\(0,1fr\) minmax\(0,800px\) minmax\(0,1fr\)/);
+  assert.match(articleCss, /\.cases-article \{\s+grid-column:2/);
+  assert.match(articleCss, /\.cases-article-toc \{\s+grid-column:3/);
+  assert.match(articleCss, /@media\(max-width:1375px\)[\s\S]*justify-content:center/);
+  assert.match(html, /id="article-the-back-office-action-loop" class="flowchart-section-title"/);
+  assert(html.includes('&quot;fontSize&quot;: &quot;10px&quot;'));
+  assert(articleCss.includes('.cases-article .flowchart-section-title'));
+  assert(!articleCss.includes('var(--cases-color)'));
+  assert(!articleCss.includes('var(--cases-gold)'));
+  assert(!articleCss.includes('var(--cases-dark)'));
+  const articleScript = fs.readFileSync(path.join(root, 'js/cases-article.js'), 'utf8');
+  assert(articleScript.includes("primaryColor:'#f1efe9'"));
+  assert(articleScript.includes("primaryTextColor:'#201f1e'"));
+  assert(!articleScript.includes('#12707a'));
 });
 
-test('product page IDs, assets, anchors and accessibility references resolve', () => {
+test('technical reference anchors, accessibility references and local assets resolve', () => {
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(ids.length, new Set(ids).size);
   for (const [, id] of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(id), id);
   for (const [, references] of html.matchAll(/aria-(?:controls|labelledby|describedby)="([^"]+)"/g)) {
     for (const id of references.split(' ')) assert(ids.includes(id), id);
   }
-  for (const [, asset] of html.matchAll(/(?:src|href)="((?:assets|js|css)\/[^"]+)"/g)) {
+  for (const [, asset] of html.matchAll(/(?:src|href)="((?:assets|js|css)\/[^\"]+)"/g)) {
     assert(fs.existsSync(path.join(root, asset)), asset);
   }
-  assert(html.includes('class="skip-link" href="#main-content"'));
-  assert(html.includes('href="index.html" data-top-href="#cases-hero"'));
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  assert(css.includes('--duration:.5s'));
-  assert(css.includes('prefers-reduced-motion:reduce'));
-  assert(!html.includes('js/showcase.js'));
-  assert(!html.includes('js/contact.js'));
+  assert(!html.includes('cases-0.2.html'));
+  assert(!html.includes('Cases 0.2'));
 });
 
-test('Cases design uses product-specific CTAs and illustrative product visuals', () => {
-  assert(html.includes('aria-label="On this page"'));
-  assert(html.includes('Illustrative customer update'));
-  assert.equal((html.match(/class="cases-capability-art /g) || []).length, 4);
-  assert(html.includes('class="cases-deployment-map"'));
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  assert(css.includes('.cases-page .demo-button'));
-  assert(css.includes('background:var(--cases-gold)'));
-  assert(html.includes('--cases-color:#12707A;--cases-gold:#F2B632'));
-});
-
-test('hero screen supplies illustrative progress and keyboard-operable action explanations', () => {
-  assert(html.includes('js/cases-art.js'));
-  assert(html.includes('aria-label="Illustrative workflow stages"'));
-  assert.equal((html.match(/<details><summary>/g) || []).length, 2);
-  assert(html.includes('Illustration only.'));
-  assert(html.includes('Private checkpoint'));
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  assert(css.includes('cases-progress-grow 9s ease-in-out infinite'));
-  assert(css.includes('animation-play-state:var(--art-play)'));
-  assert(!css.includes('--brand-width'));
-});
-
-test('Cases hero reuses an undistorted official homepage slash in product gold', () => {
-  const source = fs.readFileSync(path.join(root, 'assets/logos/INDICE_slashes.svg'), 'utf8');
-  const officialPath = [...source.matchAll(/<path d="([^"]+)"/g)][1][1];
-  assert(html.includes(`viewBox="0 0 124.6 201.7" aria-hidden="true"><path d="${officialPath}" fill="currentColor"/>`));
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  const rule = css.match(/\.cases-hero-slash \{([^}]+)\}/)[1];
-  assert(rule.includes('color:var(--cases-gold)'));
-  assert(rule.includes('width:auto'));
-  assert(!rule.includes('skew'));
-  assert(!css.includes('.cases-visual-grid::after'));
-});
-
-test('Challenge section uses the dark logo teal with light text and dividers', () => {
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  const rule = css.match(/#cases-challenge \{([^}]+)\}/)[1];
-  assert(rule.includes('background:linear-gradient(110deg,#052e36,#14616a,var(--cases-dark),#082f45)'));
-  assert(rule.includes('color:var(--white)'));
-  assert(rule.includes('--muted:var(--paper)'));
-  assert(rule.includes('--line:#ffffff33'));
-  assert.match(css, /#cases-challenge \.section-top \{\s+color:inherit/);
-  assert(rule.includes('animation:cases-challenge-gradient 10s ease-in-out infinite'));
-  assert(!css.includes('#cases-challenge .cases-intro {'));
-  assert(html.includes('<ol class="cases-challenge-points" role="list">'));
-  assert.equal((html.match(/<li><span aria-hidden="true">0[12]<\/span><p>/g) || []).length, 2);
-});
-
-test('Cases section menu sticks outside the clipped hero and reserves anchor clearance', () => {
-  assert(html.indexOf('class="cases-page-links"') < html.indexOf('<section class="cases-hero'));
-  const css = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
-  const rule = css.match(/\.cases-page-links \{([^}]+)\}/)[1];
-  assert(rule.includes('position:sticky'));
-  assert(rule.includes('top:0'));
-  assert(rule.includes('background:linear-gradient(to right,#ffffff00,var(--white))'));
-  assert.match(css, /\.cases-page section \{\s+scroll-margin-top:/);
-});
-
-test('capability tabs preserve all four illustrations and readable no-script panels', () => {
-  assert(html.includes('js/cases-tabs.js'));
-  assert.equal((html.match(/role="tab" id="capability-tab-/g) || []).length, 4);
-  assert.equal((html.match(/<article id="capability-panel-\d">/g) || []).length, 4);
-  assert(html.includes('aria-orientation="vertical" hidden'));
-});
-
-test('Cases 0.2 preserves the hero and offers a concise narrative with an intact technical reference', () => {
-  const article = fs.readFileSync(path.join(root, 'cases-0.2.html'), 'utf8');
-  const reference = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
-  const hero = page => page.match(/    <section class="cases-hero[\s\S]*?<\/section>/)[0];
-  assert.equal(hero(article), hero(html));
-  assert.equal(hero(reference), hero(html));
-  assert(home.includes('href="cases-0.2.html">Cases 0.2'));
-  assert(article.includes('href="cases-0.2.html" aria-current="page"'));
-  assert(!article.includes('href="cases.html" aria-current="page"'));
-  assert.equal((article.match(/<h1\b/g) || []).length, 1);
-  assert(article.includes('<article class="cases-article"'));
-  assert(article.includes('IContactProvider'));
-  assert(article.includes('Implementation responsibilities'));
-  assert(article.includes('not, on their own, establish regulatory compliance'));
-  assert(article.includes('default conversion implementation is a no-op'));
-  assert.equal((article.match(/<details class="article-details">/g) || []).length, 5);
-  assert.equal((article.match(/<pre class="mermaid"/g) || []).length, 1);
-  assert(!article.includes('class="language-csharp"'));
-  assert(!/<details class="article-details"[^>]*\bopen\b/.test(article));
-  assert(article.includes('href="cases-reference.html"'));
-  assert(reference.includes('href="cases-0.2.html"'));
-  assert(!reference.includes('href="cases-0.2.html" aria-current="page"'));
-  assert(reference.includes('AddTranslationsResource'));
-  assert(reference.includes('(next release)'));
-  assert.equal((reference.match(/<pre class="mermaid"/g) || []).length, 4);
-  assert.equal((reference.match(/<table>/g) || []).length, 3);
-  assert(reference.includes('class="language-csharp"'));
-  assert(!article.includes('id="cases-challenge"'));
-  for (const page of [article, reference]) {
-    const ids = [...page.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
-    assert.equal(ids.length, new Set(ids).size);
-    for (const [, id] of page.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(id), id);
-    for (const [, asset] of page.matchAll(/(?:src|href)="((?:assets|js|css)\/[^\"]+)"/g)) {
-      assert(fs.existsSync(path.join(root, asset)), asset);
-    }
-  }
-  for (const [, id] of article.matchAll(/href="cases-reference.html#([^"]+)"/g)) {
-    assert(reference.includes(`id="${id}"`), id);
-  }
-});
-
-test('article menus track scroll in both directions without Mermaid and select the final section at the bottom', () => {
+test('article navigation tracks section scroll in both directions and works at page end', () => {
   const source = fs.readFileSync(path.join(root, 'js/cases-article.js'), 'utf8');
   const listeners = {};
   const frames = [];
@@ -190,7 +125,6 @@ test('article menus track scroll in both directions without Mermaid and select t
     setAttribute(name, value) { this.attributes[name] = value; },
     removeAttribute(name) { delete this.attributes[name]; }
   });
-  const topLinks = ['overview', 'capabilities', 'flows', 'developers'].map(createLink);
   const contentsLinks = Object.keys(positions).map(createLink);
   const browser = {
     scrollY:0,
@@ -200,13 +134,15 @@ test('article menus track scroll in both directions without Mermaid and select t
     requestAnimationFrame(callback) { frames.push(callback); return frames.length; }
   };
   const article = { getBoundingClientRect:() => ({ top:positions.overview - browser.scrollY }) };
-  const menu = { getBoundingClientRect:() => ({ bottom:112 }) };
   vm.runInNewContext(source, {
     window:browser,
     document:{
       documentElement:{ scrollHeight:5000 },
-      querySelector:selector => selector === '.cases-article' ? article : menu,
-      querySelectorAll:() => [topLinks, contentsLinks].map(links => ({ querySelectorAll:() => links })),
+      addEventListener() {},
+      querySelector:() => article,
+      querySelectorAll:selector => selector === '.cases-article-toc nav'
+        ? [{ querySelectorAll:() => contentsLinks }]
+        : [],
       getElementById:id => ({ getBoundingClientRect:() => ({ top:positions[id] - browser.scrollY }) })
     }
   });
@@ -216,25 +152,20 @@ test('article menus track scroll in both directions without Mermaid and select t
     listeners.scroll();
     frames.shift()();
   };
-  assert.deepEqual(active(topLinks), []);
   scroll(900);
-  assert.deepEqual(active(topLinks), ['#overview']);
+  assert.deepEqual(active(contentsLinks), ['#overview']);
   scroll(1900);
-  assert.deepEqual(active(topLinks), ['#flows']);
   assert.deepEqual(active(contentsLinks), ['#flows']);
   scroll(1300);
-  assert.deepEqual(active(topLinks), ['#capabilities']);
   scroll(3100);
-  assert.deepEqual(active(topLinks), ['#developers']);
   assert.deepEqual(active(contentsLinks), ['#developers']);
   scroll(4200);
-  assert.deepEqual(active(topLinks), ['#developers']);
   assert.deepEqual(active(contentsLinks), ['#configuration']);
   scroll(0);
   assert.deepEqual(active(contentsLinks), []);
   browser.getComputedStyle = () => ({ getPropertyValue:() => '260px' });
   scroll(1740);
-  assert.deepEqual(active(topLinks), ['#flows']);
+  assert.deepEqual(active(contentsLinks), ['#flows']);
   listeners.resize();
   listeners.scroll();
   assert.equal(frames.length, 1);
