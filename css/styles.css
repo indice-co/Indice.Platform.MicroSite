@@ -384,12 +384,12 @@ section:focus,article:focus,main:focus {
   stroke-width:1.4;
   stroke-linejoin:round
 }
-.hero-cloud-orbit {
-  stroke:var(--ink);
-  stroke-opacity:.3;
-  stroke-width:1;
+.hero-cloud-trace {
+  stroke:var(--red);
+  stroke-width:2.4;
   stroke-linecap:round;
-  stroke-dasharray:.004 .008
+  stroke-dasharray:.12 .88;
+  opacity:0
 }
 .hero-link {
   stroke:var(--ink);
@@ -434,10 +434,16 @@ section:focus,article:focus,main:focus {
   transform-origin:center
 }
 .hero-art.art-ready .hero-cloud {
-  animation:hero-draw 2s var(--ease) .3s both,hero-cloud-fill 1.2s ease 1.2s both
+  animation:hero-draw 2s var(--ease) .3s both,hero-cloud-fill 1.2s ease 1.2s both,hero-cloud-swell 8s ease-in-out calc(var(--hero-fill-delay) + .4s) infinite
 }
-.hero-art.art-ready .hero-cloud-orbit {
-  animation:hero-fade 1s ease 1.6s both,hero-orbit 40s linear 1.6s infinite
+/* Two signals on different periods and directions, so the passes never settle into a steady beat. */
+.hero-art.art-ready .hero-cloud-trace {
+  animation:hero-cloud-trace 8s ease-in-out calc(var(--hero-fill-delay) + .4s) infinite backwards
+}
+.hero-art.art-ready .hero-cloud-trace+.hero-cloud-trace {
+  animation-duration:13s;
+  animation-direction:reverse;
+  animation-delay:calc(var(--hero-fill-delay) + 3.4s)
 }
 .hero-art.art-ready .hero-rail {
   animation:hero-draw 1.4s var(--ease) var(--draw-delay,.2s) both
@@ -455,10 +461,10 @@ section:focus,article:focus,main:focus {
   visibility:visible;
   animation:hero-pulse 3.6s linear calc(var(--hero-fill-delay) + var(--pulse-delay,0s)) infinite backwards
 }
-.hero-art.art-ready :is(.hero-cloud,.hero-cloud-orbit,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
+.hero-art.art-ready :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
   animation-play-state:paused
 }
-.hero-art.is-animating :is(.hero-cloud,.hero-cloud-orbit,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
+.hero-art.is-animating :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
   animation-play-state:running
 }
 @keyframes hero-draw {
@@ -481,9 +487,25 @@ section:focus,article:focus,main:focus {
     opacity:0
   }
 }
-@keyframes hero-orbit {
-  to {
-    stroke-dashoffset:-1
+@keyframes hero-cloud-trace {
+  0% {
+    stroke-dashoffset:1;
+    opacity:0
+  }
+  5%,30% {
+    opacity:1
+  }
+  36%,100% {
+    stroke-dashoffset:0;
+    opacity:0
+  }
+}
+@keyframes hero-cloud-swell {
+  0%,24%,52%,100% {
+    stroke-width:1.4
+  }
+  36% {
+    stroke-width:2.4
   }
 }
 @keyframes hero-ping {
@@ -816,7 +838,9 @@ section:focus,article:focus,main:focus {
 .products-introduction h2,.services-introduction h2 {
   grid-column:1/-1;
   grid-row:1;
-  max-width:75%;
+  max-width:75%
+}
+.products-introduction h2,.services-introduction h2,.hero .hero-motto {
   font-size:clamp(38px,3.8vw,64px)
 }
 .products-introduction>p,.services-introduction>div {
@@ -1258,7 +1282,7 @@ section:focus,article:focus,main:focus {
   max-width:none
 }
 .services-introduction>div {
-  color:var(--muted)
+  color:var(--ink)
 }
 .service-list {
   margin-top:90px
@@ -1742,7 +1766,7 @@ section:focus,article:focus,main:focus {
   .products-introduction,.services-introduction {
     gap:5%
   }
-  .products-introduction h2,.services-introduction h2 {
+  .products-introduction h2,.services-introduction h2,.hero .hero-motto {
     font-size:clamp(32px,3.8vw,44px)
   }
   .service-row {
@@ -2351,6 +2375,101 @@ section:focus,article:focus,main:focus {
   .story-enhanced .chapter-description {
     margin-bottom:18px;
     font-size:13px
+  }
+}
+.hero {
+  grid-template-columns:minmax(0,calc((100% - 96px) * .44 + 60px)) minmax(0,calc((100% - 96px) * .56 - 60px));
+  grid-template-rows:50px 24px max-content auto;
+  align-content:center;
+  column-gap:96px;
+  row-gap:12px
+}
+.hero .hero-top {
+  grid-column:1/-1
+}
+.hero .hero-composition {
+  display:contents
+}
+.hero h1#hero-title {
+  grid-column:1;
+  grid-row:2;
+  font-size:16px;
+  font-weight:650;
+  line-height:1.65;
+  letter-spacing:.09em;
+  max-width:100%
+}
+.hero h1#hero-title>span {
+  display:inline
+}
+.hero .hero-baseline {
+  grid-column:1;
+  grid-row:3;
+  display:block;
+  margin:0
+}
+.hero .hero-motto {
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.055em
+}
+.hero .pillar-grid {
+  grid-column:1;
+  grid-row:4;
+  align-self:start;
+  grid-template-columns:minmax(0,1fr);
+  gap:18px;
+  margin-top:48px
+}
+.hero .pillar {
+  display:block;
+  padding:15px 0 5px
+}
+.hero .pillar-label {
+  font-size:24px
+}
+.hero .pillar-headline {
+  color:var(--muted);
+  max-width:none
+}
+.hero .hero-art {
+  position:absolute;
+  translate:-60px 0;
+  grid-column:2;
+  grid-row:2/5;
+  align-self:center;
+  justify-self:end;
+  right:auto;
+  top:auto;
+  width:100%;
+  max-width:672px;
+  height:auto;
+  aspect-ratio:5/4
+}
+@media(min-width:1441px) {
+  .hero .hero-art {
+    justify-self:center;
+    translate:none
+  }
+}
+@media(max-width:760px) {
+  .hero {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:50px 24px auto auto auto;
+    height:auto;
+    min-height:100svh;
+    max-height:none;
+    align-content:start;
+    column-gap:0
+  }
+  .hero .hero-art {
+    position:relative;
+    translate:none;
+    grid-column:1;
+    grid-row:5;
+    justify-self:center;
+    max-width:520px;
+    margin-top:16px
   }
 }
 @media(prefers-reduced-motion:reduce) {
