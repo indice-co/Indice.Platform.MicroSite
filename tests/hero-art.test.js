@@ -67,7 +67,17 @@ function fixture({ reduced = false, observerAvailable = true, missingArt = false
       style: { setProperty: (name, value) => properties.set(name, value) },
     };
   }) : [];
-  art.querySelectorAll = () => shapes;
+  const layers = interactive ? ['cloud', 'foundation'].map(() => {
+    const properties = new Map();
+    return {
+      properties,
+      parentElement: { getScreenCTM: () => ({ a: 1, b: 0 }) },
+      getBBox: () => ({ x: 950, y: 250, width: 150, height: 150 }),
+      style: { setProperty: (name, value) => properties.set(name, value) },
+    };
+  }) : [];
+  art.querySelectorAll = selector => selector === '.hero-slash-shape' ? shapes
+    : selector === '.hero-cloud,.hero-cloud-trace' ? layers.slice(0, 1) : layers.slice(1);
   art.clientWidth = 450;
   art.clientHeight = 500;
   const classes = new Set();
@@ -102,7 +112,7 @@ function fixture({ reduced = false, observerAvailable = true, missingArt = false
   };
   sandbox.window = sandbox;
   vm.runInNewContext(source, sandbox, { filename: 'js/hero-art.js' });
-  return { art, shapes, flights, pointer, frames, document, browser, media, observers, setTop: value => { top = value; },
+  return { art, shapes, layers, flights, pointer, frames, document, browser, media, observers, setTop: value => { top = value; },
     flush: () => { const callbacks = [...frames.values()]; frames.clear(); callbacks.forEach(callback => callback()); },
     running: () => art.classList.contains('is-animating') };
 }
@@ -148,6 +158,33 @@ test('slash repulsion waits for both arrivals, then resets on leave, touch and r
   page.media.matches = true;
   page.media.dispatch('change');
   assert(!displaced());
+});
+
+test('cloud and foundation repel gently and reset with the existing motion lifecycle', () => {
+  const page = fixture({ interactive: true });
+  const move = () => {
+    page.art.dispatch('pointermove', { clientX: 1000, clientY: 300, pointerType: 'mouse' });
+    page.flush();
+  };
+  const distance = layer => Math.hypot(parseFloat(layer.properties.get('--repel-x')),
+    parseFloat(layer.properties.get('--repel-y')));
+  move();
+  page.layers.forEach(layer => assert.equal(distance(layer), 0));
+  page.flights.forEach(target => page.art.dispatch('animationend', { animationName: 'hero-slash-arrive', target }));
+  move();
+  page.layers.forEach((layer, index) => {
+    assert(distance(layer) > 0);
+    assert(distance(layer) <= (index ? 8 : 10));
+  });
+  page.art.dispatch('pointerleave');
+  page.layers.forEach(layer => assert.equal(distance(layer), 0));
+  move();
+  page.art.dispatch('pointermove', { pointerType: 'touch' });
+  page.layers.forEach(layer => assert.equal(distance(layer), 0));
+  move();
+  page.media.matches = true;
+  page.media.dispatch('change');
+  page.layers.forEach(layer => assert.equal(distance(layer), 0));
 });
 
 test('reduced motion prevents playback initially and reacts to live preference changes', () => {
