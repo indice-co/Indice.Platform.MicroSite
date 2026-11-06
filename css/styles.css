@@ -650,7 +650,11 @@ section:focus,article:focus,main:focus {
   display:flex;
   flex-direction:column;
   align-items:flex-start;
+  width:100%;
   max-width:100%
+}
+.tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+  width:calc(60% - 25.6px)
 }
 .tile-link:focus-visible {
   background:#ffffff26
@@ -668,27 +672,18 @@ section:focus,article:focus,main:focus {
   object-position:left center
 }
 .tile-description {
-  font-size:12px;
+  color:var(--muted);
+  font-size:16px;
   line-height:1.6;
-  max-width:240px
+  width:100%
 }
 .tile-learn {
-  font-size:12px;
+  font-size:13px;
   font-weight:650;
   margin-top:6px
 }
 .product-tile:nth-child(1),.product-tile:nth-child(4),.product-tile:nth-child(5) {
   grid-column:span 2
-}
-.product-tile:first-child {
-  display:grid;
-  grid-template-columns:3fr 2fr;
-  align-content:center;
-  padding:40px 0
-}
-.product-tile:first-child .tile-link {
-  min-width:0;
-  margin:0 32px
 }
 .product-tile:nth-child(2),.product-tile:nth-child(6) {
   border-left:1px solid var(--line)
@@ -1559,11 +1554,8 @@ section:focus,article:focus,main:focus {
   .product-tile {
     padding:24px;
   }
-  .product-tile:first-child {
-    padding:24px 0
-  }
-  .product-tile:first-child .tile-link {
-    margin:0 24px
+  .tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+    width:calc(60% - 19.2px)
   }
   .chapter-content {
     padding:25px
@@ -1833,16 +1825,12 @@ section:focus,article:focus,main:focus {
     border-left:0;
     border-right:0
   }
+  .tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+    width:100%
+  }
   .product-tile {
     min-height:250px;
     padding:20px
-  }
-  .product-tile:first-child {
-    display:flex;
-    padding:20px
-  }
-  .product-tile:first-child .tile-link {
-    margin:0
   }
   .tile-logo {
     padding:0
@@ -2068,9 +2056,6 @@ section:focus,article:focus,main:focus {
   }
   .product-tile {
     min-height:230px;
-    padding:22px 25px
-  }
-  .product-tile:first-child {
     padding:22px 25px
   }
   .product-tile:nth-last-child(2) {
