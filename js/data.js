@@ -28,18 +28,18 @@ globalThis.INDICE_DATA = {
       { title: 'Fintech experience', description: 'Deep understanding of the financial sector’s requirements, regulations, and operational complexities.' }
     ], explore: 'Explore the suite' },
     metrics: [
-      { value: '42', label: 'Organisations using INDICE products' },
+      { value: '42', label: 'Organisations using INDICE solutions' },
       { value: '280', label: 'Production implementations' },
       { value: '+300.000', label: 'Users served across deployments' },
       { value: '+25', label: 'Years of platform development' }
     ],
-    products: { label: 'Platform Suite', title: 'Six products. A platform of possibilities.', introduction: 'Six products address recurring business and technology needs. Available individually or in combination, they support solutions adapted to each organisation’s requirements and deployed in its own environment.' },
+    products: { label: 'Platform Suite', title: 'Our solutions. A platform of possibilities.', introduction: 'Our solutions address recurring business and technology needs. Available individually or in combination, they can be adapted to each organisation’s requirements and deployed in its own environment.' },
     services: { label: 'Platform Services', title: 'From platform capabilities to working solutions.', paragraphs: [
-      'INDICE provides the development, integration, and ongoing support that turn platform products into solutions tailored to each organisation.',
+      'INDICE provides the development, integration, and ongoing support to tailor platform capabilities to each organisation.',
       'Implementation expertise and continuous improvement support the full journey, from initial delivery to evolving business requirements.'
     ], items: [
-      { title: 'Application development', description: 'Custom applications and product extensions built around specific business processes and requirements.' },
-      { title: 'Product and system integration', description: 'Selected platform products connected with existing applications, systems, and infrastructure.' },
+      { title: 'Application development', description: 'Custom applications and solution extensions built around specific business processes and requirements.' },
+      { title: 'Solution and system integration', description: 'Selected platform solutions connected with existing applications, systems, and infrastructure.' },
       { title: 'Continuous evolution and support', description: 'New features, regular security updates, vulnerability patching, and direct support from the INDICE team.' }
     ] },
     customers: { title: 'Supporting digital progress across organisations.', logos: [
@@ -48,7 +48,7 @@ globalThis.INDICE_DATA = {
       { name: 'doValue', logo: 'assets/logos/clients-logos/doValue.svg' },
       { name: 'ERGO', logo: 'assets/logos/clients-logos/Ergo.svg' }
     ] },
-    contact: { title: 'The foundation. The products. The expertise.', description: 'Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.' }
+    contact: { title: 'The foundation. The solutions. The expertise.', description: 'Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.' }
   },
   // Colors are verified SVG icon colors, provisionally used as presentation backgrounds.
   // Add future products only when their approved assets/copy are supplied; the story is data-driven.

@@ -243,7 +243,7 @@ section:focus,article:focus,main:focus {
 .hero h1 {
   position:relative;
   z-index:2;
-  font-size:clamp(90px,10.8vw,190px);
+  font-size:clamp(82px,9.7vw,172px);
   line-height:.91;
   letter-spacing:-.075em;
   max-width:75%;
@@ -377,13 +377,9 @@ section:focus,article:focus,main:focus {
 }
 .pillar-label {
   display:flex;
-  gap:14px;
-  font-size:12px;
+  font-size:clamp(16px,1.3vw,20px);
   font-weight:650;
   margin-bottom:12px
-}
-.pillar-label>span {
-  color:var(--muted)
 }
 .pillar-headline {
   font-size:clamp(16px,1.15vw,18px);
@@ -396,19 +392,20 @@ section:focus,article:focus,main:focus {
   display:flex;
   align-items:center;
   gap:14px;
-  width:fit-content;
-  padding-right:40px;
+  width:100%;
+  padding-right:0;
   max-width:100%
 }
 .pillar-content>.arrow {
   flex-shrink:0;
   width:20px;
   height:20px;
-  transform-origin:left center;
+  margin-left:auto;
+  transform-origin:right center;
   transition:transform .3s var(--ease)
 }
 .pillar:hover .pillar-content>.arrow,.pillar:focus-visible .pillar-content>.arrow {
-  transform:scale(3)
+  transform:scale(1.5)
 }
 /* Foundation and configurable suite metrics. */
 .foundation {
@@ -1513,7 +1510,7 @@ section:focus,article:focus,main:focus {
     padding-top:40px
   }
   .hero h1 {
-    font-size:190px
+    font-size:172px
   }
   .hero-composition {
     padding:50px 0
@@ -1594,7 +1591,7 @@ section:focus,article:focus,main:focus {
     max-height:none
   }
   .hero h1 {
-    font-size:clamp(96px,13.5vw,140px)
+    font-size:clamp(88px,12.2vw,128px)
   }
   .hero-art {
     width:32%;
@@ -1716,7 +1713,7 @@ section:focus,article:focus,main:focus {
   }
   .hero h1 {
     grid-column:1/-1;
-    font-size:clamp(79px,14.8vw,112px);
+    font-size:clamp(72px,13.4vw,100px);
     max-width:100%
   }
   .hero-art {
@@ -1744,8 +1741,7 @@ section:focus,article:focus,main:focus {
     padding-top:12px
   }
   .pillar-label {
-    font-size:10px;
-    gap:8px;
+    font-size:16px;
     margin-bottom:14px
   }
   .pillar-headline {
@@ -2037,7 +2033,7 @@ section:focus,article:focus,main:focus {
     padding-bottom:45px
   }
   .hero h1 {
-    font-size:17.3vw
+    font-size:15.8vw
   }
   .hero-art {
     height:190px
@@ -2051,15 +2047,14 @@ section:focus,article:focus,main:focus {
   }
   .pillar {
     display:grid;
-    grid-template-columns:75px minmax(0,1fr);
-    gap:14px;
+    grid-template-columns:1fr;
+    gap:8px;
     padding:15px 0;
     align-items:center
   }
   .pillar-label {
     margin:0;
-    font-size:9px;
-    gap:8px
+    font-size:15px
   }
   .pillar-headline {
     font-size:12px;
@@ -2134,7 +2129,7 @@ section:focus,article:focus,main:focus {
     height:auto
   }
   .hero h1 {
-    font-size:112px
+    font-size:100px
   }
   .hero-composition {
     padding:35px 0

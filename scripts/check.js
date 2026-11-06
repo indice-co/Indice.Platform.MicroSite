@@ -38,7 +38,7 @@ assert.equal((html.match(/<div class="product-tile tile-placeholder"/g) || []).l
 for (const name of ['iam', 'cases', 'risk', 'messaging']) {
   assert(html.includes(`src="assets/logos/${name} logo.svg"`), `Suite uses the replacement ${name} logo`);
 }
-assert(html.includes('Six products.<br>A platform of possibilities.'), 'Suite title breaks after its first sentence');
+assert(html.includes('Our solutions.<br>A platform of possibilities.'), 'Suite title breaks after its first sentence');
 assert.deepEqual([...html.matchAll(/data-product-link="([^"]+)"/g)].map(match => match[1]), ['cases', 'iam', 'messaging', 'risk']);
 assert.equal((html.match(/<a class="tile-link" /g) || []).length, 4, 'Only product content is interactive, not the surrounding grid cell');
 assert(!/href="#"|href="\/products|mailto:|<form\b|<iframe\b/.test(html));

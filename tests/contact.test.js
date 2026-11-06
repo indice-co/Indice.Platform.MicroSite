@@ -78,9 +78,9 @@ test('three typed lines preserve the accessible title and stagger every characte
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const lines = [...html.matchAll(/<span class="contact-line" aria-hidden="true">([\s\S]*?)<\/span><\/span>/g)];
   assert.equal(lines.length, 3);
-  assert(html.includes('aria-label="The foundation. The products. The expertise."'));
+  assert(html.includes('aria-label="The foundation. The solutions. The expertise."'));
   const delays = [...html.matchAll(/--character-delay:([\d.]+)s/g)].map(match => Number(match[1]));
-  assert.equal(delays.length, 42);
+  assert.equal(delays.length, 43);
   assert(delays.every((delay, index) => !index || delay > delays[index - 1]));
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   assert.match(css, /opacity:1;\s*animation:contact-type \.04s linear var\(--character-delay\) backwards/);
