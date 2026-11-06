@@ -377,6 +377,13 @@ section:focus,article:focus,main:focus {
   height:100%;
   overflow:visible
 }
+.hero-coordinate {
+  fill:#777268;
+  font-size:22px;
+  font-weight:300;
+  text-anchor:middle;
+  pointer-events:none
+}
 .hero-layer {
   transition:opacity .45s var(--ease)
 }
@@ -440,7 +447,7 @@ section:focus,article:focus,main:focus {
   stroke-dasharray:.03 .97;
   visibility:hidden
 }
-.hero-node {
+.hero-node,.hero-coordinate {
   transform-box:fill-box;
   transform-origin:center
 }
@@ -462,8 +469,8 @@ section:focus,article:focus,main:focus {
 .hero-art.art-ready :is(.hero-rack,.hero-link) {
   animation:hero-fade .8s ease calc(var(--hero-flight-delay) + 1.1s) both
 }
-.hero-art.art-ready .hero-node {
-  animation:hero-node-in .8s var(--ease) calc(var(--hero-flight-delay) + .35s + var(--node-index) * .14s) both
+.hero-art.art-ready :is(.hero-node,.hero-coordinate) {
+  animation:hero-node-in .8s var(--ease) calc(var(--hero-flight-delay) + .35s + var(--node-index,0) * .14s) both
 }
 .hero-art.art-ready .hero-node-ring {
   animation:hero-ping 2.8s ease-out calc(var(--hero-flight-delay) + 1.6s + var(--node-index) * .4s) infinite
@@ -472,10 +479,10 @@ section:focus,article:focus,main:focus {
   visibility:visible;
   animation:hero-pulse 3.6s linear calc(var(--hero-fill-delay) + var(--pulse-delay,0s)) infinite backwards
 }
-.hero-art.art-ready :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
+.hero-art.art-ready :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-coordinate,.hero-node-ring,.hero-pulse) {
   animation-play-state:paused
 }
-.hero-art.is-animating :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-node-ring,.hero-pulse) {
+.hero-art.is-animating :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-coordinate,.hero-node-ring,.hero-pulse) {
   animation-play-state:running
 }
 @keyframes hero-draw {
@@ -2452,7 +2459,7 @@ section:focus,article:focus,main:focus {
 @media(min-width:1441px) {
   .hero .hero-art {
     justify-self:center;
-    translate:none
+    translate:-40px 0
   }
 }
 @media(max-width:760px) {
