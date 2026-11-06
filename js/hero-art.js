@@ -2,7 +2,20 @@
 (() => {
   'use strict';
 
-  const art = document.querySelector('.hero-art');
+  const originalHero = document.querySelector('.hero');
+  let art;
+  if (originalHero?.cloneNode) {
+    const duplicateHero = originalHero.cloneNode(true);
+    originalHero.hidden = true;
+    originalHero.style.display = 'none';
+    originalHero.id = 'hero-original';
+    originalHero.setAttribute('aria-labelledby', 'hero-title-original');
+    originalHero.querySelector('h1')?.setAttribute('id', 'hero-title-original');
+    originalHero.before(duplicateHero);
+    art = duplicateHero.querySelector('.hero-art');
+  } else {
+    art = document.querySelector('.hero-art');
+  }
   if (!art) return;
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
