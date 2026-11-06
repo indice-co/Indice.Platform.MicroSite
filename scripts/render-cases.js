@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { escape, arrow, demo, logo, navigation } = require('./shared.js');
 
-module.exports = function renderCases() {
+module.exports = function renderCases(article = null) {
   const { config, products, casesPage } = globalThis.INDICE_DATA;
   const cases = products.find(product => product.id === 'cases');
   const slashPath = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8')
@@ -28,7 +28,7 @@ module.exports = function renderCases() {
     ['Controlled visibility and access', 'Keep internal steps and notes private. Customers see published updates; staff access follows their permissions.'],
     ['Case history and workload visibility', 'Follow the case timeline, data versions, comments and attachments. Use case lists and reports to understand the work in hand.']
   ];
-  const html = `<!doctype html>
+  let html = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -129,6 +129,16 @@ module.exports = function renderCases() {
 </body>
 </html>
 `;
-  fs.writeFileSync(path.join(__dirname, '../cases.html'), html, 'utf8');
-  console.log('Rendered INDICE Cases product page.');
+  if (article) {
+    html = html.replace('<title>INDICE Cases &mdash;', `<title>${escape(article.title)} &mdash;`)
+      .replace('<body class="cases-page"', '<body class="cases-page cases-article-page"')
+      .replace('href="cases.html" aria-current="page"', 'href="cases.html"')
+      .replace('class="text-link panel-explore" href="cases-0.2.html"', `class="text-link panel-explore" href="cases-0.2.html"${article.filename === 'cases-0.2.html' ? ' aria-current="page"' : ''}`)
+      .replace('  <script defer src="js/cases-tabs.js"></script>', '  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>\n  <script defer src="js/cases-article.js"></script>')
+      .replace('</head>', '  <link rel="stylesheet" href="css/cases-article.css">\n</head>')
+      .replace(/<nav class="cases-page-links"[^>]*>[\s\S]*?<\/nav>/, article.navigation)
+      .replace(/    <section class="cases-section[\s\S]*?(?=  <\/main>)/, article.html);
+  }
+  fs.writeFileSync(path.join(__dirname, article ? `../${article.filename}` : '../cases.html'), html, 'utf8');
+  console.log(`Rendered ${article ? article.title : 'INDICE Cases product page'}.`);
 };

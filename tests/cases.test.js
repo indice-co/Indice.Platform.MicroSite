@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 require('../js/data.js');
 
 const root = path.join(__dirname, '..');
@@ -46,6 +47,10 @@ test('homepage and shared navigation expose Cases while other products remain un
     assert(page.includes('id="menu-trigger"'));
     assert(page.includes('aria-controls="products-panel" aria-expanded="false"'));
   }
+  assert(home.includes('<div class="panel-heading"><span>Suite Solutions</span></div>'));
+  assert(!home.includes('class="panel-note"'));
+  assert(home.includes('Explore all solutions'));
+  assert(!home.includes('Explore all products'));
 });
 
 test('product page IDs, assets, anchors and accessibility references resolve', () => {
@@ -131,4 +136,106 @@ test('capability tabs preserve all four illustrations and readable no-script pan
   assert.equal((html.match(/role="tab" id="capability-tab-/g) || []).length, 4);
   assert.equal((html.match(/<article id="capability-panel-\d">/g) || []).length, 4);
   assert(html.includes('aria-orientation="vertical" hidden'));
+});
+
+test('Cases 0.2 preserves the hero and offers a concise narrative with an intact technical reference', () => {
+  const article = fs.readFileSync(path.join(root, 'cases-0.2.html'), 'utf8');
+  const reference = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
+  const hero = page => page.match(/    <section class="cases-hero[\s\S]*?<\/section>/)[0];
+  assert.equal(hero(article), hero(html));
+  assert.equal(hero(reference), hero(html));
+  assert(home.includes('href="cases-0.2.html">Cases 0.2'));
+  assert(article.includes('href="cases-0.2.html" aria-current="page"'));
+  assert(!article.includes('href="cases.html" aria-current="page"'));
+  assert.equal((article.match(/<h1\b/g) || []).length, 1);
+  assert(article.includes('<article class="cases-article"'));
+  assert(article.includes('IContactProvider'));
+  assert(article.includes('Implementation responsibilities'));
+  assert(article.includes('not, on their own, establish regulatory compliance'));
+  assert(article.includes('default conversion implementation is a no-op'));
+  assert.equal((article.match(/<details class="article-details">/g) || []).length, 5);
+  assert.equal((article.match(/<pre class="mermaid"/g) || []).length, 1);
+  assert(!article.includes('class="language-csharp"'));
+  assert(!/<details class="article-details"[^>]*\bopen\b/.test(article));
+  assert(article.includes('href="cases-reference.html"'));
+  assert(reference.includes('href="cases-0.2.html"'));
+  assert(!reference.includes('href="cases-0.2.html" aria-current="page"'));
+  assert(reference.includes('AddTranslationsResource'));
+  assert(reference.includes('(next release)'));
+  assert.equal((reference.match(/<pre class="mermaid"/g) || []).length, 4);
+  assert.equal((reference.match(/<table>/g) || []).length, 3);
+  assert(reference.includes('class="language-csharp"'));
+  assert(!article.includes('id="cases-challenge"'));
+  for (const page of [article, reference]) {
+    const ids = [...page.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(ids.length, new Set(ids).size);
+    for (const [, id] of page.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(id), id);
+    for (const [, asset] of page.matchAll(/(?:src|href)="((?:assets|js|css)\/[^\"]+)"/g)) {
+      assert(fs.existsSync(path.join(root, asset)), asset);
+    }
+  }
+  for (const [, id] of article.matchAll(/href="cases-reference.html#([^"]+)"/g)) {
+    assert(reference.includes(`id="${id}"`), id);
+  }
+});
+
+test('article menus track scroll in both directions without Mermaid and select the final section at the bottom', () => {
+  const source = fs.readFileSync(path.join(root, 'js/cases-article.js'), 'utf8');
+  const listeners = {};
+  const frames = [];
+  const positions = { overview:1000, capabilities:1400, flows:2000, developers:3000, configuration:4000 };
+  const createLink = id => ({
+    attributes:{ href:`#${id}` },
+    getAttribute(name) { return this.attributes[name]; },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    removeAttribute(name) { delete this.attributes[name]; }
+  });
+  const topLinks = ['overview', 'capabilities', 'flows', 'developers'].map(createLink);
+  const contentsLinks = Object.keys(positions).map(createLink);
+  const browser = {
+    scrollY:0,
+    innerHeight:800,
+    getComputedStyle:() => ({ getPropertyValue:() => '145px' }),
+    addEventListener(name, callback) { listeners[name] = callback; },
+    requestAnimationFrame(callback) { frames.push(callback); return frames.length; }
+  };
+  const article = { getBoundingClientRect:() => ({ top:positions.overview - browser.scrollY }) };
+  const menu = { getBoundingClientRect:() => ({ bottom:112 }) };
+  vm.runInNewContext(source, {
+    window:browser,
+    document:{
+      documentElement:{ scrollHeight:5000 },
+      querySelector:selector => selector === '.cases-article' ? article : menu,
+      querySelectorAll:() => [topLinks, contentsLinks].map(links => ({ querySelectorAll:() => links })),
+      getElementById:id => ({ getBoundingClientRect:() => ({ top:positions[id] - browser.scrollY }) })
+    }
+  });
+  const active = links => links.filter(link => link.attributes['aria-current'] === 'location').map(link => link.attributes.href);
+  const scroll = position => {
+    browser.scrollY = position;
+    listeners.scroll();
+    frames.shift()();
+  };
+  assert.deepEqual(active(topLinks), []);
+  scroll(900);
+  assert.deepEqual(active(topLinks), ['#overview']);
+  scroll(1900);
+  assert.deepEqual(active(topLinks), ['#flows']);
+  assert.deepEqual(active(contentsLinks), ['#flows']);
+  scroll(1300);
+  assert.deepEqual(active(topLinks), ['#capabilities']);
+  scroll(3100);
+  assert.deepEqual(active(topLinks), ['#developers']);
+  assert.deepEqual(active(contentsLinks), ['#developers']);
+  scroll(4200);
+  assert.deepEqual(active(topLinks), ['#developers']);
+  assert.deepEqual(active(contentsLinks), ['#configuration']);
+  scroll(0);
+  assert.deepEqual(active(contentsLinks), []);
+  browser.getComputedStyle = () => ({ getPropertyValue:() => '260px' });
+  scroll(1740);
+  assert.deepEqual(active(topLinks), ['#flows']);
+  listeners.resize();
+  listeners.scroll();
+  assert.equal(frames.length, 1);
 });
