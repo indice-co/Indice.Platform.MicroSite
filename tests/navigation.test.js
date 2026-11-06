@@ -188,11 +188,11 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     click, event, scroll, resizeMobile };
 }
 
-test('fixed brand swaps assets by scroll direction and restores the main logo at the top', () => {
+test('fixed brand uses the top logo while scrolled and restores the main logo at the top', () => {
   const page = fixture();
   assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
   page.scroll(500);
-  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice icon.svg');
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice top.svg');
   assert(page.brand.classList.contains('is-compact'));
   page.scroll(300);
   assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice top.svg');
@@ -201,15 +201,19 @@ test('fixed brand swaps assets by scroll direction and restores the main logo at
   page.scroll(0);
   assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
   assert(!page.brand.classList.contains('is-compact'));
+  page.scroll(40);
+  assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
+  assert(!page.brand.classList.contains('is-compact'));
   page.scroll(-5);
   assert.equal(page.brandImage.getAttribute('src'), 'assets/logos/indice platform grey.svg');
 });
 
-test('Cases brand links home while its upward arrow links to the current page top', () => {
+test('Cases brand links to the current page top while compact and home at the top', () => {
   const page = fixture({ casesBrand: true });
   assert.equal(page.brand.getAttribute('href'), 'index.html');
   page.scroll(500);
-  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  assert.equal(page.brand.getAttribute('href'), '#cases-hero');
+  assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
   page.scroll(300);
   assert.equal(page.brand.getAttribute('href'), '#cases-hero');
   assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
@@ -220,7 +224,8 @@ test('Cases brand links home while its upward arrow links to the current page to
   page.scroll(200);
   assert.equal(page.brand.getAttribute('href'), '#cases-hero');
   page.scroll(400);
-  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  assert.equal(page.brand.getAttribute('href'), '#cases-hero');
+  assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
   page.scroll(0);
   assert.equal(page.brand.getAttribute('href'), 'index.html');
   assert.equal(page.brand.getAttribute('aria-label'), 'INDICE Platform home');

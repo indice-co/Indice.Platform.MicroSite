@@ -21,14 +21,14 @@
     function updateBrand() {
       if (!brandImage) return;
       const current = Math.max(0, window.scrollY);
-      const atTop = current <= 0;
-      const { logo, logoIcon, logoTop } = globalThis.INDICE_DATA.config;
-      const source = atTop ? logo : current < previousScroll ? logoTop : current > previousScroll ? logoIcon : brandImage.getAttribute('src');
+      const atTop = current <= 48;
+      const { logo, logoTop } = globalThis.INDICE_DATA.config;
+      const source = atTop ? logo : logoTop;
       const topHref = brand.getAttribute('data-top-href');
       if (topHref) {
-        const isTopIcon = source === logoTop;
-        brand.setAttribute('href', isTopIcon ? topHref : brandHomeHref);
-        brand.setAttribute('aria-label', isTopIcon ? 'Back to top' : 'INDICE Platform home');
+        const isTopLogo = source === logoTop;
+        brand.setAttribute('href', isTopLogo ? topHref : brandHomeHref);
+        brand.setAttribute('aria-label', isTopLogo ? 'Back to top' : 'INDICE Platform home');
       }
       if (brandImage.getAttribute('src') !== source) brandImage.setAttribute('src', source);
       brandImage.setAttribute('width', atTop ? '1490' : '400');

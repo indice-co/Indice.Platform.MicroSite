@@ -521,13 +521,20 @@ section:focus,article:focus,main:focus {
 .hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
   opacity:.15
 }
+/* Links share the services layer, so fade their strokes to match the dimmed layers. */
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-link {
+  stroke-opacity:.06
+}
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-layer-services .hero-pulse {
+  stroke-opacity:.15
+}
 .hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-rail,.hero-rack),
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) :is(.hero-cloud,.hero-link) {
-  stroke:var(--red);
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-cloud {
+  stroke:var(--ink);
   stroke-opacity:1
 }
 .hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) .hero-node-ring {
-  stroke:var(--red);
+  stroke:var(--ink);
   stroke-opacity:1
 }
 .pillar-grid {
@@ -556,7 +563,7 @@ section:focus,article:focus,main:focus {
   right:0;
   top:-1px;
   height:2px;
-  background:var(--red);
+  background:var(--ink);
   transform:scaleX(0);
   transform-origin:left center;
   transition:transform .45s var(--ease)
@@ -571,7 +578,7 @@ section:focus,article:focus,main:focus {
   transition:color .3s
 }
 .pillar:hover .pillar-glyph,.pillar:focus-visible .pillar-glyph {
-  color:var(--red)
+  color:var(--ink)
 }
 .pillar-label {
   display:flex;
@@ -1540,8 +1547,12 @@ section:focus,article:focus,main:focus {
   display:flex;
   justify-content:center
 }
+/* The wordmark only spans 1170 of the SVG's 1490 units; crop the blank right side. */
 .site-footer img {
-  width:150px
+  width:150px;
+  aspect-ratio:1170/400;
+  object-fit:cover;
+  object-position:left center
 }
 /* Reusable floating navigation and a nonmodal disclosure. */
 .floating-nav {
