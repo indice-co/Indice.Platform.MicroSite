@@ -21,6 +21,9 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const pointer = matchMedia('(hover: hover) and (pointer: fine)');
   const shapes = [...art.querySelectorAll('.hero-slash-shape')];
+  const cloudPaths = [...art.querySelectorAll('.hero-cloud,.hero-cloud-trace')];
+  const foundation = [...art.querySelectorAll('.hero-layer-foundation')];
+  const motionTargets = [...shapes, ...cloudPaths, ...foundation];
   const landed = new Set();
   let frame = 0;
   let position = null;
@@ -33,7 +36,7 @@
     cancelAnimationFrame(frame);
     frame = 0;
     position = null;
-    shapes.forEach(shape => {
+    motionTargets.forEach(shape => {
       shape.style.setProperty('--repel-x', '0px');
       shape.style.setProperty('--repel-y', '0px');
     });
@@ -42,19 +45,28 @@
   function renderPointer() {
     frame = 0;
     if (!position) return;
-    shapes.forEach(shape => {
+    function repel(shape, targets, limit) {
       const box = shape.getBBox();
       const matrix = shape.parentElement.getScreenCTM();
+      if (!matrix) return;
       const center = new DOMPoint(box.x + box.width / 2, box.y + box.height / 2).matrixTransform(matrix);
       const dx = center.x - position.x;
       const dy = center.y - position.y;
       const distance = Math.hypot(dx, dy);
       const radius = Math.max(art.clientWidth, art.clientHeight) * .78;
-      const force = Math.min(42, art.clientWidth * .09) * Math.max(0, 1 - distance / radius) ** 1.5;
+      const force = limit * Math.max(0, 1 - distance / radius) ** 1.5;
       const scale = Math.hypot(matrix.a, matrix.b);
-      shape.style.setProperty('--repel-x', `${(distance ? dx / distance : 0) * force / scale}px`);
-      shape.style.setProperty('--repel-y', `${(distance ? dy / distance : -1) * force / scale}px`);
+      if (!scale) return;
+      targets.forEach(target => {
+        target.style.setProperty('--repel-x', `${(distance ? dx / distance : 0) * force / scale}px`);
+        target.style.setProperty('--repel-y', `${(distance ? dy / distance : -1) * force / scale}px`);
+      });
+    }
+    shapes.forEach(shape => {
+      repel(shape, [shape], Math.min(42, art.clientWidth * .09));
     });
+    if (cloudPaths.length) repel(cloudPaths[0], cloudPaths, Math.min(10, art.clientWidth * .025));
+    foundation.forEach(layer => repel(layer, [layer], Math.min(8, art.clientWidth * .02)));
   }
 
   function onPointerMove(event) {

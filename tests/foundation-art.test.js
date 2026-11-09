@@ -7,6 +7,12 @@ const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../js/foundation-art.js'), 'utf8');
 
+test('mobile Foundation artwork is centered and scaled down', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  assert.match(css, /\.foundation-art \{\s*left:0;\s*height:287px;\s*width:90%;\s*max-width:426px;\s*align-self:center\s*\}/);
+  assert.match(css, /\.foundation-art \{\s*height:248px\s*\}/);
+});
+
 class Events {
   constructor() { this.events = new Map(); }
   addEventListener(type, callback, options = {}) {

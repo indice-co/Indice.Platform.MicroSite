@@ -25,8 +25,8 @@
   --art-float-duration:9s;
   --art-repel-duration:350ms;
   --hero-slash-grey:#8b8880;
-  --hero-flight-duration:3.8s;
-  --hero-flight-delay:1.3s;
+  --hero-flight-duration:2.6s;
+  --hero-flight-delay:.9s;
   --hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration));
   --hero-color-duration:12s
 }
@@ -211,6 +211,17 @@ section:focus,article:focus,main:focus {
   isolation:isolate;
   overflow:hidden
 }
+.hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background-image:radial-gradient(circle,#201f1e33 1px,transparent 1.5px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
+  pointer-events:none
+}
 .hero-top {
   display:flex;
   justify-content:space-between;
@@ -269,15 +280,16 @@ section:focus,article:focus,main:focus {
 .hero-art {
   position:absolute;
   z-index:1;
-  right:1%;
+  right:-1%;
   top:0;
-  width:34%;
-  height:90%;
+  width:58%;
+  height:100%;
   pointer-events:auto
 }
+/* Nested in the diagram, so px are diagram user units. */
 .hero-slashes {
-  width:100%;
-  height:100%;
+  width:250px;
+  height:202px;
   overflow:visible
 }
 .hero-slash-flight {
@@ -297,12 +309,18 @@ section:focus,article:focus,main:focus {
   translate:var(--repel-x,0px) var(--repel-y,0px);
   transition:translate var(--art-repel-duration) var(--ease)
 }
+.hero-slashes>.hero-slash-flight:last-child .hero-slash-shape {
+  opacity:.25
+}
+.hero-slashes>.hero-slash-flight:first-child .hero-slash-shape {
+  opacity:.6
+}
 .hero-art.art-ready .hero-slash-flight {
   animation:hero-slash-arrive var(--hero-flight-duration) linear var(--flight-delay) both;
   animation-play-state:paused
 }
 .hero-art.art-ready .hero-slash-shape {
-  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) infinite;
+  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1;
   animation-play-state:paused
 }
 .hero-art.is-animating .hero-slash-flight,.hero-art.is-animating .hero-slash-shape {
@@ -356,6 +374,204 @@ section:focus,article:focus,main:focus {
     stroke:var(--ink)
   }
 }
+/* Platform diagram: services cloud, suite chips between the slashes, foundation rails. */
+.hero-diagram {
+  width:100%;
+  height:100%;
+  overflow:visible
+}
+.hero-coordinate {
+  fill:#777268;
+  font-size:22px;
+  font-weight:300;
+  text-anchor:middle;
+  pointer-events:none
+}
+.hero-layer {
+  transition:opacity .45s var(--ease)
+}
+.hero-cloud {
+  fill:color-mix(in srgb,var(--paper) 70%,transparent);
+  stroke:var(--ink);
+  stroke-opacity:.5;
+  stroke-width:1;
+  stroke-linejoin:round
+}
+.hero-cloud-trace {
+  stroke:var(--red);
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-dasharray:.12 .88;
+  opacity:0
+}
+.hero-cloud,.hero-cloud-trace,.hero-layer-foundation {
+  translate:var(--repel-x,0px) var(--repel-y,0px);
+  transition:translate var(--art-repel-duration) var(--ease)
+}
+.hero-link {
+  stroke:var(--ink);
+  stroke-opacity:.4;
+  stroke-width:1.2;
+  stroke-dasharray:3 5
+}
+.hero-node-core {
+  fill:var(--ink)
+}
+/* Ring is only seen as the animated ripple, never as a border. */
+.hero-node-ring {
+  stroke:var(--ink);
+  stroke-opacity:.35;
+  opacity:0;
+  transform-box:fill-box;
+  transform-origin:center
+}
+.hero-rail {
+  stroke:var(--ink);
+  stroke-opacity:.45;
+  stroke-width:.8;
+  stroke-linecap:round
+}
+.hero-rack {
+  fill:var(--beige);
+  stroke:var(--ink);
+  stroke-width:.8;
+  stroke-opacity:.6
+}
+.hero-cloud,.hero-rail,.hero-rack,.hero-link {
+  transition:stroke .35s,stroke-opacity .35s
+}
+.hero-cloud {
+  transition:translate var(--art-repel-duration) var(--ease),stroke .35s,stroke-opacity .35s
+}
+.hero-pulse {
+  stroke:var(--red);
+  stroke-width:2.6;
+  stroke-linecap:round;
+  stroke-dasharray:.03 .97;
+  visibility:hidden
+}
+.hero-node,.hero-coordinate {
+  transform-box:fill-box;
+  transform-origin:center
+}
+.hero-art.art-ready .hero-cloud {
+  animation:hero-draw 2s var(--ease) .3s both,hero-cloud-fill 1.2s ease 1.2s both
+}
+/* Two signals on different periods and directions, so the passes never settle into a steady beat. */
+.hero-art.art-ready .hero-cloud-trace {
+  animation:hero-cloud-trace 8s ease-in-out calc(var(--hero-fill-delay) + .4s) infinite backwards
+}
+.hero-art.art-ready .hero-cloud-trace+.hero-cloud-trace {
+  animation-duration:13s;
+  animation-direction:reverse;
+  animation-delay:calc(var(--hero-fill-delay) + 3.4s)
+}
+.hero-art.art-ready .hero-rail {
+  animation:hero-draw 1.4s var(--ease) var(--draw-delay,.2s) both
+}
+.hero-art.art-ready :is(.hero-rack,.hero-link) {
+  animation:hero-fade .8s ease calc(var(--hero-flight-delay) + 1.1s) both
+}
+.hero-art.art-ready :is(.hero-node,.hero-coordinate) {
+  animation:hero-node-in .8s var(--ease) calc(var(--hero-flight-delay) + .35s + var(--node-index,0) * .14s) both
+}
+.hero-art.art-ready .hero-node-ring {
+  animation:hero-ping 2.8s ease-out calc(var(--hero-flight-delay) + 1.6s + var(--node-index) * .4s) infinite
+}
+.hero-art.art-ready .hero-pulse {
+  visibility:visible;
+  animation:hero-pulse 3.6s linear calc(var(--hero-fill-delay) + var(--pulse-delay,0s)) infinite backwards
+}
+.hero-art.art-ready :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-coordinate,.hero-node-ring,.hero-pulse) {
+  animation-play-state:paused
+}
+.hero-art.is-animating :is(.hero-cloud,.hero-cloud-trace,.hero-rail,.hero-rack,.hero-link,.hero-node,.hero-coordinate,.hero-node-ring,.hero-pulse) {
+  animation-play-state:running
+}
+@keyframes hero-draw {
+  from {
+    stroke-dasharray:1;
+    stroke-dashoffset:1
+  }
+  to {
+    stroke-dasharray:1;
+    stroke-dashoffset:0
+  }
+}
+@keyframes hero-cloud-fill {
+  from {
+    fill-opacity:0
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity:0
+  }
+}
+@keyframes hero-cloud-trace {
+  0% {
+    stroke-dashoffset:1;
+    opacity:0
+  }
+  5%,30% {
+    opacity:1
+  }
+  36%,100% {
+    stroke-dashoffset:0;
+    opacity:0
+  }
+}
+@keyframes hero-ping {
+  0% {
+    scale:.6;
+    opacity:.9
+  }
+  100% {
+    scale:2;
+    opacity:0
+  }
+}
+@keyframes hero-pulse {
+  0% {
+    stroke-dashoffset:1;
+    opacity:0
+  }
+  10%,90% {
+    opacity:1
+  }
+  100% {
+    stroke-dashoffset:0;
+    opacity:0
+  }
+}
+@keyframes hero-node-in {
+  from {
+    opacity:0;
+    scale:.3
+  }
+}
+/* Hovering a pillar spotlights its layer of the platform diagram. */
+.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-products),
+.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-foundation),
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
+  opacity:.15
+}
+/* Links share the services layer, so fade their strokes to match the dimmed layers. */
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-link {
+  stroke-opacity:.06
+}
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-layer-services .hero-pulse {
+  stroke-opacity:.15
+}
+.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-rail,.hero-rack),
+.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-cloud {
+  stroke:var(--ink);
+  stroke-opacity:1
+}
+.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) .hero-node-ring {
+  stroke:var(--ink);
+  stroke-opacity:1
+}
 .pillar-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -367,16 +583,42 @@ section:focus,article:focus,main:focus {
   border-top:1px solid var(--ink);
   padding:15px 0 5px;
   position:relative;
-  animation:hero-enter 1.1s calc(var(--hero-fill-delay) + .15s) var(--ease) both
+  animation:hero-enter 1.1s calc(var(--hero-flight-delay) + .25s) var(--ease) both
 }
 .pillar:nth-child(2) {
-  animation-delay:calc(var(--hero-fill-delay) + .6s)
+  animation-delay:calc(var(--hero-flight-delay) + .4s)
 }
 .pillar:nth-child(3) {
-  animation-delay:calc(var(--hero-fill-delay) + 1.05s)
+  animation-delay:calc(var(--hero-flight-delay) + .55s)
+}
+.pillar::before {
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  top:-1px;
+  height:2px;
+  background:var(--ink);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .45s var(--ease)
+}
+.pillar:hover::before,.pillar:focus-visible::before {
+  transform:scaleX(1)
+}
+.pillar-glyph {
+  width:22px;
+  height:22px;
+  color:var(--muted);
+  transition:color .3s
+}
+.pillar:hover .pillar-glyph,.pillar:focus-visible .pillar-glyph {
+  color:var(--ink)
 }
 .pillar-label {
   display:flex;
+  align-items:center;
+  gap:10px;
   font-size:clamp(16px,1.3vw,20px);
   font-weight:650;
   margin-bottom:12px
@@ -609,7 +851,9 @@ section:focus,article:focus,main:focus {
 .products-introduction h2,.services-introduction h2 {
   grid-column:1/-1;
   grid-row:1;
-  max-width:75%;
+  max-width:75%
+}
+.products-introduction h2,.services-introduction h2,.hero .hero-motto {
   font-size:clamp(38px,3.8vw,64px)
 }
 .products-introduction>p,.services-introduction>div {
@@ -650,7 +894,11 @@ section:focus,article:focus,main:focus {
   display:flex;
   flex-direction:column;
   align-items:flex-start;
+  width:100%;
   max-width:100%
+}
+.tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+  width:calc(60% - 25.6px)
 }
 .tile-link:focus-visible {
   background:#ffffff26
@@ -668,27 +916,18 @@ section:focus,article:focus,main:focus {
   object-position:left center
 }
 .tile-description {
+  color:var(--muted);
   font-size:13px;
   line-height:1.6;
-  max-width:240px
+  width:100%
 }
 .tile-learn {
-  font-size:12px;
+  font-size:13px;
   font-weight:650;
   margin-top:6px
 }
 .product-tile:nth-child(1),.product-tile:nth-child(4),.product-tile:nth-child(5) {
   grid-column:span 2
-}
-.product-tile:first-child {
-  display:grid;
-  grid-template-columns:3fr 2fr;
-  align-content:center;
-  padding:40px 0
-}
-.product-tile:first-child .tile-link {
-  min-width:0;
-  margin:0 32px
 }
 .product-tile:nth-child(2),.product-tile:nth-child(6) {
   border-left:1px solid var(--line)
@@ -1615,7 +1854,7 @@ section:focus,article:focus,main:focus {
 .story-enhanced .placeholder-caption>span:last-child {
   font-size:20px
 }
-/* Neutral services, customer logos and closing statement. */
+/* Neutral services, technologies and closing statement. */
 .services {
   position:relative;
   background:var(--paper);
@@ -1626,7 +1865,7 @@ section:focus,article:focus,main:focus {
   max-width:none
 }
 .services-introduction>div {
-  color:var(--muted)
+  color:var(--ink)
 }
 .service-list {
   margin-top:90px
@@ -1771,45 +2010,66 @@ section:focus,article:focus,main:focus {
 .service-row:hover .glyph-2 i:nth-child(3),.service-row:hover .glyph-2::after {
   translate:0 -6px
 }
-.customers {
-  background:var(--paper);
+.technologies {
+  background:var(--beige);
   text-align:center;
   border-top:1px solid var(--line);
   padding-top:70px;
   padding-bottom:90px
 }
-.customers h2 {
-  font-size:clamp(24px,2.7vw,42px);
+/* 40px less than the shared section padding (20px less on mobile). */
+.technologies.section-pad {
+  padding-top:30px;
+  padding-bottom:50px
+}
+@media(min-width:1700px) {
+  .technologies.section-pad {
+    padding-top:100px;
+    padding-bottom:100px
+  }
+}
+@media(max-width:999px) {
+  .technologies.section-pad {
+    padding-top:40px;
+    padding-bottom:40px
+  }
+}
+@media(max-width:760px) {
+  .technologies.section-pad {
+    padding-top:45px;
+    padding-bottom:45px
+  }
+}
+.technologies h2 {
+  font-size:36px;
   line-height:1.25;
   letter-spacing:-.04em;
-  max-width:630px;
   margin:auto
 }
-.customer-logos {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  align-items:center;
-  gap:40px;
+.technology-list {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
   margin:40px auto 0;
-  max-width:1100px;
   padding:0;
   list-style:none
 }
-.customer-logo {
-  height:50px;
-  max-width:160px;
-  margin:auto
+.technology {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  width:100px
 }
-.customer-logo .client-image {
-  width:100%;
-  height:100%;
-  object-position:center
+.technology img {
+  width:48px;
+  height:48px
 }
-.customer-logo .client-image[alt="ACS"] {
-  transform:scale(.9)
-}
-.customer-logo .client-image[alt="ERGO"] {
-  transform:scale(.7)
+.technology span {
+  font-size:16px;
+  line-height:22px;
+  color:var(--muted)
 }
 .contact {
   position:relative;
@@ -1915,8 +2175,12 @@ section:focus,article:focus,main:focus {
   display:flex;
   justify-content:center
 }
+/* The wordmark only spans 1170 of the SVG's 1490 units; crop the blank right side. */
 .site-footer img {
-  width:150px
+  width:150px;
+  aspect-ratio:1170/400;
+  object-fit:cover;
+  object-position:left center
 }
 /* Reusable floating navigation and a nonmodal disclosure. */
 .floating-nav {
@@ -2086,7 +2350,7 @@ section:focus,article:focus,main:focus {
     padding:50px 0
   }
   .hero-art {
-    right:4%
+    right:2%
   }
   .section-pad {
     padding-top:140px;
@@ -2106,7 +2370,7 @@ section:focus,article:focus,main:focus {
   .products-introduction,.services-introduction {
     gap:5%
   }
-  .products-introduction h2,.services-introduction h2 {
+  .products-introduction h2,.services-introduction h2,.hero .hero-motto {
     font-size:clamp(32px,3.8vw,44px)
   }
   .service-row {
@@ -2129,11 +2393,8 @@ section:focus,article:focus,main:focus {
   .product-tile {
     padding:24px;
   }
-  .product-tile:first-child {
-    padding:24px 0
-  }
-  .product-tile:first-child .tile-link {
-    margin:0 24px
+  .tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+    width:calc(60% - 19.2px)
   }
   .chapter-content {
     padding:25px
@@ -2164,10 +2425,8 @@ section:focus,article:focus,main:focus {
     font-size:clamp(88px,12.2vw,128px)
   }
   .hero-art {
-    width:32%;
-    right:0;
-    top:5%;
-    height:84%
+    width:50%;
+    right:-2%
   }
   .hero-motto {
     font-size:25px
@@ -2288,16 +2547,18 @@ section:focus,article:focus,main:focus {
   }
   .hero-art {
     position:relative;
-    grid-column:2;
+    grid-column:1/-1;
     grid-row:2;
+    justify-self:end;
     right:auto;
     top:auto;
-    width:100%;
-    height:220px
+    width:min(100%,520px);
+    height:auto;
+    aspect-ratio:5/4
   }
   .hero-baseline {
-    grid-column:1;
-    grid-row:2;
+    grid-column:1/-1;
+    grid-row:3;
     display:block;
     margin-top:0
   }
@@ -2341,11 +2602,11 @@ section:focus,article:focus,main:focus {
     margin-top:35px
   }
   .foundation-art {
-    left:16px;
-    height:319px;
-    width:min(110%,calc(100% + 8px));
-    max-width:473px;
-    align-self:start
+    left:0;
+    height:287px;
+    width:90%;
+    max-width:426px;
+    align-self:center
   }
   .foundation-text {
     max-width:none;
@@ -2403,16 +2664,12 @@ section:focus,article:focus,main:focus {
     border-left:0;
     border-right:0
   }
+  .tile-cases .tile-link,.tile-risk .tile-link,.tile-placeholder[data-suite-placeholder="workers"] .tile-link {
+    width:100%
+  }
   .product-tile {
     min-height:250px;
     padding:20px
-  }
-  .product-tile:first-child {
-    display:flex;
-    padding:20px
-  }
-  .product-tile:first-child .tile-link {
-    margin:0
   }
   .tile-logo {
     padding:0
@@ -2486,16 +2743,22 @@ section:focus,article:focus,main:focus {
     font-size:13px;
     max-width:500px
   }
-  .customers h2 {
+  .technologies h2 {
     font-size:28px
   }
-  .customer-logos {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:32px;
+  .technology-list {
+    gap:24px 8px;
     margin-top:30px
   }
-  .customer-logo {
+  .technology {
+    width:88px
+  }
+  .technology img {
+    width:40px;
     height:40px
+  }
+  .technology span {
+    font-size:14px
   }
   .contact h2 {
     font-size:clamp(47px,9.5vw,70px)
@@ -2606,7 +2869,7 @@ section:focus,article:focus,main:focus {
     font-size:15.8vw
   }
   .hero-art {
-    height:190px
+    width:100%
   }
   .hero-motto {
     font-size:22px
@@ -2631,16 +2894,13 @@ section:focus,article:focus,main:focus {
     max-width:205px
   }
   .foundation-art {
-    height:275px
+    height:248px
   }
   .product-grid {
     grid-template-columns:1fr
   }
   .product-tile {
     min-height:230px;
-    padding:22px 25px
-  }
-  .product-tile:first-child {
     padding:22px 25px
   }
   .product-tile:nth-last-child(2) {
@@ -2705,8 +2965,7 @@ section:focus,article:focus,main:focus {
     padding:35px 0
   }
   .hero-art {
-    height:90%;
-    top:2%
+    width:52%
   }
   .hero-motto {
     font-size:24px
@@ -2728,7 +2987,123 @@ section:focus,article:focus,main:focus {
     font-size:13px
   }
 }
+.hero {
+  grid-template-columns:minmax(0,calc((100% - 96px) * .44 + 60px)) minmax(0,calc((100% - 96px) * .56 - 60px));
+  grid-template-rows:50px 24px max-content max-content;
+  align-content:center;
+  column-gap:96px;
+  row-gap:12px
+}
+.hero .hero-top {
+  grid-column:1/-1
+}
+.hero .hero-composition {
+  display:contents
+}
+.hero h1#hero-title,:is(.foundation,.products,.services)>.section-top>.eyebrow {
+  font-size:16px;
+  font-weight:650;
+  line-height:1.65;
+  letter-spacing:.09em
+}
+.hero h1#hero-title {
+  grid-column:1;
+  grid-row:2;
+  max-width:100%
+}
+.hero h1#hero-title>span {
+  display:inline
+}
+.hero .hero-baseline {
+  grid-column:1;
+  grid-row:3;
+  display:block;
+  margin:0
+}
+.hero .hero-motto {
+  color:var(--red);
+  font-size:36px;
+  font-weight:600;
+  line-height:1.08;
+  letter-spacing:0
+}
+.hero .pillar-grid {
+  grid-column:1;
+  grid-row:4;
+  align-self:start;
+  grid-template-columns:minmax(0,1fr);
+  gap:18px;
+  margin-top:48px
+}
+.hero .pillar {
+  display:block;
+  padding:15px 0 5px
+}
+.hero .pillar-label {
+  font-size:28px
+}
+.hero .pillar-headline {
+  color:var(--muted);
+  max-width:none
+}
+.hero .hero-art {
+  position:absolute;
+  translate:-40px 5%;
+  grid-column:2;
+  grid-row:2/5;
+  align-self:end;
+  justify-self:end;
+  right:auto;
+  top:auto;
+  width:100%;
+  max-width:672px;
+  height:auto;
+  aspect-ratio:5/4
+}
+@media(min-width:1441px) {
+  .hero .hero-art {
+    justify-self:center;
+    translate:-20px 5%
+  }
+}
 @media(max-width:760px) {
+  .hero {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:50px 24px auto auto auto;
+    height:auto;
+    min-height:100svh;
+    max-height:none;
+    padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));
+    align-content:start;
+    column-gap:0
+  }
+  .hero .pillar-grid {
+    margin-top:24px
+  }
+  .hero .hero-motto {
+    font-size:32px
+  }
+  .hero .pillar-label {
+    font-size:24px
+  }
+  .hero .pillar-headline {
+    font-size:16px
+  }
+  .hero .hero-art {
+    position:relative;
+    translate:none;
+    grid-column:1;
+    grid-row:5;
+    justify-self:center;
+    width:90%;
+    max-width:468px;
+    margin-top:40px
+  }
+  .hero .hero-node image {
+    transform-box:fill-box;
+    transform-origin:center;
+    transform:scale(1.35)
+  }
   .product-chapter-cases {
     display:block;
     padding:48px var(--gutter)
@@ -2846,6 +3221,9 @@ section:focus,article:focus,main:focus {
     fill:var(--red);
     stroke:var(--red)
   }
+  .hero-pulse {
+    display:none
+  }
 }
 @media print {
   .contact-ready .contact-character,.contact-ready .contact-bottom>p,.contact-ready .contact-bottom>.button,.contact-ready .contact-slash path {
@@ -2854,8 +3232,11 @@ section:focus,article:focus,main:focus {
   .hero-brand,.hero h1,.hero-motto,.pillar {
     animation:none!important
   }
-  .hero-slash-flight,.hero-slash-shape {
+  .hero-slash-flight,.hero-slash-shape,.hero-diagram * {
     animation:none!important
+  }
+  .hero-pulse {
+    display:none
   }
   .foundation-art .art-piece {
     animation:none!important;
