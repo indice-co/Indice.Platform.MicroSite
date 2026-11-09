@@ -1,4 +1,4 @@
-# 🗂️ Indice Cases
+# 🗂️ Cases
 
 *Owned, case management & back-office workflows.*
 
@@ -23,7 +23,7 @@ edit, approval and notification pipeline — with a strict split between what th
 |---|---|
 | 1. Core features & capabilities | 4. Architecture & hosting |
 | 2. Flows | 5. Feature internals & integration |
-| 3. Where Indice Cases shines | 6. Configuration |
+| 3. Where Cases shines | 6. Configuration |
 
 ---
 
@@ -220,9 +220,9 @@ that same user from approving again. The four-eyes rule is part of the workflow 
 
 ---
 
-## ⭐ 3. Where Indice Cases shines
+## ⭐ 3. Where Cases shines
 
-Two things set Indice Cases apart. A process is data (a schema, checkpoints and a workflow) rather than code; and the
+Two things set Cases apart. A process is data (a schema, checkpoints and a workflow) rather than code; and the
 line between what the customer sees and what the back office works on is built into the model rather than left to
 each screen. The two pillars below expand each.
 
@@ -273,6 +273,8 @@ One grid to take to your team — the capability on the left, the mechanism that
 ---
 
 # 🛠️ For developers
+
+This technical reference covers the hosting model, architecture, integration contracts, configuration and extension points your engineering team uses to deploy and operate Cases.
 
 ## 🏗️ 4. Architecture & hosting
 
