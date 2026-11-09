@@ -24,7 +24,11 @@ assert.equal((html.match(/class="product-chapter"/g) || []).length, 4);
 assert.equal((html.match(/data-select-product=/g) || []).length, 4);
 assert.equal((html.match(/data-product-link=/g) || []).length, 4);
 assert.equal((html.match(/class="button explore-button" disabled/g) || []).length, 3);
-assert(html.includes('class="button explore-button" href="cases.html"'), 'Explore Cases opens the product page');
+assert(html.includes('class="button explore-button" href="cases-reference.html"'), 'Explore Cases opens the technical reference');
+assert(fs.existsSync(path.join(root, 'cases-reference.html')), 'Cases technical reference is generated');
+assert(!fs.existsSync(path.join(root, 'cases.html')), 'Legacy Cases page is removed');
+assert(!fs.existsSync(path.join(root, 'cases-0.2.html')), 'Cases 0.2 page is removed');
+assert(!html.includes('Cases 0.2'), 'Homepage does not link to Cases 0.2');
 assert.equal((html.match(/data-demo/g) || []).length, 2);
 const navigation = html.match(/<nav class="floating-nav"[\s\S]*?<\/nav>/)?.[0];
 assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA stays outside the floating navigation');
@@ -66,7 +70,7 @@ for (const product of products) {
   assert(text.includes(product.tagline));
   assert(html.includes(`id="product-${product.id}"`));
   assert(html.includes(`data-preview="${product.id}"`));
-  assert.equal(product.destination, product.id === 'cases' ? 'cases.html' : null);
+  assert.equal(product.destination, product.id === 'cases' ? 'cases-reference.html' : null);
   assert.equal(product.preview, previews[product.id]);
   if (product.preview) assert(html.includes(`src="${product.preview}"`));
 }
