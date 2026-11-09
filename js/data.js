@@ -42,11 +42,16 @@ globalThis.INDICE_DATA = {
       { title: 'Solution and system integration', description: 'Selected platform solutions connected with existing applications, systems, and infrastructure.' },
       { title: 'Continuous evolution and support', description: 'New features, regular security updates, vulnerability patching, and direct support from the INDICE team.' }
     ] },
-    customers: { title: 'Supporting digital progress across organisations.', logos: [
-      { name: 'ACS', logo: 'assets/logos/clients-logos/ACS.svg' },
-      { name: 'Chania', logo: 'assets/logos/clients-logos/Chania.svg' },
-      { name: 'doValue', logo: 'assets/logos/clients-logos/doValue.svg' },
-      { name: 'ERGO', logo: 'assets/logos/clients-logos/Ergo.svg' }
+    technologies: { title: 'Engineered with trusted technologies', items: [
+      { name: 'api', icon: 'assets/logos/technologies/api.svg' },
+      { name: 'duente', icon: 'assets/logos/technologies/duente.svg' },
+      { name: 'angular', icon: 'assets/logos/technologies/angular.svg' },
+      { name: '.net', icon: 'assets/logos/technologies/dotnet.svg' },
+      { name: 'openid', icon: 'assets/logos/technologies/openid.svg' },
+      { name: 'workflow', icon: 'assets/logos/technologies/workflow.svg' },
+      { name: 'azure', icon: 'assets/logos/technologies/azure.svg' },
+      { name: 'cloud', icon: 'assets/logos/technologies/cloud.svg' },
+      { name: 'docker', icon: 'assets/logos/technologies/docker.svg' }
     ] },
     contact: { title: 'The foundation. The solutions. The expertise.', description: 'Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.' }
   },

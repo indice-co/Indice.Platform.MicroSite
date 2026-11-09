@@ -29,7 +29,7 @@ const contactSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/IND
   .replace(/<path /g, () => `<path class="contact-slash-${contactSlashIndex++ === 0 ? 'second' : 'first'}" `)
   .replace(/ fill="white"/g, '');
 // Diagram units: 600x480. Solution nodes link to the cloud edge; Workers and DEX keep a dot until their icons exist.
-const heroCloud = 'M70 345A50 50 0 0 1 110 262A82 82 0 0 1 220 140A105 105 0 0 1 420 120A84 84 0 0 1 520 250A50 50 0 0 1 530 345Z';
+const heroCloud = 'M76.7 345A113 113 0 0 1 192.2 152.3A150 150 0 0 1 449.3 123A128 128 0 0 1 534.4 345Z';
 const heroDiagram = `<svg class="hero-diagram" viewBox="0 0 600 480" preserveAspectRatio="xMaxYMid meet" fill="none" aria-hidden="true">
 <defs><clipPath id="hero-cloud-front"><path d="M0 0H225.9L372.3 480H0Z"/></clipPath><clipPath id="hero-cloud-back"><path d="M225.9 0H600V480H372.3Z"/></clipPath></defs>
 <g class="hero-coordinates"><text class="hero-coordinate" x="65" y="240">+</text><text class="hero-coordinate" x="520" y="60">+</text></g>
@@ -82,6 +82,8 @@ const html = `<!doctype html>
       <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label">${pillarGlyph(p.id)}${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${diagonalDown}</span></a>`).join('')}</div>
     </section>
 
+    <section class="technologies section-pad" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title" data-reveal>${c.technologies.title}</h2><ul class="technology-list" aria-label="Technologies">${c.technologies.items.map((t,i) => `<li class="technology" data-reveal style="--reveal-index:${i}"><img src="${escape(t.icon)}" width="48" height="48" alt="" decoding="async"><span>${escape(t.name)}</span></li>`).join('')}</ul></section>
+
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
       <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.foundation.label}</span></div>
       <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal style="--reveal-index:2">${c.foundation.title}</h2>
@@ -116,7 +118,6 @@ const html = `<!doctype html>
       <div class="service-list">${c.services.items.map((s,i) => `<article class="service-row" data-reveal style="--reveal-index:${i}"><span class="service-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="service-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
     </section>
 
-    <section class="customers section-pad" id="customers" aria-labelledby="customers-title"><h2 id="customers-title" data-reveal>${c.customers.title}</h2><ul class="customer-logos" aria-label="Customers">${c.customers.logos.map((client,i) => `<li data-reveal style="--reveal-index:${i}"><div class="customer-logo">${logo(client, 'client-image')}</div></li>`).join('')}</ul></section>
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
   <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
