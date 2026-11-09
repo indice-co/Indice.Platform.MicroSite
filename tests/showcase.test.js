@@ -197,7 +197,8 @@ test('only the four supplied products become selectable states', () => {
   const previousScroll = f.sandbox.scrollY;
   f.api.selectProduct('unavailable-product');
   assert.equal(f.sandbox.scrollY, previousScroll);
-  f.assertSynchronized('risk');
+  assert.equal(f.api.getState().product, null, 'the selected product clears before the intro');
+  assert.equal(f.api.getState().previewIndex, 0, 'the static preview returns to the Cases dashboard');
 });
 
 test('product grid fades and becomes inert when the preview covers it', () => {
@@ -245,30 +246,77 @@ test('native forward and reverse scrolling synchronize chapters, previews, navig
   }
 });
 
-test('introductory loop runs without playback controls only while visible and stops for hidden tabs and product progression', () => {
+test('introductory preview stays on the Cases dashboard without autoplay', () => {
   const f = fixture();
   assert.equal(f.timers.size, 0, 'offscreen introduction does not autoplay');
+  assert.equal(f.api.getState().previewIndex, 0, 'Cases dashboard is the initial preview');
   f.api.selectProduct('cases', { hash: false });
   const firstProductPosition = f.sandbox.scrollY;
   f.scrollTo(f.sectionStart + (firstProductPosition - f.sectionStart) * 0.4);
   assert.equal(f.api.getState().product, null);
   assert.equal(f.section.classList.contains('story-products'), false, 'stepper stays hidden during the introduction');
-  assert.equal(f.timers.size, 1, 'visible introductory preview autoplays');
-  const firstPreview = f.api.getState().previewIndex;
-  [...f.timers.values()][0]();
-  assert.notEqual(f.api.getState().previewIndex, firstPreview, 'timer advances the decorative preview');
+  assert.equal(f.api.getState().previewIndex, 0, 'the Cases dashboard remains static during the introduction');
+  assert.equal(f.timers.size, 0, 'the introductory screen does not autoplay');
 
   f.document.hidden = true;
   f.document.dispatch('visibilitychange');
   assert.equal(f.timers.size, 0);
   f.document.hidden = false;
   f.document.dispatch('visibilitychange');
-  assert.equal(f.timers.size, 1);
+  assert.equal(f.timers.size, 0);
   f.scrollTo(0);
-  assert.equal(f.timers.size, 0, 'loop stops when panel leaves viewport');
+  assert.equal(f.timers.size, 0, 'no preview timer runs when the panel leaves the viewport');
   f.api.selectProduct('messaging');
   assert.equal(f.section.classList.contains('story-products'), true);
+  assert.equal(f.api.getState().previewIndex, 2, 'selected products still show their matching preview');
   assert.equal(f.timers.size, 0);
+});
+
+test('Cases tint starts with its incoming screen and switches immediately to the next product', () => {
+  const f = fixture();
+  const casesColor = 'rgba(18,112,122,0.12)';
+  const iamColor = 'rgba(61,90,254,0.12)';
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 0.8);
+  assert.equal(f.stage.style.backgroundColor, casesColor, 'Cases color begins as the dashboard enters');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 * 0.12));
+  assert.equal(f.chapters[0].dataset.caseBeat, 'intake');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 * 0.48));
+  assert.equal(f.chapters[0].dataset.caseBeat, 'workflow');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 * 0.84));
+  assert.equal(f.chapters[0].dataset.caseBeat, 'governance');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 * 0.98));
+  assert.equal(f.stage.style.backgroundColor, casesColor, 'Cases color remains through its last beat');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 * 0.99));
+  assert.equal(f.chapters[0].dataset.caseBeat, 'governance', 'the third beat remains until Cases ends');
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * (1.1 + 0.9 + 0.001));
+  assert.equal(f.stage.style.backgroundColor, iamColor, 'the color changes when IAM begins');
+});
+
+test('Cases dashboard preview aligns with the intake screenshot at the product handoff', () => {
+  const f = fixture();
+  const width = f.sandbox.innerWidth;
+  const gutter = Math.min(88, Math.max(24, width * 0.05));
+  const gap = Math.min(70, Math.max(26, width * 0.04));
+  const gridWidth = width - 2 * gutter - gap;
+  const screenWidth = gridWidth * 0.61;
+  const screenLeft = gutter + gridWidth * 0.39 + gap;
+  const expectedX = screenLeft + screenWidth / 2 - width / 2;
+
+  f.scrollTo(f.sectionStart + f.sandbox.innerHeight * 1.1);
+
+  assert.equal(f.chapters[0].dataset.caseBeat, 'intake');
+  assert.equal(f.stage.style.getPropertyValue('--panel-x'), `${expectedX}px`);
+  assert.equal(f.stage.style.getPropertyValue('--panel-y'), '0px');
+  const renderedWidth = Number(f.panel.style.width.replace('px', '')) *
+    Number(f.stage.style.getPropertyValue('--panel-scale'));
+  assert.ok(Math.abs(renderedWidth - screenWidth) < 0.01, 'preview width matches the intake screenshot window');
+  assert.equal(Number.parseFloat(f.panel.style.height), (screenWidth - 2) * 9 / 16 + 46);
+});
+
+test('Cases introduction stays opaque and the intake screenshot handoff does not replay an entrance', () => {
+  const css = fs.readFileSync(path.join(sourceRoot, 'css/styles.css'), 'utf8');
+  assert.match(css, /\.story-enhanced \.product-chapter-cases\.is-active\s*\{\s*opacity:1\s*\}/);
+  assert.match(css, /\.story-enhanced \.case-beat\[data-case-beat="intake"\]\.is-current,\s*\.story-enhanced \.case-beat\[data-case-beat="intake"\]\.is-current \.case-screen\s*\{\s*transition:none\s*\}/);
 });
 
 test('desktop resize preserves the chosen product and keeps state synchronized', () => {
@@ -323,12 +371,12 @@ test('initial static mode remains readable and direct product hashes resolve cor
   assert.equal(linkedView.timers.size, 0);
 });
 
-test('page lifecycle releases timers and listeners and restores persisted pages', () => {
+test('page lifecycle releases listeners and restores persisted pages without preview timers', () => {
   const f = fixture();
   f.api.selectProduct('cases');
   const firstProductPosition = f.sandbox.scrollY;
   f.scrollTo(f.sectionStart + (firstProductPosition - f.sectionStart) * 0.4);
-  assert.equal(f.timers.size, 1);
+  assert.equal(f.timers.size, 0);
   f.browser.dispatch('pagehide');
   assert.equal(f.timers.size, 0);
   assert.equal(f.grid.inert, false);
