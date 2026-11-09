@@ -21,6 +21,17 @@ test('generated hero preserves the official slash geometry and normalizes both o
   assert(!hero.includes('fill="white"'), 'CSS owns the animated fill');
 });
 
+test('the right hero slash has 60% opacity while the left retains its existing opacity', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const hero = html.match(/<svg class="hero-slashes"[\s\S]*?<\/svg>/)[0];
+  const paths = [...hero.matchAll(/<path class="hero-slash-shape"[^>]* d="([^"]+)"/g)];
+  assert.match(paths[0][1], /^M124\.8 /);
+  assert.match(paths[1][1], /^M0 /);
+  assert.match(css, /\.hero-slashes>\.hero-slash-flight:first-child \.hero-slash-shape \{\s*opacity:\.6\s*\}/);
+  assert.match(css, /\.hero-slashes>\.hero-slash-flight:last-child \.hero-slash-shape \{\s*opacity:\.25\s*\}/);
+});
+
 test('hero travel and perimeter tracing share a steady timeline, with fill and color deferred until landing', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   for (const name of ['arrive', 'draw']) {
@@ -28,7 +39,63 @@ test('hero travel and perimeter tracing share a steady timeline, with fill and c
   }
   assert(css.includes('--hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration))'));
   assert(css.includes('hero-slash-fill .9s ease var(--hero-fill-delay) both'));
-  assert(css.includes('hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) infinite'));
+  assert(css.includes('hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1'));
+});
+
+test('desktop hero artwork lowers its visible baseline and retains its spacing offsets', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  assert.match(css, /grid-template-rows:50px 24px max-content max-content/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*translate:-40px 5%;[^}]*align-self:end;/);
+  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:-20px 5%/);
+  assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
+});
+
+test('hero motto uses the requested red typography', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const rule = css.match(/^\.hero \.hero-motto \{([^}]+)\}/m)[1];
+  assert.match(css, /--red:#dc4650/);
+  assert.match(rule, /color:var\(--red\)/);
+  assert.match(rule, /font-size:36px/);
+  assert.match(rule, /font-weight:600/);
+  assert.match(rule, /letter-spacing:0/);
+});
+
+test('homepage section labels share the hero title typography', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const rule = css.match(/\.hero h1#hero-title,:is\(\.foundation,\.products,\.services\)>\.section-top>\.eyebrow \{([^}]+)\}/);
+  assert(rule);
+  assert.match(rule[1], /font-size:16px/);
+  assert.match(rule[1], /font-weight:650/);
+  assert.match(rule[1], /line-height:1\.65/);
+  assert.match(rule[1], /letter-spacing:\.09em/);
+});
+
+test('hero pillar titles use a 28px font size', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  assert.match(css, /^\.hero \.pillar-label \{\s*font-size:28px\s*\}/m);
+});
+
+test('mobile hero brings pillars closer and reduces the artwork while enlarging product logos', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
+  assert.match(mobile, /\.hero \.pillar-grid \{\s*margin-top:24px\s*\}/);
+  assert.match(mobile, /\.hero \.hero-art \{[^}]*width:90%;[^}]*max-width:468px;/);
+  assert.match(mobile, /\.hero \.hero-node image \{[^}]*transform-origin:center;[^}]*transform:scale\(1\.35\)/);
+});
+
+test('mobile hero uses readable title and pillar typography', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
+  assert.match(mobile, /\.hero \.hero-motto \{\s*font-size:32px\s*\}/);
+  assert.match(mobile, /\.hero \.pillar-label \{\s*font-size:24px\s*\}/);
+  assert.match(mobile, /\.hero \.pillar-headline \{\s*font-size:16px\s*\}/);
+});
+
+test('mobile hero leaves breathing room above the artwork and less space below it', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
+  assert.match(mobile, /padding-bottom:calc\(48px \+ env\(safe-area-inset-bottom,0px\)\)/);
+  assert.match(mobile, /\.hero \.hero-art \{[^}]*margin-top:40px/);
 });
 
 test('each hero pillar groups its arrow beside its headline without changing its destination', () => {

@@ -312,12 +312,15 @@ section:focus,article:focus,main:focus {
 .hero-slashes>.hero-slash-flight:last-child .hero-slash-shape {
   opacity:.25
 }
+.hero-slashes>.hero-slash-flight:first-child .hero-slash-shape {
+  opacity:.6
+}
 .hero-art.art-ready .hero-slash-flight {
   animation:hero-slash-arrive var(--hero-flight-duration) linear var(--flight-delay) both;
   animation-play-state:paused
 }
 .hero-art.art-ready .hero-slash-shape {
-  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) infinite;
+  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1;
   animation-play-state:paused
 }
 .hero-art.is-animating .hero-slash-flight,.hero-art.is-animating .hero-slash-shape {
@@ -2008,11 +2011,11 @@ section:focus,article:focus,main:focus {
     margin-top:35px
   }
   .foundation-art {
-    left:16px;
-    height:319px;
-    width:min(110%,calc(100% + 8px));
-    max-width:473px;
-    align-self:start
+    left:0;
+    height:287px;
+    width:90%;
+    max-width:426px;
+    align-self:center
   }
   .foundation-text {
     max-width:none;
@@ -2294,7 +2297,7 @@ section:focus,article:focus,main:focus {
     max-width:205px
   }
   .foundation-art {
-    height:275px
+    height:248px
   }
   .product-grid {
     grid-template-columns:1fr
@@ -2389,7 +2392,7 @@ section:focus,article:focus,main:focus {
 }
 .hero {
   grid-template-columns:minmax(0,calc((100% - 96px) * .44 + 60px)) minmax(0,calc((100% - 96px) * .56 - 60px));
-  grid-template-rows:50px 24px max-content auto;
+  grid-template-rows:50px 24px max-content max-content;
   align-content:center;
   column-gap:96px;
   row-gap:12px
@@ -2400,13 +2403,15 @@ section:focus,article:focus,main:focus {
 .hero .hero-composition {
   display:contents
 }
-.hero h1#hero-title {
-  grid-column:1;
-  grid-row:2;
+.hero h1#hero-title,:is(.foundation,.products,.services)>.section-top>.eyebrow {
   font-size:16px;
   font-weight:650;
   line-height:1.65;
-  letter-spacing:.09em;
+  letter-spacing:.09em
+}
+.hero h1#hero-title {
+  grid-column:1;
+  grid-row:2;
   max-width:100%
 }
 .hero h1#hero-title>span {
@@ -2419,9 +2424,11 @@ section:focus,article:focus,main:focus {
   margin:0
 }
 .hero .hero-motto {
-  font-weight:500;
+  color:var(--red);
+  font-size:36px;
+  font-weight:600;
   line-height:1.08;
-  letter-spacing:-.055em
+  letter-spacing:0
 }
 .hero .pillar-grid {
   grid-column:1;
@@ -2436,7 +2443,7 @@ section:focus,article:focus,main:focus {
   padding:15px 0 5px
 }
 .hero .pillar-label {
-  font-size:24px
+  font-size:28px
 }
 .hero .pillar-headline {
   color:var(--muted);
@@ -2444,10 +2451,10 @@ section:focus,article:focus,main:focus {
 }
 .hero .hero-art {
   position:absolute;
-  translate:-60px 0;
+  translate:-40px 5%;
   grid-column:2;
   grid-row:2/5;
-  align-self:center;
+  align-self:end;
   justify-self:end;
   right:auto;
   top:auto;
@@ -2459,7 +2466,7 @@ section:focus,article:focus,main:focus {
 @media(min-width:1441px) {
   .hero .hero-art {
     justify-self:center;
-    translate:-40px 0
+    translate:-20px 5%
   }
 }
 @media(max-width:760px) {
@@ -2469,8 +2476,21 @@ section:focus,article:focus,main:focus {
     height:auto;
     min-height:100svh;
     max-height:none;
+    padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));
     align-content:start;
     column-gap:0
+  }
+  .hero .pillar-grid {
+    margin-top:24px
+  }
+  .hero .hero-motto {
+    font-size:32px
+  }
+  .hero .pillar-label {
+    font-size:24px
+  }
+  .hero .pillar-headline {
+    font-size:16px
   }
   .hero .hero-art {
     position:relative;
@@ -2478,8 +2498,14 @@ section:focus,article:focus,main:focus {
     grid-column:1;
     grid-row:5;
     justify-self:center;
-    max-width:520px;
-    margin-top:16px
+    width:90%;
+    max-width:468px;
+    margin-top:40px
+  }
+  .hero .hero-node image {
+    transform-box:fill-box;
+    transform-origin:center;
+    transform:scale(1.35)
   }
 }
 @media(prefers-reduced-motion:reduce) {
