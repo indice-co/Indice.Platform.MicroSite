@@ -9,6 +9,8 @@
   if (!products.length || !section || !stage || !panel) return;
 
   const chapters = [...section.querySelectorAll('.product-chapter')];
+  const caseChapter = chapters.find(chapter => chapter.dataset.product === 'cases');
+  const caseBeats = [...(caseChapter?.querySelectorAll('[data-case-beat]') || [])];
   const slides = [...panel.querySelectorAll('[data-preview]')];
   const navigation = [...section.querySelectorAll('[data-select-product]')];
   const grid = document.querySelector('#products .product-grid');
@@ -33,12 +35,30 @@
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const ease = value => value * value * (3 - 2 * value);
   const productIndex = id => products.findIndex(product => product.id === id);
+  const caseIndex = productIndex('cases');
   const color = value => {
     const clean = (value || '#201f1e').replace('#', '');
     return [0, 2, 4].map(offset => parseInt(clean.slice(offset, offset + 2), 16));
   };
   const mixColor = (from, to, amount) => from.map((channel, index) => Math.round(channel + (to[index] - channel) * amount));
   const productColor = index => color(products[index].id === 'messaging' ? products[index].accent : products[index].color);
+
+  function setCaseProgress(progress) {
+    if (!caseChapter) return;
+    const activeBeat = progress < 0.32 ? 'intake' : progress < 0.66 ? 'workflow' : 'governance';
+    caseChapter.dataset.caseBeat = activeBeat;
+    caseBeats.forEach(beat => {
+      const active = beat.dataset.caseBeat === activeBeat;
+      beat.classList.toggle('is-current', active);
+      if (state.enhanced) {
+        beat.inert = !active;
+        beat.setAttribute('aria-hidden', String(!active));
+      } else {
+        beat.inert = false;
+        beat.removeAttribute('aria-hidden');
+      }
+    });
+  }
 
   function showPreview(index) {
     state.previewIndex = index;
@@ -56,13 +76,8 @@
   }
 
   function updateLoop() {
-    const canRun = state.enhanced && state.visible && state.activeIndex < 0 &&
-      !document.hidden && !disposed;
-    if (!canRun) {
-      stopLoop();
-      return;
-    }
-    if (!loop) loop = setInterval(() => showPreview((state.previewIndex + 1) % products.length), 4000);
+    stopLoop();
+    if (state.enhanced && state.activeIndex < 0 && caseIndex >= 0) showPreview(caseIndex);
   }
 
   function releaseGrid() {
@@ -76,13 +91,16 @@
     const changed = state.activeIndex !== index;
     state.activeIndex = index;
     section.classList.toggle('story-products', index >= 0);
+    section.classList.toggle('story-cases-active', state.enhanced && index === caseIndex);
+    document.body?.classList.toggle('story-cases-active', state.enhanced && index === caseIndex);
     section.dataset.activeProduct = index < 0 ? '' : products[index].id;
     chapters.forEach(chapter => {
       const active = index >= 0 && chapter.dataset.product === products[index].id;
+      const introVisible = state.enhanced && state.phase === 'transform' && chapter === caseChapter;
       chapter.classList.toggle('is-active', active);
       if (state.enhanced) {
-        chapter.inert = !active;
-        chapter.setAttribute('aria-hidden', String(!active));
+        chapter.inert = !active && !introVisible;
+        chapter.setAttribute('aria-hidden', String(!active && !introVisible));
       } else {
         chapter.inert = false;
         chapter.removeAttribute('aria-hidden');
@@ -112,26 +130,41 @@
     state.phase = phase;
     section.dataset.phase = phase;
 
+    const index = units < INTRO ? -1 : Math.min(products.length - 1, Math.floor((units - INTRO) / PRODUCT));
     const panelWidth = Math.min(width * 0.96, 1400, (viewport - 100) * 1.8);
-    const finalWidth = width * 0.68;
-    panel.style.width = `${panelWidth}px`;
-    stage.style.setProperty('--panel-scale', String((0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation)));
-    stage.style.setProperty('--panel-x', `${(width * 0.22 + 30) * transformation}px`);
-    stage.style.setProperty('--panel-y', `${viewport * (0.16 * (1 - arrival) - 0.07) + 20}px`);
+    const gutter = Math.min(88, Math.max(24, width * 0.05));
+    const gap = Math.min(70, Math.max(26, width * 0.04));
+    const stageWidth = stage.clientWidth || width;
+    const gridWidth = stageWidth - 2 * gutter - gap;
+    const screenWidth = gridWidth * 0.61;
+    const screenLeft = gutter + gridWidth * 0.39 + gap;
+    const alignWithIntake = index <= caseIndex;
+    const finalWidth = alignWithIntake ? screenWidth : width * 0.68;
+    const finalX = alignWithIntake
+      ? screenLeft + screenWidth / 2 - stageWidth / 2
+      : width * 0.22 + 30;
+    const panelScale = (0.72 + arrival * 0.28) * (1 + (finalWidth / panelWidth - 1) * transformation);
+    const renderedWidth = panelWidth * panelScale;
+    panel.style.width = `${alignWithIntake ? renderedWidth : panelWidth}px`;
+    panel.style.height = alignWithIntake ? `${(renderedWidth - 2) * 9 / 16 + 46}px` : '';
+    stage.style.setProperty('--panel-scale', String(alignWithIntake ? 1 : panelScale));
+    stage.style.setProperty('--panel-x', `${finalX * transformation}px`);
+    const initialPanelY = viewport * (0.16 * (1 - arrival) - 0.07) + 20;
+    stage.style.setProperty('--panel-y', `${alignWithIntake ? initialPanelY * (1 - transformation) : initialPanelY}px`);
     stage.style.setProperty('--panel-opacity', String(arrival));
     stage.style.setProperty('--copy-opacity', String(reveal));
     stage.style.setProperty('--copy-y', `${24 * (1 - reveal)}px`);
     stage.style.setProperty('--intro-opacity', String(1 - transformation));
+    stage.style.setProperty('--cases-intro-opacity', String(transformation));
+    stage.style.setProperty('--cases-intro-transform', `translateY(${44 * (1 - transformation)}px) scale(${0.78 + 0.22 * transformation})`);
 
-    const index = units < INTRO ? -1 : Math.min(products.length - 1, Math.floor((units - INTRO) / PRODUCT));
+    if (index === caseIndex) setCaseProgress((units - INTRO - index * PRODUCT) / PRODUCT);
     setActive(index);
     if (index < 0) {
-      // Only the panel obscures the grid, so its overlap is the focusability boundary.
-      stage.style.backgroundColor = 'transparent';
+      const currentColor = phase === 'transform' ? productColor(caseIndex) : null;
+      stage.style.backgroundColor = currentColor ? `rgba(${currentColor.join(',')},0.12)` : 'transparent';
     } else {
-      const fraction = clamp(((units - INTRO) / PRODUCT - index) / 0.22);
-      const from = index === 0 ? [222, 218, 208] : productColor(index - 1);
-      const channels = mixColor(from, productColor(index), ease(fraction));
+      const channels = productColor(index);
       stage.style.backgroundColor = `rgba(${channels.join(',')},0.12)`;
     }
     const panelRect = panel.getBoundingClientRect();
