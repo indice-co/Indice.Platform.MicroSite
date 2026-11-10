@@ -3047,23 +3047,26 @@ section:focus,article:focus,main:focus {
   max-width:none
 }
 .hero .hero-art {
+  --art-margin-top:50px;
   position:absolute;
-  translate:-40px 5%;
+  /* End-aligned absolute artwork needs its top spacing applied as an offset. */
+  translate:-40px calc(5% + var(--art-margin-top));
   grid-column:2;
   grid-row:2/5;
   align-self:end;
   justify-self:end;
   right:auto;
   top:auto;
-  width:100%;
-  max-width:672px;
+  width:115%;
+  max-width:772.8px;
+  margin-top:var(--art-margin-top);
   height:auto;
   aspect-ratio:5/4
 }
 @media(min-width:1441px) {
   .hero .hero-art {
     justify-self:center;
-    translate:-20px 5%
+    translate:-20px calc(5% + var(--art-margin-top))
   }
 }
 @media(max-width:760px) {
@@ -3095,9 +3098,8 @@ section:focus,article:focus,main:focus {
     grid-column:1;
     grid-row:5;
     justify-self:center;
-    width:90%;
-    max-width:468px;
-    margin-top:40px
+    width:103.5%;
+    max-width:538.2px
   }
   .hero .hero-node image {
     transform-box:fill-box;
