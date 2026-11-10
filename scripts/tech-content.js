@@ -33,7 +33,7 @@ const pillars = [
   headline: copy.hero.pillars.find(source => source.label === pillar.label).headline
 }));
 
-const intro = 'Open-source .NET and Angular libraries, four products built on them that you deploy on your own infrastructure, and the engineers who integrate and maintain them.';
+const intro = 'Open-source .NET and Angular libraries, products built on them that you deploy on your own infrastructure, and the engineers who integrate and maintain them.';
 
 /* Technology catalogue: ids are shared by the Foundation lists and the product dependency matrix. */
 const tech = [
