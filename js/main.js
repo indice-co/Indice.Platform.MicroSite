@@ -132,19 +132,19 @@
     });
 
     const pillarLinks = Array.from(document.querySelectorAll('[data-pillar]'));
-    const sections = ['foundation', 'products', 'services'].map((id) => document.getElementById(id));
+    const sections = ['foundation', 'products', 'expertise'].map((id) => document.getElementById(id));
     function updateActivePillar() {
       frame = 0;
-      const [foundation, products, services] = sections;
-      if (!foundation || !products || !services) return;
+      const [foundation, products, expertise] = sections;
+      if (!foundation || !products || !expertise) return;
       const probe = window.innerHeight * 0.33;
       const foundationTop = foundation.getBoundingClientRect().top;
       const productsTop = products.getBoundingClientRect().top;
-      const servicesRect = services.getBoundingClientRect();
+      const expertiseRect = expertise.getBoundingClientRect();
       let active = '';
       if (foundationTop <= probe && productsTop > probe) active = 'foundation';
-      else if (productsTop <= probe && servicesRect.top > probe) active = 'products';
-      else if (servicesRect.top <= probe && servicesRect.bottom > probe) active = 'services';
+      else if (productsTop <= probe && expertiseRect.top > probe) active = 'products';
+      else if (expertiseRect.top <= probe && expertiseRect.bottom > probe) active = 'expertise';
       pillarLinks.forEach((link) => {
         const selected = link.dataset.pillar === active;
         link.classList.toggle('is-active', selected);

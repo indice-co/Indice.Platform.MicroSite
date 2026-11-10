@@ -94,17 +94,17 @@ const heroCloud = 'M76.7 345A113 113 0 0 1 192.2 152.3A150 150 0 0 1 449.3 123A1
 const heroDiagram = `<svg class="hero-diagram" viewBox="0 0 600 480" preserveAspectRatio="xMaxYMid meet" fill="none" aria-hidden="true">
 <defs><clipPath id="hero-cloud-front"><path d="M0 0H225.9L372.3 480H0Z"/></clipPath><clipPath id="hero-cloud-back"><path d="M225.9 0H600V480H372.3Z"/></clipPath></defs>
 <g class="hero-coordinates"><text class="hero-coordinate" x="65" y="240">+</text><text class="hero-coordinate" x="520" y="60">+</text></g>
-<g class="hero-layer hero-layer-services"><path class="hero-link" d="M40 110L130.2 181.6"/><path class="hero-link" d="M190 40L257.2 125.5"/><path class="hero-link" d="M410 36L368.4 112.4"/><path class="hero-link" d="M570 120L493.1 178.9"/><path class="hero-link" d="M575 330L518.4 324.3"/><path class="hero-link" d="M20 350L98.9 333.9"/><path class="hero-pulse" pathLength="1" d="M40 110L130.2 181.6" style="--pulse-delay:0s"/><path class="hero-pulse" pathLength="1" d="M190 40L257.2 125.5" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M410 36L368.4 112.4" style="--pulse-delay:1.2s"/><path class="hero-pulse" pathLength="1" d="M570 120L493.1 178.9" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M575 330L518.4 324.3" style="--pulse-delay:2.4s"/><path class="hero-pulse" pathLength="1" d="M20 350L98.9 333.9" style="--pulse-delay:3s"/><g clip-path="url(#hero-cloud-back)"><g transform="translate(46.35 51.75) scale(.85)"><path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g></g></g>
+<g class="hero-layer hero-layer-expertise"><path class="hero-link" d="M40 110L130.2 181.6"/><path class="hero-link" d="M190 40L257.2 125.5"/><path class="hero-link" d="M410 36L368.4 112.4"/><path class="hero-link" d="M570 120L493.1 178.9"/><path class="hero-link" d="M575 330L518.4 324.3"/><path class="hero-link" d="M20 350L98.9 333.9"/><path class="hero-pulse" pathLength="1" d="M40 110L130.2 181.6" style="--pulse-delay:0s"/><path class="hero-pulse" pathLength="1" d="M190 40L257.2 125.5" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M410 36L368.4 112.4" style="--pulse-delay:1.2s"/><path class="hero-pulse" pathLength="1" d="M570 120L493.1 178.9" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M575 330L518.4 324.3" style="--pulse-delay:2.4s"/><path class="hero-pulse" pathLength="1" d="M20 350L98.9 333.9" style="--pulse-delay:3s"/><g clip-path="url(#hero-cloud-back)"><g transform="translate(46.35 51.75) scale(.85)"><path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g></g></g>
 <g class="hero-layer hero-layer-foundation"><path class="hero-rail" pathLength="1" d="M40 416H560" style="--draw-delay:.2s"/><path class="hero-rail" pathLength="1" d="M530 436H70" style="--draw-delay:.35s"/><path class="hero-rail" pathLength="1" d="M100 456H500" style="--draw-delay:.5s"/><path class="hero-pulse" pathLength="1" d="M40 416H560" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M530 436H70" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M100 456H500" style="--pulse-delay:3s"/><rect class="hero-rack" x="84" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="249" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="424" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="504" y="410" width="12" height="12" rx="2"/></g>
 <g transform="translate(125 100) scale(1.4)">
 ${heroSlashes}</g>
-<g class="hero-layer hero-layer-services" clip-path="url(#hero-cloud-front)"><g transform="translate(46.35 51.75) scale(.85)"><path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g></g>
+<g class="hero-layer hero-layer-expertise" clip-path="url(#hero-cloud-front)"><g transform="translate(46.35 51.75) scale(.85)"><path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g></g>
 <g class="hero-layer hero-layer-products"><g class="hero-node" data-solution="cases" style="--node-index:0"><circle class="hero-node-ring" cx="40" cy="110" r="30"/><image href="assets/logos/cases icon.svg" x="15" y="85" width="50" height="50"/></g><g class="hero-node" data-solution="iam" style="--node-index:1"><circle class="hero-node-ring" cx="190" cy="40" r="30"/><image href="assets/logos/iam icon.svg" x="165" y="15" width="50" height="50"/></g><g class="hero-node" data-solution="messaging" style="--node-index:2"><circle class="hero-node-ring" cx="410" cy="36" r="30"/><image href="assets/logos/messaging icon.svg" x="385" y="11" width="50" height="50"/></g><g class="hero-node" data-solution="risk" style="--node-index:3"><circle class="hero-node-ring" cx="570" cy="120" r="30"/><image href="assets/logos/risk icon.svg" x="545" y="95" width="50" height="50"/></g><g class="hero-node" data-solution="workers" style="--node-index:4"><circle class="hero-node-ring" cx="575" cy="330" r="18"/><circle class="hero-node-core" cx="575" cy="330" r="8"/></g><g class="hero-node" data-solution="dex" style="--node-index:5"><circle class="hero-node-ring" cx="20" cy="350" r="18"/><circle class="hero-node-core" cx="20" cy="350" r="8"/></g></g>
 </svg>`;
 const pillarGlyphs = {
   foundation: '<path d="M3 7h16M3 11h16M3 15h16"/>',
   products: '<rect x="3.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="3.5" y="12.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="12.5" width="6" height="6" rx="1.5"/>',
-  services: '<path d="M6.5 17.5h9.25a3.75 3.75 0 0 0 .55-7.46 5.25 5.25 0 0 0-10.1-.04A3.75 3.75 0 0 0 6.5 17.5Z"/>'
+  expertise: '<path d="M6.5 17.5h9.25a3.75 3.75 0 0 0 .55-7.46 5.25 5.25 0 0 0-10.1-.04A3.75 3.75 0 0 0 6.5 17.5Z"/>'
 };
 const pillarGlyph = id => `<svg class="pillar-glyph" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${pillarGlyphs[id]}</svg>`;
 const html = `<!doctype html>
@@ -121,7 +121,6 @@ const html = `<!doctype html>
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
-  <script defer src="js/metrics.js"></script>
   <script defer src="js/hero-art.js"></script>
   <script defer src="js/foundation-art.js"></script>
   <script defer src="js/contact.js"></script>
@@ -156,8 +155,6 @@ const html = `<!doctype html>
       </div>
     </section>
 
-    <section class="metrics" id="metrics" aria-label="Platform metrics">${c.metrics.map((m,i) => `<div class="metric" data-reveal style="--reveal-index:${i}"><span class="metric-value" data-count-value="${escape(m.value)}" aria-label="${escape(m.value)}">${m.value}</span><p>${m.label}</p></div>`).join('')}</section>
-
     <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">${c.products.label}</span></div>
       <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>${escape(c.products.title).replace('. ', '.<br>')}</h2><p data-reveal>${c.products.introduction}</p></div>
@@ -172,10 +169,10 @@ const html = `<!doctype html>
       </div>
     </section>
 
-    <section class="services section-pad" id="services" aria-labelledby="services-title" tabindex="-1">
-      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.services.label}</span></div>
-      <div class="services-introduction"><h2 class="display-heading" id="services-title" data-reveal style="--reveal-index:2">${c.services.title}</h2><div>${c.services.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${i+3}">${p}</p>`).join('')}</div></div>
-      <div class="service-list">${c.services.items.map((s,i) => `<article class="service-row" data-reveal style="--reveal-index:${i}"><span class="service-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="service-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
+    <section class="expertise section-pad" id="expertise" aria-labelledby="expertise-title" tabindex="-1">
+      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.expertise.label}</span></div>
+      <div class="expertise-introduction"><h2 class="display-heading" id="expertise-title" data-reveal style="--reveal-index:2">${c.expertise.title}</h2><div>${c.expertise.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${i+3}">${p}</p>`).join('')}</div></div>
+      <div class="expertise-list">${c.expertise.items.map((s,i) => `<article class="expertise-row" data-reveal style="--reveal-index:${i}"><span class="expertise-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="expertise-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>

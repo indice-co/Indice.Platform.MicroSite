@@ -62,7 +62,7 @@ test('hero motto uses the requested red typography', () => {
 
 test('homepage section labels share the hero title typography', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  const rule = css.match(/\.hero h1#hero-title,:is\(\.foundation,\.products,\.services\)>\.section-top>\.eyebrow \{([^}]+)\}/);
+  const rule = css.match(/\.hero h1#hero-title,:is\(\.foundation,\.products,\.expertise\)>\.section-top>\.eyebrow \{([^}]+)\}/);
   assert(rule);
   assert.match(rule[1], /font-size:16px/);
   assert.match(rule[1], /font-weight:650/);
@@ -101,7 +101,7 @@ test('mobile hero leaves breathing room above the artwork and less space below i
 test('each hero pillar groups its arrow beside its headline without changing its destination', () => {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const pillars = [...html.matchAll(/<a class="pillar" href="#([^"]+)">([\s\S]*?)<\/a>/g)];
-  assert.deepEqual(pillars.map(match => match[1]), ['foundation', 'products', 'services']);
+  assert.deepEqual(pillars.map(match => match[1]), ['foundation', 'products', 'expertise']);
   for (const [, , content] of pillars) {
     assert.match(content, /<span class="pillar-content"><span class="pillar-headline">[^<]+<\/span><svg class="arrow"[\s\S]*?<\/svg><\/span>$/);
     assert.match(content, /<path d="M5 5 19 19M5 19h14V5"/, 'Pillar arrow points diagonally down and right');

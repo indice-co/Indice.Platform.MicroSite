@@ -13,11 +13,11 @@ globalThis.INDICE_DATA = {
     guide: null
   },
   copy: {
-    navigation: { foundation: 'Foundation', products: 'Suite', services: 'Services', menu: 'Menu', close: 'Close', exploreAll: 'Explore all solutions', unavailable: 'Other product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
+    navigation: { foundation: 'Foundation', products: 'Suite', expertise: 'Expertise', menu: 'Menu', close: 'Close', exploreAll: 'Explore all solutions', unavailable: 'Other product pages are not available in this preview.', demo: 'Request a demo', skip: 'Skip to content' },
     hero: { title: 'INDICE Platform', motto: 'Solid foundations. Greater possibilities.', pillars: [
-      { id: 'foundation', number: '01', label: 'Foundation', headline: 'Built on experience. Engineered to evolve.' },
-      { id: 'products', number: '02', label: 'Suite', headline: 'Focused capabilities. Flexible combinations.' },
-      { id: 'services', number: '03', label: 'Services', headline: 'Expertise that brings it all together.' }
+      { id: 'foundation', number: '01', label: 'Foundation', headline: 'Open-source .NET libraries on NuGet and Angular libraries on npm give every product the same ASP.NET Core, EF Core and OpenID Connect base. You extend tested packages instead of rebuilding common infrastructure, and deploy them in your own environment.' },
+      { id: 'products', number: '02', label: 'Suite', headline: 'Cases, IAM, Messaging and Risk are ready-made products that you host inside your own ASP.NET Core applications, each with its own SQL Server database, APIs and embedded Angular admin UI. Adopt one on its own or combine several, and extend them with your own code.' },
+      { id: 'expertise', number: '03', label: 'Expertise', headline: 'Our engineers build custom applications on the platform and integrate its products with your existing systems, APIs and identity providers. After go-live we keep your solution current with new features, CVE patching and direct support from the INDICE engineering team.' }
     ] },
     foundation: { label: 'Platform Foundation', title: 'A strong foundation for robust digital solutions.', paragraphs: [
       'The technological foundation behind INDICE solutions combines reusable tools, engineering expertise, cloud practices, and in-depth fintech experience.'
@@ -27,14 +27,8 @@ globalThis.INDICE_DATA = {
       { title: 'Cloud practices', description: 'Proven approaches to application deployment and continuous monitoring that support stability and availability.' },
       { title: 'Fintech experience', description: 'Deep understanding of the financial sector’s requirements, regulations, and operational complexities.' }
     ], explore: 'Explore the suite' },
-    metrics: [
-      { value: '42', label: 'Organisations using INDICE solutions' },
-      { value: '280', label: 'Production implementations' },
-      { value: '+300.000', label: 'Users served across deployments' },
-      { value: '+25', label: 'Years of platform development' }
-    ],
     products: { label: 'Platform Suite', title: 'Our solutions. A platform of possibilities.', introduction: 'Our solutions address recurring business and technology needs. Available individually or in combination, they can be adapted to each organisation’s requirements and deployed in its own environment.' },
-    services: { label: 'Platform Services', title: 'From platform capabilities to working solutions.', paragraphs: [
+    expertise: { label: 'Platform Expertise', title: 'From platform capabilities to working solutions.', paragraphs: [
       'INDICE provides the development, integration, and ongoing support to tailor platform capabilities to each organisation.',
       'Implementation expertise and continuous improvement support the full journey, from initial delivery to evolving business requirements.'
     ], items: [
@@ -43,15 +37,16 @@ globalThis.INDICE_DATA = {
       { title: 'Continuous evolution and support', description: 'New features, regular security updates, vulnerability patching, and direct support from the INDICE team.' }
     ] },
     technologies: { title: 'Engineered with trusted technologies', items: [
-      { name: 'api', icon: 'assets/logos/technologies/api.svg' },
-      { name: 'duente', icon: 'assets/logos/technologies/duente.svg' },
-      { name: 'angular', icon: 'assets/logos/technologies/angular.svg' },
       { name: '.net', icon: 'assets/logos/technologies/dotnet.svg' },
-      { name: 'openid', icon: 'assets/logos/technologies/openid.svg' },
-      { name: 'workflow', icon: 'assets/logos/technologies/workflow.svg' },
+      { name: 'angular', icon: 'assets/logos/technologies/angular.svg' },
+      { name: 'swift', icon: 'assets/logos/technologies/swift.svg' },
+      { name: 'kotlin', icon: 'assets/logos/technologies/kotlin.svg' },
+      { name: 'sql server', icon: 'assets/logos/technologies/sqlserver.svg' },
       { name: 'azure', icon: 'assets/logos/technologies/azure.svg' },
-      { name: 'cloud', icon: 'assets/logos/technologies/cloud.svg' },
-      { name: 'docker', icon: 'assets/logos/technologies/docker.svg' }
+      { name: 'elsa', icon: 'assets/logos/technologies/workflow.svg' },
+      { name: 'duende', icon: 'assets/logos/technologies/duende.svg' },
+      { name: 'openid', icon: 'assets/logos/technologies/openid.svg' },
+      { name: 'openapi', icon: 'assets/logos/technologies/api.svg' }
     ] },
     contact: { title: 'The foundation. The solutions. The expertise.', description: 'Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.' }
   },

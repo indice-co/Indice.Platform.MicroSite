@@ -176,7 +176,7 @@ section:focus,article:focus,main:focus {
 .section-pad {
   padding:100px var(--gutter)
 }
-.products.section-pad,.services.section-pad {
+.products.section-pad,.expertise.section-pad {
   padding-inline:max(var(--gutter),calc((100% - 1440px)/2))
 }
 .section-top {
@@ -374,7 +374,7 @@ section:focus,article:focus,main:focus {
     stroke:var(--ink)
   }
 }
-/* Platform diagram: services cloud, suite chips between the slashes, foundation rails. */
+/* Platform diagram: expertise cloud, suite chips between the slashes, foundation rails. */
 .hero-diagram {
   width:100%;
   height:100%;
@@ -551,20 +551,20 @@ section:focus,article:focus,main:focus {
   }
 }
 /* Hovering a pillar spotlights its layer of the platform diagram. */
-.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-products),
-.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-foundation),
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
+.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-layer-expertise,.hero-layer-products),
+.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) :is(.hero-layer-expertise,.hero-layer-foundation),
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
   opacity:.15
 }
-/* Links share the services layer, so fade their strokes to match the dimmed layers. */
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-link {
+/* Links share the expertise layer, so fade their strokes to match the dimmed layers. */
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-link {
   stroke-opacity:.06
 }
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-layer-services .hero-pulse {
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-layer-expertise .hero-pulse {
   stroke-opacity:.15
 }
 .hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-rail,.hero-rack),
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-cloud {
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-cloud {
   stroke:var(--ink);
   stroke-opacity:1
 }
@@ -649,7 +649,7 @@ section:focus,article:focus,main:focus {
 .pillar:hover .pillar-content>.arrow,.pillar:focus-visible .pillar-content>.arrow {
   transform:scale(1.5)
 }
-/* Foundation and configurable suite metrics. */
+/* Platform foundation. */
 .foundation {
   background:var(--paper);
   padding-top:105px
@@ -805,58 +805,26 @@ section:focus,article:focus,main:focus {
   right:2%;
   top:8%
 }
-.metrics {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  padding:60px var(--gutter);
-  background:var(--paper);
-  border-top:1px solid var(--line)
-}
-.metric {
-  padding:0 28px;
-  border-right:1px solid var(--line)
-}
-.metric:first-child {
-  padding-left:0
-}
-.metric:last-child {
-  padding-right:0;
-  border:0
-}
-.metric-value {
-  display:block;
-  font-size:clamp(40px,4.1vw,66px);
-  line-height:1.1;
-  letter-spacing:-.06em;
-  font-weight:400
-}
-.metric p {
-  font-size:16px;
-  line-height:1.5;
-  max-width:185px;
-  margin-top:18px;
-  color:var(--muted)
-}
 /* Open, ruled suite grid. Product showcase order remains independent. */
 .products {
   padding-top:110px;
   padding-bottom:180px
 }
-.products-introduction,.services-introduction {
+.products-introduction,.expertise-introduction {
   display:grid;
   grid-template-columns:1.1fr 1fr;
   gap:8%;
   align-items:end
 }
-.products-introduction h2,.services-introduction h2 {
+.products-introduction h2,.expertise-introduction h2 {
   grid-column:1/-1;
   grid-row:1;
   max-width:75%
 }
-.products-introduction h2,.services-introduction h2,.hero .hero-motto {
+.products-introduction h2,.expertise-introduction h2,.hero .hero-motto {
   font-size:clamp(38px,3.8vw,64px)
 }
-.products-introduction>p,.services-introduction>div {
+.products-introduction>p,.expertise-introduction>div {
   font-size:16px;
   grid-column:2;
   grid-row:1;
@@ -1854,23 +1822,23 @@ section:focus,article:focus,main:focus {
 .story-enhanced .placeholder-caption>span:last-child {
   font-size:20px
 }
-/* Neutral services, technologies and closing statement. */
-.services {
+/* Neutral expertise, technologies and closing statement. */
+.expertise {
   position:relative;
   background:var(--paper);
   padding-top:110px
 }
-.services-introduction h2 {
+.expertise-introduction h2 {
   grid-column:1;
   max-width:none
 }
-.services-introduction>div {
+.expertise-introduction>div {
   color:var(--ink)
 }
-.service-list {
+.expertise-list {
   margin-top:90px
 }
-.service-row {
+.expertise-row {
   display:grid;
   grid-template-columns:50px 1fr 1fr 100px;
   gap:4%;
@@ -1878,22 +1846,22 @@ section:focus,article:focus,main:focus {
   border-top:1px solid var(--line);
   padding:35px 0 45px
 }
-.service-number {
+.expertise-number {
   font-size:16px
 }
-.service-row h3 {
+.expertise-row h3 {
   font-size:24px;
   line-height:1.3;
   letter-spacing:-.035em;
   max-width:290px
 }
-.service-row p {
+.expertise-row p {
   font-size:16px;
   line-height:1.8;
   max-width:360px;
   color:var(--muted)
 }
-.service-glyph {
+.expertise-glyph {
   --plane:rotateX(54deg) rotateZ(-28deg);
   position:relative;
   width:100px;
@@ -1901,11 +1869,11 @@ section:focus,article:focus,main:focus {
   perspective:400px;
   justify-self:end
 }
-.service-glyph i,.service-glyph::after {
+.expertise-glyph i,.expertise-glyph::after {
   position:absolute;
   transition:translate .6s var(--ease)
 }
-.service-glyph i {
+.expertise-glyph i {
   left:14px;
   width:72px;
   height:52px;
@@ -1913,7 +1881,7 @@ section:focus,article:focus,main:focus {
   background:var(--beige);
   transform:var(--plane)
 }
-.service-glyph::after {
+.expertise-glyph::after {
   content:'';
   width:12px;
   height:46px;
@@ -1947,7 +1915,7 @@ section:focus,article:focus,main:focus {
   top:6px;
   height:30px
 }
-.service-row:hover .glyph-0 i:nth-child(3) {
+.expertise-row:hover .glyph-0 i:nth-child(3) {
   translate:0 -6px
 }
 .glyph-1 i {
@@ -1973,10 +1941,10 @@ section:focus,article:focus,main:focus {
   height:40px;
   transform:skew(17deg) rotate(62deg)
 }
-.service-row:hover .glyph-1 i:nth-child(1) {
+.expertise-row:hover .glyph-1 i:nth-child(1) {
   translate:4px -2px
 }
-.service-row:hover .glyph-1 i:nth-child(2) {
+.expertise-row:hover .glyph-1 i:nth-child(2) {
   translate:-4px 2px
 }
 .glyph-2 i {
@@ -2004,10 +1972,10 @@ section:focus,article:focus,main:focus {
   top:-8px;
   height:34px
 }
-.service-row:hover .glyph-2 i:nth-child(2) {
+.expertise-row:hover .glyph-2 i:nth-child(2) {
   translate:0 -3px
 }
-.service-row:hover .glyph-2 i:nth-child(3),.service-row:hover .glyph-2::after {
+.expertise-row:hover .glyph-2 i:nth-child(3),.expertise-row:hover .glyph-2::after {
   translate:0 -6px
 }
 .technologies {
@@ -2321,12 +2289,12 @@ section:focus,article:focus,main:focus {
 .reveal-ready .display-heading.is-revealed {
   transform:none
 }
-.reveal-ready .foundation [data-reveal],.reveal-ready .services [data-reveal] {
+.reveal-ready .foundation [data-reveal],.reveal-ready .expertise [data-reveal] {
   transform:translateY(64px);
   transition-duration:1.4s;
   transition-delay:calc(var(--reveal-index,0)*140ms)
 }
-.reveal-ready .foundation [data-reveal].is-revealed,.reveal-ready .services [data-reveal].is-revealed {
+.reveal-ready .foundation [data-reveal].is-revealed,.reveal-ready .expertise [data-reveal].is-revealed {
   transform:none
 }
 @keyframes hero-enter {
@@ -2367,21 +2335,21 @@ section:focus,article:focus,main:focus {
   .foundation-layout {
     gap:5%
   }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     gap:5%
   }
-  .products-introduction h2,.services-introduction h2,.hero .hero-motto {
+  .products-introduction h2,.expertise-introduction h2,.hero .hero-motto {
     font-size:clamp(32px,3.8vw,44px)
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:35px 1fr 1.15fr 80px;
     gap:3%
   }
-  .service-glyph {
+  .expertise-glyph {
     transform:scale(.8);
     transform-origin:right top
   }
-  .service-row h3 {
+  .expertise-row h3 {
     font-size:21px
   }
   .product-chapter h3 {
@@ -2458,18 +2426,11 @@ section:focus,article:focus,main:focus {
   .foundation-text>p:first-child {
     font-size:17px
   }
-  .metrics {
-    padding-top:45px;
-    padding-bottom:45px
-  }
-  .metric {
-    padding:0 20px
-  }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     grid-template-columns:1fr 1.1fr;
     gap:5%
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     font-size:13px
   }
   .product-grid {
@@ -2495,18 +2456,18 @@ section:focus,article:focus,main:focus {
   .placeholder-caption>span:last-child {
     font-size:10px
   }
-  .service-list {
+  .expertise-list {
     margin-top:60px
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:30px 1fr 1fr;
     gap:4%;
     padding:28px 0
   }
-  .service-glyph {
+  .expertise-glyph {
     display:none
   }
-  .service-row p {
+  .expertise-row p {
     font-size:13px
   }
   .contact h2 {
@@ -2616,41 +2577,18 @@ section:focus,article:focus,main:focus {
   .foundation-text>p:first-child {
     font-size:18px
   }
-  .metrics {
-    grid-template-columns:1fr 1fr;
-    gap:34px 0;
-    padding-top:40px;
-    padding-bottom:40px
-  }
-  .metric {
-    padding:0 20px
-  }
-  .metric:nth-child(odd) {
-    padding-left:0
-  }
-  .metric:nth-child(2) {
-    border:0
-  }
-  .metric-value {
-    font-size:48px
-  }
-  .metric p {
-    font-size:12px;
-    margin-top:12px;
-    max-width:155px
-  }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     display:block
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     font-size:16px;
     margin-top:30px;
     max-width:530px
   }
-  .products-introduction h2,.services-introduction h2 {
+  .products-introduction h2,.expertise-introduction h2 {
     max-width:none
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     padding-left:0;
     max-width:none
   }
@@ -2726,19 +2664,19 @@ section:focus,article:focus,main:focus {
   .product-nav-index {
     display:none
   }
-  .service-list {
+  .expertise-list {
     margin-top:45px
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:25px 1fr;
     gap:10px 16px;
     padding:26px 0 30px
   }
-  .service-row h3 {
+  .expertise-row h3 {
     font-size:22px;
     max-width:360px
   }
-  .service-row p {
+  .expertise-row p {
     grid-column:2;
     font-size:13px;
     max-width:500px
@@ -3000,7 +2938,7 @@ section:focus,article:focus,main:focus {
 .hero .hero-composition {
   display:contents
 }
-.hero h1#hero-title,:is(.foundation,.products,.services)>.section-top>.eyebrow {
+.hero h1#hero-title,:is(.foundation,.products,.expertise)>.section-top>.eyebrow {
   font-size:16px;
   font-weight:650;
   line-height:1.65;
@@ -3211,7 +3149,7 @@ section:focus,article:focus,main:focus {
     translate:none!important;
     will-change:auto
   }
-  .service-glyph i,.service-glyph::after {
+  .expertise-glyph i,.expertise-glyph::after {
     transition:none;
     translate:none!important
   }
