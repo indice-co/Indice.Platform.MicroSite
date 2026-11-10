@@ -42,11 +42,12 @@ test('hero travel and perimeter tracing share a steady timeline, with fill and c
   assert(css.includes('hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1'));
 });
 
-test('desktop hero artwork lowers its visible baseline and retains its spacing offsets', () => {
+test('desktop hero places the artwork under the motto, opposite the pillars, and retains its spacing offsets', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   assert.match(css, /grid-template-rows:50px 24px max-content max-content/);
-  assert.match(css, /\.hero \.hero-art \{[^}]*translate:-40px 5%;[^}]*align-self:end;/);
-  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:-20px 5%/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*translate:0 3%;[^}]*grid-column:1;[^}]*grid-row:4;[^}]*align-self:end;/);
+  assert.match(css, /\.hero \.pillar-grid \{\s*grid-column:2;\s*grid-row:2\/5;/);
+  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:20px 3%/);
   assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
 });
 

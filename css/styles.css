@@ -218,8 +218,8 @@ section:focus,article:focus,main:focus {
   z-index:-1;
   background-image:radial-gradient(circle,#201f1e33 1px,transparent 1.5px);
   background-size:26px 26px;
-  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
-  mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
   pointer-events:none
 }
 .hero-top {
@@ -2926,7 +2926,7 @@ section:focus,article:focus,main:focus {
   }
 }
 .hero {
-  grid-template-columns:minmax(0,calc((100% - 96px) * .44 + 60px)) minmax(0,calc((100% - 96px) * .56 - 60px));
+  grid-template-columns:minmax(0,calc((100% - 96px) * .56 - 60px)) minmax(0,calc((100% - 96px) * .44 + 60px));
   grid-template-rows:50px 24px max-content max-content;
   align-content:center;
   column-gap:96px;
@@ -2966,12 +2966,11 @@ section:focus,article:focus,main:focus {
   letter-spacing:0
 }
 .hero .pillar-grid {
-  grid-column:1;
-  grid-row:4;
-  align-self:start;
+  grid-column:2;
+  grid-row:2/5;
+  align-self:center;
   grid-template-columns:minmax(0,1fr);
-  gap:18px;
-  margin-top:48px
+  gap:18px
 }
 .hero .pillar {
   display:block;
@@ -2985,12 +2984,12 @@ section:focus,article:focus,main:focus {
   max-width:none
 }
 .hero .hero-art {
-  position:absolute;
-  translate:-40px 5%;
-  grid-column:2;
-  grid-row:2/5;
+  position:relative;
+  translate:0 3%;
+  grid-column:1;
+  grid-row:4;
   align-self:end;
-  justify-self:end;
+  justify-self:start;
   right:auto;
   top:auto;
   width:100%;
@@ -3001,7 +3000,7 @@ section:focus,article:focus,main:focus {
 @media(min-width:1441px) {
   .hero .hero-art {
     justify-self:center;
-    translate:-20px 5%
+    translate:20px 3%
   }
 }
 @media(max-width:760px) {
@@ -3014,6 +3013,11 @@ section:focus,article:focus,main:focus {
     padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));
     align-content:start;
     column-gap:0
+  }
+  .hero .pillar-grid {
+    grid-column:1;
+    grid-row:4;
+    align-self:start
   }
   .hero .pillar-grid {
     margin-top:24px
