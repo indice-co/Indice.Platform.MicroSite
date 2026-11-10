@@ -9,8 +9,10 @@
   <link rel="preload" href="assets/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/carousel.css">
   <link rel="stylesheet" href="css/blueprint.css">
   <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/carousel.js"></script>
   <script defer src="js/blueprint.js"></script>
 </head>
 <body class="bp">
@@ -67,7 +69,7 @@
       <header class="sheet-head">
         <p class="sheet-no" aria-hidden="true">01</p>
         <div><p class="eyebrow">Sheet 01 of 03</p><h2 id="foundation-title">Foundation</h2></div>
-        <p class="pillar-text">Open-source .NET libraries on NuGet and Angular libraries on npm give every product the same ASP.NET Core, EF Core and OpenID Connect base. You extend tested packages instead of rebuilding common infrastructure, and deploy them in your own environment.</p>
+        <p class="pillar-text">Open-source .NET libraries on NuGet and Angular libraries on npm give every product the same ASP.NET Core, EF Core and OpenID Connect base. You extend tested packages and deploy them in your own environment.</p>
       </header>
       <div class="sheet-body">
         <div class="col-main">
@@ -126,11 +128,11 @@
       <header class="sheet-head">
         <p class="sheet-no" aria-hidden="true">02</p>
         <div><p class="eyebrow">Sheet 02 of 03</p><h2 id="suite-title">Suite</h2></div>
-        <p class="pillar-text">Cases, IAM, Messaging and Risk are ready-made products that you host inside your own ASP.NET Core applications, each with its own SQL Server database, APIs and embedded Angular admin UI. Adopt one on its own or combine several, and extend them with your own code.</p>
+        <p class="pillar-text">Cases, IAM, Messaging and Risk are products you host inside your own ASP.NET Core applications, each with its own SQL Server database, APIs and Angular admin UI. Adopt one or combine several, and extend them with your own code.</p>
       </header>
       <h3 class="block-title" id="datasheets-title">Datasheets</h3>
       <div class="datasheets" aria-labelledby="datasheets-title">
-        <details class="ds" id="ds-cases" name="datasheet" open>
+        <details class="ds" id="ds-cases" name="datasheet">
           <summary>
             <span class="ds-no">02.1</span>
             <span class="plate"><img src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></span>
@@ -142,6 +144,33 @@
           <div class="ds-body">
             <div class="ds-left">
               <p class="ds-summary">A case type is a JSON Schema form, a set of checkpoints and an Elsa workflow that decides who acts next. Customers and back-office staff work on the same record through two APIs.</p>
+              <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Cases UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Cases screenshot slides"><li class="shot" id="shots-cases-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Process as data. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Cases · Process as data</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Two views, one record. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Cases · Two views, one record</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Actions come from the workflow. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Cases · Actions come from the workflow</figcaption>
+          </figure>
+        </li></ul>
+      </section>
               <ol class="features"><li><b>Process as data</b><span>A new process is a case type (schema, layout, checkpoints) plus a workflow, not a code change. Workflows are edited and published from the designer at /workflow without a redeploy.</span></li><li><b>Two views, one record</b><span>my/* serves customers, manage/* serves staff. Private checkpoints stay internal; the customer sees the last public checkpoint and the published data version.</span></li><li><b>Actions come from the workflow</b><span>GET manage/cases/{id}/actions asks the workflow which blocking activities are waiting (assign, edit, approve, custom actions). The SPA renders exactly those.</span></li><li><b>Three-layer access control</b><span>Roles (CasesUser, CasesManager, CasesAdministrator), record-level access rules, and ownership. Four-eyes approval is a workflow activity: Block previous approver.</span></li><li><b>Everything is a row</b><span>Checkpoints, data versions, comments and approvals live in CasesDb; the timeline is a query. A PDF per case type renders from a Razor template.</span></li></ol>
             </div>
             <div class="ds-right">
@@ -206,6 +235,33 @@
           <div class="ds-body">
             <div class="ds-left">
               <p class="ds-summary">ASP.NET Core Identity stores the users and Duende IdentityServer speaks OIDC / OAuth2. Indice adds the grants, MFA, devices, audit and UI. Workforce, partners and customers sign in through one pipeline.</p>
+              <section class="shots" data-carousel aria-roledescription="carousel" aria-label="IAM UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="IAM screenshot slides"><li class="shot" id="shots-iam-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: One sign-in pipeline. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>IAM · One sign-in pipeline</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-iam-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: Custom grants. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>IAM · Custom grants</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-iam-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: Six MFA methods. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>IAM · Six MFA methods</figcaption>
+          </figure>
+        </li></ul>
+      </section>
               <ol class="features"><li><b>One sign-in pipeline</b><span>Password or external provider (Apple, Google, Microsoft, Facebook, GovGr), then MFA, then the post-login validation activities, then tokens.</span></li><li><b>Custom grants</b><span>Five grant types on top of the standard flows: totp, mfa, device_authentication, delegation and urn:indice:guest. The same IExtensionGrantValidator seam is open to you.</span></li><li><b>Six MFA methods</b><span>SMS, Email, Viber, Authenticator app (TOTP), Trusted device (push approval over the /mfa SignalR hub) and FIDO2 / WebAuthn.</span></li><li><b>Devices and sessions</b><span>A new device becomes trusted only after TrustActivationDelay (48 hours in the template). Server-side sessions are rows you can revoke; EnforceSingleActiveSession ends older sessions.</span></li><li><b>Hardening and audit</b><span>20 per-endpoint rate-limit rules, reCAPTCHA v3 with v2 fallback, lockout, password history. Two audit trails: sign-in logs with impossible-travel checks, and activity logs.</span></li></ol>
             </div>
             <div class="ds-right">
@@ -280,6 +336,33 @@
           <div class="ds-body">
             <div class="ds-left">
               <p class="ds-summary">A campaign fans out to Inbox, Push, Email and SMS according to its settings and each recipient’s preferences. Transactional messages (OTPs, receipts, alerts) run through the same pipeline.</p>
+              <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Messaging UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Messaging screenshot slides"><li class="shot" id="shots-messaging-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: One campaign, four channels. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Messaging · One campaign, four channels</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-messaging-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: Preference-aware delivery. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Messaging · Preference-aware delivery</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-messaging-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: API enqueues, worker delivers. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Messaging · API enqueues, worker delivers</figcaption>
+          </figure>
+        </li></ul>
+      </section>
               <ol class="features"><li><b>One campaign, four channels</b><span>MessageChannelKind is a [Flags] enum: Inbox 1, PushNotification 2, Email 4, SMS 8. Content is authored per channel and rendered per recipient with Handlebars (Full, Partial and Layout templates).</span></li><li><b>Preference-aware delivery</b><span>Channels are resolved per recipient when the campaign is sent: campaign channels, narrowed by the recipient’s preference for the message type, minus what they cannot receive. IgnoreUserPreferences covers true system messages.</span></li><li><b>API enqueues, worker delivers</b><span>The API accepts and queues; the worker resolves, renders and sends. Systems send through the send API under the narrower messages:send scope and get 202 Accepted.</span></li><li><b>Vendors are configuration</b><span>Email: SMTP, SendGrid, SparkPost, Brevo, Azure Communication Services. SMS / Viber: Yuboto, Yuboto Omni, Apifon, Twilio, Vonage, SmsUp, KapaTEL, Mstat. Push: Azure Notification Hubs to APNS and FCM v1.</span></li><li><b>Analytics off the hot path</b><span>Events are queued and batched into MessageEvent records. KPIs: Reached, Engaged, Acted, Coverage. Click tracking rewrites links to /_tracking/… and redirects.</span></li></ol>
             </div>
             <div class="ds-right">
@@ -334,6 +417,33 @@
           <div class="ds-body">
             <div class="ds-left">
               <p class="ds-summary">A risk rule is a C# class that looks at an operation. Its thresholds are settings operators change at runtime. POST api/risk returns one score and one level (None, Low, Medium, High) with a reason per rule.</p>
+              <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Risk UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Risk screenshot slides"><li class="shot" id="shots-risk-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Policy as code plus data. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Risk · Policy as code plus data</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-risk-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Configurable scoring. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Risk · Configurable scoring</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-risk-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Verdicts you can explain. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Risk · Verdicts you can explain</figcaption>
+          </figure>
+        </li></ul>
+      </section>
               <ol class="features"><li><b>Policy as code plus data</b><span>Detection logic is reviewed, versioned and unit-tested like the rest of your software. Thresholds, lists and switches live in RiskDb and hot-reload (every 5 seconds in the template) without a redeploy.</span></li><li><b>Configurable scoring</b><span>Level ranges are configuration (template: 0, 1–1000, 1001–2000, 2001–3000). Aggregation is Sum, where risk accumulates, or Maximum, where the worst rule decides. Overlapping ranges stop the host at startup.</span></li><li><b>Verdicts you can explain</b><span>Every assessment is stored with its input and per-rule score, level and reason, whether or not the operation goes ahead. A recorded event carries the ResultId of its verdict.</span></li><li><b>History for rules</b><span>POST api/risk/events records what happened. IRiskEventStore.GetList(subject, names, dates, filters) gives rules velocity, frequency and first-time-beneficiary checks.</span></li><li><b>Offline geolocation</b><span>MaxMind GeoLite2 databases ship with the product. The IP address resolves to country and coordinates inside the host; nothing leaves it.</span></li></ol>
             </div>
             <div class="ds-right">
@@ -427,7 +537,7 @@
       <header class="sheet-head">
         <p class="sheet-no" aria-hidden="true">03</p>
         <div><p class="eyebrow">Sheet 03 of 03</p><h2 id="expertise-title">Expertise</h2></div>
-        <p class="pillar-text">Our engineers build custom applications on the platform and integrate its products with your existing systems, APIs and identity providers. After go-live we keep your solution current with new features, CVE patching and direct support from the INDICE engineering team.</p>
+        <p class="pillar-text">Our engineers build custom applications on the platform and integrate its products with your existing systems and identity providers. After go-live we provide updates, CVE patching and direct engineering support.</p>
       </header>
       <ol class="packages"><li id="development"><p class="wp">WP-01</p><h3>Software development</h3><p>Custom applications and extensions on the platform libraries, built around your processes and requirements.</p></li><li id="integration"><p class="wp">WP-02</p><h3>Integration</h3><p>Suite products connected to your existing systems, APIs, identity providers and delivery accounts.</p></li><li id="support"><p class="wp">WP-03</p><h3>Ongoing support</h3><p>New features, regular security updates (CVE patching) and direct technical assistance from the engineers who maintain the code.</p></li></ol>
       <h3 class="block-title" id="integration-points">Interface table</h3>

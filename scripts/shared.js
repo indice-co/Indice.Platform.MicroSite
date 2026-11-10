@@ -34,4 +34,21 @@ const designRibbon = active => `<nav class="design-ribbon" aria-label="Design ve
   <span class="design-ribbon-title">Design preview</span>
   <ul>${designs.map((design, index) => `<li><a href="${design.href}"${design.id === active ? ' aria-current="page"' : ''}><span class="design-ribbon-index" aria-hidden="true">${index + 1}</span>${design.label}</a></li>`).join('')}</ul>
 </nav>`;
-module.exports = { escape, arrow, down, demo, logo, navigation, designs, designRibbon };
+
+/* Placeholder UI-screenshot carousel. Static markup is a scroll-snap strip; js/carousel.js adds the controls. */
+const screenshotCarousel = product => {
+  const slides = product.highlights.slice(0, 3).map(([title]) => title);
+  const name = escape(product.name);
+  return `<section class="shots" data-carousel aria-roledescription="carousel" aria-label="${name} UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="${name} screenshot slides">${slides.map((title, index) => `<li class="shot" id="shots-${product.id}-${index + 1}" aria-roledescription="slide" aria-label="${index + 1} of ${slides.length}">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="${name} UI screenshot placeholder: ${escape(title)}. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>${escape(product.id)}.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">${String(index + 1).padStart(2, '0')}</span>${name} · ${escape(title)}</figcaption>
+          </figure>
+        </li>`).join('')}</ul>
+      </section>`;
+};
+module.exports = { escape, arrow, down, demo, logo, navigation, designs, designRibbon, screenshotCarousel };

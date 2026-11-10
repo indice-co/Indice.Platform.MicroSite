@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight, escapeHtml } = require('./highlight.js');
-const { designRibbon, escape } = require('./shared.js');
+const { designRibbon, escape, screenshotCarousel } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techById = Object.fromEntries(tech.map(item => [item.id, item]));
@@ -65,6 +65,8 @@ function productPanel(product, index) {
         <p class="meta"><span class="chip">base unit · ${escape(product.baseUnit.toLowerCase())}</span>${docs}</p>
       </header>
       <p class="summary">${escape(product.summary)}</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      ${screenshotCarousel(product)}
       <h4 class="sub">What it does</h4>
       <ul class="hl">${product.highlights.map(([title, text]) => `<li><b>${escape(title)}</b><span>${escape(text)}</span></li>`).join('')}</ul>
       <div class="cols">
@@ -107,8 +109,10 @@ function render() {
   <title>INDICE Platform — Terminal</title>
   <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/carousel.css">
   <link rel="stylesheet" href="css/terminal.css">
   <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/carousel.js"></script>
   <script defer src="js/terminal.js"></script>
 </head>
 <body class="tm">

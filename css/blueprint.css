@@ -29,6 +29,13 @@
   --grid-minor: #ffffff08;
   --yellow: #ffd426;
   --yellow-ink: #1b1500;
+  --shot-bg: #061544;
+  --shot-bar: #0c2468;
+  --shot-line: #ffffff40;
+  --shot-text: #eef3ff;
+  --shot-dim: #a9bbea;
+  --shot-accent: #ffd426;
+  --shot-radius: 0;
   --cyan: #7fe0ff;
   --mint: #8ff0c6;
   --orange: #ffa66b;

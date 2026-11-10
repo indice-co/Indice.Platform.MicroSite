@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight } = require('./highlight.js');
-const { designRibbon, escape } = require('./shared.js');
+const { designRibbon, escape, screenshotCarousel } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techLabel = Object.fromEntries(tech.map(item => [item.id, item.label]));
@@ -74,7 +74,7 @@ function datasheet(product, index) {
   const docs = product.docs.href
     ? `<a class="doc-link" href="${escape(product.docs.href)}">${escape(product.docs.label)} →</a>`
     : placeholder(product.docs.label, 'Placeholder: this product’s technical reference page does not exist yet');
-  return `<details class="ds" id="ds-${product.id}" name="datasheet"${index === 0 ? ' open' : ''}>
+  return `<details class="ds" id="ds-${product.id}" name="datasheet">
           <summary>
             <span class="ds-no">02.${index + 1}</span>
             <span class="plate"><img src="${escape(product.logo)}" ${svgSize(product.logo)} alt="${escape(product.name)}" loading="lazy" decoding="async"></span>
@@ -86,6 +86,7 @@ function datasheet(product, index) {
           <div class="ds-body">
             <div class="ds-left">
               <p class="ds-summary">${escape(product.summary)}</p>
+              ${screenshotCarousel(product)}
               <ol class="features">${product.highlights.map(([title, text]) => `<li><b>${escape(title)}</b><span>${escape(text)}</span></li>`).join('')}</ol>
             </div>
             <div class="ds-right">
@@ -138,8 +139,10 @@ function render() {
   <link rel="preload" href="assets/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/carousel.css">
   <link rel="stylesheet" href="css/blueprint.css">
   <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/carousel.js"></script>
   <script defer src="js/blueprint.js"></script>
 </head>
 <body class="bp">

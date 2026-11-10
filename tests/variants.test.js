@@ -13,6 +13,7 @@ const content = require('../scripts/tech-content.js');
 const { highlight } = require('../scripts/highlight.js');
 const { fuzzyRank, riskLevel, aggregate } = require('../js/terminal.js');
 const { connectorPaths, selectionSentence } = require('../js/blueprint.js');
+const { nearestIndex, clampIndex } = require('../js/carousel.js');
 
 const pages = { original: 'index.html', terminal: 'terminal.html', blueprint: 'blueprint.html' };
 const variants = { terminal: 'terminal.html', blueprint: 'blueprint.html' };
@@ -142,7 +143,33 @@ test('both designs work without JavaScript: enhancement classes gate every hidin
   assert(!/(^|\n)\.sheet \{[^}]*opacity: 0/.test(blueprintCss));
   assert(!/hidden/.test(read('terminal.html').match(/<div class="tabs"[\s\S]*?<div class="block" id="relations">/)[0].replace(/aria-hidden="true"/g, '')), 'No product panel is hidden in the markup');
   for (const css of [terminalCss, blueprintCss]) assert(css.includes('prefers-reduced-motion'));
-  assert(/<details class="ds" id="ds-cases" name="datasheet" open>/.test(read('blueprint.html')), 'Datasheets are native details elements');
+  assert(/<details class="ds" id="ds-cases" name="datasheet">/.test(read('blueprint.html')), 'Datasheets are native details elements, all closed initially');
+});
+
+test('every suite product has a UI screenshot carousel placeholder on both designs', () => {
+  for (const file of Object.values(variants)) {
+    const html = read(file);
+    assert(html.includes('css/carousel.css') && html.includes('js/carousel.js'), `${file} loads the carousel assets`);
+    for (const product of content.suite) {
+      const carousel = html.match(new RegExp(`<section class="shots"[^>]*aria-label="${product.name} UI screenshots[\\s\\S]*?</section>`));
+      assert(carousel, `${file} has a carousel for ${product.name}`);
+      const slides = carousel[0].match(/<li class="shot"/g) || [];
+      assert(slides.length >= 2, `${file} ${product.name} carousel has several slides`);
+      assert.equal((carousel[0].match(/role="img"/g) || []).length, slides.length, 'each slide is a labelled placeholder image');
+      assert(!/<img\b/.test(carousel[0]), 'placeholders do not pretend to be real screenshots');
+    }
+    assert.equal((html.match(/<section class="shots"/g) || []).length, content.suite.length, `${file} has exactly one carousel per suite product`);
+  }
+});
+
+test('carousel position helpers snap to the nearest slide and respect the ends', () => {
+  assert.equal(nearestIndex([0, 800, 1600], 0, 1600), 0);
+  assert.equal(nearestIndex([0, 800, 1600], 430, 1600), 1);
+  assert.equal(nearestIndex([0, 800, 1600], 1599.5, 1600), 2);
+  assert.equal(nearestIndex([0, 800, 1500], 1500, 1500), 2);
+  assert.equal(nearestIndex([], 0, 0), 0);
+  assert.equal(clampIndex(-1, 3), 0);
+  assert.equal(clampIndex(5, 3), 2);
 });
 
 test('generated pages are up to date with the renderers', () => {
