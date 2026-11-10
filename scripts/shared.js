@@ -25,4 +25,13 @@ function navigation(homeBase = config.homeBase) {
     <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">${copy.navigation.menu}<span aria-hidden="true">+</span></button>
   </nav>`;
 }
-module.exports = { escape, arrow, down, demo, logo, navigation };
+const designs = [
+  { id: 'original', href: 'index.html', label: 'Original' },
+  { id: 'terminal', href: 'terminal.html', label: 'Terminal' },
+  { id: 'blueprint', href: 'blueprint.html', label: 'Blueprint' }
+];
+const designRibbon = active => `<nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul>${designs.map((design, index) => `<li><a href="${design.href}"${design.id === active ? ' aria-current="page"' : ''}><span class="design-ribbon-index" aria-hidden="true">${index + 1}</span>${design.label}</a></li>`).join('')}</ul>
+</nav>`;
+module.exports = { escape, arrow, down, demo, logo, navigation, designs, designRibbon };

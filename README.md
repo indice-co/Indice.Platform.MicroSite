@@ -16,6 +16,23 @@ Run `npm install` before building. Node 22.12 or newer is recommended for develo
 
 Cases has one internal page: `cases-reference.html`, generated from the supplied `cases-product.md`. The homepage carousel and Suite panel both link directly to this technical reference. Features labelled next release remain identified as such. Article layout lives in `css/cases-article.css`; tables and code scroll independently on small screens. `js/cases-article.js` tracks active sections and enhances diagrams with Mermaid 11.12.1 from jsDelivr; without JavaScript or network access diagram source remains readable. Run `npm run build` after editing the Markdown source.
 
+## Design versions
+
+Three versions of the homepage share the same three pillars, product logos and facts. A ribbon at the top of each page (`css/design-ribbon.css`, markup from `designRibbon()` in `scripts/shared.js`) switches between them.
+
+| Page | Design | Source |
+|---|---|---|
+| `index.html` | Original: warm paper, Manrope, teal accent | `scripts/render.js`, `js/data.js` |
+| `terminal.html` | Terminal: dark IDE shell with explorer, file tabs, product tabs, command palette (Ctrl/Cmd K), status bar and a Risk aggregation demo. JetBrains Mono, phosphor green | `scripts/render-terminal.js`, `css/terminal.css`, `js/terminal.js` |
+| `blueprint.html` | Blueprint: cobalt engineering drawing with a layered stack diagram that traces each product's dependencies, parts list, general notes, accordion datasheets, dependency matrix and title block. Space Grotesk and JetBrains Mono, yellow | `scripts/render-blueprint.js`, `css/blueprint.css`, `js/blueprint.js` |
+
+- `scripts/tech-content.js` holds the engineering copy both new designs render: stack, hosting, endpoints, code samples and extension points taken from the Cases, IAM, Messaging and Risk product documents, the platform pillars document and the public `indice-co` repositories. Features the documents mark "next release" are excluded. Code samples are quoted verbatim and highlighted at build time by `scripts/highlight.js`; a test checks the highlighted text equals the source.
+- Pillar text comes from `js/data.js`, so editing it updates all three versions. Product logos are the existing `assets/logos/*` files; Terminal and Blueprint seat the full logos on light plates because the wordmarks are dark.
+- Missing assets and links are explicit placeholders (dashed, labelled `placeholder`, `role="link" aria-disabled="true"`, no `href`): the demo request, the Agents and Workers logos and documents, and the technical references of IAM, Messaging and Risk. Real links go to the `indice-co` GitHub organisation, the NuGet profile, the `@indice/ng-*` npm packages and `cases-reference.html`.
+- Both designs are complete without JavaScript. Hiding rules only apply behind classes the scripts add (`tabs-ready`, `reveal-ready`, `bp-anim`), so a failed script load leaves every product, sheet and datasheet visible. Motion respects `prefers-reduced-motion`.
+- Fonts live in `assets/fonts/` with their SIL OFL licences (JetBrains Mono, Space Grotesk).
+- `npm run build` regenerates all three pages; `tests/variants.test.js` fails if `terminal.html` or `blueprint.html` are out of date. Any deployment step that copies `index.html` must also copy these two pages.
+
 ## Editable sources
 
 - `js/data.js`: approved copy, shared product IDs, assets, provisional colors, future product destinations and the deliberately empty demo action. Only the four supplied products are selectable.

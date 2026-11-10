@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('../js/data.js');
 const { copy: c, products, config } = globalThis.INDICE_DATA;
-const { escape, arrow, down, demo, logo, navigation } = require('./shared.js');
+const { escape, arrow, down, demo, logo, navigation, designRibbon } = require('./shared.js');
 const diagonalDown = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg>';
 const preview = (p, cls = '') => p.preview
   ? `<img class="${cls}" src="${escape(p.preview)}" width="1920" height="1080" alt="${escape(p.name)} solution interface" loading="lazy" decoding="async">`
@@ -112,6 +112,7 @@ const html = `<!doctype html>
   <link rel="preload" href="${escape(config.logoIcon)}" as="image">
   <link rel="preload" href="${escape(config.logoTop)}" as="image">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/design-ribbon.css">
   <script defer src="js/data.js"></script>
   <script defer src="js/main.js"></script>
   <script defer src="js/hero-art.js"></script>
@@ -121,6 +122,7 @@ const html = `<!doctype html>
 </head>
 <body>
   <a class="skip-link" href="#main-content">${c.navigation.skip}</a>
+  ${designRibbon('original')}
   <a class="hero-brand" id="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
   <main id="main-content" tabindex="-1">
     <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
@@ -179,3 +181,4 @@ const html = `<!doctype html>
 fs.writeFileSync(path.join(__dirname, '../index.html'), html, 'utf8');
 console.log(`Rendered homepage with ${products.length} products.`);
 require('./render-cases-article.js')();
+require('./render-variants.js')();
