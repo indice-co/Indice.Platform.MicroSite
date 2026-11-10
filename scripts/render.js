@@ -115,6 +115,7 @@ const html = `<!doctype html>
   <meta name="theme-color" content="#DEDAD0">
   <meta name="description" content="${escape(c.foundation.paragraphs[0])}">
   <title>INDICE Platform</title>
+  <link rel="icon" type="image/svg+xml" href="${escape(config.logoIcon)}">
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="${escape(config.logoIcon)}" as="image">
   <link rel="preload" href="${escape(config.logoTop)}" as="image">
@@ -161,7 +162,7 @@ const html = `<!doctype html>
     <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
       <div class="section-top" data-reveal><span class="eyebrow">${c.products.label}</span></div>
       <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>${escape(c.products.title).replace('. ', '.<br>')}</h2><p data-reveal>${c.products.introduction}</p></div>
-      <div class="product-grid">${suiteProducts.map((p,i) => `<div class="product-tile tile-${p.id}" style="--reveal-index:${i}" data-reveal><a class="tile-link" href="#product-${p.id}" data-product-link="${p.id}"><div class="tile-logo">${logo(p)}</div><span class="tile-description">${p.tagline}</span><span class="tile-learn">Learn more <span aria-hidden="true">&rarr;</span></span></a></div>`).join('')}${['Workers', 'DEX'].map((name,i) => `<div class="product-tile tile-placeholder" data-suite-placeholder="${name.toLowerCase()}" data-reveal style="--reveal-index:${i+4}"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">${name} lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&rarr;</span><span class="sr-only"> — ${name} is a placeholder, not available.</span></span></div>`).join('')}</div>
+      <div class="product-grid">${suiteProducts.map((p,i) => `<div class="product-tile tile-${p.id}" style="--reveal-index:${i}" data-reveal><a class="tile-link" href="#product-${p.id}" data-product-link="${p.id}"><div class="tile-logo">${logo(p)}</div><span class="tile-description">${p.tagline}</span><span class="tile-learn">Learn more <span aria-hidden="true">&darr;</span></span></a><a class="tile-learn tile-technical" href="${escape(p.destination || `#product-${p.id}`)}"${p.destination ? '' : ` data-product-link="${p.id}"`}>Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — ${escape(p.name)}</span></a></div>`).join('')}${['Workers', 'DEX'].map((name,i) => `<div class="product-tile tile-placeholder" data-suite-placeholder="${name.toLowerCase()}" data-reveal style="--reveal-index:${i+4}"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">${name} lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&darr;</span><span class="sr-only"> — ${name} is a placeholder, not available.</span></span><span class="tile-learn tile-technical" aria-disabled="true">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — ${name} is a placeholder, not available.</span></span></div>`).join('')}</div>
     </section>
 
     <section class="product-showcase" id="product-showcase" aria-label="Explore the solutions">

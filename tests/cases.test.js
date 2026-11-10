@@ -10,6 +10,39 @@ const html = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const { products } = globalThis.INDICE_DATA;
 
+test('homepage and Cases reference use the INDICE icon as their SVG favicon', () => {
+  for (const page of [home, html]) {
+    assert.match(page, /<link rel="icon" type="image\/svg\+xml" href="assets\/logos\/indice icon\.svg">/);
+  }
+  assert(fs.existsSync(path.join(root, 'assets', 'logos', 'indice icon.svg')));
+});
+
+test('Suite tiles keep Learn more and expose separate technical links without nested anchors', () => {
+  const grid = home.match(/<div class="product-grid">([\s\S]*?)<\/section>/)[1];
+  for (const product of products) {
+    const tile = grid.match(new RegExp(`<div class="product-tile tile-${product.id}"[\\s\\S]*?<\\/a><a class="tile-learn tile-technical"[^>]*>[\\s\\S]*?<\\/a><\\/div>`))?.[0];
+    assert(tile, `${product.name} has two separate links`);
+    const links = [...tile.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)];
+    assert.equal(links.length, 2);
+    assert(links.every(link => !link[2].includes('<a ')), 'Links must not be nested');
+    assert.match(links[0][1], new RegExp(`href="#product-${product.id}"`));
+    assert(links[0][2].includes('Learn more'));
+    assert(links[0][2].includes('<span aria-hidden="true">&darr;</span>'));
+    assert(links[1][1].includes(`href="${product.destination || `#product-${product.id}`}"`));
+    assert(links[1][2].includes('Explore technical details'));
+    assert(links[1][2].includes('<span aria-hidden="true">&rarr;</span>'));
+    assert.equal(links[1][1].includes('data-product-link='), !product.destination,
+      'Only showcase destinations use the product-selection handler');
+  }
+  assert.equal((grid.match(/<span class="tile-learn tile-technical" aria-disabled="true">/g) || []).length, 2);
+  assert.equal((grid.match(/Learn more <span aria-hidden="true">&darr;<\/span>/g) || []).length, 6);
+});
+
+test('hero pillars use the shared line border color', () => {
+  const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+  assert.match(css, /^\.pillar \{[^}]*border-top:1px solid var\(--line\);/m);
+});
+
 test('Cases has one generated internal page: the technical reference', () => {
   assert(fs.existsSync(path.join(root, 'cases-reference.html')));
   assert(!fs.existsSync(path.join(root, 'cases.html')));

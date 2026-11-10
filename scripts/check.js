@@ -22,7 +22,7 @@ assert.equal((html.match(/<h1\b/g) || []).length, 1, 'One H1');
 assert.deepEqual(products.map(product => product.id), ['cases', 'iam', 'messaging', 'risk']);
 assert.equal((html.match(/class="product-chapter"/g) || []).length, 4);
 assert.equal((html.match(/data-select-product=/g) || []).length, 4);
-assert.equal((html.match(/data-product-link=/g) || []).length, 4);
+assert.equal((html.match(/data-product-link=/g) || []).length, 7);
 assert.equal((html.match(/class="button explore-button" disabled/g) || []).length, 3);
 assert(html.includes('class="button explore-button" href="cases-reference.html"'), 'Explore Cases opens the technical reference');
 assert(fs.existsSync(path.join(root, 'cases-reference.html')), 'Cases technical reference is generated');
@@ -43,7 +43,7 @@ for (const name of ['iam', 'cases', 'risk', 'messaging']) {
   assert(html.includes(`src="assets/logos/${name} logo.svg"`), `Suite uses the replacement ${name} logo`);
 }
 assert(html.includes('Our solutions.<br>A platform of possibilities.'), 'Suite title breaks after its first sentence');
-assert.deepEqual([...html.matchAll(/data-product-link="([^"]+)"/g)].map(match => match[1]), ['cases', 'iam', 'messaging', 'risk']);
+assert.deepEqual([...html.matchAll(/data-product-link="([^"]+)"/g)].map(match => match[1]), ['cases', 'iam', 'iam', 'messaging', 'messaging', 'risk', 'risk']);
 assert.equal((html.match(/<a class="tile-link" /g) || []).length, 4, 'Only product content is interactive, not the surrounding grid cell');
 assert(!/href="#"|href="\/products|mailto:|<form\b|<iframe\b/.test(html));
 for (const id of ['hero', 'technologies', 'foundation', 'metrics', 'products', 'product-showcase', 'services', 'contact']) assert(ids.includes(id));

@@ -229,7 +229,9 @@
     const chapter = chapters.find(item => item.dataset.product === id);
     if (!chapter) return;
     if (state.enhanced) {
-      const destination = dimensions.start + dimensions.viewport * (INTRO + (index + 0.5) * PRODUCT);
+      // Cases must land after its copy reveal but before the intake beat ends.
+      const progress = index === caseIndex ? 0.28 : 0.5;
+      const destination = dimensions.start + dimensions.viewport * (INTRO + (index + progress) * PRODUCT);
       scrollTo({ top: destination, behavior: 'instant' });
       render();
     } else {
