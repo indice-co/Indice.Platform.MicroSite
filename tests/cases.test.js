@@ -76,7 +76,7 @@ test('homepage carousel and Suite panel point to the sole Cases page', () => {
   assert(articleCss.includes('font-size:27px'));
   assert(articleCss.includes('letter-spacing:0'));
   assert(articleCss.includes('background:var(--paper)'));
-  assert(articleCss.includes('border-left-color:var(--red)'));
+  assert(articleCss.includes('border-left-color:var(--accent)'));
   const casesCss = fs.readFileSync(path.join(root, 'css/cases.css'), 'utf8');
   assert.match(casesCss, /\.cases-lead \{\s+max-width:850px/);
   assert.match(casesCss, /\.cases-hero-layout \{\s+display:grid;\s+grid-template-columns:minmax\(0,850px\) minmax\(0,1fr\)/);

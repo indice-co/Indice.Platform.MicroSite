@@ -9,7 +9,7 @@
   --beige:#dedad0;
   --ink:#201f1e;
   --white:#fff;
-  --red:#dc4650;
+  --accent:#1a7f8e;
   --turquoise:#3e9aa8;
   --dark-turquoise:#345f6a;
   --paper:#f1efe9;
@@ -24,11 +24,9 @@
   --reveal-distance:24px;
   --art-float-duration:9s;
   --art-repel-duration:350ms;
-  --hero-slash-grey:#8b8880;
   --hero-flight-duration:2.6s;
   --hero-flight-delay:.9s;
-  --hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration));
-  --hero-color-duration:12s
+  --hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration))
 }
 *,*::before,*::after {
   box-sizing:border-box
@@ -46,7 +44,7 @@ body {
   -webkit-font-smoothing:antialiased
 }
 ::selection {
-  background:var(--red);
+  background:var(--accent);
   color:white
 }
 button,a {
@@ -89,7 +87,7 @@ section,article {
   scroll-margin-top:24px
 }
 :focus-visible {
-  outline:3px solid var(--red);
+  outline:3px solid var(--accent);
   outline-offset:6px
 }
 section:focus,article:focus,main:focus {
@@ -286,95 +284,7 @@ section:focus,article:focus,main:focus {
   height:100%;
   pointer-events:auto
 }
-/* Nested in the diagram, so px are diagram user units. */
-.hero-slashes {
-  width:250px;
-  height:202px;
-  overflow:visible
-}
-.hero-slash-flight {
-  --flight-delay:var(--hero-flight-delay);
-  transform-box:fill-box;
-  transform-origin:center
-}
-.hero-slash-shape {
-  fill:var(--hero-slash-grey);
-  stroke:var(--hero-slash-grey);
-  stroke-width:.8;
-  stroke-linejoin:miter;
-  stroke-dasharray:none;
-  stroke-dashoffset:0
-}
-.hero-slash-shape {
-  translate:var(--repel-x,0px) var(--repel-y,0px);
-  transition:translate var(--art-repel-duration) var(--ease)
-}
-.hero-slashes>.hero-slash-flight:last-child .hero-slash-shape {
-  opacity:.25
-}
-.hero-slashes>.hero-slash-flight:first-child .hero-slash-shape {
-  opacity:.6
-}
-.hero-art.art-ready .hero-slash-flight {
-  animation:hero-slash-arrive var(--hero-flight-duration) linear var(--flight-delay) both;
-  animation-play-state:paused
-}
-.hero-art.art-ready .hero-slash-shape {
-  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1;
-  animation-play-state:paused
-}
-.hero-art.is-animating .hero-slash-flight,.hero-art.is-animating .hero-slash-shape {
-  animation-play-state:running
-}
-@keyframes hero-slash-arrive {
-  0% {
-    opacity:0;
-    transform:translate3d(0,-60%,0)
-  }
-  12% {
-    opacity:1
-  }
-  100% {
-    opacity:1;
-    transform:translate3d(0,0,0)
-  }
-}
-@keyframes hero-slash-draw {
-  from {
-    stroke-dashoffset:1;
-    stroke-dasharray:1
-  }
-  99.99% {
-    stroke-dasharray:1
-  }
-  to {
-    stroke-dashoffset:0;
-    stroke-dasharray:none
-  }
-}
-@keyframes hero-slash-fill {
-  from {
-    fill:transparent
-  }
-  to {
-    fill:var(--hero-slash-grey)
-  }
-}
-@keyframes hero-slash-color {
-  0%,10%,100% {
-    fill:var(--hero-slash-grey);
-    stroke:var(--hero-slash-grey)
-  }
-  35%,42% {
-    fill:var(--red);
-    stroke:var(--red)
-  }
-  68%,75% {
-    fill:var(--ink);
-    stroke:var(--ink)
-  }
-}
-/* Platform diagram: expertise cloud, suite chips between the slashes, foundation rails. */
+/* Platform diagram: expertise cloud, suite chips and foundation rails. */
 .hero-diagram {
   width:100%;
   height:100%;
@@ -398,7 +308,7 @@ section:focus,article:focus,main:focus {
   stroke-linejoin:round
 }
 .hero-cloud-trace {
-  stroke:var(--red);
+  stroke:var(--accent);
   stroke-width:2.4;
   stroke-linecap:round;
   stroke-dasharray:.12 .88;
@@ -444,7 +354,7 @@ section:focus,article:focus,main:focus {
   transition:translate var(--art-repel-duration) var(--ease),stroke .35s,stroke-opacity .35s
 }
 .hero-pulse {
-  stroke:var(--red);
+  stroke:var(--accent);
   stroke-width:2.6;
   stroke-linecap:round;
   stroke-dasharray:.03 .97;
@@ -780,11 +690,11 @@ section:focus,article:focus,main:focus {
   position:absolute;
   width:13%;
   height:48%;
-  background:var(--red);
+  background:var(--accent);
   top:12%;
   left:45%;
   transform:var(--art-transform);
-  box-shadow:15px 20px 0 #dc46502b
+  box-shadow:15px 20px 0 #1a7f8e2b
 }
 .art-coordinate {
   --float-x:-2px;
@@ -1885,9 +1795,9 @@ section:focus,article:focus,main:focus {
   content:'';
   width:12px;
   height:46px;
-  background:var(--red);
+  background:var(--accent);
   transform:skew(17deg) rotate(-28deg);
-  box-shadow:6px 8px 0 #dc46502b
+  box-shadow:6px 8px 0 #1a7f8e2b
 }
 .glyph-0 i:nth-child(1) {
   top:28px;
@@ -2080,10 +1990,10 @@ section:focus,article:focus,main:focus {
   z-index:-1
 }
 .contact-slash-first {
-  fill:var(--red)
+  fill:var(--accent)
 }
 .contact-slash-second {
-  fill:#70252e
+  fill:#0d424a
 }
 .contact-line {
   display:block;
@@ -2125,17 +2035,17 @@ section:focus,article:focus,main:focus {
 }
 @keyframes contact-light {
   0%,24%,50% { fill:var(--ink) }
-  12%,38% { fill:#70252e }
-  75% { fill:#70252e }
-  100% { fill:var(--red) }
+  12%,38% { fill:#0d424a }
+  75% { fill:#0d424a }
+  100% { fill:var(--accent) }
 }
 @keyframes contact-slash-appear {
   from { opacity:0 }
   to { opacity:1 }
 }
 @keyframes contact-flash {
-  0%,94%,100% { fill:#70252e }
-  97% { fill:var(--red) }
+  0%,94%,100% { fill:#0d424a }
+  97% { fill:var(--accent) }
 }
 .site-footer {
   padding:30px var(--gutter) calc(var(--nav-clearance) + 20px);
@@ -2194,7 +2104,7 @@ section:focus,article:focus,main:focus {
   width:8px;
   height:8px;
   border-radius:50%;
-  background:var(--red);
+  background:var(--accent);
   left:calc(50% - 4px);
   bottom:0
 }
@@ -2768,7 +2678,7 @@ section:focus,article:focus,main:focus {
   }
   .panel-section-links a.is-active {
     text-decoration:underline;
-    text-decoration-color:var(--red);
+    text-decoration-color:var(--accent);
     text-underline-offset:7px
   }
   .panel-heading {
@@ -2959,7 +2869,7 @@ section:focus,article:focus,main:focus {
   margin:0
 }
 .hero .hero-motto {
-  color:var(--red);
+  color:var(--accent);
   font-size:36px;
   font-weight:600;
   line-height:1.08;
@@ -3157,14 +3067,6 @@ section:focus,article:focus,main:focus {
     transition:none;
     translate:none!important
   }
-  .hero-slash-flight {
-    opacity:1;
-    transform:none
-  }
-  .hero-slash-shape {
-    fill:var(--red);
-    stroke:var(--red)
-  }
   .hero-pulse {
     display:none
   }
@@ -3176,7 +3078,7 @@ section:focus,article:focus,main:focus {
   .hero-brand,.hero h1,.hero-motto,.pillar {
     animation:none!important
   }
-  .hero-slash-flight,.hero-slash-shape,.hero-diagram * {
+  .hero-diagram * {
     animation:none!important
   }
   .hero-pulse {

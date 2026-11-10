@@ -71,12 +71,12 @@
   transition:background-color .18s ease,color .18s ease,border-color .18s ease
 }
 .cases-toc-link:hover {
-  border-left-color:var(--red);
+  border-left-color:var(--accent);
   background:var(--beige);
   color:var(--ink)
 }
 .cases-toc-link[aria-current="location"] {
-  border-left-color:var(--red);
+  border-left-color:var(--accent);
   background:var(--white);
   color:var(--ink);
   font-weight:700
@@ -301,7 +301,7 @@
 .article-details {
   margin:28px 0 40px;
   padding:0 0 0 20px;
-  border-left:3px solid var(--red)
+  border-left:3px solid var(--accent)
 }
 .article-details summary {
   cursor:pointer;
@@ -319,7 +319,7 @@
 .cases-article blockquote {
   margin:28px 0;
   padding:8px 0 8px 24px;
-  border-left:3px solid var(--red);
+  border-left:3px solid var(--accent);
   color:var(--ink)
 }
 .cases-article blockquote p:last-child {

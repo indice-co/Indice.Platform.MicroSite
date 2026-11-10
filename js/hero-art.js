@@ -1,4 +1,4 @@
-/* CSS owns arrival and color; pointer repulsion starts only after both slashes land. */
+/* CSS owns the diagram animation; this script handles visibility, reduced motion and pointer repulsion. */
 (() => {
   'use strict';
 
@@ -20,11 +20,9 @@
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const pointer = matchMedia('(hover: hover) and (pointer: fine)');
-  const shapes = [...art.querySelectorAll('.hero-slash-shape')];
   const cloudPaths = [...art.querySelectorAll('.hero-cloud,.hero-cloud-trace')];
   const foundation = [...art.querySelectorAll('.hero-layer-foundation')];
-  const motionTargets = [...shapes, ...cloudPaths, ...foundation];
-  const landed = new Set();
+  const motionTargets = [...cloudPaths, ...foundation];
   let frame = 0;
   let position = null;
   let controller;
@@ -62,16 +60,12 @@
         target.style.setProperty('--repel-y', `${(distance ? dy / distance : -1) * force / scale}px`);
       });
     }
-    shapes.forEach(shape => {
-      repel(shape, [shape], Math.min(42, art.clientWidth * .09));
-    });
     if (cloudPaths.length) repel(cloudPaths[0], cloudPaths, Math.min(10, art.clientWidth * .025));
     foundation.forEach(layer => repel(layer, [layer], Math.min(8, art.clientWidth * .02)));
   }
 
   function onPointerMove(event) {
-    if (landed.size !== shapes.length || !pointer.matches || event.pointerType === 'touch' ||
-      !art.classList.contains('is-animating')) {
+    if (!pointer.matches || event.pointerType === 'touch' || !art.classList.contains('is-animating')) {
       resetPointer();
       return;
     }
@@ -97,9 +91,6 @@
     controller = new AbortController();
     const { signal } = controller;
     art.classList.add('art-ready');
-    art.addEventListener('animationend', event => {
-      if (event.animationName === 'hero-slash-arrive') landed.add(event.target);
-    }, { signal });
     art.addEventListener('pointermove', onPointerMove, { passive: true, signal });
     art.addEventListener('pointerleave', resetPointer, { signal });
     art.addEventListener('pointercancel', resetPointer, { signal });
@@ -129,7 +120,6 @@
     controller?.abort();
     observer?.disconnect();
     observer = null;
-    landed.clear();
     resetPointer();
     art.classList.remove('is-animating');
     art.classList.remove('art-ready');

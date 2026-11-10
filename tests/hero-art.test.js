@@ -7,39 +7,16 @@ const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../js/hero-art.js'), 'utf8');
 
-test('generated hero preserves the official slash geometry and normalizes both outlines for drawing', () => {
-  const asset = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8');
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
-  const hero = html.match(/<svg class="hero-slashes"[\s\S]*?<\/svg>/)?.[0];
-  assert(hero, 'Hero includes the official inline SVG');
-  assert.equal(hero.match(/viewBox="([^"]+)"/)[1], asset.match(/viewBox="([^"]+)"/)[1]);
-  assert.deepEqual([...hero.matchAll(/\bd="([^"]+)"/g)].map(match => match[1]),
-    [...asset.matchAll(/\bd="([^"]+)"/g)].map(match => match[1]));
-  assert.equal((hero.match(/class="hero-slash-flight"/g) || []).length, 2);
-  assert.equal((hero.match(/class="hero-slash-shape" pathLength="1"/g) || []).length, 2);
-  assert(!hero.includes('non-scaling-stroke'), 'Normalized perimeter dashes must scale with the official paths');
-  assert(!hero.includes('fill="white"'), 'CSS owns the animated fill');
-});
-
-test('the right hero slash has 60% opacity while the left retains its existing opacity', () => {
+test('hero diagram has no slash artwork and draws the cloud once', () => {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  const hero = html.match(/<svg class="hero-slashes"[\s\S]*?<\/svg>/)[0];
-  const paths = [...hero.matchAll(/<path class="hero-slash-shape"[^>]* d="([^"]+)"/g)];
-  assert.match(paths[0][1], /^M124\.8 /);
-  assert.match(paths[1][1], /^M0 /);
-  assert.match(css, /\.hero-slashes>\.hero-slash-flight:first-child \.hero-slash-shape \{\s*opacity:\.6\s*\}/);
-  assert.match(css, /\.hero-slashes>\.hero-slash-flight:last-child \.hero-slash-shape \{\s*opacity:\.25\s*\}/);
-});
-
-test('hero travel and perimeter tracing share a steady timeline, with fill and color deferred until landing', () => {
-  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  for (const name of ['arrive', 'draw']) {
-    assert(css.includes(`hero-slash-${name} var(--hero-flight-duration) linear var(--flight-delay) both`));
-  }
-  assert(css.includes('--hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration))'));
-  assert(css.includes('hero-slash-fill .9s ease var(--hero-fill-delay) both'));
-  assert(css.includes('hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1'));
+  const hero = html.match(/<svg class="hero-diagram"[\s\S]*?<\/svg>\s*<\/div>\s*<div class="hero-baseline"/)?.[0];
+  assert(hero, 'Hero diagram is present');
+  assert(!/hero-slash|INDICE_slashes/.test(hero), 'Hero diagram has no slash artwork');
+  assert(!/clip-path|clipPath/.test(hero), 'The cloud no longer needs to be split around the slashes');
+  assert.equal((hero.match(/class="hero-cloud"/g) || []).length, 1);
+  assert(!/hero-slash/.test(css), 'No hero slash styles remain');
+  assert(/class="contact-slash"/.test(html), 'The closing section keeps its own slashes');
 });
 
 test('desktop hero places the artwork under the motto, opposite the pillars, and retains its spacing offsets', () => {
@@ -51,11 +28,12 @@ test('desktop hero places the artwork under the motto, opposite the pillars, and
   assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
 });
 
-test('hero motto uses the requested red typography', () => {
+test('hero motto uses the accent typography', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const rule = css.match(/^\.hero \.hero-motto \{([^}]+)\}/m)[1];
-  assert.match(css, /--red:#dc4650/);
-  assert.match(rule, /color:var\(--red\)/);
+  assert.match(css, /--accent:#1a7f8e/);
+  assert(!/#dc4650|--red\b/.test(css), 'The page no longer uses the old red');
+  assert.match(rule, /color:var\(--accent\)/);
   assert.match(rule, /font-size:36px/);
   assert.match(rule, /font-weight:600/);
   assert.match(rule, /letter-spacing:0/);
@@ -125,16 +103,6 @@ function fixture({ reduced = false, observerAvailable = true, missingArt = false
   const art = new Events();
   const frames = new Map();
   let sequence = 0;
-  const flights = [{}, {}];
-  const shapes = interactive ? flights.map((flight, index) => {
-    const properties = new Map();
-    flight.getScreenCTM = () => ({ a: 1, b: 0 });
-    return {
-      parentElement: flight, properties,
-      getBBox: () => ({ x: 900 + index * 100, y: 200, width: 60, height: 200 }),
-      style: { setProperty: (name, value) => properties.set(name, value) },
-    };
-  }) : [];
   const layers = interactive ? ['cloud', 'foundation'].map(() => {
     const properties = new Map();
     return {
@@ -144,8 +112,7 @@ function fixture({ reduced = false, observerAvailable = true, missingArt = false
       style: { setProperty: (name, value) => properties.set(name, value) },
     };
   }) : [];
-  art.querySelectorAll = selector => selector === '.hero-slash-shape' ? shapes
-    : selector === '.hero-cloud,.hero-cloud-trace' ? layers.slice(0, 1) : layers.slice(1);
+  art.querySelectorAll = selector => selector === '.hero-cloud,.hero-cloud-trace' ? layers.slice(0, 1) : layers.slice(1);
   art.clientWidth = 450;
   art.clientHeight = 500;
   const classes = new Set();
@@ -180,12 +147,12 @@ function fixture({ reduced = false, observerAvailable = true, missingArt = false
   };
   sandbox.window = sandbox;
   vm.runInNewContext(source, sandbox, { filename: 'js/hero-art.js' });
-  return { art, shapes, layers, flights, pointer, frames, document, browser, media, observers, setTop: value => { top = value; },
+  return { art, layers, pointer, frames, document, browser, media, observers, setTop: value => { top = value; },
     flush: () => { const callbacks = [...frames.values()]; frames.clear(); callbacks.forEach(callback => callback()); },
     running: () => art.classList.contains('is-animating') };
 }
 
-test('hero arrival and color playback pause offscreen and in hidden tabs without playback controls', () => {
+test('hero diagram playback pauses offscreen and in hidden tabs without playback controls', () => {
   const page = fixture();
   assert(page.running());
   assert(page.art.classList.contains('art-ready'));
@@ -201,34 +168,7 @@ test('hero arrival and color playback pause offscreen and in hidden tabs without
   assert(page.running());
 });
 
-test('slash repulsion waits for both arrivals, then resets on leave, touch and reduced motion', () => {
-  const page = fixture({ interactive: true });
-  const move = () => {
-    page.art.dispatch('pointermove', { clientX: 900, clientY: 300, pointerType: 'mouse' });
-    page.flush();
-  };
-  const displaced = () => page.shapes.some(shape => parseFloat(shape.properties.get('--repel-x')) !== 0);
-  move();
-  assert(!displaced());
-  page.art.dispatch('animationend', { animationName: 'hero-slash-arrive', target: page.flights[0] });
-  move();
-  assert(!displaced());
-  page.art.dispatch('animationend', { animationName: 'hero-slash-arrive', target: page.flights[1] });
-  move();
-  assert(displaced());
-  page.shapes.forEach(shape => assert(Math.abs(parseFloat(shape.properties.get('--repel-x'))) <= 42));
-  page.art.dispatch('pointerleave');
-  assert(!displaced());
-  move();
-  page.art.dispatch('pointermove', { pointerType: 'touch' });
-  assert(!displaced());
-  move();
-  page.media.matches = true;
-  page.media.dispatch('change');
-  assert(!displaced());
-});
-
-test('cloud and foundation repel gently and reset with the existing motion lifecycle', () => {
+test('cloud and foundation repel gently from the first pointer move and reset on leave, touch and reduced motion', () => {
   const page = fixture({ interactive: true });
   const move = () => {
     page.art.dispatch('pointermove', { clientX: 1000, clientY: 300, pointerType: 'mouse' });
@@ -236,9 +176,6 @@ test('cloud and foundation repel gently and reset with the existing motion lifec
   };
   const distance = layer => Math.hypot(parseFloat(layer.properties.get('--repel-x')),
     parseFloat(layer.properties.get('--repel-y')));
-  move();
-  page.layers.forEach(layer => assert.equal(distance(layer), 0));
-  page.flights.forEach(target => page.art.dispatch('animationend', { animationName: 'hero-slash-arrive', target }));
   move();
   page.layers.forEach((layer, index) => {
     assert(distance(layer) > 0);
