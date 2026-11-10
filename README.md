@@ -16,9 +16,15 @@ Run `npm install` before building. Node 22.12 or newer is recommended for develo
 
 Cases has one internal page: `cases-reference.html`, generated from the supplied `cases-product.md`. The homepage carousel and Suite panel both link directly to this technical reference. Features labelled next release remain identified as such. Article layout lives in `css/cases-article.css`; tables and code scroll independently on small screens. `js/cases-article.js` tracks active sections and enhances diagrams with Mermaid 11.12.1 from jsDelivr; without JavaScript or network access diagram source remains readable. Run `npm run build` after editing the Markdown source.
 
-Hero artwork is enlarged by 15% on desktop and mobile, with 50px top spacing. Desktop applies that spacing as a vertical offset because the artwork is absolutely positioned and end-aligned; mobile uses the top margin in normal flow.
+Hero artwork is enlarged by 15% on desktop and mobile, with 50px top spacing. Desktop applies that spacing as a vertical offset because the artwork is absolutely positioned and end-aligned; mobile uses the top margin in normal flow. Hero pillar borders use the shared line color.
+
+Platform Suite tiles keep Learn more with a downward arrow and add a separate Explore technical details link with a rightward arrow. Cases opens `cases-reference.html`; other products use their existing showcase sections until a destination is configured. Workers and DEX retain disabled placeholder labels for both actions.
+
+Cases showcase navigation and the `#product-cases` anchor land on 01 / INTAKE with the copy fully revealed, rather than the middle workflow beat.
 
 ## Editable sources
+
+Both pages use `assets/logos/indice icon.svg` as the browser-tab favicon, configured by `config.logoIcon`.
 
 - `js/data.js`: approved copy, metrics, shared product IDs, assets, provisional colors, future product destinations and the deliberately empty demo action. Only the four supplied products are selectable.
 - The Suite entry uses an open, single-line ruled grid in Cases/IAM, Messaging/Risk and Workers/DEX rows, with a two-sentence heading and introduction aligned to the Foundation text column. Links are limited to product content, not surrounding grid space, and have no hover effect; keyboard focus remains visible. Workers and DEX are noninteractive placeholder tiles; the showcase keeps its four-product sequence. Product logos use the replacement spaced-name SVG files in `assets/logos/`.

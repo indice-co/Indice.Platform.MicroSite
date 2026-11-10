@@ -36,6 +36,7 @@ module.exports = function renderCases(article) {
   <meta name="theme-color" content="#DEDAD0">
   <meta name="description" content="${escape(cases.description)}">
   <title>Cases &mdash; Every case. A clear path forward.</title>
+  <link rel="icon" type="image/svg+xml" href="${escape(config.logoIcon)}">
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/cases.css">
