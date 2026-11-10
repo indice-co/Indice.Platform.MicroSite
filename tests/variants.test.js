@@ -172,6 +172,20 @@ test('carousel position helpers snap to the nearest slide and respect the ends',
   assert.equal(clampIndex(5, 3), 2);
 });
 
+test('Terminal explorer lists only overview and integration points under expertise', () => {
+  const html = read('terminal.html');
+  const dir = html.match(/<span>03-expertise<\/span><ul>([\s\S]*?)<\/ul>/)[1];
+  assert.deepEqual([...dir.matchAll(/>([a-z-]+\.md)<\/a>/g)].map(match => match[1]), ['overview.md', 'integration-points.md']);
+});
+
+test('Terminal explorer opens each pillar with an overview.md that links to its section', () => {
+  const html = read('terminal.html');
+  for (const [dir, target] of [['01-foundation', 'foundation'], ['02-suite', 'suite'], ['03-expertise', 'expertise']]) {
+    const group = html.match(new RegExp(`<span>${dir}</span><ul>([\\s\\S]*?)</ul>`))[1];
+    assert(group.trimStart().startsWith(`<li><a href="#${target}" data-spy-link="${target}">overview.md</a>`), `${dir} starts with overview.md`);
+  }
+});
+
 test('generated pages are up to date with the renderers', () => {
   assert.equal(require('../scripts/render-terminal.js')(), read('terminal.html'), 'Run npm run build to refresh terminal.html');
   assert.equal(require('../scripts/render-blueprint.js')(), read('blueprint.html'), 'Run npm run build to refresh blueprint.html');

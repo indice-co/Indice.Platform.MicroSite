@@ -55,8 +55,8 @@ if (typeof document !== 'undefined') (() => {
   let activeProduct = productIds[0];
   let currentFile = null;
   const explorerLinks = $$('.explorer [data-spy-link]');
-  /* While the Suite section is current, the active product is the "open file". */
-  const fileKey = id => (id === 'suite' ? activeProduct : id);
+  /* Once the product tabs are current, the active product is the "open file"; above them it is the suite overview. */
+  const fileKey = id => (id === 'suite-products' ? activeProduct : id);
 
   function activate(id) {
     if (!productIds.includes(id)) return;
@@ -130,10 +130,16 @@ if (typeof document !== 'undefined') (() => {
 
   /* Scroll-spy: explorer, file tabs and status bar ----------------- */
   const spyLinks = $$('[data-spy-link]');
-  const spyIds = [...new Set(spyLinks.map(link => link.dataset.spyLink))].filter(id => !productIds.includes(id));
+  const spyIds = [...new Set([...spyLinks.map(link => link.dataset.spyLink), 'suite-products'])].filter(id => !productIds.includes(id));
   const spyTargets = spyIds.map(id => document.getElementById(id)).filter(Boolean)
     .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
   let frame = 0;
+  let pinned = null;
+  let settle = 0;
+  explorerLinks.forEach(link => link.addEventListener('click', () => {
+    pinned = link.dataset.spyLink;
+    scheduleSpy();
+  }));
 
   function markExplorer(id) {
     currentFile = id;
@@ -149,9 +155,10 @@ if (typeof document !== 'undefined') (() => {
     if (!target) return;
     const key = fileKey(currentFile || 'top');
     const link = explorerLinks.find(item => item.dataset.spyLink === key);
-    const dir = link?.closest('li.dir')?.querySelector(':scope > span')?.textContent.trim();
+    const dir = link?.parentElement.closest('li.dir')?.querySelector(':scope > span')?.textContent.trim();
+    const folder = dir === 'indice-platform' ? '' : dir;
     const file = link?.textContent.trim();
-    target.textContent = ['indice-platform', dir, file].filter(Boolean).join(' \u203a ');
+    target.textContent = ['indice-platform', folder, file].filter(Boolean).join(' \u203a ');
   }
 
   function spy() {
@@ -161,13 +168,23 @@ if (typeof document !== 'undefined') (() => {
     for (const target of spyTargets) {
       if (target.getBoundingClientRect().top <= probe) current = target.id;
     }
-    const pillar = document.getElementById(current)?.closest('[data-spy]');
-    $$('.filetabs a').forEach(tab => tab.classList.toggle('is-active', !!pillar && tab.dataset.spyLink === pillar.id));
+    /* The last sections are short, so at the end of the page they cannot reach the probe line: prefer the file the user
+       just opened if it is on screen, otherwise the last section. */
+    const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+    if (atEnd && spyTargets.length) {
+      const opened = pinned && document.getElementById(pinned);
+      const rect = opened && opened.getBoundingClientRect();
+      current = rect && rect.top >= 0 && rect.top < innerHeight ? pinned : spyTargets[spyTargets.length - 1].id;
+    }
     if (current !== currentFile) markExplorer(current);
     updateStatus();
   }
   const scheduleSpy = () => { if (!frame) frame = requestAnimationFrame(spy); };
-  addEventListener('scroll', scheduleSpy, { passive: true });
+  addEventListener('scroll', () => {
+    clearTimeout(settle);
+    settle = setTimeout(() => { if (innerHeight + scrollY < document.documentElement.scrollHeight - 2) pinned = null; }, 250);
+    scheduleSpy();
+  }, { passive: true });
   addEventListener('resize', scheduleSpy, { passive: true });
   spy();
 

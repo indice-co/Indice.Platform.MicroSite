@@ -122,11 +122,10 @@ function render() {
     <header class="titlebar">
       <button class="explorer-toggle" type="button" aria-controls="explorer" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Toggle explorer</span></button>
       <a class="brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
-      <nav class="filetabs" aria-label="Pillars">${pillars.map(pillar => `<a href="#${pillar.id}" data-spy-link="${pillar.id}"><span class="no">${pillar.number}</span>${pillar.id}.md</a>`).join('')}</nav>
-      <button class="palette-open" type="button" aria-haspopup="dialog" aria-controls="palette"><span>Go to…</span><kbd>Ctrl K</kbd></button>
     </header>
     <div class="shell">
       <aside class="explorer" id="explorer" aria-label="Explorer">
+        <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
         <p class="explorer-title">Explorer</p>
         <nav aria-label="Page outline">
           <ul class="tree">
@@ -139,6 +138,7 @@ function render() {
                   <li>${explorerLink('#practices', 'practices.md')}</li>
                 </ul></li>
                 <li class="dir"><span>02-suite</span><ul>
+                  <li>${explorerLink('#suite', 'overview.md')}</li>
                   ${suite.map(product => `<li>${explorerLink('#' + product.id, `${productIcon(product)}${product.id}/`, ` data-product-link="${product.id}"`)}</li>`).join('\n                  ')}
                   ${pendingProducts.map(product => `<li>${explorerLink('#' + product.id, `<span class="ico-ph" aria-hidden="true"></span>${product.id}/`, ` data-product-link="${product.id}"`)}</li>`).join('\n                  ')}
                   <li>${explorerLink('#relations', 'relations.md')}</li>
@@ -146,7 +146,6 @@ function render() {
                 </ul></li>
                 <li class="dir"><span>03-expertise</span><ul>
                   <li>${explorerLink('#expertise', 'overview.md')}</li>
-                  ${expertise.items.map(item => `<li>${explorerLink('#' + item.id, item.id + '.md')}</li>`).join('\n                  ')}
                   <li>${explorerLink('#integration-points', 'integration-points.md')}</li>
                 </ul></li>
                 <li>${explorerLink('#contact', 'contact.md')}</li>
