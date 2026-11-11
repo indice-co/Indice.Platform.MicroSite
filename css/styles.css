@@ -2839,10 +2839,11 @@ section:focus,article:focus,main:focus {
   }
 }
 .hero {
-  grid-template-columns:minmax(0,calc((100% - 96px) * .56 - 60px)) minmax(0,calc((100% - 96px) * .44 + 60px));
+  --hero-gap:clamp(64px,10vw,160px);
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   grid-template-rows:50px 24px max-content max-content;
   align-content:center;
-  column-gap:96px;
+  column-gap:var(--hero-gap);
   row-gap:12px
 }
 .hero .hero-top {
@@ -2879,11 +2880,12 @@ section:focus,article:focus,main:focus {
   letter-spacing:0
 }
 .hero .pillar-grid {
-  grid-column:2;
-  grid-row:2/5;
-  align-self:center;
+  grid-column:1;
+  grid-row:4;
+  align-self:start;
   grid-template-columns:minmax(0,1fr);
-  gap:18px
+  gap:18px;
+  margin-top:24px
 }
 .hero .pillar {
   display:block;
@@ -2897,26 +2899,26 @@ section:focus,article:focus,main:focus {
   max-width:none
 }
 .hero .hero-art {
-  --art-margin-top:50px;
   position:absolute;
-  /* End-aligned absolute artwork needs its top spacing applied as an offset. */
-  translate:-40px calc(5% + var(--art-margin-top));
-  grid-column:2;
+  /* The diagram's lowest rail sits ~5% above the SVG edge; offset it so the rail lines up with the last text. */
+  translate:0 calc(5% - 5px);
+  /* An open-ended column would stretch the containing block to the padding edge and skew centering. */
+  grid-column:2/3;
   grid-row:2/5;
   align-self:end;
   justify-self:start;
   right:auto;
   top:auto;
-  width:115%;
-  max-width:772.8px;
-  margin-top:var(--art-margin-top);
+  width:90%;
+  max-width:560px;
   height:auto;
   aspect-ratio:5/4
 }
 @media(min-width:1441px) {
   .hero .hero-art {
     justify-self:center;
-    translate:-20px calc(5% + var(--art-margin-top))
+    width:clamp(512px,calc(512px + (100vw - 1440px) * .2667),640px);
+    max-width:none
   }
 }
 @media(max-width:760px) {
