@@ -71,11 +71,13 @@
   transition:background-color .18s ease,color .18s ease,border-color .18s ease
 }
 .cases-toc-link:hover {
+  border-left-color:var(--accent);
   border-left-color:var(--red);
   background:var(--beige);
   color:var(--ink)
 }
 .cases-toc-link[aria-current="location"] {
+  border-left-color:var(--accent);
   border-left-color:var(--red);
   background:var(--white);
   color:var(--ink);
@@ -301,6 +303,7 @@
 .article-details {
   margin:28px 0 40px;
   padding:0 0 0 20px;
+  border-left:3px solid var(--accent)
   border-left:3px solid var(--red)
 }
 .article-details summary {
@@ -319,6 +322,7 @@
 .cases-article blockquote {
   margin:28px 0;
   padding:8px 0 8px 24px;
+  border-left:3px solid var(--accent);
   border-left:3px solid var(--red);
   color:var(--ink)
 }

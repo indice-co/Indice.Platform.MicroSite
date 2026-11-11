@@ -107,12 +107,12 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   const navigation = new Element('nav', {}, [panel, desktopTrigger, mobileTrigger]);
   const foundation = new Element('section');
   const products = new Element('section');
-  const services = new Element('section');
+  const expertise = new Element('section');
   foundation.documentTop = 900;
   products.documentTop = 2100;
-  services.documentTop = 8000;
-  services.documentBottom = 9200;
-  const pillarLinks = ['foundation', 'products', 'services'].map(pillar => {
+  expertise.documentTop = 8000;
+  expertise.documentBottom = 9200;
+  const pillarLinks = ['foundation', 'products', 'expertise'].map(pillar => {
     const link = new Element('a', { href: '#' + pillar });
     link.dataset.pillar = pillar;
     return link;
@@ -122,7 +122,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   const elements = {
     'hero-brand': brand,
     'products-panel': panel, 'site-nav': navigation, 'products-trigger': desktopTrigger,
-    'menu-trigger': mobileTrigger, foundation, products, services,
+    'menu-trigger': mobileTrigger, foundation, products, expertise,
   };
   document.documentElement = root;
   document.activeElement = outside;
@@ -183,7 +183,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     mobileMedia.dispatch('change');
   }
   return { document, browser, root, brand, brandImage, panel, desktopTrigger, mobileTrigger, outside,
-    firstMobileLink, exploreAll, foundation, products, services, pillarLinks, demoButtons,
+    firstMobileLink, exploreAll, foundation, products, expertise, pillarLinks, demoButtons,
     reveal, frames, observed, observers, motionMedia, sandbox, historyWrites, Element,
     click, event, scroll, resizeMobile };
 }
@@ -348,7 +348,7 @@ test('pillar state covers the product story and clears in hero and closing secti
   page.scroll(6500);
   assert.deepEqual(current(), ['products'], 'the bounded showcase remains part of Products');
   page.scroll(8100);
-  assert.deepEqual(current(), ['services']);
+  assert.deepEqual(current(), ['expertise']);
   page.scroll(9500);
   assert.deepEqual(current(), []);
   page.scroll(0);

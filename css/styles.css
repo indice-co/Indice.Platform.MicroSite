@@ -9,7 +9,7 @@
   --beige:#dedad0;
   --ink:#201f1e;
   --white:#fff;
-  --red:#dc4650;
+  --accent:#1a7f8e;
   --turquoise:#3e9aa8;
   --dark-turquoise:#345f6a;
   --paper:#f1efe9;
@@ -24,11 +24,9 @@
   --reveal-distance:24px;
   --art-float-duration:9s;
   --art-repel-duration:350ms;
-  --hero-slash-grey:#8b8880;
   --hero-flight-duration:2.6s;
   --hero-flight-delay:.9s;
-  --hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration));
-  --hero-color-duration:12s
+  --hero-fill-delay:calc(var(--hero-flight-delay) + var(--hero-flight-duration))
 }
 *,*::before,*::after {
   box-sizing:border-box
@@ -46,7 +44,7 @@ body {
   -webkit-font-smoothing:antialiased
 }
 ::selection {
-  background:var(--red);
+  background:var(--accent);
   color:white
 }
 button,a {
@@ -89,7 +87,7 @@ section,article {
   scroll-margin-top:24px
 }
 :focus-visible {
-  outline:3px solid var(--red);
+  outline:3px solid var(--accent);
   outline-offset:6px
 }
 section:focus,article:focus,main:focus {
@@ -176,7 +174,7 @@ section:focus,article:focus,main:focus {
 .section-pad {
   padding:100px var(--gutter)
 }
-.products.section-pad,.services.section-pad {
+.products.section-pad,.expertise.section-pad {
   padding-inline:max(var(--gutter),calc((100% - 1440px)/2))
 }
 .section-top {
@@ -218,8 +216,8 @@ section:focus,article:focus,main:focus {
   z-index:-1;
   background-image:radial-gradient(circle,#201f1e33 1px,transparent 1.5px);
   background-size:26px 26px;
-  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
-  mask-image:radial-gradient(ellipse 60% 70% at 74% 45%,#000 10%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
   pointer-events:none
 }
 .hero-top {
@@ -286,95 +284,7 @@ section:focus,article:focus,main:focus {
   height:100%;
   pointer-events:auto
 }
-/* Nested in the diagram, so px are diagram user units. */
-.hero-slashes {
-  width:250px;
-  height:202px;
-  overflow:visible
-}
-.hero-slash-flight {
-  --flight-delay:var(--hero-flight-delay);
-  transform-box:fill-box;
-  transform-origin:center
-}
-.hero-slash-shape {
-  fill:var(--hero-slash-grey);
-  stroke:var(--hero-slash-grey);
-  stroke-width:.8;
-  stroke-linejoin:miter;
-  stroke-dasharray:none;
-  stroke-dashoffset:0
-}
-.hero-slash-shape {
-  translate:var(--repel-x,0px) var(--repel-y,0px);
-  transition:translate var(--art-repel-duration) var(--ease)
-}
-.hero-slashes>.hero-slash-flight:last-child .hero-slash-shape {
-  opacity:.25
-}
-.hero-slashes>.hero-slash-flight:first-child .hero-slash-shape {
-  opacity:.6
-}
-.hero-art.art-ready .hero-slash-flight {
-  animation:hero-slash-arrive var(--hero-flight-duration) linear var(--flight-delay) both;
-  animation-play-state:paused
-}
-.hero-art.art-ready .hero-slash-shape {
-  animation:hero-slash-draw var(--hero-flight-duration) linear var(--flight-delay) both,hero-slash-fill .9s ease var(--hero-fill-delay) both,hero-slash-color var(--hero-color-duration) ease-in-out calc(var(--hero-fill-delay) + .9s) 1;
-  animation-play-state:paused
-}
-.hero-art.is-animating .hero-slash-flight,.hero-art.is-animating .hero-slash-shape {
-  animation-play-state:running
-}
-@keyframes hero-slash-arrive {
-  0% {
-    opacity:0;
-    transform:translate3d(0,-60%,0)
-  }
-  12% {
-    opacity:1
-  }
-  100% {
-    opacity:1;
-    transform:translate3d(0,0,0)
-  }
-}
-@keyframes hero-slash-draw {
-  from {
-    stroke-dashoffset:1;
-    stroke-dasharray:1
-  }
-  99.99% {
-    stroke-dasharray:1
-  }
-  to {
-    stroke-dashoffset:0;
-    stroke-dasharray:none
-  }
-}
-@keyframes hero-slash-fill {
-  from {
-    fill:transparent
-  }
-  to {
-    fill:var(--hero-slash-grey)
-  }
-}
-@keyframes hero-slash-color {
-  0%,10%,100% {
-    fill:var(--hero-slash-grey);
-    stroke:var(--hero-slash-grey)
-  }
-  35%,42% {
-    fill:var(--red);
-    stroke:var(--red)
-  }
-  68%,75% {
-    fill:var(--ink);
-    stroke:var(--ink)
-  }
-}
-/* Platform diagram: services cloud, suite chips between the slashes, foundation rails. */
+/* Platform diagram: expertise cloud, suite chips and foundation rails. */
 .hero-diagram {
   width:100%;
   height:100%;
@@ -398,7 +308,7 @@ section:focus,article:focus,main:focus {
   stroke-linejoin:round
 }
 .hero-cloud-trace {
-  stroke:var(--red);
+  stroke:var(--accent);
   stroke-width:2.4;
   stroke-linecap:round;
   stroke-dasharray:.12 .88;
@@ -444,7 +354,7 @@ section:focus,article:focus,main:focus {
   transition:translate var(--art-repel-duration) var(--ease),stroke .35s,stroke-opacity .35s
 }
 .hero-pulse {
-  stroke:var(--red);
+  stroke:var(--accent);
   stroke-width:2.6;
   stroke-linecap:round;
   stroke-dasharray:.03 .97;
@@ -551,20 +461,20 @@ section:focus,article:focus,main:focus {
   }
 }
 /* Hovering a pillar spotlights its layer of the platform diagram. */
-.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-products),
-.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) :is(.hero-layer-services,.hero-layer-foundation),
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
+.hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-layer-expertise,.hero-layer-products),
+.hero:has(.pillar[href="#products"]:is(:hover,:focus-visible)) :is(.hero-layer-expertise,.hero-layer-foundation),
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) :is(.hero-layer-foundation,.hero-layer-products) {
   opacity:.15
 }
-/* Links share the services layer, so fade their strokes to match the dimmed layers. */
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-link {
+/* Links share the expertise layer, so fade their strokes to match the dimmed layers. */
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-link {
   stroke-opacity:.06
 }
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-layer-services .hero-pulse {
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-layer-expertise .hero-pulse {
   stroke-opacity:.15
 }
 .hero:has(.pillar[href="#foundation"]:is(:hover,:focus-visible)) :is(.hero-rail,.hero-rack),
-.hero:has(.pillar[href="#services"]:is(:hover,:focus-visible)) .hero-cloud {
+.hero:has(.pillar[href="#expertise"]:is(:hover,:focus-visible)) .hero-cloud {
   stroke:var(--ink);
   stroke-opacity:1
 }
@@ -649,7 +559,7 @@ section:focus,article:focus,main:focus {
 .pillar:hover .pillar-content>.arrow,.pillar:focus-visible .pillar-content>.arrow {
   transform:scale(1.5)
 }
-/* Foundation and configurable suite metrics. */
+/* Platform foundation. */
 .foundation {
   background:var(--paper);
   padding-top:105px
@@ -780,11 +690,11 @@ section:focus,article:focus,main:focus {
   position:absolute;
   width:13%;
   height:48%;
-  background:var(--red);
+  background:var(--accent);
   top:12%;
   left:45%;
   transform:var(--art-transform);
-  box-shadow:15px 20px 0 #dc46502b
+  box-shadow:15px 20px 0 #1a7f8e2b
 }
 .art-coordinate {
   --float-x:-2px;
@@ -805,58 +715,26 @@ section:focus,article:focus,main:focus {
   right:2%;
   top:8%
 }
-.metrics {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  padding:60px var(--gutter);
-  background:var(--paper);
-  border-top:1px solid var(--line)
-}
-.metric {
-  padding:0 28px;
-  border-right:1px solid var(--line)
-}
-.metric:first-child {
-  padding-left:0
-}
-.metric:last-child {
-  padding-right:0;
-  border:0
-}
-.metric-value {
-  display:block;
-  font-size:clamp(40px,4.1vw,66px);
-  line-height:1.1;
-  letter-spacing:-.06em;
-  font-weight:400
-}
-.metric p {
-  font-size:16px;
-  line-height:1.5;
-  max-width:185px;
-  margin-top:18px;
-  color:var(--muted)
-}
 /* Open, ruled suite grid. Product showcase order remains independent. */
 .products {
   padding-top:110px;
   padding-bottom:180px
 }
-.products-introduction,.services-introduction {
+.products-introduction,.expertise-introduction {
   display:grid;
   grid-template-columns:1.1fr 1fr;
   gap:8%;
   align-items:end
 }
-.products-introduction h2,.services-introduction h2 {
+.products-introduction h2,.expertise-introduction h2 {
   grid-column:1/-1;
   grid-row:1;
   max-width:75%
 }
-.products-introduction h2,.services-introduction h2,.hero .hero-motto {
+.products-introduction h2,.expertise-introduction h2,.hero .hero-motto {
   font-size:clamp(38px,3.8vw,64px)
 }
-.products-introduction>p,.services-introduction>div {
+.products-introduction>p,.expertise-introduction>div {
   font-size:16px;
   grid-column:2;
   grid-row:1;
@@ -1857,23 +1735,23 @@ section:focus,article:focus,main:focus {
 .story-enhanced .placeholder-caption>span:last-child {
   font-size:20px
 }
-/* Neutral services, technologies and closing statement. */
-.services {
+/* Neutral expertise, technologies and closing statement. */
+.expertise {
   position:relative;
   background:var(--paper);
   padding-top:110px
 }
-.services-introduction h2 {
+.expertise-introduction h2 {
   grid-column:1;
   max-width:none
 }
-.services-introduction>div {
+.expertise-introduction>div {
   color:var(--ink)
 }
-.service-list {
+.expertise-list {
   margin-top:90px
 }
-.service-row {
+.expertise-row {
   display:grid;
   grid-template-columns:50px 1fr 1fr 100px;
   gap:4%;
@@ -1881,22 +1759,22 @@ section:focus,article:focus,main:focus {
   border-top:1px solid var(--line);
   padding:35px 0 45px
 }
-.service-number {
+.expertise-number {
   font-size:16px
 }
-.service-row h3 {
+.expertise-row h3 {
   font-size:24px;
   line-height:1.3;
   letter-spacing:-.035em;
   max-width:290px
 }
-.service-row p {
+.expertise-row p {
   font-size:16px;
   line-height:1.8;
   max-width:360px;
   color:var(--muted)
 }
-.service-glyph {
+.expertise-glyph {
   --plane:rotateX(54deg) rotateZ(-28deg);
   position:relative;
   width:100px;
@@ -1904,11 +1782,11 @@ section:focus,article:focus,main:focus {
   perspective:400px;
   justify-self:end
 }
-.service-glyph i,.service-glyph::after {
+.expertise-glyph i,.expertise-glyph::after {
   position:absolute;
   transition:translate .6s var(--ease)
 }
-.service-glyph i {
+.expertise-glyph i {
   left:14px;
   width:72px;
   height:52px;
@@ -1916,13 +1794,13 @@ section:focus,article:focus,main:focus {
   background:var(--beige);
   transform:var(--plane)
 }
-.service-glyph::after {
+.expertise-glyph::after {
   content:'';
   width:12px;
   height:46px;
-  background:var(--red);
+  background:var(--accent);
   transform:skew(17deg) rotate(-28deg);
-  box-shadow:6px 8px 0 #dc46502b
+  box-shadow:6px 8px 0 #1a7f8e2b
 }
 .glyph-0 i:nth-child(1) {
   top:28px;
@@ -1950,7 +1828,7 @@ section:focus,article:focus,main:focus {
   top:6px;
   height:30px
 }
-.service-row:hover .glyph-0 i:nth-child(3) {
+.expertise-row:hover .glyph-0 i:nth-child(3) {
   translate:0 -6px
 }
 .glyph-1 i {
@@ -1976,10 +1854,10 @@ section:focus,article:focus,main:focus {
   height:40px;
   transform:skew(17deg) rotate(62deg)
 }
-.service-row:hover .glyph-1 i:nth-child(1) {
+.expertise-row:hover .glyph-1 i:nth-child(1) {
   translate:4px -2px
 }
-.service-row:hover .glyph-1 i:nth-child(2) {
+.expertise-row:hover .glyph-1 i:nth-child(2) {
   translate:-4px 2px
 }
 .glyph-2 i {
@@ -2007,10 +1885,10 @@ section:focus,article:focus,main:focus {
   top:-8px;
   height:34px
 }
-.service-row:hover .glyph-2 i:nth-child(2) {
+.expertise-row:hover .glyph-2 i:nth-child(2) {
   translate:0 -3px
 }
-.service-row:hover .glyph-2 i:nth-child(3),.service-row:hover .glyph-2::after {
+.expertise-row:hover .glyph-2 i:nth-child(3),.expertise-row:hover .glyph-2::after {
   translate:0 -6px
 }
 .technologies {
@@ -2115,10 +1993,10 @@ section:focus,article:focus,main:focus {
   z-index:-1
 }
 .contact-slash-first {
-  fill:var(--red)
+  fill:var(--accent)
 }
 .contact-slash-second {
-  fill:#70252e
+  fill:#0d424a
 }
 .contact-line {
   display:block;
@@ -2160,17 +2038,17 @@ section:focus,article:focus,main:focus {
 }
 @keyframes contact-light {
   0%,24%,50% { fill:var(--ink) }
-  12%,38% { fill:#70252e }
-  75% { fill:#70252e }
-  100% { fill:var(--red) }
+  12%,38% { fill:#0d424a }
+  75% { fill:#0d424a }
+  100% { fill:var(--accent) }
 }
 @keyframes contact-slash-appear {
   from { opacity:0 }
   to { opacity:1 }
 }
 @keyframes contact-flash {
-  0%,94%,100% { fill:#70252e }
-  97% { fill:var(--red) }
+  0%,94%,100% { fill:#0d424a }
+  97% { fill:var(--accent) }
 }
 .site-footer {
   padding:30px var(--gutter) calc(var(--nav-clearance) + 20px);
@@ -2229,7 +2107,7 @@ section:focus,article:focus,main:focus {
   width:8px;
   height:8px;
   border-radius:50%;
-  background:var(--red);
+  background:var(--accent);
   left:calc(50% - 4px);
   bottom:0
 }
@@ -2324,12 +2202,12 @@ section:focus,article:focus,main:focus {
 .reveal-ready .display-heading.is-revealed {
   transform:none
 }
-.reveal-ready .foundation [data-reveal],.reveal-ready .services [data-reveal] {
+.reveal-ready .foundation [data-reveal],.reveal-ready .expertise [data-reveal] {
   transform:translateY(64px);
   transition-duration:1.4s;
   transition-delay:calc(var(--reveal-index,0)*140ms)
 }
-.reveal-ready .foundation [data-reveal].is-revealed,.reveal-ready .services [data-reveal].is-revealed {
+.reveal-ready .foundation [data-reveal].is-revealed,.reveal-ready .expertise [data-reveal].is-revealed {
   transform:none
 }
 @keyframes hero-enter {
@@ -2370,21 +2248,21 @@ section:focus,article:focus,main:focus {
   .foundation-layout {
     gap:5%
   }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     gap:5%
   }
-  .products-introduction h2,.services-introduction h2,.hero .hero-motto {
+  .products-introduction h2,.expertise-introduction h2,.hero .hero-motto {
     font-size:clamp(32px,3.8vw,44px)
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:35px 1fr 1.15fr 80px;
     gap:3%
   }
-  .service-glyph {
+  .expertise-glyph {
     transform:scale(.8);
     transform-origin:right top
   }
-  .service-row h3 {
+  .expertise-row h3 {
     font-size:21px
   }
   .product-chapter h3 {
@@ -2461,18 +2339,11 @@ section:focus,article:focus,main:focus {
   .foundation-text>p:first-child {
     font-size:17px
   }
-  .metrics {
-    padding-top:45px;
-    padding-bottom:45px
-  }
-  .metric {
-    padding:0 20px
-  }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     grid-template-columns:1fr 1.1fr;
     gap:5%
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     font-size:13px
   }
   .product-grid {
@@ -2498,18 +2369,18 @@ section:focus,article:focus,main:focus {
   .placeholder-caption>span:last-child {
     font-size:10px
   }
-  .service-list {
+  .expertise-list {
     margin-top:60px
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:30px 1fr 1fr;
     gap:4%;
     padding:28px 0
   }
-  .service-glyph {
+  .expertise-glyph {
     display:none
   }
-  .service-row p {
+  .expertise-row p {
     font-size:13px
   }
   .contact h2 {
@@ -2619,41 +2490,18 @@ section:focus,article:focus,main:focus {
   .foundation-text>p:first-child {
     font-size:18px
   }
-  .metrics {
-    grid-template-columns:1fr 1fr;
-    gap:34px 0;
-    padding-top:40px;
-    padding-bottom:40px
-  }
-  .metric {
-    padding:0 20px
-  }
-  .metric:nth-child(odd) {
-    padding-left:0
-  }
-  .metric:nth-child(2) {
-    border:0
-  }
-  .metric-value {
-    font-size:48px
-  }
-  .metric p {
-    font-size:12px;
-    margin-top:12px;
-    max-width:155px
-  }
-  .products-introduction,.services-introduction {
+  .products-introduction,.expertise-introduction {
     display:block
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     font-size:16px;
     margin-top:30px;
     max-width:530px
   }
-  .products-introduction h2,.services-introduction h2 {
+  .products-introduction h2,.expertise-introduction h2 {
     max-width:none
   }
-  .products-introduction>p,.services-introduction>div {
+  .products-introduction>p,.expertise-introduction>div {
     padding-left:0;
     max-width:none
   }
@@ -2729,19 +2577,19 @@ section:focus,article:focus,main:focus {
   .product-nav-index {
     display:none
   }
-  .service-list {
+  .expertise-list {
     margin-top:45px
   }
-  .service-row {
+  .expertise-row {
     grid-template-columns:25px 1fr;
     gap:10px 16px;
     padding:26px 0 30px
   }
-  .service-row h3 {
+  .expertise-row h3 {
     font-size:22px;
     max-width:360px
   }
-  .service-row p {
+  .expertise-row p {
     grid-column:2;
     font-size:13px;
     max-width:500px
@@ -2833,7 +2681,7 @@ section:focus,article:focus,main:focus {
   }
   .panel-section-links a.is-active {
     text-decoration:underline;
-    text-decoration-color:var(--red);
+    text-decoration-color:var(--accent);
     text-underline-offset:7px
   }
   .panel-heading {
@@ -2991,7 +2839,7 @@ section:focus,article:focus,main:focus {
   }
 }
 .hero {
-  grid-template-columns:minmax(0,calc((100% - 96px) * .44 + 60px)) minmax(0,calc((100% - 96px) * .56 - 60px));
+  grid-template-columns:minmax(0,calc((100% - 96px) * .56 - 60px)) minmax(0,calc((100% - 96px) * .44 + 60px));
   grid-template-rows:50px 24px max-content max-content;
   align-content:center;
   column-gap:96px;
@@ -3003,7 +2851,7 @@ section:focus,article:focus,main:focus {
 .hero .hero-composition {
   display:contents
 }
-.hero h1#hero-title,:is(.foundation,.products,.services)>.section-top>.eyebrow {
+.hero h1#hero-title,:is(.foundation,.products,.expertise)>.section-top>.eyebrow {
   font-size:16px;
   font-weight:650;
   line-height:1.65;
@@ -3024,19 +2872,18 @@ section:focus,article:focus,main:focus {
   margin:0
 }
 .hero .hero-motto {
-  color:var(--red);
+  color:var(--accent);
   font-size:36px;
   font-weight:600;
   line-height:1.08;
   letter-spacing:0
 }
 .hero .pillar-grid {
-  grid-column:1;
-  grid-row:4;
-  align-self:start;
+  grid-column:2;
+  grid-row:2/5;
+  align-self:center;
   grid-template-columns:minmax(0,1fr);
-  gap:18px;
-  margin-top:48px
+  gap:18px
 }
 .hero .pillar {
   display:block;
@@ -3057,7 +2904,7 @@ section:focus,article:focus,main:focus {
   grid-column:2;
   grid-row:2/5;
   align-self:end;
-  justify-self:end;
+  justify-self:start;
   right:auto;
   top:auto;
   width:115%;
@@ -3082,6 +2929,11 @@ section:focus,article:focus,main:focus {
     padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));
     align-content:start;
     column-gap:0
+  }
+  .hero .pillar-grid {
+    grid-column:1;
+    grid-row:4;
+    align-self:start
   }
   .hero .pillar-grid {
     margin-top:24px
@@ -3197,6 +3049,95 @@ section:focus,article:focus,main:focus {
     padding:0 6px 6px
   }
 }
+@media(max-width:760px) {
+  .product-chapter-cases {
+    display:block;
+    padding:48px var(--gutter)
+  }
+  .cases-story-heading {
+    margin-bottom:36px
+  }
+  .cases-story-heading .chapter-logo {
+    margin-bottom:16px
+  }
+  .cases-story-heading h3 {
+    font-size:36px;
+    line-height:1.08
+  }
+  .cases-story-heading>p {
+    font-size:16px
+  }
+  .case-beat {
+    grid-template-columns:1fr;
+    gap:24px;
+    padding:36px 0
+  }
+  .case-beat:nth-child(even) .case-beat-copy,.case-beat:nth-child(even) .case-screen {
+    grid-column:1;
+    grid-row:auto
+  }
+  .case-beat-copy h4 {
+    font-size:28px
+  }
+  .case-screen figcaption {
+    min-height:40px;
+    gap:8px;
+    padding:0 10px;
+    font-size:8px
+  }
+  .case-screen figcaption b {
+    font-size:10px
+  }
+  .workflow-sidebar {
+    padding:10px 6px
+  }
+  .workflow-canvas {
+    padding:10px
+  }
+  .workflow-route {
+    grid-template-columns:minmax(0,1fr) 9px minmax(0,1fr) 9px minmax(0,1fr);
+    gap:2px
+  }
+  .workflow-node {
+    min-height:65px;
+    padding:5px
+  }
+  .workflow-node b {
+    font-size:8px
+  }
+  .workflow-node>span {
+    font-size:7px
+  }
+  .record-columns {
+    gap:7px;
+    padding:0 8px 8px
+  }
+  .record-main,.record-visibility {
+    padding:8px
+  }
+}
+@media(max-width:400px) {
+  .cases-story-heading h3 {
+    font-size:32px
+  }
+  .workflow-canvas {
+    padding:7px
+  }
+  .workflow-route {
+    grid-template-columns:minmax(0,1fr) 6px minmax(0,1fr) 6px minmax(0,1fr)
+  }
+  .workflow-node small {
+    font-size:6px
+  }
+  .workflow-node b {
+    font-size:7px
+  }
+  .record-columns {
+    grid-template-columns:1fr .8fr;
+    gap:5px;
+    padding:0 6px 6px
+  }
+}
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after {
     animation:none!important;
@@ -3214,17 +3155,9 @@ section:focus,article:focus,main:focus {
     translate:none!important;
     will-change:auto
   }
-  .service-glyph i,.service-glyph::after {
+  .expertise-glyph i,.expertise-glyph::after {
     transition:none;
     translate:none!important
-  }
-  .hero-slash-flight {
-    opacity:1;
-    transform:none
-  }
-  .hero-slash-shape {
-    fill:var(--red);
-    stroke:var(--red)
   }
   .hero-pulse {
     display:none
@@ -3237,7 +3170,7 @@ section:focus,article:focus,main:focus {
   .hero-brand,.hero h1,.hero-motto,.pillar {
     animation:none!important
   }
-  .hero-slash-flight,.hero-slash-shape,.hero-diagram * {
+  .hero-diagram * {
     animation:none!important
   }
   .hero-pulse {

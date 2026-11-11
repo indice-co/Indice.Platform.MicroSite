@@ -10,6 +10,22 @@ const html = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const { products } = globalThis.INDICE_DATA;
 
+test('Cases has one generated internal page: the technical reference', () => {
+  assert(fs.existsSync(path.join(root, 'cases-reference.html')));
+  assert(!fs.existsSync(path.join(root, 'cases.html')));
+  assert(!fs.existsSync(path.join(root, 'cases-0.2.html')));
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert(html.includes('Cases technical reference'));
+  assert(!html.includes('Cases by Indice'));
+  assert(html.includes('IContactProvider'));
+  assert(html.includes('AddTranslationsResource'));
+  assert.match(html, /<h2 id="article-for-developers" class="article-chapter">[\s\S]*?<\/h2>\s*<p>This technical reference covers the hosting model, architecture, integration contracts, configuration and extension points your engineering team uses to deploy and operate Cases\.<\/p>/);
+  assert(html.includes('(next release)'));
+  assert.equal((html.match(/<pre class="mermaid"/g) || []).length, 4);
+  assert.equal((html.match(/<table>/g) || []).length, 3);
+  assert(html.includes('class="language-csharp"'));
+});
+
 test('homepage and Cases reference use the INDICE icon as their SVG favicon', () => {
   for (const page of [home, html]) {
     assert.match(page, /<link rel="icon" type="image\/svg\+xml" href="assets\/logos\/indice icon\.svg">/);

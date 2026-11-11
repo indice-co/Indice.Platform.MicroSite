@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0d12">
+  <meta name="description" content="Open-source .NET and Angular libraries, products built on them that you deploy on your own infrastructure, and the engineers who integrate and maintain them.">
+  <title>INDICE Platform — Terminal</title>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/carousel.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script defer src="js/carousel.js"></script>
+  <script defer src="js/terminal.js"></script>
+</head>
+<body class="tm">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html" aria-current="page"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li></ul>
+</nav>
+  <div class="ide">
+    <header class="titlebar">
+      <button class="explorer-toggle" type="button" aria-controls="explorer" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Toggle explorer</span></button>
+      <a class="brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+    </header>
+    <div class="shell">
+      <aside class="explorer" id="explorer" aria-label="Explorer">
+        <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+        <p class="explorer-title">Explorer</p>
+        <nav aria-label="Page outline">
+          <ul class="tree">
+            <li class="dir"><span>indice-platform</span>
+              <ul>
+                <li class="dir"><span>01-foundation</span><ul>
+                  <li><a href="#foundation" data-spy-link="foundation">overview.md</a></li>
+                  <li><a href="#libraries" data-spy-link="libraries">libraries.md</a></li>
+                  <li><a href="#stack" data-spy-link="stack">stack.yaml</a></li>
+                  <li><a href="#practices" data-spy-link="practices">practices.md</a></li>
+                </ul></li>
+                <li class="dir"><span>02-suite</span><ul>
+                  <li><a href="#suite" data-spy-link="suite">overview.md</a></li>
+                  <li><a href="#cases" data-spy-link="cases" data-product-link="cases"><img src="assets/logos/cases icon.svg" alt="" width="14" height="14">cases/</a></li>
+                  <li><a href="#iam" data-spy-link="iam" data-product-link="iam"><img src="assets/logos/iam icon.svg" alt="" width="14" height="14">iam/</a></li>
+                  <li><a href="#messaging" data-spy-link="messaging" data-product-link="messaging"><img src="assets/logos/messaging icon.svg" alt="" width="14" height="14">messaging/</a></li>
+                  <li><a href="#risk" data-spy-link="risk" data-product-link="risk"><img src="assets/logos/risk icon.svg" alt="" width="14" height="14">risk/</a></li>
+                  <li><a href="#agents" data-spy-link="agents" data-product-link="agents"><span class="ico-ph" aria-hidden="true"></span>agents/</a></li>
+                  <li><a href="#workers" data-spy-link="workers" data-product-link="workers"><span class="ico-ph" aria-hidden="true"></span>workers/</a></li>
+                  <li><a href="#relations" data-spy-link="relations">relations.md</a></li>
+                  <li><a href="#matrix" data-spy-link="matrix">matrix.md</a></li>
+                </ul></li>
+                <li class="dir"><span>03-expertise</span><ul>
+                  <li><a href="#expertise" data-spy-link="expertise">overview.md</a></li>
+                  <li><a href="#integration-points" data-spy-link="integration-points">integration-points.md</a></li>
+                </ul></li>
+                <li><a href="#contact" data-spy-link="contact">contact.md</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <div class="scrim" data-scrim hidden></div>
+
+      <main class="editor" id="main" tabindex="-1">
+
+        <section class="hero" id="top" data-spy="top" aria-labelledby="hero-title">
+          <div class="hero-left">
+            <p class="prompt"><span class="ps">~/indice-platform</span></p>
+            <p class="cmd"><span class="dollar" aria-hidden="true">$</span> <span class="typed">dotnet add package Indice.AspNetCore</span></p>
+            <p class="cmd"><span class="dollar" aria-hidden="true">$</span> <span class="typed">npm install @indice/ng-auth oidc-client-ts</span></p>
+            <p class="cmd"><span class="dollar" aria-hidden="true">$</span> <span class="typed">cat README.md</span><span class="caret" aria-hidden="true"></span></p>
+            <h1 id="hero-title"><span class="h-mark" aria-hidden="true"># </span>INDICE <span class="accent">Platform</span></h1>
+            <p class="lead">Open-source .NET and Angular libraries, products built on them that you deploy on your own infrastructure, and the engineers who integrate and maintain them.</p>
+            <ol class="pillar-menu" aria-label="The three pillars">
+              <li><a href="#foundation"><span class="no">01</span><b>foundation</b><span class="d">libraries · stack · engineering practices</span></a></li>
+              <li><a href="#suite"><span class="no">02</span><b>suite</b><span class="d">cases · iam · messaging · risk</span></a></li>
+              <li><a href="#expertise"><span class="no">03</span><b>expertise</b><span class="d">development · integration · support</span></a></li>
+            </ol>
+          </div>
+          <aside class="hero-right" aria-label="Product entry points">
+            <figure class="codeblock hero-code">
+              <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
+              <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// Cases: my + manage APIs</span></span>
+<span class="line">app.<span class="tok-function">MapCases</span>();</span>
+<span class="line"><span class="tok-comment">// IAM: management, account, device APIs</span></span>
+<span class="line">app.<span class="tok-function">MapIdentityServer</span>();</span>
+<span class="line"><span class="tok-comment">// Messaging: campaigns, contacts, send API</span></span>
+<span class="line">app.<span class="tok-function">MapMessaging</span>();</span>
+<span class="line"><span class="tok-comment">// Risk: POST api/risk, POST api/risk/events</span></span>
+<span class="line">app.<span class="tok-function">MapRisk</span>();</span></code></pre>
+            </figure>
+            <p class="hero-note dim">Each product is mapped into your own ASP.NET Core host with one call. The documents describe each host.</p>
+          </aside>
+        </section>
+
+        <section class="sec" id="foundation" data-spy="foundation" aria-labelledby="foundation-title">
+          <header class="sec-head"><p class="crumb">01-foundation / overview.md</p><h2 id="foundation-title"><span class="h-mark" aria-hidden="true">## </span>Foundation</h2></header>
+          <blockquote class="pillar-text">Open-source .NET libraries on NuGet and Angular libraries on npm give every product the same ASP.NET Core, EF Core and OpenID Connect base. You extend tested packages and deploy them in your own environment.</blockquote>
+
+          <div class="block" id="libraries">
+            <h3><span class="h-mark" aria-hidden="true">### </span>Libraries</h3>
+            <p class="dim">Public repositories in the <a class="ext" href="https://github.com/indice-co" rel="noopener" target="_blank">indice-co<span class="sr-only"> (opens in a new tab)</span></a> organisation.</p>
+            <div class="scroll" role="region" aria-label="Libraries" tabindex="0">
+              <table class="libs">
+                <thead><tr><th scope="col">name</th><th scope="col">kind</th><th scope="col">target</th><th scope="col">source</th></tr></thead>
+                <tbody><tr>
+                  <th scope="row"><a class="ext" href="https://www.nuget.org/profiles/indice" rel="noopener" target="_blank">Indice.Platform<span class="sr-only"> (opens in a new tab)</span></a></th><td>.NET libraries</td><td>net8.0</td><td>NuGet</td>
+                </tr><tr class="note"><td colspan="4">MIT. Indice.AspNetCore, Indice.Common, Indice.EntityFrameworkCore and the Indice.Features.* libraries the products are built from. <code class="install">dotnet add package Indice.AspNetCore</code></td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://www.npmjs.com/package/@indice/ng-config" rel="noopener" target="_blank">Indice.Angular<span class="sr-only"> (opens in a new tab)</span></a></th><td>Angular libraries</td><td>Angular 20+ · Node 22.19+ · TypeScript 5.9+</td><td>npm</td>
+                </tr><tr class="note"><td colspan="4">@indice/ng-config (runtime configuration), @indice/ng-auth (OpenID Connect with oidc-client-ts), @indice/ng-components (components with Tailwind CSS). <code class="install">npm install @indice/ng-config</code></td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/Indice.Identity.iOS" rel="noopener" target="_blank">Indice.Identity.iOS<span class="sr-only"> (opens in a new tab)</span></a></th><td>Swift package</td><td>Swift 6.2 · iOS 13 · macOS 10.15</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">Added with Swift Package Manager. IdentityClient covers authentication, device management, registration and account operations against an Indice identity service.</td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/Indice.Identity.Android" rel="noopener" target="_blank">Indice.Identity.Android<span class="sr-only"> (opens in a new tab)</span></a></th><td>Kotlin SDK</td><td>Android</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">Identity SDK for Android.</td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/Indice.Agents.iOS" rel="noopener" target="_blank">Indice.Agents.iOS<span class="sr-only"> (opens in a new tab)</span></a></th><td>Swift SDK</td><td>iOS</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">SDK for Agents UI flows and components.</td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/Indice.Cryptography" rel="noopener" target="_blank">Indice.Cryptography<span class="sr-only"> (opens in a new tab)</span></a></th><td>.NET library</td><td>C#</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">PSD2 starter kit and utilities.</td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/EDI.Net" rel="noopener" target="_blank">EDI.Net<span class="sr-only"> (opens in a new tab)</span></a></th><td>.NET library</td><td>C#</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">EDI serializer and deserializer: EDIFACT, X12 and TRADACOMS.</td></tr><tr>
+                  <th scope="row"><a class="ext" href="https://github.com/indice-co/Indice.Skills" rel="noopener" target="_blank">Indice.Skills<span class="sr-only"> (opens in a new tab)</span></a></th><td>Agent skills</td><td>Python repository</td><td>GitHub</td>
+                </tr><tr class="note"><td colspan="4">Conventions, libraries and guardrails an AI coding agent needs to write code the way Indice does.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="block" id="stack">
+            <h3><span class="h-mark" aria-hidden="true">### </span>Stack</h3>
+            <figure class="codeblock">
+              <figcaption><span class="file">stack.yaml</span><span class="lang">yaml</span></figcaption>
+              <pre class="code" tabindex="0"><code><span class="line"><span class="tok-key">runtime</span>: <span class="tok-string">.NET 8 (net8.0)</span></span>
+<span class="line"><span class="tok-key">web</span>: <span class="tok-string">ASP.NET Core: Minimal APIs, Razor Pages</span></span>
+<span class="line"><span class="tok-key">data</span>: <span class="tok-string">EF Core · SQL Server (+ NetTopologySuite for spatial data) · optional Redis cache</span></span>
+<span class="line"><span class="tok-key">identity</span>: <span class="tok-string">ASP.NET Core Identity · Duende IdentityServer (OIDC / OAuth2)</span></span>
+<span class="line"><span class="tok-key">realtime</span>: <span class="tok-string">SignalR (Azure SignalR optional)</span></span>
+<span class="line"><span class="tok-key">workflow</span>: <span class="tok-string">Elsa Workflows 2 · Quartz timers</span></span>
+<span class="line"><span class="tok-key">ui</span>: <span class="tok-string">Angular SPAs served by the API host: UseCasesUI · UseAdminUI · UseMessagesUI · UseRisksUI</span></span>
+<span class="line"><span class="tok-key">cloud</span>: <span class="tok-string">Azure Storage · Service Bus · Notification Hubs · Functions · Blob</span></span>
+<span class="line"><span class="tok-key">api docs</span>: <span class="tok-string">OpenAPI with Swagger UI or Scalar</span></span></code></pre>
+            </figure>
+          </div>
+
+          <div class="block" id="practices">
+            <h3><span class="h-mark" aria-hidden="true">### </span>Practices</h3>
+            <div class="cols">
+              <div><h4 class="sub">Principles</h4><ul class="checks"><li>Every product is a deployed system, not a SaaS: your databases, keys, queues, delivery accounts and operations.</li><li>Extension points are C# interfaces, not a DSL. Extensions run in your host and debug with the rest of your app.</li><li>Every seam ships a safe default, so a fresh host runs before any of them is implemented.</li><li>Everything that can be a setting is a setting. Code is for the seams.</li><li>Each product ships an Angular admin SPA that your API host serves in-process; there is no separate frontend deployment.</li><li>Each store has its own EF Core migrations history; a production host brings its own migrations assembly.</li></ul></div>
+              <div><h4 class="sub">Engineering</h4><dl class="kv"><div><dt>CI</dt><dd>GitHub Actions build, test and publish to NuGet</dd></div><div><dt>Static analysis</dt><dd>CodeQL on C# and JavaScript</dd></div><div><dt>Supply chain</dt><dd>Dependency review and OpenSSF Scorecard workflows</dd></div><div><dt>Disclosure</dt><dd>SECURITY.md and CONTRIBUTING.md in the Indice.Platform repository</dd></div></dl><h4 class="sub">Domain</h4><dl class="kv"><div><dt>Identity</dt><dd>GovGr (TaxisNet) login, terms re-acceptance, device trust with an activation delay, two audit trails</dd></div><div><dt>Delivery</dt><dd>Viber OTP and Greek SMS gateways next to global providers</dd></div><div><dt>Standards</dt><dd>PSD2 starter kit (Indice.Cryptography), EDIFACT, X12 and TRADACOMS (EDI.Net)</dd></div><div><dt>Back office</dt><dd>Maker-checker approvals, public / private states, PDF output of every case</dd></div></dl></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="suite" data-spy="suite" aria-labelledby="suite-title">
+          <header class="sec-head"><p class="crumb">02-suite / overview.md</p><h2 id="suite-title"><span class="h-mark" aria-hidden="true">## </span>Suite</h2></header>
+          <blockquote class="pillar-text">Cases, IAM, Messaging and Risk are products you host inside your own ASP.NET Core applications, each with its own SQL Server database, APIs and Angular admin UI. Adopt one or combine several, and extend them with your own code.</blockquote>
+
+          <div class="tabs" id="suite-products">
+            <div class="tablist" aria-label="Products">
+              <a class="tab" id="tab-cases" href="#cases"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16">Cases</a>
+              <a class="tab" id="tab-iam" href="#iam"><img src="assets/logos/iam icon.svg" alt="" width="16" height="16">IAM</a>
+              <a class="tab" id="tab-messaging" href="#messaging"><img src="assets/logos/messaging icon.svg" alt="" width="16" height="16">Messaging</a>
+              <a class="tab" id="tab-risk" href="#risk"><img src="assets/logos/risk icon.svg" alt="" width="16" height="16">Risk</a>
+              <a class="tab tab-ph" id="tab-agents" href="#agents"><span class="ico-ph" aria-hidden="true"></span>Agents</a>
+              <a class="tab tab-ph" id="tab-workers" href="#workers"><span class="ico-ph" aria-hidden="true"></span>Workers</a>
+            </div>
+            <section class="product" id="cases" tabindex="-1" data-product="cases">
+      <header class="product-head">
+        <span class="plate"><img src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></span>
+        <p class="tagline">Case management and business workflows</p>
+        <p class="meta"><span class="chip">base unit · case type</span><a class="doc-link" href="cases-reference.html">Technical reference →</a></p>
+      </header>
+      <p class="summary">A case type is a JSON Schema form, a set of checkpoints and an Elsa workflow that decides who acts next. Customers and back-office staff work on the same record through two APIs.</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Cases UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Cases screenshot slides"><li class="shot" id="shots-cases-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Process as data. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Cases · Process as data</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Two views, one record. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Cases · Two views, one record</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Actions come from the workflow. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Cases · Actions come from the workflow</figcaption>
+          </figure>
+        </li></ul>
+      </section>
+      <h4 class="sub">What it does</h4>
+      <ul class="hl"><li><b>Process as data</b><span>A new process is a case type (schema, layout, checkpoints) plus a workflow, not a code change. Workflows are edited and published from the designer at /workflow without a redeploy.</span></li><li><b>Two views, one record</b><span>my/* serves customers, manage/* serves staff. Private checkpoints stay internal; the customer sees the last public checkpoint and the published data version.</span></li><li><b>Actions come from the workflow</b><span>GET manage/cases/{id}/actions asks the workflow which blocking activities are waiting (assign, edit, approve, custom actions). The SPA renders exactly those.</span></li><li><b>Three-layer access control</b><span>Roles (CasesUser, CasesManager, CasesAdministrator), record-level access rules, and ownership. Four-eyes approval is a workflow activity: Block previous approver.</span></li><li><b>Everything is a row</b><span>Checkpoints, data versions, comments and approvals live in CasesDb; the timeline is a query. A PDF per case type renders from a Razor template.</span></li></ul>
+      <div class="cols">
+        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Cases.{Core, Server, Workflows, UI}</dd></div><div><dt>Deployment</dt><dd>One ASP.NET Core host: API, back-office SPA, Elsa server and designer</dd></div><div><dt>Databases</dt><dd>CasesDb (schema case), WorkflowDb (Elsa). Redis cache optional</dd></div><div><dt>Auth</dt><dd>OIDC client cases-ui, API resource cases</dd></div></dl></div>
+        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="req">Elsa Workflows 2</li><li class="opt">Redis <small>optional</small></li></ul></div>
+      </div>
+      <h4 class="sub">Endpoints</h4>
+      <div class="scroll" role="region" aria-label="Cases endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-post">POST</span></td><td><code>my/cases</code></td><td>customer creates a draft, then submits it</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>my/case-types</code></td><td>case types a customer can open, with translated schema and layout</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>manage/cases</code></td><td>staff open a case on a customer’s behalf</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/cases/{id}/actions</code></td><td>workflow-derived actions for the current user</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/dashboard/metrics</code></td><td>counts per status, assigned, unassigned, stale</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>manage/workflow-integration/*</code></td><td>API the Elsa activities call back into</td></tr></tbody></table></div>
+      <h4 class="sub">Code</h4>
+      <figure class="codeblock">
+          <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// Indice.Cases/Program.cs</span></span>
+<span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// human-readable case numbers from a DB sequence</span></span>
+<span class="line">    <span class="tok-comment">// options.ConfigureDbContext = …;               // defaults to ConnectionStrings:CasesDb (SQL Server)</span></span>
+<span class="line">    <span class="tok-comment">// options.UseContactProviderIdentity(o =&gt; …);   // search customers in your Identity Server</span></span>
+<span class="line">});</span>
+<span class="line">builder.<span class="tok-function">AddCasesWorkflow</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">RegisterAuthentication</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// OIDC sign-in for the workflow designer</span></span>
+<span class="line">    options.<span class="tok-type">ConfigureSmtp</span> = builder.<span class="tok-type">Configuration</span>.<span class="tok-function">GetSection</span>(<span class="tok-string">&quot;Elsa:Smtp&quot;</span>).<span class="tok-type">Bind</span>;</span>
+<span class="line">    <span class="tok-comment">// options.GetWorkflowAssembly = () =&gt; typeof(Program).Assembly;  // code-first workflows + custom activities</span></span>
+<span class="line">});</span>
+<span class="line"> </span>
+<span class="line"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="line">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
+<span class="line">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
+<span class="line">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre>
+        </figure>
+      <figure class="codeblock">
+          <figcaption><span class="file">CaseServerOptions</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">RequiredScope</span> = <span class="tok-string">&quot;cases&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    options.<span class="tok-type">ByPassAccessRulesForElevatedUsers</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    options.<span class="tok-type">GroupIdClaimType</span> = <span class="tok-string">&quot;group_id&quot;</span>;          <span class="tok-comment">// branch / team of the back-office user</span></span>
+<span class="line">    options.<span class="tok-type">DatabaseSchema</span> = <span class="tok-string">&quot;case&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">MapTranslations</span> = <span class="tok-keyword">true</span>;                  <span class="tok-comment">// {prefix}/cases-i18n.{lang}.json + {prefix}/languages</span></span>
+<span class="line">    options.<span class="tok-type">ConfigureLimitUpload</span> = o =&gt; {</span>
+<span class="line">        o.<span class="tok-type">DefaultMaxFileSizeBytes</span> = <span class="tok-number">10</span> * <span class="tok-number">1024</span> * <span class="tok-number">1024</span>;</span>
+<span class="line">        o.<span class="tok-type">DefaultAllowedFileExtensions</span> = [<span class="tok-string">&quot;.pdf&quot;</span>, <span class="tok-string">&quot;.jpg&quot;</span>, <span class="tok-string">&quot;.png&quot;</span>];</span>
+<span class="line">        o.<span class="tok-type">EnableMagicByteValidation</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    };</span>
+<span class="line">});</span></code></pre>
+        </figure>
+      
+      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
+      <ul class="seams"><li><code>IContactProvider</code><span>customer search for staff-created cases (Identity Server built in)</span></li><li><code>ICaseDataInitializer</code><span>prefill a new case’s data from your systems</span></li><li><code>ILookupService</code><span>named dropdown sources (AddLookupService&lt;T&gt;(&quot;name&quot;))</span></li><li><code>ICaseAuthorizationService</code><span>extra list filtering and membership</span></li><li><code>ICasePdfService</code><span>your HTML-to-PDF engine</span></li><li><code>IPlatformEventHandler&lt;TEvent&gt;</code><span>react to submitted / message / downloaded events</span></li><li><code>Elsa activities + bookmarks</code><span>custom workflow steps from your assembly (GetWorkflowAssembly)</span></li></ul>
+    </section>
+    <section class="product" id="iam" tabindex="-1" data-product="iam">
+      <header class="product-head">
+        <span class="plate"><img src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></span>
+        <p class="tagline">Identity and access management</p>
+        <p class="meta"><span class="chip">base unit · user</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: this product’s technical reference page does not exist yet">Technical reference<small>placeholder</small></span></p>
+      </header>
+      <p class="summary">ASP.NET Core Identity stores the users and Duende IdentityServer speaks OIDC / OAuth2. Indice adds the grants, MFA, devices, audit and UI. Workforce, partners and customers sign in through one pipeline.</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="IAM UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="IAM screenshot slides"><li class="shot" id="shots-iam-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: One sign-in pipeline. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>IAM · One sign-in pipeline</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-iam-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: Custom grants. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>IAM · Custom grants</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-iam-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="IAM UI screenshot placeholder: Six MFA methods. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>iam.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>IAM · Six MFA methods</figcaption>
+          </figure>
+        </li></ul>
+      </section>
+      <h4 class="sub">What it does</h4>
+      <ul class="hl"><li><b>One sign-in pipeline</b><span>Password or external provider (Apple, Google, Microsoft, Facebook, GovGr), then MFA, then the post-login validation activities, then tokens.</span></li><li><b>Custom grants</b><span>Five grant types on top of the standard flows: totp, mfa, device_authentication, delegation and urn:indice:guest. The same IExtensionGrantValidator seam is open to you.</span></li><li><b>Six MFA methods</b><span>SMS, Email, Viber, Authenticator app (TOTP), Trusted device (push approval over the /mfa SignalR hub) and FIDO2 / WebAuthn.</span></li><li><b>Devices and sessions</b><span>A new device becomes trusted only after TrustActivationDelay (48 hours in the template). Server-side sessions are rows you can revoke; EnforceSingleActiveSession ends older sessions.</span></li><li><b>Hardening and audit</b><span>20 per-endpoint rate-limit rules, reCAPTCHA v3 with v2 fallback, lockout, password history. Two audit trails: sign-in logs with impossible-travel checks, and activity logs.</span></li></ul>
+      <div class="cols">
+        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Identity.{Core, Server, SignInLogs, UI, AdminUI}, Indice.Features.ActivityLogs</dd></div><div><dt>Deployment</dt><dd>One ASP.NET Core host: login pages, OIDC endpoints, management APIs, /mfa hub and the /admin SPA</dd></div><div><dt>Databases</dt><dd>IdentityDb, ConfigurationDb, OperationalDb, SignInLogsDb, ActivityLogsDb</dd></div><div><dt>Template</dt><dd>Indice.IdentityPages (dotnet new): a complete production wiring of the libraries</dd></div></dl></div>
+        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="req">SignalR</li><li class="opt">Azure <small>optional</small></li><li class="opt">Redis <small>optional</small></li></ul></div>
+      </div>
+      <h4 class="sub">Endpoints</h4>
+      <div class="scroll" role="region" aria-label="IAM endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-any">*</span></td><td><code>api/users · api/roles · api/clients</code></td><td>management APIs, scope identity and sub-scopes</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>api/my/devices</code></td><td>register, update, delete and request trust for a device</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>my/account/*</code></td><td>self-service profile, email and phone, grants, devices</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>account/register</code></td><td>public helper, rate-limited</td></tr><tr><td><span class="verb verb-ws">WS</span></td><td><code>/mfa</code></td><td>SignalR hub the browser waits on during push approval</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>api/app-settings</code></td><td>runtime settings stored in the database</td></tr></tbody></table></div>
+      <h4 class="sub">Code</h4>
+      <figure class="codeblock">
+          <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// Indice.IdentityPages/Program.cs (trimmed)</span></span>
+<span class="line">builder.<span class="tok-type">Services</span>.<span class="tok-function">AddIdentityUI</span>(builder.<span class="tok-type">Configuration</span>, options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">EnableRegisterPage</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    options.<span class="tok-type">AutoProvisionExternalUsers</span> = <span class="tok-keyword">false</span>;</span>
+<span class="line">});</span>
+<span class="line">builder.<span class="tok-type">Services</span></span>
+<span class="line">       .<span class="tok-function">AddExtendedIdentityServer</span>(builder.<span class="tok-type">Configuration</span>, builder.<span class="tok-type">Environment</span>, options =&gt; {</span>
+<span class="line">           options.<span class="tok-type">InitialUsers</span> = <span class="tok-type">UsersSeed</span>.<span class="tok-function">GetInitialUsers</span>();</span>
+<span class="line">           options.<span class="tok-type">EnableServerSideSessions</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">           options.<span class="tok-type">EnforceSingleActiveSession</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">       })</span>
+<span class="line">       .<span class="tok-function">AddGuestGrantValidator</span>()</span>
+<span class="line">       .<span class="tok-function">AddExtendedEndpoints</span>(options =&gt; options.<span class="tok-type">DisableCache</span> = <span class="tok-keyword">true</span>)   <span class="tok-comment">// management + my/account APIs</span></span>
+<span class="line">       .<span class="tok-function">AddDatabaseSettingEndpoints</span>()                                  <span class="tok-comment">// api/app-settings</span></span>
+<span class="line">       .<span class="tok-function">AddDeviceEndpoints</span>(options =&gt; options.<span class="tok-function">UsePushNotificationsServiceAzure</span>())</span>
+<span class="line">       .<span class="tok-function">AddSignInLogs</span>(options =&gt; options.<span class="tok-function">UseEntityFrameworkCoreStore</span>(/* <span class="tok-type">SignInLogsDb</span> */))</span>
+<span class="line">       .<span class="tok-type">IdentityBuilder</span></span>
+<span class="line">       .<span class="tok-function">AddAuthenticationMethods</span>(methods =&gt; methods.<span class="tok-function">UseInMemoryProvider</span>(m =&gt; m</span>
+<span class="line">           .<span class="tok-function">AddSms</span>().<span class="tok-function">AddEmail</span>().<span class="tok-function">AddViber</span>().<span class="tok-function">AddAuthenticatorApp</span>().<span class="tok-function">AddTrustedDevice</span>().<span class="tok-function">AddFido2</span>()));</span>
+<span class="line"> </span>
+<span class="line"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="line">app.<span class="tok-function">UseRateLimiter</span>();</span>
+<span class="line">app.<span class="tok-function">UseIdentityServer</span>();</span>
+<span class="line">app.<span class="tok-function">UseAdminUI</span>(options =&gt; options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;admin&quot;</span>);</span>
+<span class="line">app.<span class="tok-function">MapIdentityServer</span>();                  <span class="tok-comment">// management, account and device APIs</span></span>
+<span class="line">app.<span class="tok-function">MapRazorPages</span>();                      <span class="tok-comment">// login, register, MFA, profile pages</span></span>
+<span class="line">app.<span class="tok-function">MapMultiFactorAuthentication</span>();       <span class="tok-comment">// MFA API</span></span>
+<span class="line">app.<span class="tok-function">MapMultiFactorAuthenticationHub</span>();    <span class="tok-comment">// /mfa SignalR hub</span></span></code></pre>
+        </figure>
+      <figure class="codeblock">
+          <figcaption><span class="file">appsettings.json</span><span class="lang">json</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-key">&quot;IdentityOptions&quot;</span>: {</span>
+<span class="line">  <span class="tok-key">&quot;SignIn&quot;</span>: {</span>
+<span class="line">    <span class="tok-key">&quot;Mfa&quot;</span>: {</span>
+<span class="line">      <span class="tok-key">&quot;Policy&quot;</span>: <span class="tok-string">&quot;Default&quot;</span>,                          <span class="tok-comment">// Default (= Optional) · Enforced</span></span>
+<span class="line">      <span class="tok-key">&quot;AllowDowngradeAuthenticationMethod&quot;</span>: <span class="tok-keyword">true</span>,</span>
+<span class="line">      <span class="tok-key">&quot;PersistTrustedBrowsers&quot;</span>: <span class="tok-keyword">true</span>,</span>
+<span class="line">      <span class="tok-key">&quot;RememberDurationInDays&quot;</span>: <span class="tok-number">90</span>,</span>
+<span class="line">      <span class="tok-key">&quot;RememberExpirationType&quot;</span>: <span class="tok-string">&quot;Sliding&quot;</span>,          <span class="tok-comment">// or Absolute</span></span>
+<span class="line">      <span class="tok-key">&quot;RememberTrustedBrowserAcrossSessions&quot;</span>: <span class="tok-keyword">true</span>,</span>
+<span class="line">      <span class="tok-key">&quot;RequireWhen&quot;</span>: { <span class="tok-key">&quot;UserHasTrustedBrowserButExpiredPassword&quot;</span>: <span class="tok-keyword">true</span> }</span>
+<span class="line">    }</span>
+<span class="line">  }</span>
+<span class="line">}</span></code></pre>
+        </figure>
+      
+      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
+      <ul class="seams"><li><code>IExtensionGrantValidator</code><span>new OAuth grant types</span></li><li><code>IIdentityValidationActivity</code><span>new post-login steps (KYC, consent, profile completion)</span></li><li><code>Add&lt;TAuthenticationMethod&gt;()</code><span>new MFA / authentication methods</span></li><li><code>ISignInLogEntryEnricher</code><span>extra sign-in log fields (AddSignInLogEnricher&lt;T&gt;())</span></li><li><code>IActivityLogFromEventConverter</code><span>activity log entries from your own events</span></li><li><code>IPlatformEventHandler&lt;TEvent&gt;</code><span>react to user, client, device and login events</span></li><li><code>Razor page / wwwroot overrides</code><span>replace any page or asset by path in the host</span></li></ul>
+    </section>
+    <section class="product" id="messaging" tabindex="-1" data-product="messaging">
+      <header class="product-head">
+        <span class="plate"><img src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></span>
+        <p class="tagline">Multichannel campaigns and notifications</p>
+        <p class="meta"><span class="chip">base unit · campaign</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: this product’s technical reference page does not exist yet">Technical reference<small>placeholder</small></span></p>
+      </header>
+      <p class="summary">A campaign fans out to Inbox, Push, Email and SMS according to its settings and each recipient’s preferences. Transactional messages (OTPs, receipts, alerts) run through the same pipeline.</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Messaging UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Messaging screenshot slides"><li class="shot" id="shots-messaging-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: One campaign, four channels. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Messaging · One campaign, four channels</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-messaging-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: Preference-aware delivery. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Messaging · Preference-aware delivery</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-messaging-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Messaging UI screenshot placeholder: API enqueues, worker delivers. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>messaging.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Messaging · API enqueues, worker delivers</figcaption>
+          </figure>
+        </li></ul>
+      </section>
+      <h4 class="sub">What it does</h4>
+      <ul class="hl"><li><b>One campaign, four channels</b><span>MessageChannelKind is a [Flags] enum: Inbox 1, PushNotification 2, Email 4, SMS 8. Content is authored per channel and rendered per recipient with Handlebars (Full, Partial and Layout templates).</span></li><li><b>Preference-aware delivery</b><span>Channels are resolved per recipient when the campaign is sent: campaign channels, narrowed by the recipient’s preference for the message type, minus what they cannot receive. IgnoreUserPreferences covers true system messages.</span></li><li><b>API enqueues, worker delivers</b><span>The API accepts and queues; the worker resolves, renders and sends. Systems send through the send API under the narrower messages:send scope and get 202 Accepted.</span></li><li><b>Vendors are configuration</b><span>Email: SMTP, SendGrid, SparkPost, Brevo, Azure Communication Services. SMS / Viber: Yuboto, Yuboto Omni, Apifon, Twilio, Vonage, SmsUp, KapaTEL, Mstat. Push: Azure Notification Hubs to APNS and FCM v1.</span></li><li><b>Analytics off the hot path</b><span>Events are queued and batched into MessageEvent records. KPIs: Reached, Engaged, Acted, Coverage. Click tracking rewrites links to /_tracking/… and redirects.</span></li></ul>
+      <div class="cols">
+        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Messages.{Core, AspNetCore, Worker, Worker.Azure, UI}</dd></div><div><dt>Deployment</dt><dd>API host (MapMessaging + UseMessagesUI) and a worker: Azure Functions or an in-process hosted worker</dd></div><div><dt>Transport</dt><dd>Azure Storage Queues (gzip envelopes) or Azure Service Bus</dd></div><div><dt>Data</dt><dd>MessagesDb (schema cmp) on SQL Server, Blob storage for attachments and media</dd></div><div><dt>Templates</dt><dd>Indice.Messaging (API + admin UI), Indice.Messaging.Workers (Azure Functions)</dd></div></dl></div>
+        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="req">Azure</li></ul></div>
+      </div>
+      <h4 class="sub">Endpoints</h4>
+      <div class="scroll" role="region" aria-label="Messaging endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-any">*</span></td><td><code>send API</code></td><td>transactional send in one request, scope messages:send</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>MyMessagesApi</code></td><td>inbox: list, get, mark read / unread, preferences</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>analytics/*</code></td><td>overview, recipient metrics, event series (output-cached)</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>/_tracking/…</code></td><td>records a Hit, then 302 to the campaign ActionLink</td></tr></tbody></table></div>
+      <h4 class="sub">Code</h4>
+      <figure class="codeblock">
+          <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// API host (Indice.Messaging/Program.cs)</span></span>
+<span class="line">builder.<span class="tok-type">Services</span>.<span class="tok-function">AddMessaging</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">ConfigureDbContext</span> = (sp, db) =&gt; db.<span class="tok-function">UseSqlServer</span>(cfg.<span class="tok-function">GetConnectionString</span>(<span class="tok-string">&quot;MessagesDb&quot;</span>));</span>
+<span class="line">    options.<span class="tok-type">RequiredScope</span> = cfg.<span class="tok-function">GetApiResourceName</span>();   <span class="tok-comment">// &quot;messages&quot;</span></span>
+<span class="line">    options.<span class="tok-type">PathPrefix</span>    = <span class="tok-string">&quot;/api&quot;</span>;</span>
+<span class="line">    options.<span class="tok-function">UseFilesAzure</span>();                            <span class="tok-comment">// Blob attachments/media</span></span>
+<span class="line">    options.<span class="tok-function">UseEventDispatcherAzure</span>();                  <span class="tok-comment">// Azure Storage Queue transport</span></span>
+<span class="line">    options.<span class="tok-function">UseIdentityContactResolver</span>(o =&gt; { /* pull contact data + prefs from <span class="tok-type">Identity</span> */ });</span>
+<span class="line">});</span>
+<span class="line">app.<span class="tok-function">UseMessagesUI</span>(o =&gt; { o.<span class="tok-type">EnableMediaLibrary</span> = <span class="tok-keyword">true</span>; });</span>
+<span class="line">app.<span class="tok-function">MapMessaging</span>();</span></code></pre>
+        </figure>
+      <figure class="codeblock">
+          <figcaption><span class="file">appsettings.json</span><span class="lang">json</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-key">&quot;Email&quot;</span>: {</span>
+<span class="line">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;SparkPost&quot;</span>,   <span class="tok-comment">// Smtp · SendGrid · SparkPost · Brevo · AzureCommunicationServices</span></span>
+<span class="line">  <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;no-reply@your-domain.gr&quot;</span>,</span>
+<span class="line">  <span class="tok-key">&quot;SmtpHost&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;SmtpPort&quot;</span>: <span class="tok-number">587</span>, <span class="tok-key">&quot;UseSSL&quot;</span>: <span class="tok-keyword">true</span></span>
+<span class="line">},</span>
+<span class="line"><span class="tok-key">&quot;Sms&quot;</span>: {</span>
+<span class="line">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;Yuboto&quot;</span>,      <span class="tok-comment">// Yuboto · YubotoOmni · Apifon · Twilio · Vonage · SmsUp · KapaTEL · Mstat</span></span>
+<span class="line">  <span class="tok-key">&quot;ApiKey&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;MyBrand&quot;</span>,</span>
+<span class="line">  <span class="tok-key">&quot;TestMode&quot;</span>: <span class="tok-keyword">false</span>          <span class="tok-comment">// wire the pipeline without spending on real sends</span></span>
+<span class="line">}</span></code></pre>
+        </figure>
+      
+      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
+      <ul class="seams"><li><code>IContactResolver</code><span>your own source of truth for contacts + preferences</span></li><li><code>ICampaignJobHandler&lt;TEvent&gt;</code><span>react to pipeline events / add processing steps</span></li><li><code>Use* provider builders</code><span>swap Email / SMS / Push implementations by config</span></li><li><code>IFileService</code><span>your own storage for attachments and media</span></li><li><code>Template (Partial / Layout)</code><span>compose content from reusable fragments at render time</span></li></ul>
+    </section>
+    <section class="product" id="risk" tabindex="-1" data-product="risk">
+      <header class="product-head">
+        <span class="plate"><img src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></span>
+        <p class="tagline">Risk assessment for transactions and activity</p>
+        <p class="meta"><span class="chip">base unit · risk rule</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: this product’s technical reference page does not exist yet">Technical reference<small>placeholder</small></span></p>
+      </header>
+      <p class="summary">A risk rule is a C# class that looks at an operation. Its thresholds are settings operators change at runtime. POST api/risk returns one score and one level (None, Low, Medium, High) with a reason per rule.</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Risk UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Risk screenshot slides"><li class="shot" id="shots-risk-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Policy as code plus data. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Risk · Policy as code plus data</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-risk-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Configurable scoring. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Risk · Configurable scoring</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-risk-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Risk UI screenshot placeholder: Verdicts you can explain. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>risk.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Risk · Verdicts you can explain</figcaption>
+          </figure>
+        </li></ul>
+      </section>
+      <h4 class="sub">What it does</h4>
+      <ul class="hl"><li><b>Policy as code plus data</b><span>Detection logic is reviewed, versioned and unit-tested like the rest of your software. Thresholds, lists and switches live in RiskDb and hot-reload (every 5 seconds in the template) without a redeploy.</span></li><li><b>Configurable scoring</b><span>Level ranges are configuration (template: 0, 1–1000, 1001–2000, 2001–3000). Aggregation is Sum, where risk accumulates, or Maximum, where the worst rule decides. Overlapping ranges stop the host at startup.</span></li><li><b>Verdicts you can explain</b><span>Every assessment is stored with its input and per-rule score, level and reason, whether or not the operation goes ahead. A recorded event carries the ResultId of its verdict.</span></li><li><b>History for rules</b><span>POST api/risk/events records what happened. IRiskEventStore.GetList(subject, names, dates, filters) gives rules velocity, frequency and first-time-beneficiary checks.</span></li><li><b>Offline geolocation</b><span>MaxMind GeoLite2 databases ship with the product. The IP address resolves to country and coordinates inside the host; nothing leaves it.</span></li></ul>
+      <div class="cols">
+        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Risk.{Core, Server, UI}, Indice.Features.GeoIP</dd></div><div><dt>Deployment</dt><dd>One ASP.NET Core host: risk API, admin API and the back-office SPA</dd></div><div><dt>Database</dt><dd>RiskDb on SQL Server with NetTopologySuite: RiskEvent, RiskResult, AppSetting. Redis cache optional</dd></div><div><dt>Auth</dt><dd>bearer token with the risk scope, or a system client; operators sign in with OIDC client risk-ui</dd></div></dl></div>
+        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="opt">Redis <small>optional</small></li></ul></div>
+      </div>
+      <h4 class="sub">Endpoints</h4>
+      <div class="scroll" role="region" aria-label="Risk endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-post">POST</span></td><td><code>api/risk</code></td><td>assess one operation in real time</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>api/risk/events</code></td><td>record an operation that happened, with its ResultId</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>risk-results</code></td><td>paged assessments, filter by date, subject, name, type, IP</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>risk-events/session/{sessionId}</code></td><td>every event of one session</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>risk-rules</code></td><td>registered rules with display name and enabled state</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>risk-rule/{ruleName}</code></td><td>save one rule’s options</td></tr></tbody></table></div>
+      <h4 class="sub">Code</h4>
+      <figure class="codeblock">
+          <figcaption><span class="file">LargeTransferRule.cs</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-function">LargeTransferRule</span>(<span class="tok-type">IOptionsSnapshot</span>&lt;<span class="tok-type">LargeTransferRuleOptions</span>&gt; options, <span class="tok-type">IRiskEventStore</span> events)</span>
+<span class="line">    : <span class="tok-function">RiskRule</span>(<span class="tok-string">&quot;LargeTransfer&quot;</span>)</span>
+<span class="line">{</span>
+<span class="line">    <span class="tok-keyword">public</span> <span class="tok-keyword">override</span> <span class="tok-keyword">async</span> <span class="tok-type">ValueTask</span>&lt;<span class="tok-type">RuleExecutionResult</span>&gt; <span class="tok-function">ExecuteAsync</span>(<span class="tok-type">DbRiskEvent</span> @event) {</span>
+<span class="line">        <span class="tok-keyword">var</span> o = options.<span class="tok-type">Value</span>;</span>
+<span class="line">        <span class="tok-keyword">if</span> (@event.<span class="tok-type">Amount</span> &lt; o.<span class="tok-type">Threshold</span>) <span class="tok-keyword">return</span> <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">NoRisk</span>();</span>
+<span class="line">        <span class="tok-keyword">var</span> recent = <span class="tok-keyword">await</span> events.<span class="tok-function">GetList</span>(@event.<span class="tok-type">SubjectId</span>, [<span class="tok-string">&quot;Transfer&quot;</span>], <span class="tok-type">DateTime</span>.<span class="tok-type">UtcNow</span>.<span class="tok-function">AddHours</span>(-<span class="tok-number">24</span>));</span>
+<span class="line">        <span class="tok-keyword">return</span> recent.<span class="tok-function">Count</span>() &gt;= o.<span class="tok-type">MaxPerDay</span></span>
+<span class="line">            ? <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">HighRisk</span>(<span class="tok-string">$&quot;{recent.Count()} large transfers in 24h.&quot;</span>)</span>
+<span class="line">            : <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">MediumRisk</span>(<span class="tok-string">$&quot;Transfer above {o.Threshold}.&quot;</span>);</span>
+<span class="line">    }</span>
+<span class="line">}</span>
+<span class="line"> </span>
+<span class="line"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-type">LargeTransferRuleOptions</span> : <span class="tok-type">MyRuleOptions</span> { <span class="tok-keyword">public</span> <span class="tok-keyword">decimal</span> <span class="tok-type">Threshold</span> { <span class="tok-keyword">get</span>; <span class="tok-keyword">set</span>; } <span class="tok-keyword">public</span> <span class="tok-keyword">int</span> <span class="tok-type">MaxPerDay</span> { <span class="tok-keyword">get</span>; <span class="tok-keyword">set</span>; } }</span>
+<span class="line"> </span>
+<span class="line"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-type">LargeTransferRuleOptionsValidator</span> : <span class="tok-type">RuleOptionsValidator</span>&lt;<span class="tok-type">LargeTransferRuleOptions</span>&gt; {</span>
+<span class="line">    <span class="tok-keyword">public</span> <span class="tok-function">LargeTransferRuleOptionsValidator</span>() { <span class="tok-function">RuleFor</span>(x =&gt; x.<span class="tok-type">Threshold</span>).<span class="tok-function">GreaterThan</span>(<span class="tok-number">0</span>); }</span>
+<span class="line">}</span></code></pre>
+        </figure>
+      <figure class="codeblock">
+          <figcaption><span class="file">AddRiskEngine</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line">builder.<span class="tok-type">Services</span>.<span class="tok-function">AddRiskEngine</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">RiskLevelRangeMapping</span> = <span class="tok-keyword">new</span> <span class="tok-function">RiskLevelRangeDictionary</span>(<span class="tok-keyword">new</span> <span class="tok-type">Dictionary</span>&lt;<span class="tok-type">RiskLevel</span>, <span class="tok-type">IntegerRange</span>&gt; {</span>
+<span class="line">        [<span class="tok-type">RiskLevel</span>.<span class="tok-type">None</span>]   = <span class="tok-keyword">new</span> <span class="tok-function">IntegerRange</span>(<span class="tok-number">0</span>, <span class="tok-number">0</span>),</span>
+<span class="line">        [<span class="tok-type">RiskLevel</span>.<span class="tok-type">Low</span>]    = <span class="tok-keyword">new</span> <span class="tok-function">IntegerRange</span>(<span class="tok-number">1</span>, <span class="tok-number">1000</span>),</span>
+<span class="line">        [<span class="tok-type">RiskLevel</span>.<span class="tok-type">Medium</span>] = <span class="tok-keyword">new</span> <span class="tok-function">IntegerRange</span>(<span class="tok-number">1001</span>, <span class="tok-number">2000</span>),</span>
+<span class="line">        [<span class="tok-type">RiskLevel</span>.<span class="tok-type">High</span>]   = <span class="tok-keyword">new</span> <span class="tok-function">IntegerRange</span>(<span class="tok-number">2001</span>, <span class="tok-number">3000</span>)</span>
+<span class="line">    });</span>
+<span class="line">    options.<span class="tok-type">RiskAggregateScoreResolution</span> = <span class="tok-type">RiskAggregateScoreResolutionType</span>.<span class="tok-type">Maximum</span>;</span>
+<span class="line">})</span>
+<span class="line">.<span class="tok-function">AddRule</span>&lt;<span class="tok-type">LargeTransferRule</span>, <span class="tok-type">LargeTransferRuleOptions</span>, <span class="tok-type">LargeTransferRuleOptionsValidator</span>&gt;(<span class="tok-string">&quot;LargeTransfer&quot;</span>)</span>
+<span class="line">.<span class="tok-function">AddRule</span>&lt;<span class="tok-type">NewCountryRule</span>, <span class="tok-type">NewCountryRuleOptions</span>, <span class="tok-type">NewCountryRuleOptionsValidator</span>&gt;(<span class="tok-string">&quot;NewCountry&quot;</span>)</span>
+<span class="line">.<span class="tok-function">AddEntityFrameworkCoreStore</span>(db =&gt; db.<span class="tok-function">UseSqlServer</span>(cs, sql =&gt; sql.<span class="tok-function">UseNetTopologySuite</span>()));</span></code></pre>
+        </figure>
+      <div class="demo" id="risk-demo">
+          <h4>Try the aggregation <span class="dim">(ranges from the template: Low 1–1000 · Medium 1001–2000 · High 2001–3000)</span></h4>
+          <form class="demo-form" onsubmit="return false">
+            <label>Amount rule score <input id="risk-a" type="number" min="0" max="3000" value="800" inputmode="numeric"></label>
+            <label>New-country rule score <input id="risk-b" type="number" min="0" max="3000" value="1500" inputmode="numeric"></label>
+            <fieldset>
+              <legend>Aggregation</legend>
+              <label><input type="radio" name="risk-mode" value="sum" checked> Sum</label>
+              <label><input type="radio" name="risk-mode" value="maximum"> Maximum</label>
+            </fieldset>
+          </form>
+          <p class="demo-out" aria-live="polite"><span class="dim">result →</span> <output id="risk-out">2300 · High</output></p>
+          <p class="dim demo-note">With Sum, two moderate signals reach High. With Maximum, only the strongest single rule counts (1500 · Medium). Documented example; the rules here are illustrative.</p>
+        </div>
+      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
+      <ul class="seams"><li><code>RiskRule</code><span>your fraud logic (AddRule&lt;TRule, TOptions, TValidator&gt;)</span></li><li><code>RuleOptions</code><span>your thresholds, lists and limits, editable at runtime</span></li><li><code>RuleOptionsValidator&lt;T&gt;</code><span>your validation of those options (FluentValidation)</span></li><li><code>IRiskEventStore</code><span>history queries inside rules, or your own event store</span></li><li><code>IRiskResultStore</code><span>your own result persistence</span></li><li><code>IRuleOptionsStore</code><span>your own rule-options storage</span></li><li><code>RiskEngineOptions</code><span>level ranges and aggregation strategy</span></li></ul>
+    </section>
+            <section class="product" id="agents" tabindex="-1" data-product="agents">
+      <header class="product-head">
+        <span class="plate plate-ph" role="img" aria-label="Agents logo placeholder"><span>Agents logo</span></span>
+        <p class="tagline">Agents</p>
+        <p class="meta"><span class="chip">no product document yet</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: no document or page exists yet">Technical reference<small>placeholder</small></span></p>
+      </header>
+      <p class="summary">Listed in the platform. Logo and product document not provided yet.</p>
+    </section>
+    <section class="product" id="workers" tabindex="-1" data-product="workers">
+      <header class="product-head">
+        <span class="plate plate-ph" role="img" aria-label="Workers logo placeholder"><span>Workers logo</span></span>
+        <p class="tagline">Workers</p>
+        <p class="meta"><span class="chip">no product document yet</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: no document or page exists yet">Technical reference<small>placeholder</small></span></p>
+      </header>
+      <p class="summary">Listed in the platform. Logo and product document not provided yet.</p>
+    </section>
+          </div>
+
+          <div class="block" id="relations">
+            <h3><span class="h-mark" aria-hidden="true">### </span>How the products connect</h3>
+            <ul class="relations"><li><span class="route"><span class="from">Cases · Messaging · Risk</span><span class="arrow" aria-hidden="true">→</span><span class="to">IAM</span></span><p>Sign in with tokens issued by IAM. The IAM template seeds the cases, messages, messages:send, media and agents API resources so the other products authenticate against it.</p></li><li><span class="route"><span class="from">Cases</span><span class="arrow" aria-hidden="true">→</span><span class="to">IAM</span></span><p>UseContactProviderIdentity searches customers in your Identity Server.</p></li><li><span class="route"><span class="from">Messaging</span><span class="arrow" aria-hidden="true">→</span><span class="to">IAM</span></span><p>UseIdentityContactResolver pulls contact data, consent, locale and preferences from Identity.</p></li><li><span class="route"><span class="from">Calling apps</span><span class="arrow" aria-hidden="true">→</span><span class="to">Risk</span></span><p>Web banking, mobile, payments and identity flows call POST api/risk before the operation. Risk returns a level; the app decides, for example Medium → step-up authentication.</p></li></ul>
+          </div>
+
+          <div class="block" id="matrix">
+            <h3><span class="h-mark" aria-hidden="true">### </span>Dependency matrix</h3>
+            <div class="scroll" role="region" aria-label="Product dependency matrix" tabindex="0">
+        <table class="matrix">
+          <caption>Documented stack per product. ● part of the stack · ○ optional or replaceable</caption>
+          <thead><tr><th scope="col">product</th><th scope="col">ASP.NET Core</th><th scope="col">EF Core · SQL</th><th scope="col">Angular SPA</th><th scope="col">OIDC</th><th scope="col">Elsa 2</th><th scope="col">SignalR</th><th scope="col">Azure</th><th scope="col">Redis</th></tr></thead>
+          <tbody><tr><th scope="row"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16"> cases</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/iam icon.svg" alt="" width="16" height="16"> iam</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/messaging icon.svg" alt="" width="16" height="16"> messaging</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td></tr><tr><th scope="row"><img src="assets/logos/risk icon.svg" alt="" width="16" height="16"> risk</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr></tbody>
+        </table>
+      </div>
+          </div>
+        </section>
+
+        <section class="sec" id="expertise" data-spy="expertise" aria-labelledby="expertise-title">
+          <header class="sec-head"><p class="crumb">03-expertise / overview.md</p><h2 id="expertise-title"><span class="h-mark" aria-hidden="true">## </span>Expertise</h2></header>
+          <blockquote class="pillar-text">Our engineers build custom applications on the platform and integrate its products with your existing systems and identity providers. After go-live we provide updates, CVE patching and direct engineering support.</blockquote>
+          <div class="issues"><article class="issue" id="development"><p class="issue-no">#1</p><h3>Software development</h3><p>Custom applications and extensions on the platform libraries, built around your processes and requirements.</p></article><article class="issue" id="integration"><p class="issue-no">#2</p><h3>Integration</h3><p>Suite products connected to your existing systems, APIs, identity providers and delivery accounts.</p></article><article class="issue" id="support"><p class="issue-no">#3</p><h3>Ongoing support</h3><p>New features, regular security updates (CVE patching) and direct technical assistance from the engineers who maintain the code.</p></article></div>
+          <div class="block" id="integration-points">
+            <h3><span class="h-mark" aria-hidden="true">### </span>Integration points</h3>
+            <p class="dim">Where the products meet your systems, as documented. Each is a C# interface or a configuration section in your own host.</p>
+            <div class="scroll" role="region" aria-label="Integration points" tabindex="0">
+              <table class="libs"><thead><tr><th scope="col">product</th><th scope="col">seam</th><th scope="col">connects</th></tr></thead>
+              <tbody><tr><td>Cases</td><th scope="row"><code>ILookupService</code></th><td>dropdown data from your systems</td></tr><tr><td>Cases</td><th scope="row"><code>IContactProvider</code></th><td>customer search, backed by your Identity Server or your own source</td></tr><tr><td>Cases</td><th scope="row"><code>ICasePdfService</code></th><td>your HTML-to-PDF engine</td></tr><tr><td>IAM</td><th scope="row"><code>IIdentityValidationActivity</code></th><td>KYC, consent or profile-completion steps in the sign-in chain</td></tr><tr><td>IAM</td><th scope="row"><code>Email / Sms settings</code></th><td>SMTP, SendGrid, SparkPost, Brevo · Twilio, Apifon, Yuboto, MStat, Vonage</td></tr><tr><td>Messaging</td><th scope="row"><code>IContactResolver</code></th><td>contacts, consent and preferences from your source of truth</td></tr><tr><td>Messaging</td><th scope="row"><code>Use* provider builders</code></th><td>swap email, SMS and push vendors by configuration</td></tr><tr><td>Risk</td><th scope="row"><code>RiskRule</code></th><td>rules resolved from DI can query history or call your own systems</td></tr><tr><td>Risk</td><th scope="row"><code>POST api/risk</code></th><td>called by e-banking, payments and identity flows before the operation</td></tr></tbody></table>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="contact" data-spy="contact" aria-labelledby="contact-title">
+          <header class="sec-head"><p class="crumb">contact.md</p><h2 id="contact-title"><span class="h-mark" aria-hidden="true">## </span>Talk to the engineers</h2></header>
+          <ul class="contact-list">
+            <li><span class="ph" role="link" aria-disabled="true" title="Placeholder: demo request link not provided yet">Request a demo<small>placeholder</small></span><span class="dim">Demo of the suite, focused on your integration points.</span></li>
+            <li><a class="ext" href="https://github.com/indice-co" rel="noopener" target="_blank">github.com/indice-co<span class="sr-only"> (opens in a new tab)</span></a><span class="dim">Source of the libraries.</span></li>
+            <li><a class="ext" href="https://www.nuget.org/profiles/indice" rel="noopener" target="_blank">nuget.org/profiles/indice<span class="sr-only"> (opens in a new tab)</span></a><span class="dim">NuGet packages.</span></li>
+            <li><a class="ext" href="https://www.npmjs.com/package/@indice/ng-config" rel="noopener" target="_blank">@indice/ng-*<span class="sr-only"> (opens in a new tab)</span></a><span class="dim">npm packages (ng-config, ng-auth, ng-components).</span></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <footer class="statusbar" aria-label="Status bar">
+      <span class="sb-path" data-sb-path>indice-platform</span>
+      <span class="sb-sep"></span>
+      <span class="sb-item">.NET 8</span><span class="sb-item">ASP.NET Core</span><span class="sb-item">SQL Server</span><span class="sb-item">OIDC</span>
+      <span class="sb-item sb-hint">Ctrl K</span>
+    </footer>
+  </div>
+
+  <dialog class="palette" id="palette" aria-label="Go to">
+    <form method="dialog" class="palette-box">
+      <label class="sr-only" for="palette-input">Go to section, product or link</label>
+      <input id="palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="Go to section, product or link…" role="combobox" aria-expanded="true" aria-controls="palette-list" aria-autocomplete="list">
+      <ul id="palette-list" role="listbox" aria-label="Results"></ul>
+      <p class="palette-help dim"><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>Enter</kbd> open · <kbd>Esc</kbd> close</p>
+    </form>
+  </dialog>
+  <script type="application/json" id="palette-data">[{"label":"foundation.md","hint":"01 pillar","href":"#foundation"},{"label":"suite.md","hint":"02 pillar","href":"#suite"},{"label":"expertise.md","hint":"03 pillar","href":"#expertise"},{"label":"cases/","hint":"product · Case management and business workflows","href":"#cases"},{"label":"iam/","hint":"product · Identity and access management","href":"#iam"},{"label":"messaging/","hint":"product · Multichannel campaigns and notifications","href":"#messaging"},{"label":"risk/","hint":"product · Risk assessment for transactions and activity","href":"#risk"},{"label":"agents/","hint":"product · placeholder","href":"#agents"},{"label":"workers/","hint":"product · placeholder","href":"#workers"},{"label":"libraries.md","hint":"foundation","href":"#libraries"},{"label":"stack.yaml","hint":"foundation","href":"#stack"},{"label":"relations.md","hint":"suite","href":"#relations"},{"label":"matrix.md","hint":"suite","href":"#matrix"},{"label":"integration-points.md","hint":"expertise","href":"#integration-points"},{"label":"contact.md","hint":"contact","href":"#contact"},{"label":"cases-reference.html","hint":"Cases technical reference","href":"cases-reference.html"},{"label":"github.com/indice-co","hint":"external","href":"https://github.com/indice-co"},{"label":"nuget.org/profiles/indice","hint":"external","href":"https://www.nuget.org/profiles/indice"},{"label":"Original design","hint":"design preview","href":"index.html"},{"label":"Blueprint design","hint":"design preview","href":"blueprint.html"}]</script>
+</body>
+</html>

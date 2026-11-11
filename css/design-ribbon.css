@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* Design switcher shown at the top of all three homepage variants. Intentionally independent of each
+   page's own theme so it reads as page chrome, not as part of the design being compared. */
+.design-ribbon {
+  position: relative;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 32px;
+  padding: 0 clamp(12px, 2vw, 24px);
+  background: #0b0c0f;
+  color: #c9ccd3;
+  border-bottom: 1px solid #ffffff22;
+  font: 500 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: .02em;
+}
+.design-ribbon-title {
+  color: #8b909c;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.design-ribbon ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+}
+.design-ribbon li { margin: 0; padding: 0; list-style: none; }
+.design-ribbon a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #e6e8ec;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.design-ribbon a:hover { background: #ffffff1c; }
+.design-ribbon a:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+.design-ribbon a[aria-current="page"] { background: #f4f5f7; color: #0b0c0f; }
+.design-ribbon-index {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 10px;
+}
+@media (max-width: 560px) {
+  .design-ribbon-title { display: none; }
+}
+@media print { .design-ribbon { display: none; } }

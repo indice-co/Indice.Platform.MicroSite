@@ -65,6 +65,7 @@
   border-color:var(--cases-dark)
 }
 .cases-page :focus-visible {
+  outline-color:var(--accent)
   outline-color:var(--red)
 }
 .cases-hero-layout {

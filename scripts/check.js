@@ -34,7 +34,7 @@ const navigation = html.match(/<nav class="floating-nav"[\s\S]*?<\/nav>/)?.[0];
 assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA stays outside the floating navigation');
 assert(!html.includes('nav-demo'), 'Screen-level demo CTA is removed');
 assert(!/data-(?:hero-)?art-toggle|art-motion-toggle|preview-toggle|art-(?:pause|play)-icon/.test(html), 'Animation playback controls are not rendered');
-assert.deepEqual([...html.matchAll(/data-count-value="([^"]+)"/g)].map(match => match[1]), ['42', '280', '+300.000', '+25']);
+assert(!ids.includes('metrics') && !html.includes('data-count-value') && !html.includes('js/metrics.js'), 'Platform metrics are not rendered');
 assert(!/Product carousel|reserved for the next phase|coming.soon|Agents/.test(html));
 assert.deepEqual([...html.matchAll(/data-suite-placeholder="([^"]+)"/g)].map(match => match[1]), ['workers', 'dex']);
 assert.equal((html.match(/class="product-tile /g) || []).length, 6, 'Suite has six visual slots');
@@ -46,7 +46,7 @@ assert(html.includes('Our solutions.<br>A platform of possibilities.'), 'Suite t
 assert.deepEqual([...html.matchAll(/data-product-link="([^"]+)"/g)].map(match => match[1]), ['cases', 'iam', 'iam', 'messaging', 'messaging', 'risk', 'risk']);
 assert.equal((html.match(/<a class="tile-link" /g) || []).length, 4, 'Only product content is interactive, not the surrounding grid cell');
 assert(!/href="#"|href="\/products|mailto:|<form\b|<iframe\b/.test(html));
-for (const id of ['hero', 'technologies', 'foundation', 'metrics', 'products', 'product-showcase', 'services', 'contact']) assert(ids.includes(id));
+for (const id of ['hero', 'technologies', 'foundation', 'products', 'product-showcase', 'expertise', 'contact']) assert(ids.includes(id));
 for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(target), `Anchor exists: ${target}`);
 for (const [, reference] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[^"#]+)"/g)) assert(fs.existsSync(path.join(root, reference)), `Local asset exists: ${reference}`);
 for (const [, reference] of css.matchAll(/url\('([^']+)'\)/g)) assert(fs.existsSync(path.resolve(root, 'css', reference)), `CSS asset exists: ${reference}`);
@@ -55,13 +55,13 @@ for (const [, references] of html.matchAll(/aria-(?:labelledby|describedby|contr
 const text = html.replace(/<span class="contact-character"[^>]*>(.*?)<\/span>/g, '$1').replace(/<br\s*\/?\s*>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 const allCopy = value => typeof value === 'string' ? [value] : Array.isArray(value) ? value.flatMap(allCopy) : Object.values(value).flatMap(allCopy);
 // Field IDs and disclosure labels are configuration; substantive approved copy must render verbatim.
-for (const sentence of allCopy({ foundation: copy.foundation, metrics: copy.metrics, products: copy.products, services: copy.services, technologies: { title: copy.technologies.title }, contact: copy.contact })) assert(text.includes(sentence), `Approved text preserved: ${sentence}`);
+for (const sentence of allCopy({ foundation: copy.foundation, products: copy.products, expertise: copy.expertise, technologies: { title: copy.technologies.title }, contact: copy.contact })) assert(text.includes(sentence), `Approved text preserved: ${sentence}`);
 assert(!html.includes('clients-logos/'), 'The technologies section replaces the client logos');
 assert.equal((html.match(/class="technology"/g) || []).length, copy.technologies.items.length, 'Every technology renders');
-const services = html.match(/<section class="services section-pad"[\s\S]*?<\/section>/)?.[0];
-assert(services, 'Services section is present');
-assert.equal((services.match(/data-reveal/g) || []).length, 8, 'Services labels, heading, paragraphs and rows reveal separately');
-assert.deepEqual([...services.matchAll(/--reveal-index:(\d+)/g)].map(match => Number(match[1])), [0, 1, 2, 3, 4, 0, 1, 2]);
+const expertise = html.match(/<section class="expertise section-pad"[\s\S]*?<\/section>/)?.[0];
+assert(expertise, 'Expertise section is present');
+assert.equal((expertise.match(/data-reveal/g) || []).length, 8, 'Expertise labels, heading, paragraphs and rows reveal separately');
+assert.deepEqual([...expertise.matchAll(/--reveal-index:(\d+)/g)].map(match => Number(match[1])), [0, 1, 2, 3, 4, 0, 1, 2]);
 for (const technology of copy.technologies.items) {
   assert(html.includes(`<span>${technology.name}</span>`), `Technology is labelled: ${technology.name}`);
   assert(html.includes(`src="${technology.icon}"`), `Technology icon is rendered: ${technology.name}`);
