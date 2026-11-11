@@ -168,7 +168,7 @@ const html = `<!doctype html>
     <section class="expertise section-pad" id="expertise" aria-labelledby="expertise-title" tabindex="-1">
       <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.expertise.label}</span></div>
       <div class="expertise-introduction"><h2 class="display-heading" id="expertise-title" data-reveal style="--reveal-index:2">${c.expertise.title}</h2><div>${c.expertise.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${i+3}">${p}</p>`).join('')}</div></div>
-      <div class="expertise-list">${c.expertise.items.map((s,i) => `<article class="expertise-row" data-reveal style="--reveal-index:${i}"><span class="expertise-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="expertise-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
+      <div class="expertise-list">${c.expertise.items.map((s,i) => `<article class="expertise-row" data-reveal style="--reveal-index:${i}"><h3>${s.title}</h3><p>${s.description}</p><span class="expertise-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>

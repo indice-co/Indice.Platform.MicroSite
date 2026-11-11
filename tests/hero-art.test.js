@@ -19,11 +19,11 @@ test('hero diagram has no slash artwork and draws the cloud once', () => {
   assert(/class="contact-slash"/.test(html), 'The closing section keeps its own slashes');
 });
 
-test('desktop hero places the artwork under the motto, opposite the pillars, and retains its spacing offsets', () => {
+test('desktop hero places the artwork bottom-aligned to the pillars and centres it above 1440px', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   assert.match(css, /grid-template-rows:50px 24px max-content max-content/);
-  assert.match(css, /\.hero \.hero-art \{[^}]*translate:-40px calc\(5% \+ var\(--art-margin-top\)\);[^}]*align-self:end;/);
-  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:-20px calc\(5% \+ var\(--art-margin-top\)\)/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*translate:0 calc\(5% - 5px\);[^}]*grid-column:2\/3;[^}]*align-self:end;/);
+  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*justify-self:center;[^}]*width:clamp\(512px,[^}]*640px\)/);
   assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
 });
 
