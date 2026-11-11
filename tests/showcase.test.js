@@ -246,6 +246,30 @@ test('native forward and reverse scrolling synchronize chapters, previews, navig
   }
 });
 
+test('Cases tile, local navigation and direct hash land on the fully revealed intake beat', () => {
+  const f = fixture();
+  for (const control of [f.tiles[0], f.navigation[0]]) {
+    f.api.selectProduct('risk');
+    f.click(control);
+    f.assertSynchronized('cases');
+    assert.equal(f.chapters[0].dataset.caseBeat, 'intake');
+    assert.equal(f.stage.style.getPropertyValue('--copy-opacity'), '1');
+    assert.equal(f.document.activeElement, f.chapters[0]);
+    assert.equal(f.sandbox.location.hash, '#product-cases');
+    f.scrollTo(f.sandbox.scrollY + 2);
+    assert.equal(f.chapters[0].dataset.caseBeat, 'intake', 'the next scroll frame keeps intake visible');
+  }
+  const direct = fixture({ hash: '#product-cases' });
+  direct.assertSynchronized('cases');
+  assert.equal(direct.chapters[0].dataset.caseBeat, 'intake');
+  assert.equal(direct.stage.style.getPropertyValue('--copy-opacity'), '1');
+  direct.api.selectProduct('iam');
+  direct.sandbox.location.hash = '#product-cases';
+  direct.browser.dispatch('hashchange');
+  direct.flushFrames();
+  assert.equal(direct.chapters[0].dataset.caseBeat, 'intake');
+});
+
 test('introductory preview stays on the Cases dashboard without autoplay', () => {
   const f = fixture();
   assert.equal(f.timers.size, 0, 'offscreen introduction does not autoplay');

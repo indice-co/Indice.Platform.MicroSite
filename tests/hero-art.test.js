@@ -22,9 +22,8 @@ test('hero diagram has no slash artwork and draws the cloud once', () => {
 test('desktop hero places the artwork under the motto, opposite the pillars, and retains its spacing offsets', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   assert.match(css, /grid-template-rows:50px 24px max-content max-content/);
-  assert.match(css, /\.hero \.hero-art \{[^}]*translate:0 3%;[^}]*grid-column:1;[^}]*grid-row:4;[^}]*align-self:end;/);
-  assert.match(css, /\.hero \.pillar-grid \{\s*grid-column:2;\s*grid-row:2\/5;/);
-  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:20px 3%/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*translate:-40px calc\(5% \+ var\(--art-margin-top\)\);[^}]*align-self:end;/);
+  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*translate:-20px calc\(5% \+ var\(--art-margin-top\)\)/);
   assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
 });
 
@@ -54,11 +53,12 @@ test('hero pillar titles use a 28px font size', () => {
   assert.match(css, /^\.hero \.pillar-label \{\s*font-size:28px\s*\}/m);
 });
 
-test('mobile hero brings pillars closer and reduces the artwork while enlarging product logos', () => {
+test('hero artwork grows by 15% across desktop and mobile while preserving product logo scaling', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
   assert.match(mobile, /\.hero \.pillar-grid \{\s*margin-top:24px\s*\}/);
-  assert.match(mobile, /\.hero \.hero-art \{[^}]*width:90%;[^}]*max-width:468px;/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*width:115%;[^}]*max-width:772\.8px;/);
+  assert.match(mobile, /\.hero \.hero-art \{[^}]*width:103\.5%;[^}]*max-width:538\.2px/);
   assert.match(mobile, /\.hero \.hero-node image \{[^}]*transform-origin:center;[^}]*transform:scale\(1\.35\)/);
 });
 
@@ -74,7 +74,8 @@ test('mobile hero leaves breathing room above the artwork and less space below i
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
   assert.match(mobile, /padding-bottom:calc\(48px \+ env\(safe-area-inset-bottom,0px\)\)/);
-  assert.match(mobile, /\.hero \.hero-art \{[^}]*margin-top:40px/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*--art-margin-top:50px;[^}]*margin-top:var\(--art-margin-top\)/);
+  assert.match(mobile, /\.hero \.hero-art \{[^}]*translate:none;/);
 });
 
 test('each hero pillar groups its arrow beside its headline without changing its destination', () => {
