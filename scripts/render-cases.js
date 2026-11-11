@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { escape, arrow, headerGithub, demo, logo, navigation } = require('./shared.js');
+const { escape, arrow, demo, logo, navigation } = require('./shared.js');
 
 module.exports = function renderCases(article) {
   const { config, products, casesPage } = globalThis.INDICE_DATA;
@@ -48,7 +48,7 @@ module.exports = function renderCases(article) {
 <body class="cases-page" style="--cases-color:${cases.color};--cases-gold:${cases.accent}">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <a class="hero-brand" id="hero-brand" href="index.html" data-top-href="#cases-hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
-  ${headerGithub}
+  ${navigation('index.html')}
   <main id="main-content" tabindex="-1">
     <nav class="cases-page-links" aria-label="On this page"><a href="#cases-how">How it works</a><a href="#cases-capabilities">Capabilities</a><a href="#cases-fit">Where it fits</a><a href="#cases-deployment">Deployment</a></nav>
     <section class="cases-hero section-pad" id="cases-hero" aria-labelledby="cases-title">
@@ -126,8 +126,6 @@ module.exports = function renderCases(article) {
       <div data-reveal><p class="eyebrow">Cases</p><h2 id="demo-title">Every case.<br>A clear path forward.</h2><div class="cases-final-actions">${demo('button-light')}${guide('final-guide-note')}</div></div>
     </section>
   </main>
-  <footer class="site-footer"><a href="https://github.com/indice-co/Indice.Platform" target="_blank" rel="noopener noreferrer">github.com/indice-co</a></footer>
-  ${article ? '' : navigation('index.html')}
 </body>
 </html>
 `;

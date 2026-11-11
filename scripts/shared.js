@@ -13,7 +13,10 @@ const logo = (product, cls = '') => {
 };
 function navigation(homeBase = config.homeBase) {
   const sectionLink = p => `<a href="${homeBase}#${p.id}" data-pillar="${p.id}">${p.label}</a>`;
-  return `<nav class="floating-nav" id="site-nav" aria-label="Main navigation">
+  return `<nav class="header-nav" id="site-nav" aria-label="Main navigation">
+    <div class="desktop-nav-links">${sectionLink(copy.hero.pillars[0])}<button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">${copy.navigation.products}<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 5 3 3 3-3" stroke="currentColor" stroke-width="1.3"/></svg></button>${sectionLink(copy.hero.pillars[2])}</div>
+    <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">${copy.navigation.menu}<span aria-hidden="true">+</span></button>
+    ${headerGithub}
     <div class="products-panel" id="products-panel" role="region" aria-label="${escape(copy.navigation.products)}" hidden>
       <div class="panel-section-links" aria-label="Sections">${copy.hero.pillars.map(sectionLink).join('')}</div>
       <div class="panel-heading"><span>Suite Solutions</span></div>
@@ -22,8 +25,6 @@ function navigation(homeBase = config.homeBase) {
     : `<div class="panel-product">${logo(p)}<p>${p.tagline}</p></div>`).join('')}</div>
       <a class="text-link panel-explore" id="panel-explore-all" href="${homeBase}#products">${copy.navigation.exploreAll}${down}</a>
     </div>
-    <div class="desktop-nav-links">${sectionLink(copy.hero.pillars[0])}<button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">${copy.navigation.products}<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 7 3-3 3 3" stroke="currentColor" stroke-width="1.3"/></svg></button>${sectionLink(copy.hero.pillars[2])}</div>
-    <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">${copy.navigation.menu}<span aria-hidden="true">+</span></button>
   </nav>`;
 }
 const designs = [

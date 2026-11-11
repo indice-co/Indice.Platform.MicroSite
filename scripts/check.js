@@ -30,8 +30,10 @@ assert(!fs.existsSync(path.join(root, 'cases.html')), 'Legacy Cases page is remo
 assert(!fs.existsSync(path.join(root, 'cases-0.2.html')), 'Cases 0.2 page is removed');
 assert(!html.includes('Cases 0.2'), 'Homepage does not link to Cases 0.2');
 assert.equal((html.match(/data-demo/g) || []).length, 2);
-const navigation = html.match(/<nav class="floating-nav"[\s\S]*?<\/nav>/)?.[0];
-assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA stays outside the floating navigation');
+const navigation = html.match(/<nav class="header-nav"[\s\S]*?<\/nav>/)?.[0];
+assert(navigation && !navigation.includes('nav-demo'), 'Screen-level demo CTA stays outside the header navigation');
+assert(navigation.includes('class="header-github"') && html.indexOf('class="header-nav"') < html.indexOf('<main'), 'The header navigation sits above the content with the GitHub link');
+assert(!html.includes('class="site-footer"') && !html.includes('floating-nav'), 'The footer and floating bar are removed');
 assert(!html.includes('nav-demo'), 'Screen-level demo CTA is removed');
 assert(!/data-(?:hero-)?art-toggle|art-motion-toggle|preview-toggle|art-(?:pause|play)-icon/.test(html), 'Animation playback controls are not rendered');
 assert(!ids.includes('metrics') && !html.includes('data-count-value') && !html.includes('js/metrics.js'), 'Platform metrics are not rendered');
