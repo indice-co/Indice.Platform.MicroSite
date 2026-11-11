@@ -19,12 +19,15 @@ test('hero diagram has no slash artwork and draws the cloud once', () => {
   assert(/class="contact-slash"/.test(html), 'The closing section keeps its own slashes');
 });
 
-test('desktop hero places the artwork bottom-aligned to the pillars and centres it above 1440px', () => {
+test('desktop hero centres the title, lays the pillars in three columns and places a wide artwork below', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  assert.match(css, /grid-template-rows:50px 24px max-content max-content/);
-  assert.match(css, /\.hero \.hero-art \{[^}]*translate:0 calc\(5% - 5px\);[^}]*grid-column:2\/3;[^}]*align-self:end;/);
-  assert.match(css, /@media\(min-width:1441px\) \{\s*\.hero \.hero-art \{[^}]*justify-self:center;[^}]*width:clamp\(512px,[^}]*640px\)/);
-  assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*translate:none;/);
+  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  assert.match(css, /grid-template-rows:50px 24px max-content max-content 1fr/);
+  assert.match(css, /@media\(min-width:1000px\) \{\s*\.hero h1#hero-title,\.hero \.hero-baseline \{\s*text-align:center/);
+  assert.match(css, /\.hero \.pillar-grid \{\s*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.hero \.hero-art \{[^}]*grid-row:5;[^}]*aspect-ratio:9\/4/);
+  assert.match(html, /<svg class="hero-diagram" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid meet"/);
+  assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*width:103\.5%/);
 });
 
 test('hero motto uses the accent typography', () => {

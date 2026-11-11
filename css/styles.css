@@ -2843,11 +2843,10 @@ section:focus,article:focus,main:focus {
   }
 }
 .hero {
-  --hero-gap:clamp(64px,10vw,160px);
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  grid-template-rows:50px 24px max-content max-content;
-  align-content:center;
-  column-gap:var(--hero-gap);
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:62px 24px max-content max-content 1fr;
+  height:auto;
+  min-height:clamp(850px,100svh,1250px);
   row-gap:12px
 }
 .hero .hero-top {
@@ -2888,8 +2887,20 @@ section:focus,article:focus,main:focus {
   grid-row:4;
   align-self:start;
   grid-template-columns:minmax(0,1fr);
-  gap:18px;
-  margin-top:24px
+  gap:40px;
+  margin-top:64px
+}
+@media(min-width:1000px) {
+  .hero h1#hero-title,.hero .hero-baseline {
+    text-align:center
+  }
+  .hero .hero-motto br {
+    display:none
+  }
+  .hero .pillar-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:40px
+  }
 }
 .hero .pillar {
   display:block;
@@ -2900,35 +2911,32 @@ section:focus,article:focus,main:focus {
 }
 .hero .pillar-headline {
   color:var(--muted);
+  font-size:16px;
+  line-height:1.6;
   max-width:none
 }
 .hero .hero-art {
-  position:absolute;
-  /* The diagram's lowest rail sits ~5% above the SVG edge; offset it so the rail lines up with the last text. */
-  translate:0 calc(5% - 5px);
-  /* An open-ended column would stretch the containing block to the padding edge and skew centering. */
-  grid-column:2/3;
-  grid-row:2/5;
-  align-self:end;
-  justify-self:start;
+  position:relative;
+  grid-column:1;
+  grid-row:5;
+  align-self:center;
+  justify-self:center;
   right:auto;
   top:auto;
-  width:90%;
-  max-width:560px;
+  width:min(100%,640px);
   height:auto;
-  aspect-ratio:5/4
+  margin-top:56px;
+  aspect-ratio:9/4
 }
-@media(min-width:1441px) {
+@media(min-width:1000px) {
   .hero .hero-art {
-    justify-self:center;
-    width:clamp(512px,calc(512px + (100vw - 1440px) * .2667),640px);
-    max-width:none
+    width:min(52%,900px)
   }
 }
 @media(max-width:760px) {
   .hero {
     grid-template-columns:minmax(0,1fr);
-    grid-template-rows:50px 24px auto auto auto;
+    grid-template-rows:62px 24px auto auto auto;
     height:auto;
     min-height:100svh;
     max-height:none;
@@ -2942,7 +2950,7 @@ section:focus,article:focus,main:focus {
     align-self:start
   }
   .hero .pillar-grid {
-    margin-top:24px
+    margin-top:64px
   }
   .hero .hero-motto {
     font-size:32px
@@ -2954,14 +2962,8 @@ section:focus,article:focus,main:focus {
     font-size:16px
   }
   .hero .hero-art {
-    position:relative;
-    translate:none;
-    grid-column:1;
-    grid-row:5;
-    justify-self:center;
     width:103.5%;
-    max-width:538.2px;
-    margin-top:56px
+    max-width:538.2px
   }
   .hero .hero-node image {
     transform-box:fill-box;
