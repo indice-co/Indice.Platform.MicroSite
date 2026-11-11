@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight, escapeHtml } = require('./highlight.js');
-const { designRibbon, escape, screenshotCarousel } = require('./shared.js');
+const { designRibbon, escape, headerGithub, screenshotCarousel } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techById = Object.fromEntries(tech.map(item => [item.id, item]));
@@ -94,6 +94,7 @@ const pendingPanel = product => `<section class="product" id="${product.id}" tab
 
 const explorerLink = (href, label, extra = '') => `<a href="${href}" data-spy-link="${href.slice(1)}"${extra}>${label}</a>`;
 const productIcon = product => `<img src="${escape(product.icon)}" alt="" width="14" height="14">`;
+const repositoryLink = headerGithub.replace('class="header-github"', 'class="explorer-github" target="_blank" rel="noopener"');
 
 function render() {
   const [foundationPillar, suitePillar, expertisePillar] = pillars;
@@ -122,10 +123,14 @@ function render() {
     <header class="titlebar">
       <button class="explorer-toggle" type="button" aria-controls="explorer" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Toggle explorer</span></button>
       <a class="brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+      ${repositoryLink}
     </header>
     <div class="shell">
       <aside class="explorer" id="explorer" aria-label="Explorer">
-        <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+        <div class="explorer-header">
+          <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+          ${repositoryLink}
+        </div>
         <p class="explorer-title">Explorer</p>
         <nav aria-label="Page outline">
           <ul class="tree">

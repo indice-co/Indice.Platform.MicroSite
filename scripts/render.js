@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('../js/data.js');
 const { copy: c, products, config } = globalThis.INDICE_DATA;
-const { escape, arrow, down, demo, logo, navigation, designRibbon } = require('./shared.js');
+const { escape, arrow, down, headerGithub, demo, logo, navigation, designRibbon } = require('./shared.js');
 const diagonalDown = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg>';
 const preview = (p, cls = '') => p.preview
   ? `<img class="${cls}" src="${escape(p.preview)}" width="1920" height="1080" alt="${escape(p.name)} solution interface" loading="lazy" decoding="async">`
@@ -137,6 +137,7 @@ const html = `<!doctype html>
   <a class="skip-link" href="#main-content">${c.navigation.skip}</a>
   ${designRibbon('original')}
   <a class="hero-brand" id="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
+  ${headerGithub}
   <main id="main-content" tabindex="-1">
     <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
       <div class="hero-top"></div>
@@ -185,7 +186,7 @@ const html = `<!doctype html>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
-  <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
+  <footer class="site-footer"><a href="https://github.com/indice-co/Indice.Platform" target="_blank" rel="noopener noreferrer">github.com/indice-co</a></footer>
 
   ${navigation()}
 </body>

@@ -172,6 +172,18 @@ test('carousel position helpers snap to the nearest slide and respect the ends',
   assert.equal(clampIndex(5, 3), 2);
 });
 
+test('Terminal explorer header links to the Platform repository beside the brand', () => {
+  const header = read('terminal.html').match(/<div class="explorer-header">([\s\S]*?)<\/div>/)[1];
+  assert.match(header, /class="brand explorer-brand"/);
+  assert.match(header, /<a class="explorer-github" target="_blank" rel="noopener" href="https:\/\/github\.com\/indice-co\/Indice\.Platform" aria-label="INDICE Platform on GitHub"><svg/);
+});
+
+test('Terminal mobile title bar includes the repository link beside the logo', () => {
+  const header = read('terminal.html').match(/<header class="titlebar">([\s\S]*?)<\/header>/)[1];
+  assert.match(header, /class="brand"/);
+  assert.match(header, /<a class="explorer-github" target="_blank" rel="noopener" href="https:\/\/github\.com\/indice-co\/Indice\.Platform" aria-label="INDICE Platform on GitHub"><svg/);
+});
+
 test('Terminal explorer lists only overview and integration points under expertise', () => {
   const html = read('terminal.html');
   const dir = html.match(/<span>03-expertise<\/span><ul>([\s\S]*?)<\/ul>/)[1];

@@ -88,8 +88,11 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 6px; border: 1px solid var(--li
   padding: 14px 0 24px; background: var(--panel); border-right: 1px solid var(--line);
   font-size: 12.5px; z-index: 40;
 }
-.explorer-brand { padding: 2px 16px 18px; }
+.explorer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px 12px; }
 .explorer-brand img { height: 20px; }
+.explorer-github { display: grid; place-items: center; width: 28px; height: 28px; color: var(--dim); }
+.explorer-github svg { width: 20px; height: 20px; }
+.explorer-github:hover { color: var(--text); }
 .explorer-title { padding: 0 16px 10px; color: var(--faint); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 .tree ul { margin-left: 15px; border-left: 1px solid var(--line); }
 .tree > li > ul { margin-left: 8px; }
@@ -351,11 +354,16 @@ tbody tr:last-child > * { border-bottom: 0; }
 @media (max-width: 900px) {
   :root { --explorer-w: 0px; --top-h: 44px; }
   .titlebar { display: flex; }
-  .explorer-brand { display: none; }
+  .titlebar .brand img { height: 20px; }
+  .titlebar .explorer-github { margin-left: auto; width: 44px; height: 44px; }
+  html.explorer-open { overflow: hidden; }
+  .statusbar { z-index: 30; }
+  .explorer-header { display: none; }
   .shell { grid-template-columns: minmax(0, 1fr); }
   .explorer-toggle { display: inline-grid; place-items: center; }
   .explorer {
-    position: fixed; left: 0; top: var(--top-h); bottom: var(--status-h); width: min(84vw, 300px); height: auto;
+    position: fixed; left: 0; top: var(--drawer-top, var(--top-h)); bottom: 0; width: min(84vw, 300px);
+    height: calc(100dvh - var(--drawer-top, var(--top-h))); overscroll-behavior-y: contain;
     transform: translateX(-102%); transition: transform .22s ease; box-shadow: 0 0 60px #000c;
   }
   .explorer.is-open { transform: none; }

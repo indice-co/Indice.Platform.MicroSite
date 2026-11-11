@@ -246,6 +246,21 @@ section:focus,article:focus,main:focus {
   width:100%;
   height:auto
 }
+.header-github {
+  position:fixed;
+  top:calc(32px + env(safe-area-inset-top,0px));
+  right:var(--gutter);
+  z-index:101;
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  color:var(--ink)
+}
+.hero-brand.is-compact~.header-github {
+  visibility:hidden;
+  pointer-events:none
+}
 .hero-composition {
   position:relative;
   display:flex;
@@ -2057,6 +2072,9 @@ section:focus,article:focus,main:focus {
   display:flex;
   justify-content:center
 }
+.site-footer a {
+  font-weight:700
+}
 /* The wordmark only spans 1170 of the SVG's 1490 units; crop the blank right side. */
 .site-footer img {
   width:150px;
@@ -2403,6 +2421,9 @@ section:focus,article:focus,main:focus {
     --brand-width:136px;
     top:calc(24px + env(safe-area-inset-top,0px));
     width:var(--brand-width)
+  }
+  .header-github {
+    top:calc(24px + env(safe-area-inset-top,0px))
   }
   .hero-composition {
     display:grid;
