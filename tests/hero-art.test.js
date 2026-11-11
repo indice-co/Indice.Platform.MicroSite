@@ -10,7 +10,7 @@ const source = fs.readFileSync(path.join(__dirname, '../js/hero-art.js'), 'utf8'
 test('hero diagram has no slash artwork and draws the cloud once', () => {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  const hero = html.match(/<svg class="hero-diagram"[\s\S]*?<\/svg>\s*<\/div>\s*<div class="hero-baseline"/)?.[0];
+  const hero = html.match(/<svg class="hero-diagram"[\s\S]*?<\/svg>\s*<\/div>[\s\S]*?<div class="hero-baseline"/)?.[0];
   assert(hero, 'Hero diagram is present');
   assert(!/hero-slash|INDICE_slashes/.test(hero), 'Hero diagram has no slash artwork');
   assert(!/clip-path|clipPath/.test(hero), 'The cloud no longer needs to be split around the slashes');
@@ -22,12 +22,29 @@ test('hero diagram has no slash artwork and draws the cloud once', () => {
 test('desktop hero centres the title, lays the pillars in three columns and places a wide artwork below', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
-  assert.match(css, /grid-template-rows:50px 24px max-content max-content 1fr/);
+  assert.match(css, /grid-template-rows:52px 24px max-content max-content max-content max-content/);
   assert.match(css, /@media\(min-width:1000px\) \{\s*\.hero h1#hero-title,\.hero \.hero-baseline \{\s*text-align:center/);
   assert.match(css, /\.hero \.pillar-grid \{\s*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
   assert.match(css, /\.hero \.hero-art \{[^}]*grid-row:5;[^}]*aspect-ratio:9\/4/);
   assert.match(html, /<svg class="hero-diagram" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid meet"/);
   assert.match(css, /@media\(max-width:760px\) \{[\s\S]*?\.hero \.hero-art \{[^}]*width:103\.5%/);
+});
+
+test('hero technologies follow the artwork and match the INDICE Platform title style', () => {
+  const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const art = html.indexOf('<div class="hero-art">');
+  const technologies = html.indexOf('<section class="technologies"');
+  const foundation = html.indexOf('<section class="foundation');
+  assert(art < technologies && technologies < foundation, 'Technologies are inside the hero and before Foundation');
+  assert(!html.slice(technologies, foundation).includes('data-reveal'), 'Hero technologies are not hidden by section reveal effects');
+  assert.match(css, /\.hero \.hero-art \{[^}]*grid-row:5;/);
+  assert.match(css, /\.hero \.technologies \{\s*grid-column:1;\s*grid-row:6;\s*margin-top:14px/);
+  assert.match(css, /\.hero \.technologies \{[^}]*border-top:0/);
+  assert.match(css, /\.hero \.technologies h2 \{\s*font-size:16px;\s*font-weight:650;\s*line-height:1\.65;\s*letter-spacing:\.09em/);
+  assert.match(css, /\.hero \.pillar-grid \{[\s\S]*?margin-top:34px/);
+  assert.match(css, /\.hero::before \{\s*content:'';\s*position:absolute;\s*inset:0 0 auto;\s*height:calc\(100svh - 32px\)/);
+  assert.match(css, /\.hero \{\s*grid-template-columns:minmax\(0,1fr\);\s*grid-template-rows:52px 24px max-content max-content max-content max-content;\s*height:auto;\s*min-height:max\(850px,100svh\);\s*max-height:none;\s*row-gap:12px;\s*align-content:center/);
 });
 
 test('hero motto uses the accent typography', () => {
@@ -59,7 +76,7 @@ test('hero pillar titles use a 28px font size', () => {
 test('hero artwork grows by 15% across desktop and mobile while preserving product logo scaling', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const mobile = css.slice(css.lastIndexOf('@media(max-width:760px)'), css.indexOf('@media(prefers-reduced-motion:reduce)'));
-  assert.match(mobile, /\.hero \.pillar-grid \{\s*margin-top:24px\s*\}/);
+  assert.match(mobile, /\.hero \.pillar-grid \{\s*margin-top:34px\s*\}/);
   assert.match(css, /\.hero \.hero-art \{[^}]*width:115%;[^}]*max-width:772\.8px;/);
   assert.match(mobile, /\.hero \.hero-art \{[^}]*width:103\.5%;[^}]*max-width:538\.2px/);
   assert.match(mobile, /\.hero \.hero-node image \{[^}]*transform-origin:center;[^}]*transform:scale\(1\.35\)/);

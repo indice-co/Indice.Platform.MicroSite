@@ -146,12 +146,11 @@ const html = `<!doctype html>
         <div class="hero-art">
           ${heroDiagram}
         </div>
+        <section class="technologies" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title">${c.technologies.title}</h2><ul class="technology-list" aria-label="Technologies">${c.technologies.items.map(t => `<li class="technology"><img src="${escape(t.icon)}" width="48" height="48" alt="" decoding="async"><span>${escape(t.name)}</span></li>`).join('')}</ul></section>
         <div class="hero-baseline"><p class="hero-motto">${c.hero.motto.replace('. ', '. <br>')}</p></div>
       </div>
       <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label">${pillarGlyph(p.id)}${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${diagonalDown}</span></a>`).join('')}</div>
     </section>
-
-    <section class="technologies section-pad" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title" data-reveal>${c.technologies.title}</h2><ul class="technology-list" aria-label="Technologies">${c.technologies.items.map((t,i) => `<li class="technology" data-reveal style="--reveal-index:${i}"><img src="${escape(t.icon)}" width="48" height="48" alt="" decoding="async"><span>${escape(t.name)}</span></li>`).join('')}</ul></section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
       <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.foundation.label}</span></div>

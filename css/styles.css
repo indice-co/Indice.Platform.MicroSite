@@ -212,7 +212,8 @@ section:focus,article:focus,main:focus {
 .hero::before {
   content:'';
   position:absolute;
-  inset:0;
+  inset:0 0 auto;
+  height:calc(100svh - 32px);
   z-index:-1;
   background-image:radial-gradient(circle,#0D111733 1px,transparent 1.5px);
   background-size:26px 26px;
@@ -2821,10 +2822,12 @@ section:focus,article:focus,main:focus {
 }
 .hero {
   grid-template-columns:minmax(0,1fr);
-  grid-template-rows:62px 24px max-content max-content 1fr;
+  grid-template-rows:52px 24px max-content max-content max-content max-content;
   height:auto;
-  min-height:clamp(850px,100svh,1250px);
-  row-gap:12px
+  min-height:max(850px,100svh);
+  max-height:none;
+  row-gap:12px;
+  align-content:center
 }
 .hero .hero-top {
   grid-column:1/-1
@@ -2852,6 +2855,22 @@ section:focus,article:focus,main:focus {
   display:block;
   margin:0
 }
+.hero .technologies {
+  grid-column:1;
+  grid-row:6;
+  margin-top:14px;
+  padding:20px 0 0;
+  border-top:0
+}
+.hero .technologies h2 {
+  font-size:16px;
+  font-weight:650;
+  line-height:1.65;
+  letter-spacing:.09em
+}
+.hero .technology-list {
+  margin-top:20px
+}
 .hero .hero-motto {
   color:var(--accent);
   font-size:36px;
@@ -2865,7 +2884,7 @@ section:focus,article:focus,main:focus {
   align-self:start;
   grid-template-columns:minmax(0,1fr);
   gap:40px;
-  margin-top:64px
+  margin-top:34px
 }
 @media(min-width:1000px) {
   .hero h1#hero-title,.hero .hero-baseline {
@@ -2913,12 +2932,11 @@ section:focus,article:focus,main:focus {
 @media(max-width:760px) {
   .hero {
     grid-template-columns:minmax(0,1fr);
-    grid-template-rows:62px 24px auto auto auto;
+    grid-template-rows:52px 24px auto auto auto auto;
     height:auto;
     min-height:100svh;
     max-height:none;
     padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));
-    align-content:start;
     column-gap:0
   }
   .hero .pillar-grid {
@@ -2927,7 +2945,7 @@ section:focus,article:focus,main:focus {
     align-self:start
   }
   .hero .pillar-grid {
-    margin-top:64px
+    margin-top:34px
   }
   .hero .hero-motto {
     font-size:32px
