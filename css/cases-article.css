@@ -133,10 +133,10 @@
   border:1px solid var(--line);
   background:var(--paper);
   color:var(--ink);
-  box-shadow:0 24px 80px #201f1e40
+  box-shadow:0 24px 80px #0D111740
 }
 .flowchart-dialog::backdrop {
-  background:#201f1eb8
+  background:#0D1117b8
 }
 .flowchart-dialog-shell {
   display:flex;

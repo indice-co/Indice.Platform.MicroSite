@@ -144,8 +144,8 @@ test('homepage carousel and Suite panel point to the sole Cases page', () => {
   assert(!articleCss.includes('var(--cases-gold)'));
   assert(!articleCss.includes('var(--cases-dark)'));
   const articleScript = fs.readFileSync(path.join(root, 'js/cases-article.js'), 'utf8');
-  assert(articleScript.includes("primaryColor:'#f1efe9'"));
-  assert(articleScript.includes("primaryTextColor:'#201f1e'"));
+  assert(articleScript.includes("primaryColor:'#F5F5F5'"));
+  assert(articleScript.includes("primaryTextColor:'#0D1117'"));
   assert(!articleScript.includes('#12707a'));
 });
 

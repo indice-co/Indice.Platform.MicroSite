@@ -37,7 +37,7 @@
   const productIndex = id => products.findIndex(product => product.id === id);
   const caseIndex = productIndex('cases');
   const color = value => {
-    const clean = (value || '#201f1e').replace('#', '');
+    const clean = (value || '#0D1117').replace('#', '');
     return [0, 2, 4].map(offset => parseInt(clean.slice(offset, offset + 2), 16));
   };
   const mixColor = (from, to, amount) => from.map((channel, index) => Math.round(channel + (to[index] - channel) * amount));

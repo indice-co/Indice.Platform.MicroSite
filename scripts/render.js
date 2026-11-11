@@ -105,7 +105,7 @@ const html = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#DEDAD0">
+  <meta name="theme-color" content="#E6E6E6">
   <meta name="description" content="${escape(c.foundation.paragraphs[0])}">
   <title>INDICE Platform</title>
   <link rel="icon" type="image/svg+xml" href="${escape(config.logoIcon)}">
