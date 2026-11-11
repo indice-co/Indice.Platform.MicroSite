@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight, escapeHtml } = require('./highlight.js');
-const { designRibbon, escape, headerGithub, screenshotCarousel } = require('./shared.js');
+const { designRibbon, escape, headerGithub, screenshotCarousel, partnerCallout } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techById = Object.fromEntries(tech.map(item => [item.id, item]));
@@ -64,7 +64,8 @@ function productPanel(product, index) {
         <p class="tagline">${escape(product.tagline)}</p>
         <p class="meta"><span class="chip">base unit · ${escape(product.baseUnit.toLowerCase())}</span>${docs}</p>
       </header>
-      <p class="summary">${escape(product.summary)}</p>
+      <p class="summary">${escape(product.summary)}</p>${product.partnership ? `
+      ${partnerCallout(product.partnership)}` : ''}
       <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
       ${screenshotCarousel(product)}
       <h4 class="sub">What it does</h4>
@@ -76,8 +77,8 @@ function productPanel(product, index) {
       <h4 class="sub">Endpoints</h4>
       <div class="scroll" role="region" aria-label="${escape(product.name)} endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody>${product.endpoints.map(([method, route, purpose]) => `<tr><td><span class="verb verb-${method === '*' ? 'any' : method.toLowerCase()}">${escape(method)}</span></td><td><code>${escape(route)}</code></td><td>${escape(purpose)}</td></tr>`).join('')}</tbody></table></div>
       <h4 class="sub">Code</h4>
-      ${product.code.map(codeBlock).join('\n      ')}
-      ${product.id === 'risk' ? riskDemo : ''}
+      ${product.code.map(codeBlock).join('\n      ')}${product.id === 'risk' ? `
+      ${riskDemo}` : ''}
       <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
       <ul class="seams">${product.seams.map(([name, description]) => `<li><code>${escape(name)}</code><span>${escape(description)}</span></li>`).join('')}</ul>
     </section>`;

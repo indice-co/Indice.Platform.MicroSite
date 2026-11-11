@@ -21,7 +21,8 @@ const links = {
   agentsIos: 'https://github.com/indice-co/Indice.Agents.iOS',
   cryptography: 'https://github.com/indice-co/Indice.Cryptography',
   edi: 'https://github.com/indice-co/EDI.Net',
-  skills: 'https://github.com/indice-co/Indice.Skills'
+  skills: 'https://github.com/indice-co/Indice.Skills',
+  duende: 'https://duendesoftware.com/'
 };
 
 const pillars = [
@@ -131,6 +132,7 @@ app.MapCases();           // my + manage + workflow-integration + translation en
   iam: {
     baseUnit: 'User',
     summary: 'ASP.NET Core Identity stores the users and Duende IdentityServer speaks OIDC / OAuth2. Indice adds the grants, MFA, devices, audit and UI. Workforce, partners and customers sign in through one pipeline.',
+    partnership: { label: 'Duende Software', href: links.duende, logo: 'assets/logos/duende logo.svg', site: 'duendesoftware.com' },
     highlights: [
       ['One sign-in pipeline', 'Password or external provider (Apple, Google, Microsoft, Facebook, GovGr), then MFA, then the post-login validation activities, then tokens.'],
       ['Custom grants', 'Five grant types on top of the standard flows: totp, mfa, device_authentication, delegation and urn:indice:guest. The same IExtensionGrantValidator seam is open to you.'],
@@ -348,7 +350,7 @@ const pendingProducts = [
   { id: 'workers', name: 'Workers', note: 'Listed in the platform. Logo and product document not provided yet.' }
 ];
 
-const suite = ['cases', 'iam', 'messaging', 'risk'].map(id => {
+const suite = ['iam', 'cases', 'messaging', 'risk'].map(id => {
   const product = byId(id);
   return { id, name: product.name, tagline: product.tagline, logo: product.logo, icon: product.logo.replace(' logo.svg', ' icon.svg'), color: product.color, accent: product.accent, ...specs[id], uses: usage[id] };
 });

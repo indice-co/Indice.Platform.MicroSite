@@ -61,6 +61,25 @@ test('the new designs use the approved product logos and mark missing assets as 
   }
 });
 
+test('IAM leads both product lists and includes the Duende Software partnership', () => {
+  for (const file of Object.values(variants)) {
+    const html = read(file);
+    const order = file === 'terminal.html'
+      ? [...html.matchAll(/<section class="product" id="([^"]+)"/g)].map(match => match[1])
+      : [...html.matchAll(/<button class="mod product"[^>]*data-product="([^"]+)"/g)].map(match => match[1]);
+    assert.deepEqual(order.slice(0, 4), ['iam', 'cases', 'messaging', 'risk'], `${file} lists IAM first`);
+
+    const partnership = html.match(/<a class="partner" href="https:\/\/duendesoftware\.com\/" target="_blank" rel="noopener">([\s\S]*?)<\/a>/)?.[1];
+    assert(partnership, `${file} links the IAM partnership callout to Duende`);
+    assert.match(partnership, /<img src="assets\/logos\/duende logo\.svg"[^>]*alt="Duende Software"/);
+    assert.match(partnership, /Indice is an official distributor and integrator of Duende Software\./);
+    if (file === 'blueprint.html') {
+      assert.match(html, /<figure class="stack" id="stack-diagram" data-selected="iam"/);
+      assert.match(html, /data-product="iam"[^>]*aria-pressed="true"/);
+    }
+  }
+});
+
 test('every local reference resolves, ids are unique, and anchors and ARIA targets exist', () => {
   for (const file of Object.values(variants)) {
     const html = read(file);
@@ -87,10 +106,10 @@ test('missing links are visible placeholders and external links are safe and exp
     const placeholders = [...html.matchAll(/<span class="ph"([^>]*)>/g)];
     assert(placeholders.length >= 4, `${file} lists placeholders`);
     for (const [, attrs] of placeholders) assert(/role="link"/.test(attrs) && /aria-disabled="true"/.test(attrs));
-    assert(/Request a demo<small>placeholder<\/small>/.test(html), 'The demo request is a placeholder');
+    if (file === 'terminal.html') assert(/Request a demo<small>placeholder<\/small>/.test(html), 'The demo request is a placeholder');
     for (const [tag] of html.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)) {
       assert(/rel="noopener"/.test(tag) && /target="_blank"/.test(tag), `External links open safely: ${tag}`);
-      assert(/https:\/\/(github\.com\/indice-co|www\.nuget\.org\/profiles\/indice|www\.npmjs\.com\/package\/@indice\/)/.test(tag), `Only known sources are linked: ${tag}`);
+      assert(/https:\/\/(github\.com\/indice-co|www\.nuget\.org\/profiles\/indice|www\.npmjs\.com\/package\/@indice\/|duendesoftware\.com)/.test(tag), `Only known sources are linked: ${tag}`);
     }
   }
   assert(read('terminal.html').includes('href="cases-reference.html"'), 'Cases links to its real technical reference');
@@ -182,6 +201,20 @@ test('Terminal mobile title bar includes the repository link beside the logo', (
   const header = read('terminal.html').match(/<header class="titlebar">([\s\S]*?)<\/header>/)[1];
   assert.match(header, /class="brand"/);
   assert.match(header, /<a class="explorer-github" target="_blank" rel="noopener" href="https:\/\/github\.com\/indice-co\/Indice\.Platform" aria-label="INDICE Platform on GitHub"><svg/);
+});
+
+test('Blueprint header links to the Platform repository instead of the demo request', () => {
+  const header = read('blueprint.html').match(/<header class="sheetbar">([\s\S]*?)<\/header>/)[1];
+  assert.match(header, /<a class="sheetbar-github" target="_blank" rel="noopener" href="https:\/\/github\.com\/indice-co\/Indice\.Platform" aria-label="INDICE Platform on GitHub"><svg/);
+  assert(!header.includes('Request a demo'), 'The header no longer shows the demo request');
+});
+
+test('Blueprint footer is a three-cell title block: project, sheets and code links', () => {
+  const footer = read('blueprint.html').match(/<section class="titleblock"[\s\S]*?<dl>([\s\S]*?)<\/dl>/)[1];
+  assert.deepEqual([...footer.matchAll(/<dt>([^<]+)<\/dt>/g)].map(match => match[1]), ['Project', 'Sheets', 'Code']);
+  for (const href of ['https://github.com/indice-co', 'https://www.nuget.org/profiles/indice', 'https://www.npmjs.com/package/@indice/ng-config']) {
+    assert(footer.includes(`href="${href}"`), `Footer links to ${href}`);
+  }
 });
 
 test('Terminal explorer lists only overview and integration points under expertise', () => {

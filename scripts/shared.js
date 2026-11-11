@@ -53,4 +53,11 @@ const screenshotCarousel = product => {
         </li>`).join('')}</ul>
       </section>`;
 };
-module.exports = { escape, arrow, down, headerGithub, demo, logo, navigation, designs, designRibbon, screenshotCarousel };
+/* Partner callout for the alternative designs: the partner's wordmark on a light plate, linking to their site. */
+const partnerCallout = ({ label, href, logo: src, site }) => `<a class="partner" href="${escape(href)}" target="_blank" rel="noopener">
+        <span class="partner-plate"><img src="${escape(src)}" width="288" height="53" alt="${escape(label)}" loading="lazy" decoding="async"></span>
+        <span class="partner-text"><small>Official partner</small><b>Indice is an official distributor and integrator of ${escape(label)}.</b></span>
+        <span class="partner-cta">${escape(site)}<span class="sr-only"> (opens in a new tab)</span></span>
+      </a>`;
+
+module.exports = { escape, arrow, down, headerGithub, demo, logo, navigation, designs, designRibbon, screenshotCarousel, partnerCallout };
