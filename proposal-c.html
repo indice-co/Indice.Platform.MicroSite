@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en" data-proposal="c" data-default-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0b0a">
+  <meta name="description" content="For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.">
+  <title>INDICE Platform — Proposal C · Modular</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-c-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/screens.css">
+  <link rel="stylesheet" href="css/proposals/proposal-c.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+</head>
+<body class="pc">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li class="design-ribbon-divider" aria-hidden="true"></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-b.html" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="proposal-c.html" aria-current="page" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <header class="pc-bar">
+    <nav class="pc-cells" aria-label="Main navigation">
+      <a class="pc-cell pc-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pc-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span aria-hidden="true">Platform</span></a>
+      <a class="pc-cell pc-section-link" href="#platform" data-spy="platform"><span class="pc-cell-no" aria-hidden="true">01</span><span data-scramble="hover">Platform</span></a>
+      <a class="pc-cell pc-section-link" href="#products" data-spy="products"><span class="pc-cell-no" aria-hidden="true">02</span><span data-scramble="hover">Solutions</span></a>
+      <a class="pc-cell pc-section-link" href="#services" data-spy="services"><span class="pc-cell-no" aria-hidden="true">03</span><span data-scramble="hover">Services</span></a>
+      <a class="pc-cell pc-section-link" href="#faq" data-spy="faq"><span class="pc-cell-no" aria-hidden="true">04</span><span data-scramble="hover">FAQ</span></a>
+      <button type="button" class="pc-cell pc-theme" data-theme-toggle aria-pressed="true">Dark theme<span class="pc-switch" aria-hidden="true"><i></i></span></button>
+      <button type="button" class="pc-cell pc-cta" data-demo>Request a demo</button>
+      <button type="button" class="pc-cell pc-menu-button" data-dialog-open="pc-menu" aria-haspopup="dialog">Menu<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </nav>
+  </header>
+  <dialog class="pc-menu" id="pc-menu" aria-label="Menu">
+    <div class="pc-menu-grid">
+      <div class="pc-menu-head"><svg class="pc-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><button type="button" class="pc-menu-close" data-dialog-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close</span></button></div>
+      <a class="pc-menu-link" href="#platform" style="--i:0"><span class="pc-cell-no">01</span>Platform</a>
+      <a class="pc-menu-link" href="#products" style="--i:1"><span class="pc-cell-no">02</span>Solutions</a>
+      <a class="pc-menu-link" href="#services" style="--i:2"><span class="pc-cell-no">03</span>Services</a>
+      <a class="pc-menu-link" href="#faq" style="--i:3"><span class="pc-cell-no">04</span>FAQ</a>
+      <ul class="pc-menu-solutions"><li><a href="#spec-cases" style="--tone:#12707A"><img class="product-icon" src="assets/logos/cases icon.svg" width="28" height="28" alt="" decoding="async">Cases</a></li><li><a href="#spec-iam" style="--tone:#3D5AFE"><img class="product-icon" src="assets/logos/iam icon.svg" width="28" height="28" alt="" decoding="async">IAM</a></li><li><a href="#spec-messaging" style="--tone:#5B4FE0"><img class="product-icon" src="assets/logos/messaging icon.svg" width="28" height="28" alt="" decoding="async">Messaging</a></li><li><a href="#spec-risk" style="--tone:#0F7C8C"><img class="product-icon" src="assets/logos/risk icon.svg" width="28" height="28" alt="" decoding="async">Risk</a></li></ul>
+      <button type="button" class="pc-menu-theme" data-theme-toggle aria-pressed="true">Dark theme<span class="pc-switch" aria-hidden="true"><i></i></span></button>
+      <button type="button" class="pc-menu-cta" data-demo>Request a demo</button>
+    </div>
+  </dialog>
+  <main id="main" tabindex="-1">
+    <section class="pc-hero" id="hero" aria-labelledby="pc-hero-title" tabindex="-1">
+      <div class="pc-hero-top">
+        <p class="pc-tag" data-scramble>INDICE Platform · .NET and Angular</p>
+        <p class="pc-sticker" aria-hidden="true" data-magnetic="0.25"><span>Self-hosted<br>.NET + Angular</span></p>
+      </div>
+      <h1 class="pc-display pc-hero-title" id="pc-hero-title"><span class="pc-w" style="--w:0"><span>Self-hosted</span></span> <span class="pc-w" style="--w:1"><span>.NET</span></span> <span class="pc-w" style="--w:2"><span>solutions</span></span> <span class="pc-w" style="--w:3"><span>for</span></span> <span class="pc-w" style="--w:4"><span class="pc-mark">identity,</span></span> <span class="pc-w" style="--w:5"><span class="pc-mark">case</span></span> <span class="pc-w" style="--w:6"><span class="pc-mark">workflows,</span></span> <span class="pc-w" style="--w:7"><span class="pc-mark">messaging</span></span> <span class="pc-w" style="--w:8"><span class="pc-mark">and</span></span> <span class="pc-w" style="--w:9"><span class="pc-mark">risk.</span></span></h1>
+      <div class="pc-hero-row">
+        <p class="pc-lede">For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.</p>
+        <div class="pc-hero-actions">
+          <a class="pc-btn pc-btn-accent" href="#products" data-magnetic>Explore the solutions<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <button type="button" class="pc-btn pc-btn-line" data-demo data-magnetic>Request a demo</button>
+        </div>
+      </div>
+      <ul class="pc-modules" aria-label="Solutions"><li style="--i:0"><a class="pc-module" href="#spec-cases" style="--tone:#12707A">
+          <span class="pc-module-top"><span class="pc-label">01</span><img class="product-icon" src="assets/logos/cases icon.svg" width="34" height="34" alt="" decoding="async"></span>
+          <b class="pc-module-name">Cases</b>
+          <span class="pc-module-text">Run applications and approvals as configurable case types.</span>
+          <code class="pc-module-api">POST my/cases</code>
+        </a></li><li style="--i:1"><a class="pc-module" href="#spec-iam" style="--tone:#3D5AFE">
+          <span class="pc-module-top"><span class="pc-label">02</span><img class="product-icon" src="assets/logos/iam icon.svg" width="34" height="34" alt="" decoding="async"></span>
+          <b class="pc-module-name">IAM</b>
+          <span class="pc-module-text">Sign in staff, customers and partners with MFA and device trust.</span>
+          <code class="pc-module-api">my/account/*</code>
+        </a></li><li style="--i:2"><a class="pc-module" href="#spec-messaging" style="--tone:#5B4FE0">
+          <span class="pc-module-top"><span class="pc-label">03</span><img class="product-icon" src="assets/logos/messaging icon.svg" width="34" height="34" alt="" decoding="async"></span>
+          <b class="pc-module-name">Messaging</b>
+          <span class="pc-module-text">Send campaigns and transactional messages on every channel.</span>
+          <code class="pc-module-api">messages:send</code>
+        </a></li><li style="--i:3"><a class="pc-module" href="#spec-risk" style="--tone:#0F7C8C">
+          <span class="pc-module-top"><span class="pc-label">04</span><img class="product-icon" src="assets/logos/risk icon.svg" width="34" height="34" alt="" decoding="async"></span>
+          <b class="pc-module-name">Risk</b>
+          <span class="pc-module-text">Score payments, logins and account changes before they commit.</span>
+          <code class="pc-module-api">POST api/risk</code>
+        </a></li></ul>
+      <dl class="pc-facts"><div class="pc-fact-audience"><dt>For technical managers</dt><dd>Deliver regulated, customer-facing services on proven, reusable building blocks instead of starting each project from scratch.</dd></div><div class="pc-fact-audience"><dt>For developers</dt><dd>Compose NuGet and npm packages in your own host, then extend them through C# interfaces, workflows and rules.</dd></div><div><dt>Runs on</dt><dd>ASP.NET Core · EF Core · SQL Server</dd></div><div><dt>Sign-in</dt><dd>OpenID Connect / OAuth2</dd></div><div><dt>Admin UIs</dt><dd>Angular, served by each API host</dd></div><div><dt>Delivered with</dt><dd>Development, integration and support</dd></div></dl>
+    </section>
+    <section class="pc-marquee" aria-labelledby="pc-marquee-title">
+      <h2 class="sr-only" id="pc-marquee-title">Built with standard, supported technologies</h2>
+      <div class="pc-marquee-track" data-velocity>
+        <ul class="pc-marquee-list"><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/dotnet.svg');mask-image:url('assets/logos/technologies/dotnet.svg')" aria-hidden="true"></span><span>.NET</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/angular.svg');mask-image:url('assets/logos/technologies/angular.svg')" aria-hidden="true"></span><span>Angular</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/swift.svg');mask-image:url('assets/logos/technologies/swift.svg')" aria-hidden="true"></span><span>Swift SDK</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/kotlin.svg');mask-image:url('assets/logos/technologies/kotlin.svg')" aria-hidden="true"></span><span>Kotlin SDK</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/sqlserver.svg');mask-image:url('assets/logos/technologies/sqlserver.svg')" aria-hidden="true"></span><span>SQL Server</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/azure.svg');mask-image:url('assets/logos/technologies/azure.svg')" aria-hidden="true"></span><span>Azure</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/workflow.svg');mask-image:url('assets/logos/technologies/workflow.svg')" aria-hidden="true"></span><span>Elsa Workflows</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/duende.svg');mask-image:url('assets/logos/technologies/duende.svg')" aria-hidden="true"></span><span>Duende IdentityServer</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/openid.svg');mask-image:url('assets/logos/technologies/openid.svg')" aria-hidden="true"></span><span>OpenID Connect</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/api.svg');mask-image:url('assets/logos/technologies/api.svg')" aria-hidden="true"></span><span>OpenAPI</span></li></ul>
+        <ul class="pc-marquee-list" aria-hidden="true"><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/dotnet.svg');mask-image:url('assets/logos/technologies/dotnet.svg')" aria-hidden="true"></span><span>.NET</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/angular.svg');mask-image:url('assets/logos/technologies/angular.svg')" aria-hidden="true"></span><span>Angular</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/swift.svg');mask-image:url('assets/logos/technologies/swift.svg')" aria-hidden="true"></span><span>Swift SDK</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/kotlin.svg');mask-image:url('assets/logos/technologies/kotlin.svg')" aria-hidden="true"></span><span>Kotlin SDK</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/sqlserver.svg');mask-image:url('assets/logos/technologies/sqlserver.svg')" aria-hidden="true"></span><span>SQL Server</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/azure.svg');mask-image:url('assets/logos/technologies/azure.svg')" aria-hidden="true"></span><span>Azure</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/workflow.svg');mask-image:url('assets/logos/technologies/workflow.svg')" aria-hidden="true"></span><span>Elsa Workflows</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/duende.svg');mask-image:url('assets/logos/technologies/duende.svg')" aria-hidden="true"></span><span>Duende IdentityServer</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/openid.svg');mask-image:url('assets/logos/technologies/openid.svg')" aria-hidden="true"></span><span>OpenID Connect</span></li><li><span class="pc-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/api.svg');mask-image:url('assets/logos/technologies/api.svg')" aria-hidden="true"></span><span>OpenAPI</span></li></ul>
+      </div>
+    </section>
+    <section class="pc-section pc-platform" id="platform" aria-labelledby="pc-platform-title" tabindex="-1">
+      <header class="pc-head" data-reveal>
+        <p class="pc-head-label"><span class="pc-head-no">01</span><span data-scramble>Platform foundation</span></p>
+        <h2 class="pc-display" id="pc-platform-title"><span class="pc-w" style="--w:0"><span>One</span></span> <span class="pc-w" style="--w:1"><span>open-source</span></span> <span class="pc-w" style="--w:2"><span>foundation</span></span> <span class="pc-w" style="--w:3"><span>under</span></span> <span class="pc-w" style="--w:4"><span>every</span></span> <span class="pc-w" style="--w:5"><span>solution.</span></span></h2>
+        <p class="pc-head-intro">Cases, IAM, Messaging and Risk are assembled from the same Indice.Platform libraries, published on NuGet and npm. Your team works with standard ASP.NET Core, EF Core and Angular tooling, not a proprietary runtime.</p>
+      </header>
+      <ul class="pc-tiles"><li class="pc-tile" data-reveal style="--i:0"><span class="pc-label pc-tile-no">01</span><h3>Open-source libraries</h3><p>Indice.Platform packages on NuGet and @indice/ng-* packages on npm provide the APIs, data access, authentication and UI components every solution uses.</p><span class="pc-chip">NuGet · npm</span></li><li class="pc-tile" data-reveal style="--i:1"><span class="pc-label pc-tile-no">02</span><h3>Your host, your data</h3><p>Each solution is a set of libraries you compose in your own ASP.NET Core host, with its own SQL Server database and EF Core migrations. Nothing runs as SaaS.</p><span class="pc-chip">ASP.NET Core · EF Core</span></li><li class="pc-tile" data-reveal style="--i:2"><span class="pc-label pc-tile-no">03</span><h3>One identity model</h3><p>Every solution is an OAuth2 API resource with its own scopes, such as cases, messages:send and risk. Operators sign in to each admin UI through your identity server.</p><span class="pc-chip">OIDC · OAuth2</span></li><li class="pc-tile" data-reveal style="--i:0"><span class="pc-label pc-tile-no">04</span><h3>Extension points in C#</h3><p>Contact providers, lookups, risk rules, sign-in steps, log enrichers and workflow activities are C# interfaces with no-op defaults. Extensions run and debug in your process.</p><span class="pc-chip">Interfaces · DI</span></li><li class="pc-tile" data-reveal style="--i:1"><span class="pc-label pc-tile-no">05</span><h3>Embedded admin UIs</h3><p>Each solution serves its Angular back office from its own API host: the Cases back office, the IAM admin at /admin, and the Messaging and Risk consoles. No separate front-end deployment.</p><span class="pc-chip">Angular</span></li><li class="pc-tile" data-reveal style="--i:2"><span class="pc-label pc-tile-no">06</span><h3>Regulated requirements as features</h3><p>Four-eyes approval, two audit trails, impossible-travel checks, terms re-acceptance and data retention ship as configuration, informed by INDICE’s fintech experience.</p><span class="pc-chip">Fintech experience</span></li></ul>
+    </section>
+    <section class="pc-section pc-suite" id="products" aria-labelledby="pc-suite-title" tabindex="-1">
+      <header class="pc-head" data-reveal>
+        <p class="pc-head-label"><span class="pc-head-no">02</span><span data-scramble>Platform suite</span></p>
+        <h2 class="pc-display" id="pc-suite-title"><span class="pc-w" style="--w:0"><span>Adopt</span></span> <span class="pc-w" style="--w:1"><span>one</span></span> <span class="pc-w" style="--w:2"><span>solution,</span></span> <span class="pc-w" style="--w:3"><span>or</span></span> <span class="pc-w" style="--w:4"><span>run</span></span> <span class="pc-w" style="--w:5"><span>them</span></span> <span class="pc-w" style="--w:6"><span>together.</span></span></h2>
+        <p class="pc-head-intro">Each solution addresses one recurring need in customer-facing, regulated services. They share hosting, identity and extension patterns, so every solution you add reuses what the first one set up.</p>
+      </header>
+      <div class="pc-grid"><article class="pc-product" style="--tone:#12707A;--i:0" aria-labelledby="pc-product-cases" data-reveal>
+          <div class="pc-product-band"><span class="pc-label">01</span><img class="product-icon" src="assets/logos/cases icon.svg" width="40" height="40" alt="" decoding="async"></div>
+          <div class="pc-product-body">
+            <h3 class="pc-product-logo" id="pc-product-cases"><img class="product-logo logo-on-light" src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/cases-logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></h3>
+            <p class="pc-label pc-product-tagline">Case management and back-office workflows</p>
+            <p class="pc-product-action">Run applications and approvals as configurable case types.</p>
+            <ul class="pc-product-stack" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Elsa Workflows 2</li><li>JSON Schema + JSON Forms</li><li>Angular</li></ul>
+          </div>
+          <a class="pc-product-link" href="#spec-cases">Learn more<span class="sr-only"> about Cases</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <a class="pc-product-link" href="cases-reference.html">Technical details<span class="sr-only"> for Cases</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+        </article><article class="pc-product" style="--tone:#3D5AFE;--i:1" aria-labelledby="pc-product-iam" data-reveal>
+          <div class="pc-product-band"><span class="pc-label">02</span><img class="product-icon" src="assets/logos/iam icon.svg" width="40" height="40" alt="" decoding="async"></div>
+          <div class="pc-product-body">
+            <h3 class="pc-product-logo" id="pc-product-iam"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></h3>
+            <p class="pc-label pc-product-tagline">Identity and access management</p>
+            <p class="pc-product-action">Sign in staff, customers and partners with MFA and device trust.</p>
+            <ul class="pc-product-stack" aria-label="Stack"><li>ASP.NET Core Identity</li><li>Duende IdentityServer</li><li>EF Core · SQL Server</li><li>SignalR</li><li>Angular</li></ul>
+          </div>
+          <a class="pc-product-link" href="#spec-iam">Learn more<span class="sr-only"> about IAM</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <a class="pc-product-link" href="#spec-iam-architecture">Technical details<span class="sr-only"> for IAM</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+        </article><article class="pc-product" style="--tone:#5B4FE0;--i:2" aria-labelledby="pc-product-messaging" data-reveal>
+          <div class="pc-product-band"><span class="pc-label">03</span><img class="product-icon" src="assets/logos/messaging icon.svg" width="40" height="40" alt="" decoding="async"></div>
+          <div class="pc-product-body">
+            <h3 class="pc-product-logo" id="pc-product-messaging"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></h3>
+            <p class="pc-label pc-product-tagline">Multichannel campaigns and notifications</p>
+            <p class="pc-product-action">Send campaigns and transactional messages on every channel.</p>
+            <ul class="pc-product-stack" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Azure Storage / Service Bus</li><li>Handlebars.Net</li><li>Angular</li></ul>
+          </div>
+          <a class="pc-product-link" href="#spec-messaging">Learn more<span class="sr-only"> about Messaging</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <a class="pc-product-link" href="#spec-messaging-architecture">Technical details<span class="sr-only"> for Messaging</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+        </article><article class="pc-product" style="--tone:#0F7C8C;--i:3" aria-labelledby="pc-product-risk" data-reveal>
+          <div class="pc-product-band"><span class="pc-label">04</span><img class="product-icon" src="assets/logos/risk icon.svg" width="40" height="40" alt="" decoding="async"></div>
+          <div class="pc-product-body">
+            <h3 class="pc-product-logo" id="pc-product-risk"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></h3>
+            <p class="pc-label pc-product-tagline">Real-time risk scoring for transactions and activity</p>
+            <p class="pc-product-action">Score payments, logins and account changes before they commit.</p>
+            <ul class="pc-product-stack" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>NetTopologySuite</li><li>MaxMind GeoLite2</li><li>Angular</li></ul>
+          </div>
+          <a class="pc-product-link" href="#spec-risk">Learn more<span class="sr-only"> about Risk</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <a class="pc-product-link" href="#spec-risk-architecture">Technical details<span class="sr-only"> for Risk</span><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+        </article></div>
+      <section class="pc-sub" id="specs" aria-labelledby="pc-specs-title" tabindex="-1">
+        <header class="pc-head pc-subhead" data-reveal>
+          <p class="pc-head-label"><span class="pc-head-no">02</span><span data-scramble>Under the hood</span></p>
+          <h3 class="pc-display" id="pc-specs-title"><span class="pc-w" style="--w:0"><span>How</span></span> <span class="pc-w" style="--w:1"><span>each</span></span> <span class="pc-w" style="--w:2"><span>solution</span></span> <span class="pc-w" style="--w:3"><span>works</span></span></h3>
+          <p class="pc-head-intro">The problem each solution addresses, how it works, how it is deployed and what it connects to.</p>
+        </header>
+        <div class="pc-spec-list"><details class="pc-spec" id="spec-cases" style="--tone:#12707A" open>
+          <summary><span class="pc-label">01</span><span class="pc-spec-name">Cases</span><span class="pc-spec-tagline">Case management and back-office workflows</span><span class="pc-spec-toggle" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span></summary>
+          <div class="pc-spec-body">
+            <p class="pc-spec-summary">Cases runs form-driven processes, such as applications, service requests and approvals, on one record shared by customers and back-office staff. Customers submit from your apps, staff open cases on their behalf, and both follow the same assignment, edit and approval workflow.</p>
+            <div class="pc-spec-cols">
+              <div><h4>The problem</h4><p>Request-and-approval processes tend to live in inboxes, spreadsheets or one-off screens. Each new process becomes a development project, and it is hard to show who approved what or what the customer was told.</p></div>
+              <div><h4>How it works</h4><ol class="pc-steps"><li>Define a case type: a JSON Schema for the data, a JSON Forms layout and the checkpoints the case moves through.</li><li>Publish an Elsa 2 workflow tagged with the case type from the designer at /workflow, without a redeploy.</li><li>On submit, the workflow decides who acts next. The back office shows only the actions waiting: assign, edit, approve, reject or a custom action.</li><li>Private checkpoints and data versions keep internal steps internal; the customer sees the public status and published data.</li></ol></div>
+              <div><h4 id="spec-cases-architecture">Architecture</h4><p>One ASP.NET Core host runs the Cases API, the Elsa workflow server and designer, and the embedded Angular back office. CasesDb holds cases and WorkflowDb holds workflow state, so a workflow upgrade never touches case data.</p></div>
+              <div><h4>Integrations</h4><ul class="pc-bullets"><li>Customer search through IContactProvider, with an Identity Server provider built in</li><li>Form prefill from your systems with ICaseDataInitializer</li><li>Dropdown values from your systems through named ILookupService sources</li><li>Platform events such as CaseSubmittedEvent and a workflow-integration API</li><li>SMS, Viber and SMTP notifications from workflow activities</li><li>A PDF per case type through ICasePdfService</li></ul></div>
+            </div>
+            <div class="pc-spec-dev">
+              <div><h4>Key APIs</h4><ul class="pc-apis"><li><code>POST my/cases</code></li><li><code>GET manage/cases/{id}/actions</code></li><li><code>GET manage/dashboard/metrics</code></li></ul><a class="pc-btn pc-btn-line pc-btn-sm" href="cases-reference.html">Read the Cases technical reference<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a></div>
+              <figure class="pc-code" data-reveal><figcaption><span>Indice.Cases/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.Cases/Program.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre></figure>
+            </div>
+            <div class="pc-screens-block" data-shot-group>
+              <button type="button" class="pc-expand" data-expand aria-expanded="false" aria-controls="pc-screens-cases">
+                <span class="pc-expand-icon" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span>
+                <span class="pc-expand-text"><span data-expand-label data-open="Hide screens" data-closed="View screens">View screens</span><span class="sr-only">: Cases</span></span>
+                <span class="pc-expand-count" aria-hidden="true">05 screens</span>
+              </button>
+              <div class="pc-screens" id="pc-screens-cases" data-expand-panel role="region" aria-label="Cases screens">
+                <ul class="pc-shots">
+                  <li class="pc-shot-cell" style="--i:0"><figure class="pc-shot" data-shot data-title="Team dashboard" data-text="Open cases by status, unassigned and stale work, and daily intake across the cases each user can see." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/cases dashboard.png" width="1920" height="1080" alt="Cases operations dashboard showing the case pipeline and team workloads" loading="lazy" decoding="async"></span>
+            <figcaption><b>Team dashboard</b><span>Open cases by status, unassigned and stale work, and daily intake across the cases each user can see.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Team dashboard"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:1"><figure class="pc-shot" data-shot data-title="Workflow designer" data-text="Stages, checkpoints and independent approval configured for one case type." style="--i:1">
+            <div class="shot-media"><span class="shot-badge">Illustrative</span><div class="case-workflow-ui" role="img" aria-label="Illustrative Cases workflow designer"><div class="workflow-toolbar"><span>WORKFLOW DESIGNER</span><span class="workflow-status">Draft / Published</span></div><div class="workflow-sidebar"><span>CASE TYPE</span><b>Application review</b><span>FORM</span><b>Applicant details</b><span>WORKFLOW</span><b class="workflow-selected">Stages &amp; actions</b><span>PERMISSIONS</span><b>Access rules</b></div><div class="workflow-canvas"><div class="workflow-canvas-heading"><div><span>WORKFLOW / APPLICATION REVIEW</span><b>Default path</b></div><span>2 checkpoints</span></div><div class="workflow-route"><div class="workflow-node"><small>01 / INTAKE</small><b>Request received</b><span>Customer or staff</span></div><span class="workflow-connector"></span><div class="workflow-node"><small>02 / REVIEW</small><b>Team review</b><span>Operations</span></div><span class="workflow-connector"></span><div class="workflow-node workflow-approval"><small>03 / CHECKPOINT</small><b>Independent approval</b><span>Manager</span></div></div><div class="workflow-footer"><span>+ Add stage</span><span>Changes saved</span></div></div></div></div>
+            <figcaption><b>Workflow designer</b><span>Stages, checkpoints and independent approval configured for one case type.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Workflow designer"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:2"><figure class="pc-shot" data-shot data-title="Case detail" data-text="Activity history next to what the customer sees and what stays internal." style="--i:2">
+            <div class="shot-media"><span class="shot-badge">Illustrative</span><div class="case-record-ui" role="img" aria-label="Illustrative Cases record showing activity history and separate customer and internal information"><div class="record-toolbar"><span>CASES / CASE DETAIL</span><span>•••</span></div><div class="record-summary"><div><span>APPLICATION / C-1842</span><b>Review request</b></div><span class="record-status">In review</span></div><div class="record-columns"><div class="record-main"><div class="record-section-heading"><b>Case information</b><span>Updated just now</span></div><div class="record-field"><span>Current stage</span><b>Operations review</b></div><div class="record-field"><span>Assigned team</span><b>Customer Operations</b></div><div class="record-section-heading record-history-heading"><b>Activity history</b><span>3 events</span></div><div class="record-event"><i></i><div><b>Review started</b><span>Maria P. / 10:42</span></div></div><div class="record-event"><i></i><div><b>Application submitted</b><span>Customer portal / 09:18</span></div></div></div><aside class="record-visibility"><span class="record-label">CUSTOMER VIEW</span><b>Published update</b><p>Your application is being reviewed.</p><span class="record-label record-private-label">INTERNAL ONLY</span><b>Approval note</b><p>Supporting checks completed. Awaiting independent approval.</p></aside></div></div></div>
+            <figcaption><b>Case detail</b><span>Activity history next to what the customer sees and what stays internal.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Case detail"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:3"><figure class="pc-shot" data-shot data-title="Case list and saved queries" data-text="Filters by reference number, customer, TIN, group, dates, case and checkpoint types, saved per user." style="--i:3">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Case list and saved queries: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Case list and saved queries</b><span>Filters by reference number, customer, TIN, group, dates, case and checkpoint types, saved per user.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Case list and saved queries"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:4"><figure class="pc-shot" data-shot data-title="Access rules" data-text="Record-level access for a user, group or role on a case, case type or checkpoint type." style="--i:4">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Access rules: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Access rules</b><span>Record-level access for a user, group or role on a case, case type or checkpoint type.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Access rules"></button>
+          </figure></li>
+                  <li class="pc-shots-note" style="--i:5"><b>05</b><span>Select a screen to enlarge it. In the viewer, the arrow keys move between screens.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details><details class="pc-spec" id="spec-iam" style="--tone:#3D5AFE">
+          <summary><span class="pc-label">02</span><span class="pc-spec-name">IAM</span><span class="pc-spec-tagline">Identity and access management</span><span class="pc-spec-toggle" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span></summary>
+          <div class="pc-spec-body">
+            <p class="pc-spec-summary">IAM is an OpenID Connect and OAuth2 server for workforce, customer and partner sign-in. It builds on ASP.NET Core Identity and Duende IdentityServer and adds sign-in pages, MFA, device trust, audit logs, self-service APIs and an admin UI.</p>
+            <div class="pc-spec-cols">
+              <div><h4>The problem</h4><p>Teams either rent identity as a service and give up control of user data and signing keys, or rebuild login, MFA, device management and audit for every application.</p></div>
+              <div><h4>How it works</h4><ol class="pc-steps"><li>Every sign-in, by password or external provider such as Apple, Google, Microsoft, Facebook or GovGr, runs through one pipeline.</li><li>MFA by SMS, email, Viber, authenticator app, push approval on a trusted device, or FIDO2 / WebAuthn, optional or enforced.</li><li>A post-login chain handles terms re-acceptance, MFA onboarding, email and phone confirmation and password expiry before tokens are issued.</li><li>Sign-in logs record every attempt with device and location and detect impossible travel; activity logs record every change.</li></ol></div>
+              <div><h4 id="spec-iam-architecture">Architecture</h4><p>One ASP.NET Core host serves the Razor login pages, OIDC endpoints, management and self-service APIs, the /mfa SignalR hub and the Angular admin UI. Identity, configuration, operational, sign-in log and activity log data live in five databases that can share a server or sit apart.</p></div>
+              <div><h4>Integrations</h4><ul class="pc-bullets"><li>Your web, mobile and API clients over OpenID Connect and OAuth2</li><li>External providers: Apple, Google, Microsoft, Facebook, GovGr and any standard OIDC provider</li><li>Delivery providers for SMS, Viber and email, and Azure Notification Hubs for push</li><li>Custom grants for device sign-in, delegation, TOTP step-up and guest access</li><li>Platform events for users, clients, devices and logins</li><li>API resources for Cases and Messaging seeded by the template</li></ul></div>
+            </div>
+            <div class="pc-spec-dev">
+              <div><h4>Key APIs</h4><ul class="pc-apis"><li><code>my/account/*</code></li><li><code>api/my/devices</code></li><li><code>grant_type=device_authentication</code></li></ul></div>
+              <figure class="pc-code" data-reveal><figcaption><span>Indice.IdentityPages/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.IdentityPages/Program.cs excerpt"><code><span class="code-line" style="--l:0">app.<span class="tok-function">UseRateLimiter</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseIdentityServer</span>();</span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseAdminUI</span>(options =&gt; options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;admin&quot;</span>);</span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapIdentityServer</span>();                  <span class="tok-comment">// management, account and device APIs</span></span>
+<span class="code-line" style="--l:4">app.<span class="tok-function">MapRazorPages</span>();                      <span class="tok-comment">// login, register, MFA, profile pages</span></span>
+<span class="code-line" style="--l:5">app.<span class="tok-function">MapMultiFactorAuthentication</span>();       <span class="tok-comment">// MFA API</span></span>
+<span class="code-line" style="--l:6">app.<span class="tok-function">MapMultiFactorAuthenticationHub</span>();    <span class="tok-comment">// /mfa SignalR hub</span></span></code></pre></figure>
+            </div>
+            <div class="pc-screens-block" data-shot-group>
+              <button type="button" class="pc-expand" data-expand aria-expanded="false" aria-controls="pc-screens-iam">
+                <span class="pc-expand-icon" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span>
+                <span class="pc-expand-text"><span data-expand-label data-open="Hide screens" data-closed="View screens">View screens</span><span class="sr-only">: IAM</span></span>
+                <span class="pc-expand-count" aria-hidden="true">05 screens</span>
+              </button>
+              <div class="pc-screens" id="pc-screens-iam" data-expand-panel role="region" aria-label="IAM screens">
+                <ul class="pc-shots">
+                  <li class="pc-shot-cell" style="--i:0"><figure class="pc-shot" data-shot data-title="Admin dashboard" data-text="Sign-in activity, failed sign-ins, account security and the accounts that need attention." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/iam dashboard.png" width="1920" height="1080" alt="IAM admin dashboard with sign-in activity, account security and accounts that need attention" loading="lazy" decoding="async"></span>
+            <figcaption><b>Admin dashboard</b><span>Sign-in activity, failed sign-ins, account security and the accounts that need attention.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Admin dashboard"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:1"><figure class="pc-shot" data-shot data-title="Users" data-text="Claims, roles, devices, MFA settings and blocks for each user." style="--i:1">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Users: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Users</b><span>Claims, roles, devices, MFA settings and blocks for each user.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Users"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:2"><figure class="pc-shot" data-shot data-title="Sign-in logs" data-text="Every sign-in attempt with device and location, filters, a map and dashboard series." style="--i:2">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Sign-in logs: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Sign-in logs</b><span>Every sign-in attempt with device and location, filters, a map and dashboard series.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Sign-in logs"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:3"><figure class="pc-shot" data-shot data-title="Clients and resources" data-text="OIDC clients, API and identity resources, scopes and claim types." style="--i:3">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Clients and resources: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Clients and resources</b><span>OIDC clients, API and identity resources, scopes and claim types.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Clients and resources"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:4"><figure class="pc-shot" data-shot data-title="Sign-in pages" data-text="Razor login, registration and MFA pages, overridable in the host and themed per client." style="--i:4">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Sign-in pages: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Sign-in pages</b><span>Razor login, registration and MFA pages, overridable in the host and themed per client.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Sign-in pages"></button>
+          </figure></li>
+                  <li class="pc-shots-note" style="--i:5"><b>05</b><span>Select a screen to enlarge it. In the viewer, the arrow keys move between screens.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details><details class="pc-spec" id="spec-messaging" style="--tone:#5B4FE0">
+          <summary><span class="pc-label">03</span><span class="pc-spec-name">Messaging</span><span class="pc-spec-tagline">Multichannel campaigns and notifications</span><span class="pc-spec-toggle" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span></summary>
+          <div class="pc-spec-body">
+            <p class="pc-spec-summary">Messaging delivers marketing campaigns and transactional messages, such as OTPs, receipts and alerts, over in-app inbox, push, email and SMS or Viber from one pipeline, with templates, audiences, recipient preferences and analytics.</p>
+            <div class="pc-spec-cols">
+              <div><h4>The problem</h4><p>Campaigns and system notifications often run on separate tools and vendor accounts. Consent and channel preferences are checked inconsistently, and every template is tied to one vendor.</p></div>
+              <div><h4>How it works</h4><ol class="pc-steps"><li>A campaign carries per-channel content, target channels, an audience from a distribution list or CSV import, and a schedule. Nothing is sent until it is published.</li><li>Your systems send transactional messages with one call under the messages:send scope, through the same pipeline.</li><li>A worker resolves each recipient, renders Handlebars templates per channel and keeps only the channels the recipient chose and can receive.</li><li>Delivery and engagement events roll up into Reached, Engaged, Acted and Coverage metrics.</li></ol></div>
+              <div><h4 id="spec-messaging-architecture">Architecture</h4><p>The API host enqueues and serves the embedded Angular admin UI; a worker on Azure Functions or an in-process host renders and delivers. Azure Storage Queues or Service Bus connect them, with MessagesDb on SQL Server and Blob storage for attachments.</p></div>
+              <div><h4>Integrations</h4><ul class="pc-bullets"><li>Email through SMTP, SendGrid, SparkPost, Brevo or Azure Communication Services</li><li>SMS and Viber through Yuboto, Apifon, Twilio, Vonage and other gateways</li><li>Push through Azure Notification Hubs to APNS and FCM</li><li>Contacts, consent and preferences resolved from your identity server</li><li>A transactional send API for other systems</li><li>Tracked call-to-action links for click analytics</li></ul></div>
+            </div>
+            <div class="pc-spec-dev">
+              <div><h4>Key APIs</h4><ul class="pc-apis"><li><code>messages:send</code></li><li><code>MyMessages inbox API</code></li><li><code>analytics/*</code></li></ul></div>
+              <figure class="pc-code" data-reveal><figcaption><span>appsettings.json</span><span>JSON</span></figcaption><pre tabindex="0" aria-label="appsettings.json excerpt"><code><span class="code-line" style="--l:0"><span class="tok-key">&quot;Email&quot;</span>: {</span>
+<span class="code-line" style="--l:1">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;SparkPost&quot;</span>,   <span class="tok-comment">// Smtp · SendGrid · SparkPost · Brevo · AzureCommunicationServices</span></span>
+<span class="code-line" style="--l:2">  <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;no-reply@your-domain.gr&quot;</span>,</span>
+<span class="code-line" style="--l:3">  <span class="tok-key">&quot;SmtpHost&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;SmtpPort&quot;</span>: <span class="tok-number">587</span>, <span class="tok-key">&quot;UseSSL&quot;</span>: <span class="tok-keyword">true</span></span>
+<span class="code-line" style="--l:4">},</span>
+<span class="code-line" style="--l:5"><span class="tok-key">&quot;Sms&quot;</span>: {</span>
+<span class="code-line" style="--l:6">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;Yuboto&quot;</span>,      <span class="tok-comment">// Yuboto · YubotoOmni · Apifon · Twilio · Vonage · SmsUp · KapaTEL · Mstat</span></span>
+<span class="code-line" style="--l:7">  <span class="tok-key">&quot;ApiKey&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;MyBrand&quot;</span>,</span>
+<span class="code-line" style="--l:8">  <span class="tok-key">&quot;TestMode&quot;</span>: <span class="tok-keyword">false</span>          <span class="tok-comment">// wire the pipeline without spending on real sends</span></span>
+<span class="code-line" style="--l:9">},</span></code></pre></figure>
+            </div>
+            <div class="pc-screens-block" data-shot-group>
+              <button type="button" class="pc-expand" data-expand aria-expanded="false" aria-controls="pc-screens-messaging">
+                <span class="pc-expand-icon" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span>
+                <span class="pc-expand-text"><span data-expand-label data-open="Hide screens" data-closed="View screens">View screens</span><span class="sr-only">: Messaging</span></span>
+                <span class="pc-expand-count" aria-hidden="true">05 screens</span>
+              </button>
+              <div class="pc-screens" id="pc-screens-messaging" data-expand-panel role="region" aria-label="Messaging screens">
+                <ul class="pc-shots">
+                  <li class="pc-shot-cell" style="--i:0"><figure class="pc-shot" data-shot data-title="Messaging dashboard" data-text="Reached, Engaged, Acted and Coverage, with volume per channel and message type." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/messaging dashboard.png" width="1920" height="1080" alt="Messaging dashboard with delivery and engagement metrics" loading="lazy" decoding="async"></span>
+            <figcaption><b>Messaging dashboard</b><span>Reached, Engaged, Acted and Coverage, with volume per channel and message type.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Messaging dashboard"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:1"><figure class="pc-shot" data-shot data-title="Campaign builder" data-text="Per-channel content, target channels, audience, schedule and the publish gate." style="--i:1">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Campaign builder: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Campaign builder</b><span>Per-channel content, target channels, audience, schedule and the publish gate.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Campaign builder"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:2"><figure class="pc-shot" data-shot data-title="Template designer" data-text="A Handlebars code editor for per-channel templates, partials and layouts." style="--i:2">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Template designer: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Template designer</b><span>A Handlebars code editor for per-channel templates, partials and layouts.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Template designer"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:3"><figure class="pc-shot" data-shot data-title="Distribution lists" data-text="Reusable audiences with CSV import and export, unsubscribes and contact merge." style="--i:3">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Distribution lists: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Distribution lists</b><span>Reusable audiences with CSV import and export, unsubscribes and contact merge.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Distribution lists"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:4"><figure class="pc-shot" data-shot data-title="Media library" data-text="Folders and uploads for attachments and template images." style="--i:4">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Media library: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Media library</b><span>Folders and uploads for attachments and template images.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Media library"></button>
+          </figure></li>
+                  <li class="pc-shots-note" style="--i:5"><b>05</b><span>Select a screen to enlarge it. In the viewer, the arrow keys move between screens.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details><details class="pc-spec" id="spec-risk" style="--tone:#0F7C8C">
+          <summary><span class="pc-label">04</span><span class="pc-spec-name">Risk</span><span class="pc-spec-tagline">Real-time risk scoring for transactions and activity</span><span class="pc-spec-toggle" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span></summary>
+          <div class="pc-spec-body">
+            <p class="pc-spec-summary">Risk scores operations such as payments, transfers, logins and profile changes in real time, before your application commits them. Rules are C# classes; their thresholds are settings that operators change at runtime.</p>
+            <div class="pc-spec-cols">
+              <div><h4>The problem</h4><p>Fraud checks are often duplicated inside each application or hidden in an external service, so thresholds need a release and decisions cannot be explained afterwards.</p></div>
+              <div><h4>How it works</h4><ol class="pc-steps"><li>Before committing an operation, your application calls POST api/risk with the subject, type, amount, IP address and any JSON data.</li><li>The engine resolves the IP address to a location with the bundled GeoLite2 databases and runs every enabled rule.</li><li>Results combine into one score and level, from None to High, by Sum or Maximum. Your application allows the operation, asks for MFA or blocks it.</li><li>Record the completed operation with POST api/risk/events and its ResultId; rules query that history for velocity and new-country checks.</li></ol></div>
+              <div><h4 id="spec-risk-architecture">Architecture</h4><p>One ASP.NET Core host serves the risk API, the admin API and the embedded Angular console. RiskDb on SQL Server, with spatial support, stores events, results and rule options; options reload every few seconds.</p></div>
+              <div><h4>Integrations</h4><ul class="pc-bullets"><li>Calling applications through client-credentials clients with the risk scope</li><li>Step-up authentication with your identity server, for example MFA on a Medium score</li><li>Offline GeoIP enrichment with bundled MaxMind GeoLite2 data</li><li>Custom event, result and rule-option stores</li><li>FluentValidation for each rule’s options</li><li>An admin API for investigation tools</li></ul></div>
+            </div>
+            <div class="pc-spec-dev">
+              <div><h4>Key APIs</h4><ul class="pc-apis"><li><code>POST api/risk</code></li><li><code>POST api/risk/events</code></li><li><code>GET risk-events/session/{sessionId}</code></li></ul></div>
+              <figure class="pc-code" data-reveal><figcaption><span>LargeTransferRule.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="LargeTransferRule.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-function">LargeTransferRule</span>(<span class="tok-type">IOptionsSnapshot</span>&lt;<span class="tok-type">LargeTransferRuleOptions</span>&gt; options, <span class="tok-type">IRiskEventStore</span> events)</span>
+<span class="code-line" style="--l:1">    : <span class="tok-function">RiskRule</span>(<span class="tok-string">&quot;LargeTransfer&quot;</span>)</span>
+<span class="code-line" style="--l:2">{</span>
+<span class="code-line" style="--l:3">    <span class="tok-keyword">public</span> <span class="tok-keyword">override</span> <span class="tok-keyword">async</span> <span class="tok-type">ValueTask</span>&lt;<span class="tok-type">RuleExecutionResult</span>&gt; <span class="tok-function">ExecuteAsync</span>(<span class="tok-type">DbRiskEvent</span> @event) {</span>
+<span class="code-line" style="--l:4">        <span class="tok-keyword">var</span> o = options.<span class="tok-type">Value</span>;</span>
+<span class="code-line" style="--l:5">        <span class="tok-keyword">if</span> (@event.<span class="tok-type">Amount</span> &lt; o.<span class="tok-type">Threshold</span>) <span class="tok-keyword">return</span> <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">NoRisk</span>();</span>
+<span class="code-line" style="--l:6">        <span class="tok-keyword">var</span> recent = <span class="tok-keyword">await</span> events.<span class="tok-function">GetList</span>(@event.<span class="tok-type">SubjectId</span>, [<span class="tok-string">&quot;Transfer&quot;</span>], <span class="tok-type">DateTime</span>.<span class="tok-type">UtcNow</span>.<span class="tok-function">AddHours</span>(-<span class="tok-number">24</span>));</span>
+<span class="code-line" style="--l:7">        <span class="tok-keyword">return</span> recent.<span class="tok-function">Count</span>() &gt;= o.<span class="tok-type">MaxPerDay</span></span>
+<span class="code-line" style="--l:8">            ? <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">HighRisk</span>(<span class="tok-string">$&quot;{recent.Count()} large transfers in 24h.&quot;</span>)</span>
+<span class="code-line" style="--l:9">            : <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">MediumRisk</span>(<span class="tok-string">$&quot;Transfer above {o.Threshold}.&quot;</span>);</span>
+<span class="code-line" style="--l:10">    }</span>
+<span class="code-line" style="--l:11">}</span></code></pre></figure>
+            </div>
+            <div class="pc-screens-block" data-shot-group>
+              <button type="button" class="pc-expand" data-expand aria-expanded="false" aria-controls="pc-screens-risk">
+                <span class="pc-expand-icon" aria-hidden="true"><svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></span>
+                <span class="pc-expand-text"><span data-expand-label data-open="Hide screens" data-closed="View screens">View screens</span><span class="sr-only">: Risk</span></span>
+                <span class="pc-expand-count" aria-hidden="true">03 screens</span>
+              </button>
+              <div class="pc-screens" id="pc-screens-risk" data-expand-panel role="region" aria-label="Risk screens">
+                <ul class="pc-shots">
+                  <li class="pc-shot-cell" style="--i:0"><figure class="pc-shot" data-shot data-title="Risk results" data-text="Every assessment with level, score, event, subject, amount and IP; the detail shows each rule’s score and reason." style="--i:0">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Risk results: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Risk results</b><span>Every assessment with level, score, event, subject, amount and IP; the detail shows each rule’s score and reason.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Risk results"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:1"><figure class="pc-shot" data-shot data-title="Risk events" data-text="Recorded events filtered by subject, IP, country, location, session and source transaction." style="--i:1">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Risk events: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Risk events</b><span>Recorded events filtered by subject, IP, country, location, session and source transaction.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Risk events"></button>
+          </figure></li>
+                  <li class="pc-shot-cell" style="--i:2"><figure class="pc-shot" data-shot data-title="Rules" data-text="Registered rules, switched on or off, with an options form generated from each rule’s stored settings." style="--i:2">
+            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Rules: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
+            <figcaption><b>Rules</b><span>Registered rules, switched on or off, with an options form generated from each rule’s stored settings.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Rules"></button>
+          </figure></li>
+                  <li class="pc-shots-note" style="--i:3"><b>03</b><span>Select a screen to enlarge it. In the viewer, the arrow keys move between screens.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details></div>
+      </section>
+    </section>
+    <section class="pc-section pc-services" id="services" aria-labelledby="pc-services-title" tabindex="-1">
+      <header class="pc-head" data-reveal>
+        <p class="pc-head-label"><span class="pc-head-no">03</span><span data-scramble>Services</span></p>
+        <h2 class="pc-display" id="pc-services-title"><span class="pc-w" style="--w:0"><span>INDICE</span></span> <span class="pc-w" style="--w:1"><span>engineers</span></span> <span class="pc-w" style="--w:2"><span>build,</span></span> <span class="pc-w" style="--w:3"><span>integrate</span></span> <span class="pc-w" style="--w:4"><span>and</span></span> <span class="pc-w" style="--w:5"><span>support</span></span> <span class="pc-w" style="--w:6"><span>it</span></span> <span class="pc-w" style="--w:7"><span>with</span></span> <span class="pc-w" style="--w:8"><span>you.</span></span></h2>
+        <p class="pc-head-intro">INDICE provides the development, integration and ongoing support that turn the solutions into a working service in your environment, from the first case type or login flow to later upgrades.</p>
+      </header>
+      <ol class="pc-service-list"><li class="pc-service" data-reveal style="--i:0"><span class="pc-service-no" aria-hidden="true">01</span><h3>Application development</h3><p>Custom applications and solution extensions on the same .NET and Angular foundation: case types and workflows, risk rules, sign-in steps and message templates.</p></li><li class="pc-service" data-reveal style="--i:1"><span class="pc-service-no" aria-hidden="true">02</span><h3>Integration</h3><p>The solutions connected to your core systems, identity providers, delivery vendors and hosting, on Azure or your own infrastructure.</p></li><li class="pc-service" data-reveal style="--i:2"><span class="pc-service-no" aria-hidden="true">03</span><h3>Support and evolution</h3><p>New features, regular security updates with CVE patching, and immediate technical assistance from INDICE engineers.</p></li></ol>
+    </section>
+    <section class="pc-section pc-faq" id="faq" aria-labelledby="pc-faq-title" tabindex="-1">
+      <header class="pc-head" data-reveal>
+        <p class="pc-head-label"><span class="pc-head-no">04</span><span data-scramble>Questions</span></p>
+        <h2 class="pc-display" id="pc-faq-title"><span class="pc-w" style="--w:0"><span>What</span></span> <span class="pc-w" style="--w:1"><span>technical</span></span> <span class="pc-w" style="--w:2"><span>teams</span></span> <span class="pc-w" style="--w:3"><span>ask</span></span> <span class="pc-w" style="--w:4"><span>first</span></span></h2>
+        
+      </header>
+      <dl class="pc-qa"><div data-reveal style="--i:0"><dt><span class="pc-label">Q1</span>Is this a SaaS solution?</dt><dd>No. Each solution is a set of .NET libraries and an Angular UI that run in your own ASP.NET Core host, against your own SQL Server databases, signing keys and delivery accounts.</dd></div><div data-reveal style="--i:1"><dt><span class="pc-label">Q2</span>What do we need to run it?</dt><dd>ASP.NET Core hosting, SQL Server and an OpenID Connect identity server, which IAM provides. Redis, Azure Storage, Service Bus and Notification Hubs are used where a solution needs caching, queues or push.</dd></div><div data-reveal style="--i:0"><dt><span class="pc-label">Q3</span>Can we start with one solution?</dt><dd>Yes. Each solution has its own libraries, database and admin UI. Every solution you add reuses the same hosting, identity server and extension patterns.</dd></div><div data-reveal style="--i:1"><dt><span class="pc-label">Q4</span>How do we customise behaviour without forking?</dt><dd>Through C# extension points registered in your host, such as risk rules, workflow activities, sign-in steps, contact providers, lookups and log enrichers, and by overriding IAM pages and back-office UI strings.</dd></div><div data-reveal style="--i:0"><dt><span class="pc-label">Q5</span>Where do audit trails and history live?</dt><dd>In your databases. Cases stores every checkpoint, data version and approval; IAM keeps sign-in and activity logs; Risk stores every assessment with each rule’s reason; Messaging records delivery and engagement events.</dd></div><div data-reveal style="--i:1"><dt><span class="pc-label">Q6</span>What does INDICE do after go-live?</dt><dd>Ongoing support: new features, regular security updates with CVE patching, immediate technical assistance, and development of new extensions as requirements change.</dd></div></dl>
+    </section>
+    <section class="pc-contact" id="contact" aria-labelledby="pc-contact-title" tabindex="-1">
+      <div class="pc-contact-inner" data-reveal>
+        <h2 class="pc-display" id="pc-contact-title"><span class="pc-w" style="--w:0"><span>See</span></span> <span class="pc-w" style="--w:1"><span>it</span></span> <span class="pc-w" style="--w:2"><span>against</span></span> <span class="pc-w" style="--w:3"><span>your</span></span> <span class="pc-w" style="--w:4"><span>own</span></span> <span class="pc-w" style="--w:5"><span>requirements.</span></span></h2>
+        <div class="pc-contact-row">
+          <p>Request a technical demonstration focused on your processes, identity setup and integration points.</p>
+          <div class="pc-hero-actions"><button type="button" class="pc-btn pc-btn-ink" data-demo data-magnetic>Request a demo</button><a class="pc-btn pc-btn-ink-line" href="cases-reference.html" data-magnetic>Read the Cases technical reference</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="pc-footer">
+    <a class="pc-footer-cell pc-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pc-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span aria-hidden="true">Platform</span></a>
+    <nav class="pc-footer-cell" aria-label="Footer"><h2 class="pc-label">Platform</h2><ul><li><a href="#platform">Platform</a></li><li><a href="#products">Solutions</a></li><li><a href="#services">Services</a></li><li><a href="#faq">FAQ</a></li></ul></nav>
+    <div class="pc-footer-cell"><h2 class="pc-label">Solutions</h2><ul><li><a href="#spec-cases">Cases</a></li><li><a href="#spec-iam">IAM</a></li><li><a href="#spec-messaging">Messaging</a></li><li><a href="#spec-risk">Risk</a></li></ul></div>
+    <div class="pc-footer-cell"><h2 class="pc-label">Resources</h2><ul><li><a href="cases-reference.html">Cases technical reference</a></li><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+    <p class="pc-footer-note">Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+  </footer>
+  <a class="gh-tab pc-gh" href="https://github.com/indice-co" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pc-to-top" href="#hero" data-to-top aria-label="Back to top"><span class="pc-to-top-arrows" aria-hidden="true"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg></span></a>
+  <dialog class="lightbox pc-lightbox" id="screen-viewer" aria-label="Screens" data-lightbox>
+    <div class="lightbox-inner">
+      <div class="lightbox-bar"><span class="lightbox-count" data-lightbox-count></span><button type="button" class="lightbox-button" data-dialog-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close screen viewer</span></button></div>
+      <div class="lightbox-stage">
+        <button type="button" class="lightbox-button lightbox-nav lightbox-prev" data-lightbox-step="-1"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Previous screen</span></button>
+        <figure class="lightbox-figure" data-lightbox-figure></figure>
+        <button type="button" class="lightbox-button lightbox-nav lightbox-next" data-lightbox-step="1"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Next screen</span></button>
+      </div>
+      <p class="lightbox-caption" data-lightbox-caption aria-live="polite"></p>
+    </div>
+  </dialog>
+  <div class="pc-cursor" data-cursor aria-hidden="true"></div>
+</body>
+</html>

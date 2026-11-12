@@ -30,11 +30,14 @@ function navigation(homeBase = config.homeBase) {
 const designs = [
   { id: 'original', href: 'index.html', label: 'Original' },
   { id: 'terminal', href: 'terminal.html', label: 'Terminal' },
-  { id: 'blueprint', href: 'blueprint.html', label: 'Blueprint' }
+  { id: 'blueprint', href: 'blueprint.html', label: 'Blueprint' },
+  { id: 'proposal-a', href: 'proposal-a.html', label: 'Proposal A', name: 'Graphite', proposal: true },
+  { id: 'proposal-b', href: 'proposal-b.html', label: 'Proposal B', name: 'Editorial', proposal: true },
+  { id: 'proposal-c', href: 'proposal-c.html', label: 'Proposal C', name: 'Modular', proposal: true }
 ];
 const designRibbon = active => `<nav class="design-ribbon" aria-label="Design versions">
   <span class="design-ribbon-title">Design preview</span>
-  <ul>${designs.map((design, index) => `<li><a href="${design.href}"${design.id === active ? ' aria-current="page"' : ''}><span class="design-ribbon-index" aria-hidden="true">${index + 1}</span>${design.label}</a></li>`).join('')}</ul>
+  <ul>${designs.map((design, index) => `${design.proposal && !designs[index - 1].proposal ? '<li class="design-ribbon-divider" aria-hidden="true"></li>' : ''}<li><a href="${design.href}"${design.id === active ? ' aria-current="page"' : ''}${design.proposal ? ' class="design-ribbon-proposal"' : ''}>${design.proposal ? '' : `<span class="design-ribbon-index" aria-hidden="true">${index + 1}</span>`}${design.label}${design.name ? `<span class="design-ribbon-name"> · ${design.name}</span>` : ''}</a></li>`).join('')}</ul>
 </nav>`;
 
 /* Placeholder UI-screenshot carousel. Static markup is a scroll-snap strip; js/carousel.js adds the controls. */
