@@ -30,7 +30,10 @@
   padding: 0;
   list-style: none;
   overflow-x: auto;
+  /* The row still scrolls sideways, but a scrollbar would make the ribbon taller than the 32px pages expect. */
+  scrollbar-width: none;
 }
+.design-ribbon ul::-webkit-scrollbar { display: none; }
 .design-ribbon li { margin: 0; padding: 0; list-style: none; }
 .design-ribbon a {
   display: inline-flex;
@@ -54,7 +57,29 @@
   border: 1px solid currentColor;
   font-size: 10px;
 }
-@media (max-width: 560px) {
+.design-ribbon .design-ribbon-divider {
+  align-self: stretch;
+  width: 1px;
+  margin: 7px 8px;
+  background: #ffffff33;
+}
+.design-ribbon a.design-ribbon-proposal {
+  border: 1px solid #ffffff38;
+}
+.design-ribbon a.design-ribbon-proposal::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8b7cff;
+}
+.design-ribbon a.design-ribbon-proposal[aria-current="page"] {
+  border-color: #f4f5f7;
+}
+@media (max-width: 860px) {
   .design-ribbon-title { display: none; }
+}
+@media (max-width: 1060px) {
+  .design-ribbon-name { display: none; }
 }
 @media print { .design-ribbon { display: none; } }

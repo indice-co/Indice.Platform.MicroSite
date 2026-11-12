@@ -15,7 +15,7 @@ const { fuzzyRank, riskLevel, aggregate } = require('../js/terminal.js');
 const { connectorPaths, selectionSentence } = require('../js/blueprint.js');
 const { nearestIndex, clampIndex } = require('../js/carousel.js');
 
-const pages = { original: 'index.html', terminal: 'terminal.html', blueprint: 'blueprint.html' };
+const pages = { original: 'index.html', terminal: 'terminal.html', blueprint: 'blueprint.html', 'proposal-a': 'proposal-a.html', 'proposal-b': 'proposal-b.html', 'proposal-c': 'proposal-c.html' };
 const variants = { terminal: 'terminal.html', blueprint: 'blueprint.html' };
 const unescapeHtml = value => value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const visibleText = html => unescapeHtml(html
@@ -29,7 +29,9 @@ test('every homepage version carries the design ribbon and marks the current pag
     const ribbon = html.match(/<nav class="design-ribbon"[\s\S]*?<\/nav>/)?.[0];
     assert(ribbon, `${file} has the ribbon`);
     assert(html.includes('href="css/design-ribbon.css"'), `${file} loads the ribbon styles`);
-    assert.deepEqual([...ribbon.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]), ['index.html', 'terminal.html', 'blueprint.html']);
+    assert.deepEqual([...ribbon.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]), Object.values(pages));
+    const proposals = [...ribbon.matchAll(/<a href="(proposal-[abc]\.html)"[^>]*class="design-ribbon-proposal">([\s\S]*?)<\/a>/g)].map(match => [match[1], match[2].replace(/<[^>]+>/g, '')]);
+    assert.deepEqual(proposals, [['proposal-a.html', 'Proposal A · Graphite'], ['proposal-b.html', 'Proposal B · Editorial'], ['proposal-c.html', 'Proposal C · Modular']], `${file} labels the proposals`);
     const current = [...ribbon.matchAll(/<a href="([^"]+)" aria-current="page"/g)].map(match => match[1]);
     assert.deepEqual(current, [pages[name]], `${file} marks itself as current`);
     assert(html.indexOf('design-ribbon') < html.indexOf('<main'), 'The ribbon sits at the top of the page');
