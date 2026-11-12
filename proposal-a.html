@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en" data-proposal="a" data-default-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.">
+  <title>INDICE Platform — Proposal A · Graphite</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-a-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='light';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/showcase.css">
+  <link rel="stylesheet" href="css/proposals/showcase-theme.css">
+  <link rel="stylesheet" href="css/proposals/proposal-a.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/showcase.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+</head>
+<body class="pa" style="--tone-cases:#12707A;--tone-iam:#3D5AFE;--tone-messaging:#5B4FE0;--tone-risk:#0F7C8C">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li class="design-ribbon-divider" aria-hidden="true"></li><li><a href="proposal-a.html" aria-current="page" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-b.html" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <div class="pa-backdrop" aria-hidden="true"></div>
+  <header class="pa-header">
+    <div class="pa-header-inner">
+      <a class="pa-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pa-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pa-brand-name" aria-hidden="true">Platform</span></a>
+      <nav class="pa-nav" aria-label="Main navigation">
+        <ul class="pa-nav-list">
+          <li><a href="#platform">Platform</a></li>
+          <li class="pa-nav-solutions">
+            <a href="#products">Solutions</a><button type="button" class="pa-nav-more" aria-expanded="false" aria-controls="pa-solutions-menu" data-menu-toggle><span class="sr-only">Show the solutions menu</span><svg class="icon-chevron" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
+            <div class="pa-mega" id="pa-solutions-menu" hidden>
+              <ul class="pa-mega-list"><li><a class="pa-mega-item" href="#product-cases" data-product-link="cases"><img class="product-icon" src="assets/logos/cases icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Cases</b><small>Case management and back-office workflows</small></span></a></li><li><a class="pa-mega-item" href="#product-iam" data-product-link="iam"><img class="product-icon" src="assets/logos/iam icon.svg" width="32" height="32" alt="" decoding="async"><span><b>IAM</b><small>Identity and access management</small></span></a></li><li><a class="pa-mega-item" href="#product-messaging" data-product-link="messaging"><img class="product-icon" src="assets/logos/messaging icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Messaging</b><small>Multichannel campaigns and notifications</small></span></a></li><li><a class="pa-mega-item" href="#product-risk" data-product-link="risk"><img class="product-icon" src="assets/logos/risk icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Risk</b><small>Real-time risk scoring for transactions and activity</small></span></a></li></ul>
+              <a class="pa-mega-foot" href="cases-reference.html">Read the Cases technical reference<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+            </div>
+          </li>
+          <li><a href="#specs">How it works</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="pa-actions">
+        <a class="pa-icon-button pa-github" href="https://github.com/indice-co" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="sr-only">indice-co on GitHub</span><span class="sr-only"> (opens in a new tab)</span></a>
+        <button type="button" class="pa-icon-button pa-theme" data-theme-toggle aria-pressed="false" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+        <button type="button" class="pa-btn pa-btn-solid pa-btn-sm pa-header-demo" data-demo>Request a demo</button>
+        <button type="button" class="pa-icon-button pa-menu-button" aria-expanded="false" aria-controls="pa-mobile-menu" data-menu-toggle><span class="sr-only">Menu</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+    <div class="pa-mobile" id="pa-mobile-menu" hidden>
+      <ul class="pa-mobile-links">
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#products">Solutions</a></li>
+        <li><a href="#specs">How it works</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <ul class="pa-mobile-solutions"><li><a class="pa-mega-item" href="#product-cases" data-product-link="cases"><img class="product-icon" src="assets/logos/cases icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Cases</b><small>Case management and back-office workflows</small></span></a></li><li><a class="pa-mega-item" href="#product-iam" data-product-link="iam"><img class="product-icon" src="assets/logos/iam icon.svg" width="32" height="32" alt="" decoding="async"><span><b>IAM</b><small>Identity and access management</small></span></a></li><li><a class="pa-mega-item" href="#product-messaging" data-product-link="messaging"><img class="product-icon" src="assets/logos/messaging icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Messaging</b><small>Multichannel campaigns and notifications</small></span></a></li><li><a class="pa-mega-item" href="#product-risk" data-product-link="risk"><img class="product-icon" src="assets/logos/risk icon.svg" width="32" height="32" alt="" decoding="async"><span><b>Risk</b><small>Real-time risk scoring for transactions and activity</small></span></a></li></ul>
+      <button type="button" class="pa-btn pa-btn-solid" data-demo>Request a demo</button>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="pa-hero" id="hero" aria-labelledby="pa-hero-title" tabindex="-1" data-spotlight>
+      <div class="pa-aurora" aria-hidden="true" data-parallax="0.32"><i></i><i></i><i></i><i></i></div>
+      <div class="pa-grid-bg" aria-hidden="true" data-parallax="0.16"><div class="pa-grid-glow"></div></div>
+      <div class="pa-hero-copy">
+        <p class="pa-badge"><span class="pa-badge-dot" aria-hidden="true"></span>INDICE Platform · .NET and Angular</p>
+        <h1 id="pa-hero-title"><span class="pa-title-lead"><span class="pa-w" style="--w:0"><span>Self-hosted</span></span> <span class="pa-w" style="--w:1"><span>.NET</span></span> <span class="pa-w" style="--w:2"><span>solutions</span></span> <span class="pa-w" style="--w:3"><span>for</span></span></span> <span class="pa-gradient-text">identity, case workflows, messaging and risk.</span></h1>
+        <p class="pa-lede">For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.</p>
+        <div class="pa-cta-row">
+          <a class="pa-btn pa-btn-solid pa-btn-lg pa-btn-down" href="#products" data-magnetic>Explore the solutions<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+        </div>
+      </div>
+      <figure class="pa-map" aria-labelledby="pa-map-caption">
+        <figcaption class="pa-map-caption" id="pa-map-caption"><span class="pa-label">Your infrastructure</span><span>Every solution on one foundation, deployed in your environment.</span></figcaption>
+        <ul class="pa-map-products"><li style="--i:0;--tone:#12707A"><a class="pa-map-card" href="#product-cases" data-product-link="cases" data-spotlight>
+          <span class="pa-map-head"><img class="product-icon" src="assets/logos/cases icon.svg" width="28" height="28" alt="" decoding="async"><b>Cases</b></span>
+          <span class="pa-map-action">Run applications and approvals as configurable case types.</span>
+          <code class="pa-map-api">POST my/cases</code>
+        </a></li><li style="--i:1;--tone:#3D5AFE"><a class="pa-map-card" href="#product-iam" data-product-link="iam" data-spotlight>
+          <span class="pa-map-head"><img class="product-icon" src="assets/logos/iam icon.svg" width="28" height="28" alt="" decoding="async"><b>IAM</b></span>
+          <span class="pa-map-action">Sign in staff, customers and partners with MFA and device trust.</span>
+          <code class="pa-map-api">my/account/*</code>
+        </a></li><li style="--i:2;--tone:#5B4FE0"><a class="pa-map-card" href="#product-messaging" data-product-link="messaging" data-spotlight>
+          <span class="pa-map-head"><img class="product-icon" src="assets/logos/messaging icon.svg" width="28" height="28" alt="" decoding="async"><b>Messaging</b></span>
+          <span class="pa-map-action">Send campaigns and transactional messages on every channel.</span>
+          <code class="pa-map-api">messages:send</code>
+        </a></li><li style="--i:3;--tone:#0F7C8C"><a class="pa-map-card" href="#product-risk" data-product-link="risk" data-spotlight>
+          <span class="pa-map-head"><img class="product-icon" src="assets/logos/risk icon.svg" width="28" height="28" alt="" decoding="async"><b>Risk</b></span>
+          <span class="pa-map-action">Score payments, logins and account changes before they commit.</span>
+          <code class="pa-map-api">POST api/risk</code>
+        </a></li></ul>
+        <div class="pa-map-foundation"><span class="pa-label">Foundation</span><ul><li>ASP.NET Core</li><li>EF Core</li><li>SQL Server</li><li>OpenID Connect</li><li>Angular</li></ul></div>
+      </figure>
+      <div class="pa-hero-meta">
+        <ul class="pa-audience" aria-label="Who it is for"><li><span class="pa-label">Technical managers</span><p>Deliver regulated, customer-facing services on proven, reusable building blocks instead of starting each project from scratch.</p></li><li><span class="pa-label">Developers</span><p>Compose NuGet and npm packages in your own host, then extend them through C# interfaces, workflows and rules.</p></li></ul>
+        <dl class="pa-facts"><div><dt>Runs on</dt><dd>ASP.NET Core · EF Core · SQL Server</dd></div><div><dt>Sign-in</dt><dd>OpenID Connect / OAuth2</dd></div><div><dt>Admin UIs</dt><dd>Angular, served by each API host</dd></div><div><dt>Delivered with</dt><dd>Development, integration and support</dd></div></dl>
+      </div>
+    </section>
+    <section class="pa-tech" aria-labelledby="pa-tech-title">
+      <h2 class="pa-tech-title" id="pa-tech-title">Built with standard, supported technologies</h2>
+      <div class="pa-marquee"><div class="pa-marquee-track" data-velocity><ul class="pa-tech-list"><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/dotnet.svg');mask-image:url('assets/logos/technologies/dotnet.svg')" aria-hidden="true"></span><span>.NET</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/angular.svg');mask-image:url('assets/logos/technologies/angular.svg')" aria-hidden="true"></span><span>Angular</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/swift.svg');mask-image:url('assets/logos/technologies/swift.svg')" aria-hidden="true"></span><span>Swift SDK</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/kotlin.svg');mask-image:url('assets/logos/technologies/kotlin.svg')" aria-hidden="true"></span><span>Kotlin SDK</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/sqlserver.svg');mask-image:url('assets/logos/technologies/sqlserver.svg')" aria-hidden="true"></span><span>SQL Server</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/azure.svg');mask-image:url('assets/logos/technologies/azure.svg')" aria-hidden="true"></span><span>Azure</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/workflow.svg');mask-image:url('assets/logos/technologies/workflow.svg')" aria-hidden="true"></span><span>Elsa Workflows</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/duende.svg');mask-image:url('assets/logos/technologies/duende.svg')" aria-hidden="true"></span><span>Duende IdentityServer</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/openid.svg');mask-image:url('assets/logos/technologies/openid.svg')" aria-hidden="true"></span><span>OpenID Connect</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/api.svg');mask-image:url('assets/logos/technologies/api.svg')" aria-hidden="true"></span><span>OpenAPI</span></li></ul><ul class="pa-tech-list" aria-hidden="true"><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/dotnet.svg');mask-image:url('assets/logos/technologies/dotnet.svg')" aria-hidden="true"></span><span>.NET</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/angular.svg');mask-image:url('assets/logos/technologies/angular.svg')" aria-hidden="true"></span><span>Angular</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/swift.svg');mask-image:url('assets/logos/technologies/swift.svg')" aria-hidden="true"></span><span>Swift SDK</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/kotlin.svg');mask-image:url('assets/logos/technologies/kotlin.svg')" aria-hidden="true"></span><span>Kotlin SDK</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/sqlserver.svg');mask-image:url('assets/logos/technologies/sqlserver.svg')" aria-hidden="true"></span><span>SQL Server</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/azure.svg');mask-image:url('assets/logos/technologies/azure.svg')" aria-hidden="true"></span><span>Azure</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/workflow.svg');mask-image:url('assets/logos/technologies/workflow.svg')" aria-hidden="true"></span><span>Elsa Workflows</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/duende.svg');mask-image:url('assets/logos/technologies/duende.svg')" aria-hidden="true"></span><span>Duende IdentityServer</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/openid.svg');mask-image:url('assets/logos/technologies/openid.svg')" aria-hidden="true"></span><span>OpenID Connect</span></li><li><span class="pa-tech-icon" style="-webkit-mask-image:url('assets/logos/technologies/api.svg');mask-image:url('assets/logos/technologies/api.svg')" aria-hidden="true"></span><span>OpenAPI</span></li></ul></div></div>
+    </section>
+    <section class="pa-section pa-platform" id="platform" aria-labelledby="pa-platform-title" tabindex="-1">
+      <header class="pa-section-head" data-reveal>
+        <p class="pa-eyebrow">Platform foundation</p>
+        <h2 id="pa-platform-title"><span class="pa-w" style="--w:0"><span>One</span></span> <span class="pa-w" style="--w:1"><span>open-source</span></span> <span class="pa-w" style="--w:2"><span>foundation</span></span> <span class="pa-w" style="--w:3"><span>under</span></span> <span class="pa-w" style="--w:4"><span>every</span></span> <span class="pa-w" style="--w:5"><span>solution.</span></span></h2>
+        <p class="pa-section-intro">Cases, IAM, Messaging and Risk are assembled from the same Indice.Platform libraries, published on NuGet and npm. Your team works with standard ASP.NET Core, EF Core and Angular tooling, not a proprietary runtime.</p>
+      </header>
+      <ul class="pa-bento"><li class="pa-bento-card pa-bento-libraries" data-reveal data-spotlight style="--i:0">
+          <span class="pa-label">NuGet · npm</span>
+          <h3>Open-source libraries</h3>
+          <p>Indice.Platform packages on NuGet and @indice/ng-* packages on npm provide the APIs, data access, authentication and UI components every solution uses.</p>
+          <ul class="pa-packages" aria-label="Example packages"><li><code>Indice.Features.Cases.Server</code></li><li><code>Indice.Features.Identity.Server</code></li><li><code>Indice.Features.Messages.AspNetCore</code></li><li><code>Indice.Features.Risk.Server</code></li><li><code>@indice/ng-auth</code></li><li><code>@indice/ng-components</code></li></ul>
+        </li><li class="pa-bento-card pa-bento-hosting" data-reveal data-spotlight style="--i:1">
+          <span class="pa-label">ASP.NET Core · EF Core</span>
+          <h3>Your host, your data</h3>
+          <p>Each solution is a set of libraries you compose in your own ASP.NET Core host, with its own SQL Server database and EF Core migrations. Nothing runs as SaaS.</p>
+        </li><li class="pa-bento-card pa-bento-identity" data-reveal data-spotlight style="--i:2">
+          <span class="pa-label">OIDC · OAuth2</span>
+          <h3>One identity model</h3>
+          <p>Every solution is an OAuth2 API resource with its own scopes, such as cases, messages:send and risk. Operators sign in to each admin UI through your identity server.</p>
+        </li><li class="pa-bento-card pa-bento-extensions" data-reveal data-spotlight style="--i:3">
+          <span class="pa-label">Interfaces · DI</span>
+          <h3>Extension points in C#</h3>
+          <p>Contact providers, lookups, risk rules, sign-in steps, log enrichers and workflow activities are C# interfaces with no-op defaults. Extensions run and debug in your process.</p>
+        </li><li class="pa-bento-card pa-bento-admin" data-reveal data-spotlight style="--i:4">
+          <span class="pa-label">Angular</span>
+          <h3>Embedded admin UIs</h3>
+          <p>Each solution serves its Angular back office from its own API host: the Cases back office, the IAM admin at /admin, and the Messaging and Risk consoles. No separate front-end deployment.</p>
+        </li><li class="pa-bento-card pa-bento-regulated" data-reveal data-spotlight style="--i:5">
+          <span class="pa-label">Fintech experience</span>
+          <h3>Regulated requirements as features</h3>
+          <p>Four-eyes approval, two audit trails, impossible-travel checks, terms re-acceptance and data retention ship as configuration, informed by INDICE’s fintech experience.</p>
+        </li></ul>
+    </section>
+    <section class="pa-section pa-suite" id="products" aria-labelledby="pa-suite-title" tabindex="-1">
+      <div class="pa-wrap"><header class="pa-section-head" data-reveal>
+        <p class="pa-eyebrow">Platform suite</p>
+        <h2 id="pa-suite-title"><span class="pa-w" style="--w:0"><span>Adopt</span></span> <span class="pa-w" style="--w:1"><span>one</span></span> <span class="pa-w" style="--w:2"><span>solution,</span></span> <span class="pa-w" style="--w:3"><span>or</span></span> <span class="pa-w" style="--w:4"><span>run</span></span> <span class="pa-w" style="--w:5"><span>them</span></span> <span class="pa-w" style="--w:6"><span>together.</span></span></h2>
+        <p class="pa-section-intro">Each solution addresses one recurring need in customer-facing, regulated services. They share hosting, identity and extension patterns, so every solution you add reuses what the first one set up.</p>
+      </header></div>
+      <ul class="product-grid pa-product-grid"><li class="pa-tile-cell" data-reveal style="--i:0">
+        <article class="pa-tile" style="--tone:#12707A" aria-labelledby="pa-tile-cases" data-tilt="3" data-spotlight>
+          <img class="pa-tile-mark" src="assets/logos/cases icon.svg" width="160" height="160" alt="" loading="lazy" decoding="async">
+          <div class="pa-tile-top"><h3 class="pa-tile-logo" id="pa-tile-cases"><img class="product-logo logo-on-light" src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/cases-logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></h3><span class="pa-label">01</span></div>
+          <p class="pa-tile-tagline">Case management and back-office workflows</p>
+          <p class="pa-tile-action">Run applications and approvals as configurable case types.</p>
+          <ul class="pa-chips" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Elsa Workflows 2</li></ul>
+          <div class="pa-tile-links">
+            <a href="#product-cases" data-product-link="cases">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Cases</span></a>
+            <a href="cases-reference.html">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Cases</span></a>
+          </div>
+        </article>
+      </li><li class="pa-tile-cell" data-reveal style="--i:1">
+        <article class="pa-tile" style="--tone:#3D5AFE" aria-labelledby="pa-tile-iam" data-tilt="3" data-spotlight>
+          <img class="pa-tile-mark" src="assets/logos/iam icon.svg" width="160" height="160" alt="" loading="lazy" decoding="async">
+          <div class="pa-tile-top"><h3 class="pa-tile-logo" id="pa-tile-iam"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></h3><span class="pa-label">02</span></div>
+          <p class="pa-tile-tagline">Identity and access management</p>
+          <p class="pa-tile-action">Sign in staff, customers and partners with MFA and device trust.</p>
+          <ul class="pa-chips" aria-label="Stack"><li>ASP.NET Core Identity</li><li>Duende IdentityServer</li><li>EF Core · SQL Server</li></ul>
+          <div class="pa-tile-links">
+            <a href="#product-iam" data-product-link="iam">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about IAM</span></a>
+            <a href="#spec-iam">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for IAM</span></a>
+          </div>
+        </article>
+      </li><li class="pa-tile-cell" data-reveal style="--i:2">
+        <article class="pa-tile" style="--tone:#5B4FE0" aria-labelledby="pa-tile-messaging" data-tilt="3" data-spotlight>
+          <img class="pa-tile-mark" src="assets/logos/messaging icon.svg" width="160" height="160" alt="" loading="lazy" decoding="async">
+          <div class="pa-tile-top"><h3 class="pa-tile-logo" id="pa-tile-messaging"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></h3><span class="pa-label">03</span></div>
+          <p class="pa-tile-tagline">Multichannel campaigns and notifications</p>
+          <p class="pa-tile-action">Send campaigns and transactional messages on every channel.</p>
+          <ul class="pa-chips" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Azure Storage / Service Bus</li></ul>
+          <div class="pa-tile-links">
+            <a href="#product-messaging" data-product-link="messaging">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Messaging</span></a>
+            <a href="#spec-messaging">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Messaging</span></a>
+          </div>
+        </article>
+      </li><li class="pa-tile-cell" data-reveal style="--i:3">
+        <article class="pa-tile" style="--tone:#0F7C8C" aria-labelledby="pa-tile-risk" data-tilt="3" data-spotlight>
+          <img class="pa-tile-mark" src="assets/logos/risk icon.svg" width="160" height="160" alt="" loading="lazy" decoding="async">
+          <div class="pa-tile-top"><h3 class="pa-tile-logo" id="pa-tile-risk"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></h3><span class="pa-label">04</span></div>
+          <p class="pa-tile-tagline">Real-time risk scoring for transactions and activity</p>
+          <p class="pa-tile-action">Score payments, logins and account changes before they commit.</p>
+          <ul class="pa-chips" aria-label="Stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>NetTopologySuite</li></ul>
+          <div class="pa-tile-links">
+            <a href="#product-risk" data-product-link="risk">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Risk</span></a>
+            <a href="#spec-risk">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Risk</span></a>
+          </div>
+        </article>
+      </li></ul>
+    </section>
+    <a class="skip-showcase" href="#specs">Skip the solutions showcase</a>
+    <section class="product-showcase" id="product-showcase" aria-label="Explore the solutions">
+      <div class="story-stage">
+        <nav class="product-navigation" aria-label="Solution showcase"><button type="button" data-select-product="cases" aria-controls="product-cases">Cases</button><button type="button" data-select-product="iam" aria-controls="product-iam">IAM</button><button type="button" data-select-product="messaging" aria-controls="product-messaging">Messaging</button><button type="button" data-select-product="risk" aria-controls="product-risk">Risk</button></nav>
+        <div class="story-copy"><article class="product-chapter product-chapter-cases" id="product-cases" data-product="cases" style="--product-color:#12707A" aria-labelledby="title-cases" tabindex="-1">
+    <div class="cases-story">
+      <header class="cases-story-heading">
+        <div class="chapter-logo"><img class="product-logo logo-on-light" src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/cases-logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></div>
+        <span class="cases-story-kicker">CASE MANAGEMENT / WORKFLOW ENGINE</span>
+        <h3 id="title-cases">A new process is configuration, not a release.</h3>
+        <p>Each case type pairs a JSON Schema form and checkpoints with an Elsa 2 workflow.</p>
+      </header>
+      <div class="cases-story-beats">
+        <section class="case-beat" data-case-beat="intake" aria-label="Case intake">
+          <div class="case-beat-copy">
+            <span class="case-beat-index">01 / INTAKE</span>
+            <h4>One record for customer and staff requests.</h4>
+            <p>Customers submit through the my API from your web and mobile apps; staff open cases for them through the manage API. Both start the same workflow on submit.</p>
+            <h5>Built for</h5>
+            <ul>
+              <li>Applications and service requests from your apps.</li>
+              <li>Branch and call-centre cases opened for a customer.</li>
+              <li>Maker-checker processes with independent approval.</li>
+            </ul>
+          </div>
+          <figure class="case-screen">
+            <figcaption><span>CASES / OPERATIONS</span><b>Team dashboard</b></figcaption>
+            <div class="case-screen-window"><img src="assets/uis/cases dashboard.png" width="1920" height="1080" alt="Cases operations dashboard showing case pipeline and team workloads" loading="lazy" decoding="async"></div>
+          </figure>
+        </section>
+        <section class="case-beat" data-case-beat="workflow" aria-label="Workflow configuration">
+          <div class="case-beat-copy">
+            <span class="case-beat-index">02 / WORKFLOW</span>
+            <h4>The workflow decides who acts next.</h4>
+            <ul class="case-feature-list">
+              <li><strong>Model the process.</strong> JSON Schema data, a JSON Forms layout and public or private checkpoints per case type.</li>
+              <li><strong>Act on what is waiting.</strong> The back office asks the workflow for available actions, such as assign, edit, approve or reject, and resumes it on click.</li>
+            </ul>
+          </div>
+          <figure class="case-screen">
+            <figcaption><span>ILLUSTRATIVE / CONFIGURATION</span><b>Workflow designer</b></figcaption>
+            <div class="case-screen-window"><div class="case-workflow-ui" role="img" aria-label="Illustrative Cases workflow designer"><div class="workflow-toolbar"><span>WORKFLOW DESIGNER</span><span class="workflow-status">Draft / Published</span></div><div class="workflow-sidebar"><span>CASE TYPE</span><b>Application review</b><span>FORM</span><b>Applicant details</b><span>WORKFLOW</span><b class="workflow-selected">Stages &amp; actions</b><span>PERMISSIONS</span><b>Access rules</b></div><div class="workflow-canvas"><div class="workflow-canvas-heading"><div><span>WORKFLOW / APPLICATION REVIEW</span><b>Default path</b></div><span>2 checkpoints</span></div><div class="workflow-route"><div class="workflow-node"><small>01 / INTAKE</small><b>Request received</b><span>Customer or staff</span></div><span class="workflow-connector"></span><div class="workflow-node"><small>02 / REVIEW</small><b>Team review</b><span>Operations</span></div><span class="workflow-connector"></span><div class="workflow-node workflow-approval"><small>03 / CHECKPOINT</small><b>Independent approval</b><span>Manager</span></div></div><div class="workflow-footer"><span>+ Add stage</span><span>Changes saved</span></div></div></div></div>
+          </figure>
+        </section>
+        <section class="case-beat" data-case-beat="governance" aria-label="History, visibility and operations">
+          <div class="case-beat-copy">
+            <span class="case-beat-index">03 / GOVERNANCE</span>
+            <h4>Full history, controlled visibility.</h4>
+            <p class="case-visibility-line">Checkpoints, data versions, comments and approvals are rows in CasesDb.</p>
+            <p class="case-visibility-line">Customers see public status and published data; four-eyes approval is part of the workflow.</p>
+            <p class="case-ownership"><strong>Deploy + extend.</strong> One ASP.NET Core host, two SQL Server databases and C# extension points for contacts, lookups, PDF and authorization.</p>
+            <a class="button explore-button" href="cases-reference.html">Explore technical details<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </div>
+          <figure class="case-screen">
+            <figcaption><span>ILLUSTRATIVE / CASE DETAIL</span><b>Controlled visibility</b></figcaption>
+            <div class="case-screen-window"><div class="case-record-ui" role="img" aria-label="Illustrative Cases record showing activity history and separate customer and internal information"><div class="record-toolbar"><span>CASES / CASE DETAIL</span><span>•••</span></div><div class="record-summary"><div><span>APPLICATION / C-1842</span><b>Review request</b></div><span class="record-status">In review</span></div><div class="record-columns"><div class="record-main"><div class="record-section-heading"><b>Case information</b><span>Updated just now</span></div><div class="record-field"><span>Current stage</span><b>Operations review</b></div><div class="record-field"><span>Assigned team</span><b>Customer Operations</b></div><div class="record-section-heading record-history-heading"><b>Activity history</b><span>3 events</span></div><div class="record-event"><i></i><div><b>Review started</b><span>Maria P. / 10:42</span></div></div><div class="record-event"><i></i><div><b>Application submitted</b><span>Customer portal / 09:18</span></div></div></div><aside class="record-visibility"><span class="record-label">CUSTOMER VIEW</span><b>Published update</b><p>Your application is being reviewed.</p><span class="record-label record-private-label">INTERNAL ONLY</span><b>Approval note</b><p>Supporting checks completed. Awaiting independent approval.</p></aside></div></div></div>
+          </figure>
+        </section>
+      </div>
+    </div>
+  </article><article class="product-chapter" id="product-iam" data-product="iam" style="--product-color:#3D5AFE" aria-labelledby="title-iam" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></div><h3 id="title-iam">Every sign-in, one pipeline you own.</h3><p class="chapter-description">An OpenID Connect server in your own ASP.NET Core host, built on Duende IdentityServer. Each login runs one pipeline: password or external provider, six MFA methods, then checks such as terms and email confirmation. Devices earn trust after a delay, and sign-in logs flag impossible travel.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-iam">Explore IAM<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-iam">Other solution pages are not available in this preview.</p></div><div class="static-preview"><img class="" src="assets/uis/iam dashboard.png" width="1920" height="1080" alt="IAM solution interface" loading="lazy" decoding="async"></div></article><article class="product-chapter" id="product-messaging" data-product="messaging" style="--product-color:#FF7A59" aria-labelledby="title-messaging" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></div><h3 id="title-messaging">One pipeline for campaigns and alerts.</h3><p class="chapter-description">Operators publish campaigns from the admin UI; your systems call the send API. A worker renders Handlebars templates per channel and delivers to inbox, push, email and SMS or Viber, only on channels each recipient chose and can receive. Vendors are configuration.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-messaging">Explore Messaging<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-messaging">Other solution pages are not available in this preview.</p></div><div class="static-preview"><img class="" src="assets/uis/messaging dashboard.png" width="1920" height="1080" alt="Messaging solution interface" loading="lazy" decoding="async"></div></article><article class="product-chapter" id="product-risk" data-product="risk" style="--product-color:#0F7C8C" aria-labelledby="title-risk" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div><h3 id="title-risk">Score every operation before it commits.</h3><p class="chapter-description">Your applications call POST api/risk before a payment, login or profile change. The engine adds GeoIP location, runs your C# rules and returns a score, a level and each rule’s reason. Operators change thresholds at runtime, and every verdict is stored for investigation.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-risk">Explore Risk<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-risk">Other solution pages are not available in this preview.</p></div><div class="static-preview"><div class="preview-placeholder " role="img" aria-label="Risk UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>Risk</span><span>UI screenshot — awaiting approved asset.</span></span></div></div></article></div>
+        <div class="preview-panel" aria-label="Solution UI preview"><div class="preview-viewport"><div class="preview-slide is-active" data-preview="cases"><figure class="case-screen"><figcaption><span>CASES / OPERATIONS</span><b>Team dashboard</b></figcaption><div class="case-screen-window"><img class="" src="assets/uis/cases dashboard.png" width="1920" height="1080" alt="Cases solution interface" loading="lazy" decoding="async"></div></figure></div><div class="preview-slide" data-preview="iam"><img class="" src="assets/uis/iam dashboard.png" width="1920" height="1080" alt="IAM solution interface" loading="lazy" decoding="async"></div><div class="preview-slide" data-preview="messaging"><img class="" src="assets/uis/messaging dashboard.png" width="1920" height="1080" alt="Messaging solution interface" loading="lazy" decoding="async"></div><div class="preview-slide" data-preview="risk"><div class="preview-placeholder " role="img" aria-label="Risk UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>Risk</span><span>UI screenshot — awaiting approved asset.</span></span></div></div></div></div>
+      </div>
+    </section>
+    <section class="pa-section pa-specs" id="specs" aria-labelledby="pa-specs-title" tabindex="-1">
+      <header class="pa-section-head" data-reveal>
+        <p class="pa-eyebrow">Under the hood</p>
+        <h2 id="pa-specs-title"><span class="pa-w" style="--w:0"><span>How</span></span> <span class="pa-w" style="--w:1"><span>each</span></span> <span class="pa-w" style="--w:2"><span>solution</span></span> <span class="pa-w" style="--w:3"><span>works</span></span></h2>
+        <p class="pa-section-intro">The problem each solution addresses, how it works, how it is deployed and what it connects to.</p>
+      </header>
+      <div class="pa-specs-body" data-tabs>
+        <div class="pa-tablist" role="tablist" aria-label="Solutions" aria-orientation="vertical"><button type="button" class="pa-tab" role="tab" id="pa-tab-cases" aria-controls="spec-cases" aria-selected="true" tabindex="0" style="--tone:#12707A"><img class="product-icon" src="assets/logos/cases icon.svg" width="30" height="30" alt="" decoding="async"><span><b>Cases</b><small>Case management and back-office workflows</small></span></button><button type="button" class="pa-tab" role="tab" id="pa-tab-iam" aria-controls="spec-iam" aria-selected="false" tabindex="-1" style="--tone:#3D5AFE"><img class="product-icon" src="assets/logos/iam icon.svg" width="30" height="30" alt="" decoding="async"><span><b>IAM</b><small>Identity and access management</small></span></button><button type="button" class="pa-tab" role="tab" id="pa-tab-messaging" aria-controls="spec-messaging" aria-selected="false" tabindex="-1" style="--tone:#5B4FE0"><img class="product-icon" src="assets/logos/messaging icon.svg" width="30" height="30" alt="" decoding="async"><span><b>Messaging</b><small>Multichannel campaigns and notifications</small></span></button><button type="button" class="pa-tab" role="tab" id="pa-tab-risk" aria-controls="spec-risk" aria-selected="false" tabindex="-1" style="--tone:#0F7C8C"><img class="product-icon" src="assets/logos/risk icon.svg" width="30" height="30" alt="" decoding="async"><span><b>Risk</b><small>Real-time risk scoring for transactions and activity</small></span></button></div>
+        <div class="pa-panels"><article class="pa-spec" id="spec-cases" role="tabpanel" aria-labelledby="pa-tab-cases" tabindex="0" style="--tone:#12707A">
+          <h3 class="pa-spec-title">Cases<span>Case management and back-office workflows</span></h3>
+          <p class="pa-spec-summary">Cases runs form-driven processes, such as applications, service requests and approvals, on one record shared by customers and back-office staff. Customers submit from your apps, staff open cases on their behalf, and both follow the same assignment, edit and approval workflow.</p>
+          <div class="pa-spec-grid">
+            <div>
+              <h4>The problem</h4><p>Request-and-approval processes tend to live in inboxes, spreadsheets or one-off screens. Each new process becomes a development project, and it is hard to show who approved what or what the customer was told.</p>
+              <h4>How it works</h4><ol class="pa-steps"><li>Define a case type: a JSON Schema for the data, a JSON Forms layout and the checkpoints the case moves through.</li><li>Publish an Elsa 2 workflow tagged with the case type from the designer at /workflow, without a redeploy.</li><li>On submit, the workflow decides who acts next. The back office shows only the actions waiting: assign, edit, approve, reject or a custom action.</li><li>Private checkpoints and data versions keep internal steps internal; the customer sees the public status and published data.</li></ol>
+            </div>
+            <div>
+              <h4>Architecture</h4><p>One ASP.NET Core host runs the Cases API, the Elsa workflow server and designer, and the embedded Angular back office. CasesDb holds cases and WorkflowDb holds workflow state, so a workflow upgrade never touches case data.</p>
+              <h4>Integrations</h4><ul class="pa-checks"><li>Customer search through IContactProvider, with an Identity Server provider built in</li><li>Form prefill from your systems with ICaseDataInitializer</li><li>Dropdown values from your systems through named ILookupService sources</li><li>Platform events such as CaseSubmittedEvent and a workflow-integration API</li><li>SMS, Viber and SMTP notifications from workflow activities</li><li>A PDF per case type through ICasePdfService</li></ul>
+            </div>
+          </div>
+          <div class="pa-spec-dev">
+            <div><h4>Key APIs</h4><ul class="pa-apis"><li><code>POST my/cases</code></li><li><code>GET manage/cases/{id}/actions</code></li><li><code>GET manage/dashboard/metrics</code></li></ul><a class="pa-link" href="cases-reference.html">Read the Cases technical reference<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a></div>
+            <figure class="pa-code" data-reveal><figcaption><span>Indice.Cases/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.Cases/Program.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre></figure>
+          </div>
+        </article><article class="pa-spec" id="spec-iam" role="tabpanel" aria-labelledby="pa-tab-iam" tabindex="0" style="--tone:#3D5AFE">
+          <h3 class="pa-spec-title">IAM<span>Identity and access management</span></h3>
+          <p class="pa-spec-summary">IAM is an OpenID Connect and OAuth2 server for workforce, customer and partner sign-in. It builds on ASP.NET Core Identity and Duende IdentityServer and adds sign-in pages, MFA, device trust, audit logs, self-service APIs and an admin UI.</p>
+          <div class="pa-spec-grid">
+            <div>
+              <h4>The problem</h4><p>Teams either rent identity as a service and give up control of user data and signing keys, or rebuild login, MFA, device management and audit for every application.</p>
+              <h4>How it works</h4><ol class="pa-steps"><li>Every sign-in, by password or external provider such as Apple, Google, Microsoft, Facebook or GovGr, runs through one pipeline.</li><li>MFA by SMS, email, Viber, authenticator app, push approval on a trusted device, or FIDO2 / WebAuthn, optional or enforced.</li><li>A post-login chain handles terms re-acceptance, MFA onboarding, email and phone confirmation and password expiry before tokens are issued.</li><li>Sign-in logs record every attempt with device and location and detect impossible travel; activity logs record every change.</li></ol>
+            </div>
+            <div>
+              <h4>Architecture</h4><p>One ASP.NET Core host serves the Razor login pages, OIDC endpoints, management and self-service APIs, the /mfa SignalR hub and the Angular admin UI. Identity, configuration, operational, sign-in log and activity log data live in five databases that can share a server or sit apart.</p>
+              <h4>Integrations</h4><ul class="pa-checks"><li>Your web, mobile and API clients over OpenID Connect and OAuth2</li><li>External providers: Apple, Google, Microsoft, Facebook, GovGr and any standard OIDC provider</li><li>Delivery providers for SMS, Viber and email, and Azure Notification Hubs for push</li><li>Custom grants for device sign-in, delegation, TOTP step-up and guest access</li><li>Platform events for users, clients, devices and logins</li><li>API resources for Cases and Messaging seeded by the template</li></ul>
+            </div>
+          </div>
+          <div class="pa-spec-dev">
+            <div><h4>Key APIs</h4><ul class="pa-apis"><li><code>my/account/*</code></li><li><code>api/my/devices</code></li><li><code>grant_type=device_authentication</code></li></ul></div>
+            <figure class="pa-code" data-reveal><figcaption><span>Indice.IdentityPages/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.IdentityPages/Program.cs excerpt"><code><span class="code-line" style="--l:0">app.<span class="tok-function">UseRateLimiter</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseIdentityServer</span>();</span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseAdminUI</span>(options =&gt; options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;admin&quot;</span>);</span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapIdentityServer</span>();                  <span class="tok-comment">// management, account and device APIs</span></span>
+<span class="code-line" style="--l:4">app.<span class="tok-function">MapRazorPages</span>();                      <span class="tok-comment">// login, register, MFA, profile pages</span></span>
+<span class="code-line" style="--l:5">app.<span class="tok-function">MapMultiFactorAuthentication</span>();       <span class="tok-comment">// MFA API</span></span>
+<span class="code-line" style="--l:6">app.<span class="tok-function">MapMultiFactorAuthenticationHub</span>();    <span class="tok-comment">// /mfa SignalR hub</span></span></code></pre></figure>
+          </div>
+        </article><article class="pa-spec" id="spec-messaging" role="tabpanel" aria-labelledby="pa-tab-messaging" tabindex="0" style="--tone:#5B4FE0">
+          <h3 class="pa-spec-title">Messaging<span>Multichannel campaigns and notifications</span></h3>
+          <p class="pa-spec-summary">Messaging delivers marketing campaigns and transactional messages, such as OTPs, receipts and alerts, over in-app inbox, push, email and SMS or Viber from one pipeline, with templates, audiences, recipient preferences and analytics.</p>
+          <div class="pa-spec-grid">
+            <div>
+              <h4>The problem</h4><p>Campaigns and system notifications often run on separate tools and vendor accounts. Consent and channel preferences are checked inconsistently, and every template is tied to one vendor.</p>
+              <h4>How it works</h4><ol class="pa-steps"><li>A campaign carries per-channel content, target channels, an audience from a distribution list or CSV import, and a schedule. Nothing is sent until it is published.</li><li>Your systems send transactional messages with one call under the messages:send scope, through the same pipeline.</li><li>A worker resolves each recipient, renders Handlebars templates per channel and keeps only the channels the recipient chose and can receive.</li><li>Delivery and engagement events roll up into Reached, Engaged, Acted and Coverage metrics.</li></ol>
+            </div>
+            <div>
+              <h4>Architecture</h4><p>The API host enqueues and serves the embedded Angular admin UI; a worker on Azure Functions or an in-process host renders and delivers. Azure Storage Queues or Service Bus connect them, with MessagesDb on SQL Server and Blob storage for attachments.</p>
+              <h4>Integrations</h4><ul class="pa-checks"><li>Email through SMTP, SendGrid, SparkPost, Brevo or Azure Communication Services</li><li>SMS and Viber through Yuboto, Apifon, Twilio, Vonage and other gateways</li><li>Push through Azure Notification Hubs to APNS and FCM</li><li>Contacts, consent and preferences resolved from your identity server</li><li>A transactional send API for other systems</li><li>Tracked call-to-action links for click analytics</li></ul>
+            </div>
+          </div>
+          <div class="pa-spec-dev">
+            <div><h4>Key APIs</h4><ul class="pa-apis"><li><code>messages:send</code></li><li><code>MyMessages inbox API</code></li><li><code>analytics/*</code></li></ul></div>
+            <figure class="pa-code" data-reveal><figcaption><span>appsettings.json</span><span>JSON</span></figcaption><pre tabindex="0" aria-label="appsettings.json excerpt"><code><span class="code-line" style="--l:0"><span class="tok-key">&quot;Email&quot;</span>: {</span>
+<span class="code-line" style="--l:1">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;SparkPost&quot;</span>,   <span class="tok-comment">// Smtp · SendGrid · SparkPost · Brevo · AzureCommunicationServices</span></span>
+<span class="code-line" style="--l:2">  <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;no-reply@your-domain.gr&quot;</span>,</span>
+<span class="code-line" style="--l:3">  <span class="tok-key">&quot;SmtpHost&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;SmtpPort&quot;</span>: <span class="tok-number">587</span>, <span class="tok-key">&quot;UseSSL&quot;</span>: <span class="tok-keyword">true</span></span>
+<span class="code-line" style="--l:4">},</span>
+<span class="code-line" style="--l:5"><span class="tok-key">&quot;Sms&quot;</span>: {</span>
+<span class="code-line" style="--l:6">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;Yuboto&quot;</span>,      <span class="tok-comment">// Yuboto · YubotoOmni · Apifon · Twilio · Vonage · SmsUp · KapaTEL · Mstat</span></span>
+<span class="code-line" style="--l:7">  <span class="tok-key">&quot;ApiKey&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;MyBrand&quot;</span>,</span>
+<span class="code-line" style="--l:8">  <span class="tok-key">&quot;TestMode&quot;</span>: <span class="tok-keyword">false</span>          <span class="tok-comment">// wire the pipeline without spending on real sends</span></span>
+<span class="code-line" style="--l:9">},</span></code></pre></figure>
+          </div>
+        </article><article class="pa-spec" id="spec-risk" role="tabpanel" aria-labelledby="pa-tab-risk" tabindex="0" style="--tone:#0F7C8C">
+          <h3 class="pa-spec-title">Risk<span>Real-time risk scoring for transactions and activity</span></h3>
+          <p class="pa-spec-summary">Risk scores operations such as payments, transfers, logins and profile changes in real time, before your application commits them. Rules are C# classes; their thresholds are settings that operators change at runtime.</p>
+          <div class="pa-spec-grid">
+            <div>
+              <h4>The problem</h4><p>Fraud checks are often duplicated inside each application or hidden in an external service, so thresholds need a release and decisions cannot be explained afterwards.</p>
+              <h4>How it works</h4><ol class="pa-steps"><li>Before committing an operation, your application calls POST api/risk with the subject, type, amount, IP address and any JSON data.</li><li>The engine resolves the IP address to a location with the bundled GeoLite2 databases and runs every enabled rule.</li><li>Results combine into one score and level, from None to High, by Sum or Maximum. Your application allows the operation, asks for MFA or blocks it.</li><li>Record the completed operation with POST api/risk/events and its ResultId; rules query that history for velocity and new-country checks.</li></ol>
+            </div>
+            <div>
+              <h4>Architecture</h4><p>One ASP.NET Core host serves the risk API, the admin API and the embedded Angular console. RiskDb on SQL Server, with spatial support, stores events, results and rule options; options reload every few seconds.</p>
+              <h4>Integrations</h4><ul class="pa-checks"><li>Calling applications through client-credentials clients with the risk scope</li><li>Step-up authentication with your identity server, for example MFA on a Medium score</li><li>Offline GeoIP enrichment with bundled MaxMind GeoLite2 data</li><li>Custom event, result and rule-option stores</li><li>FluentValidation for each rule’s options</li><li>An admin API for investigation tools</li></ul>
+            </div>
+          </div>
+          <div class="pa-spec-dev">
+            <div><h4>Key APIs</h4><ul class="pa-apis"><li><code>POST api/risk</code></li><li><code>POST api/risk/events</code></li><li><code>GET risk-events/session/{sessionId}</code></li></ul></div>
+            <figure class="pa-code" data-reveal><figcaption><span>LargeTransferRule.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="LargeTransferRule.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-function">LargeTransferRule</span>(<span class="tok-type">IOptionsSnapshot</span>&lt;<span class="tok-type">LargeTransferRuleOptions</span>&gt; options, <span class="tok-type">IRiskEventStore</span> events)</span>
+<span class="code-line" style="--l:1">    : <span class="tok-function">RiskRule</span>(<span class="tok-string">&quot;LargeTransfer&quot;</span>)</span>
+<span class="code-line" style="--l:2">{</span>
+<span class="code-line" style="--l:3">    <span class="tok-keyword">public</span> <span class="tok-keyword">override</span> <span class="tok-keyword">async</span> <span class="tok-type">ValueTask</span>&lt;<span class="tok-type">RuleExecutionResult</span>&gt; <span class="tok-function">ExecuteAsync</span>(<span class="tok-type">DbRiskEvent</span> @event) {</span>
+<span class="code-line" style="--l:4">        <span class="tok-keyword">var</span> o = options.<span class="tok-type">Value</span>;</span>
+<span class="code-line" style="--l:5">        <span class="tok-keyword">if</span> (@event.<span class="tok-type">Amount</span> &lt; o.<span class="tok-type">Threshold</span>) <span class="tok-keyword">return</span> <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">NoRisk</span>();</span>
+<span class="code-line" style="--l:6">        <span class="tok-keyword">var</span> recent = <span class="tok-keyword">await</span> events.<span class="tok-function">GetList</span>(@event.<span class="tok-type">SubjectId</span>, [<span class="tok-string">&quot;Transfer&quot;</span>], <span class="tok-type">DateTime</span>.<span class="tok-type">UtcNow</span>.<span class="tok-function">AddHours</span>(-<span class="tok-number">24</span>));</span>
+<span class="code-line" style="--l:7">        <span class="tok-keyword">return</span> recent.<span class="tok-function">Count</span>() &gt;= o.<span class="tok-type">MaxPerDay</span></span>
+<span class="code-line" style="--l:8">            ? <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">HighRisk</span>(<span class="tok-string">$&quot;{recent.Count()} large transfers in 24h.&quot;</span>)</span>
+<span class="code-line" style="--l:9">            : <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">MediumRisk</span>(<span class="tok-string">$&quot;Transfer above {o.Threshold}.&quot;</span>);</span>
+<span class="code-line" style="--l:10">    }</span>
+<span class="code-line" style="--l:11">}</span></code></pre></figure>
+          </div>
+        </article></div>
+      </div>
+    </section>
+    <section class="pa-section pa-services" id="services" aria-labelledby="pa-services-title" tabindex="-1">
+      <header class="pa-section-head" data-reveal>
+        <p class="pa-eyebrow">Services</p>
+        <h2 id="pa-services-title"><span class="pa-w" style="--w:0"><span>INDICE</span></span> <span class="pa-w" style="--w:1"><span>engineers</span></span> <span class="pa-w" style="--w:2"><span>build,</span></span> <span class="pa-w" style="--w:3"><span>integrate</span></span> <span class="pa-w" style="--w:4"><span>and</span></span> <span class="pa-w" style="--w:5"><span>support</span></span> <span class="pa-w" style="--w:6"><span>it</span></span> <span class="pa-w" style="--w:7"><span>with</span></span> <span class="pa-w" style="--w:8"><span>you.</span></span></h2>
+        <p class="pa-section-intro">INDICE provides the development, integration and ongoing support that turn the solutions into a working service in your environment, from the first case type or login flow to later upgrades.</p>
+      </header>
+      <ol class="pa-service-list"><li class="pa-service" data-reveal data-spotlight style="--i:0"><span class="pa-service-index">01</span><h3>Application development</h3><p>Custom applications and solution extensions on the same .NET and Angular foundation: case types and workflows, risk rules, sign-in steps and message templates.</p></li><li class="pa-service" data-reveal data-spotlight style="--i:1"><span class="pa-service-index">02</span><h3>Integration</h3><p>The solutions connected to your core systems, identity providers, delivery vendors and hosting, on Azure or your own infrastructure.</p></li><li class="pa-service" data-reveal data-spotlight style="--i:2"><span class="pa-service-index">03</span><h3>Support and evolution</h3><p>New features, regular security updates with CVE patching, and immediate technical assistance from INDICE engineers.</p></li></ol>
+    </section>
+    <section class="pa-section pa-faq" id="faq" aria-labelledby="pa-faq-title" tabindex="-1">
+      <header class="pa-section-head" data-reveal>
+        <p class="pa-eyebrow">Questions</p>
+        <h2 id="pa-faq-title"><span class="pa-w" style="--w:0"><span>What</span></span> <span class="pa-w" style="--w:1"><span>technical</span></span> <span class="pa-w" style="--w:2"><span>teams</span></span> <span class="pa-w" style="--w:3"><span>ask</span></span> <span class="pa-w" style="--w:4"><span>first</span></span></h2>
+        
+      </header>
+      <div class="pa-faq-list"><details class="pa-faq-item"><summary>Is this a SaaS solution?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>No. Each solution is a set of .NET libraries and an Angular UI that run in your own ASP.NET Core host, against your own SQL Server databases, signing keys and delivery accounts.</p></details><details class="pa-faq-item"><summary>What do we need to run it?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>ASP.NET Core hosting, SQL Server and an OpenID Connect identity server, which IAM provides. Redis, Azure Storage, Service Bus and Notification Hubs are used where a solution needs caching, queues or push.</p></details><details class="pa-faq-item"><summary>Can we start with one solution?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>Yes. Each solution has its own libraries, database and admin UI. Every solution you add reuses the same hosting, identity server and extension patterns.</p></details><details class="pa-faq-item"><summary>How do we customise behaviour without forking?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>Through C# extension points registered in your host, such as risk rules, workflow activities, sign-in steps, contact providers, lookups and log enrichers, and by overriding IAM pages and back-office UI strings.</p></details><details class="pa-faq-item"><summary>Where do audit trails and history live?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>In your databases. Cases stores every checkpoint, data version and approval; IAM keeps sign-in and activity logs; Risk stores every assessment with each rule’s reason; Messaging records delivery and engagement events.</p></details><details class="pa-faq-item"><summary>What does INDICE do after go-live?<svg class="icon-plus" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>Ongoing support: new features, regular security updates with CVE patching, immediate technical assistance, and development of new extensions as requirements change.</p></details></div>
+    </section>
+    <section class="pa-contact" id="contact" aria-labelledby="pa-contact-title" tabindex="-1" data-spotlight>
+      <div class="pa-band-bg" aria-hidden="true">
+        <div class="pa-aurora pa-band-aurora" data-parallax="-0.14"><i></i><i></i><i></i><i></i></div>
+        <div class="pa-band-floor" data-parallax="0.22"></div>
+        <div class="pa-band-rings" data-parallax="0.1"><i></i><i></i><i></i></div>
+      </div>
+      <div class="pa-contact-inner" data-reveal>
+        <p class="pa-eyebrow">Contact</p>
+        <h2 id="pa-contact-title"><span class="pa-w" style="--w:0"><span>See</span></span> <span class="pa-w" style="--w:1"><span>it</span></span> <span class="pa-w" style="--w:2"><span>against</span></span> <span class="pa-w" style="--w:3"><span>your</span></span> <span class="pa-w" style="--w:4"><span>own</span></span> <span class="pa-w" style="--w:5"><span>requirements.</span></span></h2>
+        <p>Request a technical demonstration focused on your processes, identity setup and integration points.</p>
+        <div class="pa-cta-row"><button type="button" class="pa-btn pa-btn-solid pa-btn-lg" data-demo data-magnetic>Request a demo</button><a class="pa-btn pa-btn-ghost pa-btn-lg" href="cases-reference.html" data-magnetic>Read the Cases technical reference</a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="pa-footer">
+    <div class="pa-footer-top">
+      <a class="pa-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pa-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pa-brand-name" aria-hidden="true">Platform</span></a>
+      <nav class="pa-footer-nav" aria-label="Footer">
+        <div><h2>Platform</h2><ul><li><a href="#platform">Platform foundation</a></li><li><a href="#specs">How it works</a></li><li><a href="#services">Services</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h2>Solutions</h2><ul><li><a href="#product-cases" data-product-link="cases">Cases</a></li><li><a href="#product-iam" data-product-link="iam">IAM</a></li><li><a href="#product-messaging" data-product-link="messaging">Messaging</a></li><li><a href="#product-risk" data-product-link="risk">Risk</a></li></ul></div>
+        <div><h2>Resources</h2><ul><li><a href="cases-reference.html">Cases technical reference</a></li><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      </nav>
+    </div>
+    <p class="pa-footer-note">Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+    <div class="pa-footer-mark" aria-hidden="true"><svg class="pa-footer-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg></div>
+  </footer>
+  <a class="to-top pa-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="pa-ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="pa-ring-track" cx="24" cy="24" r="22"/><circle class="pa-ring-value" cx="24" cy="24" r="22" pathLength="100"/></svg><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg></a>
+</body>
+</html>

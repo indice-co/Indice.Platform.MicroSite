@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* Shared by the three homepage proposals. Logo switching is unlayered so it also wins inside Proposal A's slider.
+   Layers, lowest first: each proposal's element resets, these shared components, then each proposal's own styles,
+   so components are not undone by resets (layers outrank specificity) and every proposal can still restyle them. */
+@layer reset, common, proposal;
+
+/* Product logos: the supplied artwork on light themes, a generated variant with light wordmark text on dark. */
+.logo-on-dark { display: none; }
+:root[data-theme="dark"] .logo-on-light,
+:root:not([data-theme])[data-default-theme="dark"] .logo-on-light { display: none; }
+:root[data-theme="dark"] .logo-on-dark,
+:root:not([data-theme])[data-default-theme="dark"] .logo-on-dark { display: block; }
+
+@layer common {
+  /* A modal (menu or screen viewer) keeps the page behind it still; the gutter stops the layout shifting. */
+  html { scrollbar-gutter: stable; }
+  :root.dialog-open { overflow: hidden; }
+
+  /* Theme changes grow as a circle from the control that made them (js/proposals/common.js). */
+  :root.theme-transition::view-transition-old(root),
+  :root.theme-transition::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+  /* Back to top: appears after the first screen and stays out of the way of the pinned Solutions slider. */
+  .to-top {
+    position: fixed; z-index: 70; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom));
+    visibility: hidden; opacity: 0; transform: translateY(18px) scale(.9);
+    transition: opacity .35s, transform .45s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .45s;
+  }
+  .show-to-top .to-top { visibility: visible; opacity: 1; transform: none; transition: opacity .35s, transform .45s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+
+  /* GitHub tab: fixed to the right edge at mid-height, reading top to bottom; it slides in shortly after load. */
+  .gh-tab {
+    position: fixed; z-index: 66; right: 0; top: 50%; translate: 0 -50%;
+    display: inline-flex; align-items: center; gap: 12px; padding: 18px 12px 18px 11px;
+    writing-mode: vertical-rl; text-decoration: none;
+    animation: gh-in .8s 1s cubic-bezier(.16, 1, .3, 1) backwards;
+  }
+  @keyframes gh-in { from { translate: 110% -50%; } }
+  .gh-tab svg { width: 20px; height: 20px; flex: none; transition: rotate .5s cubic-bezier(.34, 1.56, .64, 1); }
+  .gh-tab:hover svg { rotate: -12deg; }
+  .gh-tab-text { display: inline-flex; align-items: center; gap: 10px; }
+  .gh-tab-text span { opacity: .7; }
+  .dialog-open .gh-tab { visibility: hidden; }
+  @media (max-width: 700px) {
+    /* Phones: a round button stacked above back to top, so it never covers the text column. */
+    .gh-tab {
+      top: auto; right: max(18px, env(safe-area-inset-right)); bottom: calc(max(18px, env(safe-area-inset-bottom)) + 62px);
+      translate: none; justify-content: center; width: 46px; height: 46px; padding: 0; writing-mode: horizontal-tb;
+      animation-name: gh-in-phone;
+    }
+    @keyframes gh-in-phone { from { opacity: 0; translate: 0 16px; } }
+    .gh-tab-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  }
+  [data-parallax] { translate: 0 var(--parallax, 0px); will-change: translate; }
+  [data-magnetic] { translate: var(--magnet-x, 0px) var(--magnet-y, 0px); transition: translate .35s cubic-bezier(.2, .8, .2, 1); }
+  [data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  [data-tilt].is-tilting { transition-duration: .12s; }
+
+  /* Expandable panels stay open without JavaScript; with it, their button controls them. */
+  [data-expand-panel] { overflow: clip; }
+  .js [data-expand-panel]:not(.is-open) { display: none; }
+  html:not(.js) [data-expand] { display: none; }
+
+  /* Hover-scrolled galleries: free scrolling under a mouse, snapping on touch screens. */
+  [data-hover-scroll] { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  [data-hover-scroll]::-webkit-scrollbar { display: none; }
+  @media (pointer: coarse) { [data-hover-scroll] { scroll-snap-type: x mandatory; } }
+
+  /* Screen media: approved screenshot, illustrative mock-up or labelled placeholder. A full-cover button opens it. */
+  [data-shot] { position: relative; }
+  .shot-open {
+    position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; padding: 0;
+    border: 0; border-radius: inherit; background: transparent; cursor: zoom-in;
+  }
+  .shot-media { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; }
+  .shot-media > img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+  .shot-media > .case-workflow-ui, .shot-media > .case-record-ui { height: 100%; }
+  .shot-badge {
+    position: absolute; z-index: 2; top: 10px; left: 10px; padding: 3px 8px; border-radius: 999px;
+    background: #0b0b0cd9; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  }
+  .shot-placeholder {
+    position: absolute; inset: 0; display: grid; grid-template-columns: 20% 1fr; grid-template-rows: 14% 1fr;
+    background: var(--shot-bg, #eef0f4); color: var(--shot-ink, #5b6170);
+  }
+  .shot-placeholder i { display: block; background: var(--shot-block, #dfe3ea); }
+  .shot-placeholder .ph-bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; padding: 0 4%; background: var(--shot-bar, #e3e7ee); }
+  .shot-placeholder .ph-bar i { width: 10%; height: 26%; border-radius: 99px; }
+  .shot-placeholder .ph-side { display: grid; align-content: start; gap: 8%; padding: 12% 14%; background: var(--shot-side, #e6e9ef); }
+  .shot-placeholder .ph-side i { height: 6px; border-radius: 99px; }
+  .shot-placeholder .ph-main { display: grid; grid-template-rows: auto 1fr; gap: 6%; padding: 5% 5% 6%; }
+  .shot-placeholder .ph-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5%; height: 3.6em; }
+  .shot-placeholder .ph-row i, .shot-placeholder .ph-panel { border-radius: 6px; }
+  .shot-placeholder .ph-label {
+    position: absolute; left: 50%; top: 58%; translate: -50% -50%; padding: 8px 14px; border-radius: 999px;
+    background: var(--shot-label-bg, #ffffffe6); color: var(--shot-label-ink, var(--shot-ink, #3a3f4b)); font-size: 12px; font-weight: 650; white-space: nowrap;
+  }
+
+  /* Screen viewer (modal). */
+  .lightbox { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden; }
+  .lightbox::backdrop { background: #08090bcc; backdrop-filter: blur(6px); }
+  .lightbox[open]::backdrop { animation: lightbox-fade .4s ease-out; }
+  .lightbox[open] .lightbox-bar, .lightbox[open] .lightbox-nav { animation: lightbox-fade .5s .15s ease-out backwards; }
+  @keyframes lightbox-fade { from { opacity: 0; } }
+  .lightbox-inner { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; padding: clamp(12px, 3vw, 32px); gap: 14px; }
+  .lightbox-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #fff; }
+  .lightbox-count { font-size: 13px; font-weight: 600; letter-spacing: .04em; opacity: .8; }
+  .lightbox-stage { position: relative; display: grid; place-items: center; min-height: 0; touch-action: pan-y pinch-zoom; }
+  .lightbox-figure { position: relative; width: min(100%, calc((100dvh - 210px) * 16 / 9), 1600px); margin: 0; }
+  .lightbox-figure .shot-media { border-radius: 10px; box-shadow: 0 40px 120px -30px #000; }
+  /* The mock-ups are drawn for a small frame; enlarge them visually instead of re-flowing them. */
+  .lightbox-figure .shot-media > .case-workflow-ui, .lightbox-figure .shot-media > .case-record-ui {
+    width: 62.5%; height: 62.5%; transform: scale(1.6); transform-origin: top left;
+  }
+  .lightbox-caption { justify-self: center; max-width: 860px; margin: 0; color: #fff; text-align: center; }
+  .lightbox-caption b { display: block; font-size: 18px; }
+  .lightbox-caption span { display: block; margin-top: 4px; font-size: 15px; opacity: .8; }
+  .lightbox-button {
+    display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 999px; border: 1px solid #ffffff40;
+    background: #ffffff14; color: #fff; cursor: pointer; transition: background .2s;
+  }
+  .lightbox-button:hover { background: #ffffff2e; }
+  .lightbox-nav { position: absolute; top: 50%; translate: 0 -50%; z-index: 2; }
+  .lightbox-prev { left: 0; }
+  .lightbox-next { right: 0; }
+  @media (max-width: 700px) {
+    /* Previous and next sit side by side at the bottom of the screen, below the caption. */
+    .lightbox-nav { position: fixed; top: auto; bottom: max(16px, env(safe-area-inset-bottom)); translate: none; }
+    .lightbox-prev { left: calc(50% - 56px); }
+    .lightbox-next { right: calc(50% - 56px); }
+    .lightbox-inner { padding-bottom: 84px; }
+    .lightbox-figure .shot-media > .case-workflow-ui, .lightbox-figure .shot-media > .case-record-ui { width: 100%; height: 100%; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .to-top, .show-to-top .to-top { transition: none; }
+    .gh-tab { animation: none; }
+    [data-parallax] { translate: none; }
+    [data-magnetic], [data-tilt] { translate: none; transform: none; transition: none; }
+    .lightbox[open]::backdrop, .lightbox[open] .lightbox-bar, .lightbox[open] .lightbox-nav { animation: none; }
+  }
+}
