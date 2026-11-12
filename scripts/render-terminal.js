@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight, escapeHtml } = require('./highlight.js');
-const { designRibbon, escape, screenshotCarousel } = require('./shared.js');
+const { designRibbon, escape, headerGithub, screenshotCarousel, partnerCallout } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techById = Object.fromEntries(tech.map(item => [item.id, item]));
@@ -64,7 +64,8 @@ function productPanel(product, index) {
         <p class="tagline">${escape(product.tagline)}</p>
         <p class="meta"><span class="chip">base unit · ${escape(product.baseUnit.toLowerCase())}</span>${docs}</p>
       </header>
-      <p class="summary">${escape(product.summary)}</p>
+      <p class="summary">${escape(product.summary)}</p>${product.partnership ? `
+      ${partnerCallout(product.partnership)}` : ''}
       <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
       ${screenshotCarousel(product)}
       <h4 class="sub">What it does</h4>
@@ -76,8 +77,8 @@ function productPanel(product, index) {
       <h4 class="sub">Endpoints</h4>
       <div class="scroll" role="region" aria-label="${escape(product.name)} endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody>${product.endpoints.map(([method, route, purpose]) => `<tr><td><span class="verb verb-${method === '*' ? 'any' : method.toLowerCase()}">${escape(method)}</span></td><td><code>${escape(route)}</code></td><td>${escape(purpose)}</td></tr>`).join('')}</tbody></table></div>
       <h4 class="sub">Code</h4>
-      ${product.code.map(codeBlock).join('\n      ')}
-      ${product.id === 'risk' ? riskDemo : ''}
+      ${product.code.map(codeBlock).join('\n      ')}${product.id === 'risk' ? `
+      ${riskDemo}` : ''}
       <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
       <ul class="seams">${product.seams.map(([name, description]) => `<li><code>${escape(name)}</code><span>${escape(description)}</span></li>`).join('')}</ul>
     </section>`;
@@ -94,6 +95,7 @@ const pendingPanel = product => `<section class="product" id="${product.id}" tab
 
 const explorerLink = (href, label, extra = '') => `<a href="${href}" data-spy-link="${href.slice(1)}"${extra}>${label}</a>`;
 const productIcon = product => `<img src="${escape(product.icon)}" alt="" width="14" height="14">`;
+const repositoryLink = headerGithub.replace('class="header-github"', 'class="explorer-github" target="_blank" rel="noopener"');
 
 function render() {
   const [foundationPillar, suitePillar, expertisePillar] = pillars;
@@ -122,10 +124,14 @@ function render() {
     <header class="titlebar">
       <button class="explorer-toggle" type="button" aria-controls="explorer" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Toggle explorer</span></button>
       <a class="brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+      ${repositoryLink}
     </header>
     <div class="shell">
       <aside class="explorer" id="explorer" aria-label="Explorer">
-        <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+        <div class="explorer-header">
+          <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+          ${repositoryLink}
+        </div>
         <p class="explorer-title">Explorer</p>
         <nav aria-label="Page outline">
           <ul class="tree">

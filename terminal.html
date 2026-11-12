@@ -24,10 +24,14 @@
     <header class="titlebar">
       <button class="explorer-toggle" type="button" aria-controls="explorer" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Toggle explorer</span></button>
       <a class="brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+      <a class="explorer-github" target="_blank" rel="noopener" href="https://github.com/indice-co/Indice.Platform" aria-label="INDICE Platform on GitHub"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18a4.63 4.63 0 0 1 1.24 3.22c0 4.6-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg></a>
     </header>
     <div class="shell">
       <aside class="explorer" id="explorer" aria-label="Explorer">
-        <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+        <div class="explorer-header">
+          <a class="brand explorer-brand" href="#top" aria-label="INDICE Platform"><img src="assets/logos/indice platform white.svg" width="1490" height="400" alt="INDICE Platform"></a>
+          <a class="explorer-github" target="_blank" rel="noopener" href="https://github.com/indice-co/Indice.Platform" aria-label="INDICE Platform on GitHub"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18a4.63 4.63 0 0 1 1.24 3.22c0 4.6-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg></a>
+        </div>
         <p class="explorer-title">Explorer</p>
         <nav aria-label="Page outline">
           <ul class="tree">
@@ -41,8 +45,8 @@
                 </ul></li>
                 <li class="dir"><span>02-suite</span><ul>
                   <li><a href="#suite" data-spy-link="suite">overview.md</a></li>
-                  <li><a href="#cases" data-spy-link="cases" data-product-link="cases"><img src="assets/logos/cases icon.svg" alt="" width="14" height="14">cases/</a></li>
                   <li><a href="#iam" data-spy-link="iam" data-product-link="iam"><img src="assets/logos/iam icon.svg" alt="" width="14" height="14">iam/</a></li>
+                  <li><a href="#cases" data-spy-link="cases" data-product-link="cases"><img src="assets/logos/cases icon.svg" alt="" width="14" height="14">cases/</a></li>
                   <li><a href="#messaging" data-spy-link="messaging" data-product-link="messaging"><img src="assets/logos/messaging icon.svg" alt="" width="14" height="14">messaging/</a></li>
                   <li><a href="#risk" data-spy-link="risk" data-product-link="risk"><img src="assets/logos/risk icon.svg" alt="" width="14" height="14">risk/</a></li>
                   <li><a href="#agents" data-spy-link="agents" data-product-link="agents"><span class="ico-ph" aria-hidden="true"></span>agents/</a></li>
@@ -156,105 +160,25 @@
 
           <div class="tabs" id="suite-products">
             <div class="tablist" aria-label="Products">
-              <a class="tab" id="tab-cases" href="#cases"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16">Cases</a>
               <a class="tab" id="tab-iam" href="#iam"><img src="assets/logos/iam icon.svg" alt="" width="16" height="16">IAM</a>
+              <a class="tab" id="tab-cases" href="#cases"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16">Cases</a>
               <a class="tab" id="tab-messaging" href="#messaging"><img src="assets/logos/messaging icon.svg" alt="" width="16" height="16">Messaging</a>
               <a class="tab" id="tab-risk" href="#risk"><img src="assets/logos/risk icon.svg" alt="" width="16" height="16">Risk</a>
               <a class="tab tab-ph" id="tab-agents" href="#agents"><span class="ico-ph" aria-hidden="true"></span>Agents</a>
               <a class="tab tab-ph" id="tab-workers" href="#workers"><span class="ico-ph" aria-hidden="true"></span>Workers</a>
             </div>
-            <section class="product" id="cases" tabindex="-1" data-product="cases">
-      <header class="product-head">
-        <span class="plate"><img src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></span>
-        <p class="tagline">Case management and business workflows</p>
-        <p class="meta"><span class="chip">base unit · case type</span><a class="doc-link" href="cases-reference.html">Technical reference →</a></p>
-      </header>
-      <p class="summary">A case type is a JSON Schema form, a set of checkpoints and an Elsa workflow that decides who acts next. Customers and back-office staff work on the same record through two APIs.</p>
-      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
-      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Cases UI screenshots (placeholders)">
-        <ul class="shots-track" tabindex="0" aria-label="Cases screenshot slides"><li class="shot" id="shots-cases-1" aria-roledescription="slide" aria-label="1 of 3">
-          <figure>
-            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Process as data. Awaiting approved asset.">
-              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
-              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
-            </div>
-            <figcaption><span class="shot-no">01</span>Cases · Process as data</figcaption>
-          </figure>
-        </li><li class="shot" id="shots-cases-2" aria-roledescription="slide" aria-label="2 of 3">
-          <figure>
-            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Two views, one record. Awaiting approved asset.">
-              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
-              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
-            </div>
-            <figcaption><span class="shot-no">02</span>Cases · Two views, one record</figcaption>
-          </figure>
-        </li><li class="shot" id="shots-cases-3" aria-roledescription="slide" aria-label="3 of 3">
-          <figure>
-            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Actions come from the workflow. Awaiting approved asset.">
-              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
-              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
-            </div>
-            <figcaption><span class="shot-no">03</span>Cases · Actions come from the workflow</figcaption>
-          </figure>
-        </li></ul>
-      </section>
-      <h4 class="sub">What it does</h4>
-      <ul class="hl"><li><b>Process as data</b><span>A new process is a case type (schema, layout, checkpoints) plus a workflow, not a code change. Workflows are edited and published from the designer at /workflow without a redeploy.</span></li><li><b>Two views, one record</b><span>my/* serves customers, manage/* serves staff. Private checkpoints stay internal; the customer sees the last public checkpoint and the published data version.</span></li><li><b>Actions come from the workflow</b><span>GET manage/cases/{id}/actions asks the workflow which blocking activities are waiting (assign, edit, approve, custom actions). The SPA renders exactly those.</span></li><li><b>Three-layer access control</b><span>Roles (CasesUser, CasesManager, CasesAdministrator), record-level access rules, and ownership. Four-eyes approval is a workflow activity: Block previous approver.</span></li><li><b>Everything is a row</b><span>Checkpoints, data versions, comments and approvals live in CasesDb; the timeline is a query. A PDF per case type renders from a Razor template.</span></li></ul>
-      <div class="cols">
-        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Cases.{Core, Server, Workflows, UI}</dd></div><div><dt>Deployment</dt><dd>One ASP.NET Core host: API, back-office SPA, Elsa server and designer</dd></div><div><dt>Databases</dt><dd>CasesDb (schema case), WorkflowDb (Elsa). Redis cache optional</dd></div><div><dt>Auth</dt><dd>OIDC client cases-ui, API resource cases</dd></div></dl></div>
-        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="req">Elsa Workflows 2</li><li class="opt">Redis <small>optional</small></li></ul></div>
-      </div>
-      <h4 class="sub">Endpoints</h4>
-      <div class="scroll" role="region" aria-label="Cases endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-post">POST</span></td><td><code>my/cases</code></td><td>customer creates a draft, then submits it</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>my/case-types</code></td><td>case types a customer can open, with translated schema and layout</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>manage/cases</code></td><td>staff open a case on a customer’s behalf</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/cases/{id}/actions</code></td><td>workflow-derived actions for the current user</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/dashboard/metrics</code></td><td>counts per status, assigned, unassigned, stale</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>manage/workflow-integration/*</code></td><td>API the Elsa activities call back into</td></tr></tbody></table></div>
-      <h4 class="sub">Code</h4>
-      <figure class="codeblock">
-          <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
-          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// Indice.Cases/Program.cs</span></span>
-<span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
-<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
-<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// human-readable case numbers from a DB sequence</span></span>
-<span class="line">    <span class="tok-comment">// options.ConfigureDbContext = …;               // defaults to ConnectionStrings:CasesDb (SQL Server)</span></span>
-<span class="line">    <span class="tok-comment">// options.UseContactProviderIdentity(o =&gt; …);   // search customers in your Identity Server</span></span>
-<span class="line">});</span>
-<span class="line">builder.<span class="tok-function">AddCasesWorkflow</span>(options =&gt; {</span>
-<span class="line">    options.<span class="tok-type">RegisterAuthentication</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// OIDC sign-in for the workflow designer</span></span>
-<span class="line">    options.<span class="tok-type">ConfigureSmtp</span> = builder.<span class="tok-type">Configuration</span>.<span class="tok-function">GetSection</span>(<span class="tok-string">&quot;Elsa:Smtp&quot;</span>).<span class="tok-type">Bind</span>;</span>
-<span class="line">    <span class="tok-comment">// options.GetWorkflowAssembly = () =&gt; typeof(Program).Assembly;  // code-first workflows + custom activities</span></span>
-<span class="line">});</span>
-<span class="line"> </span>
-<span class="line"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
-<span class="line">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
-<span class="line">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
-<span class="line">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre>
-        </figure>
-      <figure class="codeblock">
-          <figcaption><span class="file">CaseServerOptions</span><span class="lang">c#</span></figcaption>
-          <pre class="code" tabindex="0"><code><span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
-<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
-<span class="line">    options.<span class="tok-type">RequiredScope</span> = <span class="tok-string">&quot;cases&quot;</span>;</span>
-<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;</span>
-<span class="line">    options.<span class="tok-type">ByPassAccessRulesForElevatedUsers</span> = <span class="tok-keyword">true</span>;</span>
-<span class="line">    options.<span class="tok-type">GroupIdClaimType</span> = <span class="tok-string">&quot;group_id&quot;</span>;          <span class="tok-comment">// branch / team of the back-office user</span></span>
-<span class="line">    options.<span class="tok-type">DatabaseSchema</span> = <span class="tok-string">&quot;case&quot;</span>;</span>
-<span class="line">    options.<span class="tok-type">MapTranslations</span> = <span class="tok-keyword">true</span>;                  <span class="tok-comment">// {prefix}/cases-i18n.{lang}.json + {prefix}/languages</span></span>
-<span class="line">    options.<span class="tok-type">ConfigureLimitUpload</span> = o =&gt; {</span>
-<span class="line">        o.<span class="tok-type">DefaultMaxFileSizeBytes</span> = <span class="tok-number">10</span> * <span class="tok-number">1024</span> * <span class="tok-number">1024</span>;</span>
-<span class="line">        o.<span class="tok-type">DefaultAllowedFileExtensions</span> = [<span class="tok-string">&quot;.pdf&quot;</span>, <span class="tok-string">&quot;.jpg&quot;</span>, <span class="tok-string">&quot;.png&quot;</span>];</span>
-<span class="line">        o.<span class="tok-type">EnableMagicByteValidation</span> = <span class="tok-keyword">true</span>;</span>
-<span class="line">    };</span>
-<span class="line">});</span></code></pre>
-        </figure>
-      
-      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
-      <ul class="seams"><li><code>IContactProvider</code><span>customer search for staff-created cases (Identity Server built in)</span></li><li><code>ICaseDataInitializer</code><span>prefill a new case’s data from your systems</span></li><li><code>ILookupService</code><span>named dropdown sources (AddLookupService&lt;T&gt;(&quot;name&quot;))</span></li><li><code>ICaseAuthorizationService</code><span>extra list filtering and membership</span></li><li><code>ICasePdfService</code><span>your HTML-to-PDF engine</span></li><li><code>IPlatformEventHandler&lt;TEvent&gt;</code><span>react to submitted / message / downloaded events</span></li><li><code>Elsa activities + bookmarks</code><span>custom workflow steps from your assembly (GetWorkflowAssembly)</span></li></ul>
-    </section>
-    <section class="product" id="iam" tabindex="-1" data-product="iam">
+            <section class="product" id="iam" tabindex="-1" data-product="iam">
       <header class="product-head">
         <span class="plate"><img src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></span>
         <p class="tagline">Identity and access management</p>
         <p class="meta"><span class="chip">base unit · user</span><span class="ph" role="link" aria-disabled="true" title="Placeholder: this product’s technical reference page does not exist yet">Technical reference<small>placeholder</small></span></p>
       </header>
       <p class="summary">ASP.NET Core Identity stores the users and Duende IdentityServer speaks OIDC / OAuth2. Indice adds the grants, MFA, devices, audit and UI. Workforce, partners and customers sign in through one pipeline.</p>
+      <a class="partner" href="https://duendesoftware.com/" target="_blank" rel="noopener">
+        <span class="partner-plate"><img src="assets/logos/duende logo.svg" width="288" height="53" alt="Duende Software" loading="lazy" decoding="async"></span>
+        <span class="partner-text"><small>Official partner</small><b>Indice is an official distributor and integrator of Duende Software.</b></span>
+        <span class="partner-cta">duendesoftware.com<span class="sr-only"> (opens in a new tab)</span></span>
+      </a>
       <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
       <section class="shots" data-carousel aria-roledescription="carousel" aria-label="IAM UI screenshots (placeholders)">
         <ul class="shots-track" tabindex="0" aria-label="IAM screenshot slides"><li class="shot" id="shots-iam-1" aria-roledescription="slide" aria-label="1 of 3">
@@ -339,9 +263,92 @@
 <span class="line">  }</span>
 <span class="line">}</span></code></pre>
         </figure>
-      
       <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
       <ul class="seams"><li><code>IExtensionGrantValidator</code><span>new OAuth grant types</span></li><li><code>IIdentityValidationActivity</code><span>new post-login steps (KYC, consent, profile completion)</span></li><li><code>Add&lt;TAuthenticationMethod&gt;()</code><span>new MFA / authentication methods</span></li><li><code>ISignInLogEntryEnricher</code><span>extra sign-in log fields (AddSignInLogEnricher&lt;T&gt;())</span></li><li><code>IActivityLogFromEventConverter</code><span>activity log entries from your own events</span></li><li><code>IPlatformEventHandler&lt;TEvent&gt;</code><span>react to user, client, device and login events</span></li><li><code>Razor page / wwwroot overrides</code><span>replace any page or asset by path in the host</span></li></ul>
+    </section>
+    <section class="product" id="cases" tabindex="-1" data-product="cases">
+      <header class="product-head">
+        <span class="plate"><img src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></span>
+        <p class="tagline">Case management and business workflows</p>
+        <p class="meta"><span class="chip">base unit · case type</span><a class="doc-link" href="cases-reference.html">Technical reference →</a></p>
+      </header>
+      <p class="summary">A case type is a JSON Schema form, a set of checkpoints and an Elsa workflow that decides who acts next. Customers and back-office staff work on the same record through two APIs.</p>
+      <h4 class="sub">UI screenshots <span class="dim">placeholders</span></h4>
+      <section class="shots" data-carousel aria-roledescription="carousel" aria-label="Cases UI screenshots (placeholders)">
+        <ul class="shots-track" tabindex="0" aria-label="Cases screenshot slides"><li class="shot" id="shots-cases-1" aria-roledescription="slide" aria-label="1 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Process as data. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">01</span>Cases · Process as data</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-2" aria-roledescription="slide" aria-label="2 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Two views, one record. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">02</span>Cases · Two views, one record</figcaption>
+          </figure>
+        </li><li class="shot" id="shots-cases-3" aria-roledescription="slide" aria-label="3 of 3">
+          <figure>
+            <div class="shot-frame" role="img" aria-label="Cases UI screenshot placeholder: Actions come from the workflow. Awaiting approved asset.">
+              <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><em>cases.example.com</em></span>
+              <span class="shot-body" aria-hidden="true"><b>UI screenshot</b><small>placeholder · 1600 × 900</small></span>
+            </div>
+            <figcaption><span class="shot-no">03</span>Cases · Actions come from the workflow</figcaption>
+          </figure>
+        </li></ul>
+      </section>
+      <h4 class="sub">What it does</h4>
+      <ul class="hl"><li><b>Process as data</b><span>A new process is a case type (schema, layout, checkpoints) plus a workflow, not a code change. Workflows are edited and published from the designer at /workflow without a redeploy.</span></li><li><b>Two views, one record</b><span>my/* serves customers, manage/* serves staff. Private checkpoints stay internal; the customer sees the last public checkpoint and the published data version.</span></li><li><b>Actions come from the workflow</b><span>GET manage/cases/{id}/actions asks the workflow which blocking activities are waiting (assign, edit, approve, custom actions). The SPA renders exactly those.</span></li><li><b>Three-layer access control</b><span>Roles (CasesUser, CasesManager, CasesAdministrator), record-level access rules, and ownership. Four-eyes approval is a workflow activity: Block previous approver.</span></li><li><b>Everything is a row</b><span>Checkpoints, data versions, comments and approvals live in CasesDb; the timeline is a query. A PDF per case type renders from a Razor template.</span></li></ul>
+      <div class="cols">
+        <div><h4 class="sub">Hosting</h4><dl class="kv"><div><dt>Packages</dt><dd>Indice.Features.Cases.{Core, Server, Workflows, UI}</dd></div><div><dt>Deployment</dt><dd>One ASP.NET Core host: API, back-office SPA, Elsa server and designer</dd></div><div><dt>Databases</dt><dd>CasesDb (schema case), WorkflowDb (Elsa). Redis cache optional</dd></div><div><dt>Auth</dt><dd>OIDC client cases-ui, API resource cases</dd></div></dl></div>
+        <div><h4 class="sub">Stack</h4><ul class="chips"><li class="req">ASP.NET Core</li><li class="req">EF Core + SQL Server</li><li class="req">Angular</li><li class="req">OIDC / OAuth2</li><li class="req">Elsa Workflows 2</li><li class="opt">Redis <small>optional</small></li></ul></div>
+      </div>
+      <h4 class="sub">Endpoints</h4>
+      <div class="scroll" role="region" aria-label="Cases endpoints" tabindex="0"><table class="endpoints"><thead><tr><th scope="col">method</th><th scope="col">path</th><th scope="col">purpose</th></tr></thead><tbody><tr><td><span class="verb verb-post">POST</span></td><td><code>my/cases</code></td><td>customer creates a draft, then submits it</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>my/case-types</code></td><td>case types a customer can open, with translated schema and layout</td></tr><tr><td><span class="verb verb-post">POST</span></td><td><code>manage/cases</code></td><td>staff open a case on a customer’s behalf</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/cases/{id}/actions</code></td><td>workflow-derived actions for the current user</td></tr><tr><td><span class="verb verb-get">GET</span></td><td><code>manage/dashboard/metrics</code></td><td>counts per status, assigned, unassigned, stale</td></tr><tr><td><span class="verb verb-any">*</span></td><td><code>manage/workflow-integration/*</code></td><td>API the Elsa activities call back into</td></tr></tbody></table></div>
+      <h4 class="sub">Code</h4>
+      <figure class="codeblock">
+          <figcaption><span class="file">Program.cs</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line"><span class="tok-comment">// Indice.Cases/Program.cs</span></span>
+<span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// human-readable case numbers from a DB sequence</span></span>
+<span class="line">    <span class="tok-comment">// options.ConfigureDbContext = …;               // defaults to ConnectionStrings:CasesDb (SQL Server)</span></span>
+<span class="line">    <span class="tok-comment">// options.UseContactProviderIdentity(o =&gt; …);   // search customers in your Identity Server</span></span>
+<span class="line">});</span>
+<span class="line">builder.<span class="tok-function">AddCasesWorkflow</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">RegisterAuthentication</span> = <span class="tok-keyword">true</span>;           <span class="tok-comment">// OIDC sign-in for the workflow designer</span></span>
+<span class="line">    options.<span class="tok-type">ConfigureSmtp</span> = builder.<span class="tok-type">Configuration</span>.<span class="tok-function">GetSection</span>(<span class="tok-string">&quot;Elsa:Smtp&quot;</span>).<span class="tok-type">Bind</span>;</span>
+<span class="line">    <span class="tok-comment">// options.GetWorkflowAssembly = () =&gt; typeof(Program).Assembly;  // code-first workflows + custom activities</span></span>
+<span class="line">});</span>
+<span class="line"> </span>
+<span class="line"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="line">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
+<span class="line">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
+<span class="line">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre>
+        </figure>
+      <figure class="codeblock">
+          <figcaption><span class="file">CaseServerOptions</span><span class="lang">c#</span></figcaption>
+          <pre class="code" tabindex="0"><code><span class="line">builder.<span class="tok-function">AddCaseServer</span>(options =&gt; {</span>
+<span class="line">    options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;/api&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">RequiredScope</span> = <span class="tok-string">&quot;cases&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">ReferenceNumberEnabled</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    options.<span class="tok-type">ByPassAccessRulesForElevatedUsers</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    options.<span class="tok-type">GroupIdClaimType</span> = <span class="tok-string">&quot;group_id&quot;</span>;          <span class="tok-comment">// branch / team of the back-office user</span></span>
+<span class="line">    options.<span class="tok-type">DatabaseSchema</span> = <span class="tok-string">&quot;case&quot;</span>;</span>
+<span class="line">    options.<span class="tok-type">MapTranslations</span> = <span class="tok-keyword">true</span>;                  <span class="tok-comment">// {prefix}/cases-i18n.{lang}.json + {prefix}/languages</span></span>
+<span class="line">    options.<span class="tok-type">ConfigureLimitUpload</span> = o =&gt; {</span>
+<span class="line">        o.<span class="tok-type">DefaultMaxFileSizeBytes</span> = <span class="tok-number">10</span> * <span class="tok-number">1024</span> * <span class="tok-number">1024</span>;</span>
+<span class="line">        o.<span class="tok-type">DefaultAllowedFileExtensions</span> = [<span class="tok-string">&quot;.pdf&quot;</span>, <span class="tok-string">&quot;.jpg&quot;</span>, <span class="tok-string">&quot;.png&quot;</span>];</span>
+<span class="line">        o.<span class="tok-type">EnableMagicByteValidation</span> = <span class="tok-keyword">true</span>;</span>
+<span class="line">    };</span>
+<span class="line">});</span></code></pre>
+        </figure>
+      <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
+      <ul class="seams"><li><code>IContactProvider</code><span>customer search for staff-created cases (Identity Server built in)</span></li><li><code>ICaseDataInitializer</code><span>prefill a new case’s data from your systems</span></li><li><code>ILookupService</code><span>named dropdown sources (AddLookupService&lt;T&gt;(&quot;name&quot;))</span></li><li><code>ICaseAuthorizationService</code><span>extra list filtering and membership</span></li><li><code>ICasePdfService</code><span>your HTML-to-PDF engine</span></li><li><code>IPlatformEventHandler&lt;TEvent&gt;</code><span>react to submitted / message / downloaded events</span></li><li><code>Elsa activities + bookmarks</code><span>custom workflow steps from your assembly (GetWorkflowAssembly)</span></li></ul>
     </section>
     <section class="product" id="messaging" tabindex="-1" data-product="messaging">
       <header class="product-head">
@@ -414,7 +421,6 @@
 <span class="line">  <span class="tok-key">&quot;TestMode&quot;</span>: <span class="tok-keyword">false</span>          <span class="tok-comment">// wire the pipeline without spending on real sends</span></span>
 <span class="line">}</span></code></pre>
         </figure>
-      
       <h4 class="sub">Extension points <span class="dim">C# interfaces, not a DSL</span></h4>
       <ul class="seams"><li><code>IContactResolver</code><span>your own source of truth for contacts + preferences</span></li><li><code>ICampaignJobHandler&lt;TEvent&gt;</code><span>react to pipeline events / add processing steps</span></li><li><code>Use* provider builders</code><span>swap Email / SMS / Push implementations by config</span></li><li><code>IFileService</code><span>your own storage for attachments and media</span></li><li><code>Template (Partial / Layout)</code><span>compose content from reusable fragments at render time</span></li></ul>
     </section>
@@ -544,7 +550,7 @@
         <table class="matrix">
           <caption>Documented stack per product. ● part of the stack · ○ optional or replaceable</caption>
           <thead><tr><th scope="col">product</th><th scope="col">ASP.NET Core</th><th scope="col">EF Core · SQL</th><th scope="col">Angular SPA</th><th scope="col">OIDC</th><th scope="col">Elsa 2</th><th scope="col">SignalR</th><th scope="col">Azure</th><th scope="col">Redis</th></tr></thead>
-          <tbody><tr><th scope="row"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16"> cases</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/iam icon.svg" alt="" width="16" height="16"> iam</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/messaging icon.svg" alt="" width="16" height="16"> messaging</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td></tr><tr><th scope="row"><img src="assets/logos/risk icon.svg" alt="" width="16" height="16"> risk</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr></tbody>
+          <tbody><tr><th scope="row"><img src="assets/logos/iam icon.svg" alt="" width="16" height="16"> iam</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/cases icon.svg" alt="" width="16" height="16"> cases</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr><tr><th scope="row"><img src="assets/logos/messaging icon.svg" alt="" width="16" height="16"> messaging</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td></tr><tr><th scope="row"><img src="assets/logos/risk icon.svg" alt="" width="16" height="16"> risk</th><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="req"><span aria-hidden="true">●</span><span class="sr-only">used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="none"><span aria-hidden="true">·</span><span class="sr-only">not used</span></td><td class="opt"><span aria-hidden="true">○</span><span class="sr-only">optional</span></td></tr></tbody>
         </table>
       </div>
           </div>
@@ -592,6 +598,6 @@
       <p class="palette-help dim"><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>Enter</kbd> open · <kbd>Esc</kbd> close</p>
     </form>
   </dialog>
-  <script type="application/json" id="palette-data">[{"label":"foundation.md","hint":"01 pillar","href":"#foundation"},{"label":"suite.md","hint":"02 pillar","href":"#suite"},{"label":"expertise.md","hint":"03 pillar","href":"#expertise"},{"label":"cases/","hint":"product · Case management and business workflows","href":"#cases"},{"label":"iam/","hint":"product · Identity and access management","href":"#iam"},{"label":"messaging/","hint":"product · Multichannel campaigns and notifications","href":"#messaging"},{"label":"risk/","hint":"product · Risk assessment for transactions and activity","href":"#risk"},{"label":"agents/","hint":"product · placeholder","href":"#agents"},{"label":"workers/","hint":"product · placeholder","href":"#workers"},{"label":"libraries.md","hint":"foundation","href":"#libraries"},{"label":"stack.yaml","hint":"foundation","href":"#stack"},{"label":"relations.md","hint":"suite","href":"#relations"},{"label":"matrix.md","hint":"suite","href":"#matrix"},{"label":"integration-points.md","hint":"expertise","href":"#integration-points"},{"label":"contact.md","hint":"contact","href":"#contact"},{"label":"cases-reference.html","hint":"Cases technical reference","href":"cases-reference.html"},{"label":"github.com/indice-co","hint":"external","href":"https://github.com/indice-co"},{"label":"nuget.org/profiles/indice","hint":"external","href":"https://www.nuget.org/profiles/indice"},{"label":"Original design","hint":"design preview","href":"index.html"},{"label":"Blueprint design","hint":"design preview","href":"blueprint.html"}]</script>
+  <script type="application/json" id="palette-data">[{"label":"foundation.md","hint":"01 pillar","href":"#foundation"},{"label":"suite.md","hint":"02 pillar","href":"#suite"},{"label":"expertise.md","hint":"03 pillar","href":"#expertise"},{"label":"iam/","hint":"product · Identity and access management","href":"#iam"},{"label":"cases/","hint":"product · Case management and business workflows","href":"#cases"},{"label":"messaging/","hint":"product · Multichannel campaigns and notifications","href":"#messaging"},{"label":"risk/","hint":"product · Risk assessment for transactions and activity","href":"#risk"},{"label":"agents/","hint":"product · placeholder","href":"#agents"},{"label":"workers/","hint":"product · placeholder","href":"#workers"},{"label":"libraries.md","hint":"foundation","href":"#libraries"},{"label":"stack.yaml","hint":"foundation","href":"#stack"},{"label":"relations.md","hint":"suite","href":"#relations"},{"label":"matrix.md","hint":"suite","href":"#matrix"},{"label":"integration-points.md","hint":"expertise","href":"#integration-points"},{"label":"contact.md","hint":"contact","href":"#contact"},{"label":"cases-reference.html","hint":"Cases technical reference","href":"cases-reference.html"},{"label":"github.com/indice-co","hint":"external","href":"https://github.com/indice-co"},{"label":"nuget.org/profiles/indice","hint":"external","href":"https://www.nuget.org/profiles/indice"},{"label":"Original design","hint":"design preview","href":"index.html"},{"label":"Blueprint design","hint":"design preview","href":"blueprint.html"}]</script>
 </body>
 </html>

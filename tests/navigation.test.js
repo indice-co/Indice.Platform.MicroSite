@@ -26,7 +26,7 @@ class Events {
   count(type) { return this.events.get(type)?.size || 0; }
 }
 
-function fixture({ mobile = false, reduced = false, observerAvailable = true, observerThrows = false, casesBrand = false } = {}) {
+function fixture({ mobile = false, reduced = false, observerAvailable = true, observerThrows = false, casesBrand = false, backdrop = null } = {}) {
   const document = new Events();
   const browser = new Events();
   const mobileMedia = new Events();
@@ -127,6 +127,8 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   document.documentElement = root;
   document.activeElement = outside;
   document.getElementById = id => elements[id] || null;
+  navigation.getBoundingClientRect = () => ({ left: 800, right: 1100, top: 32, bottom: 76 });
+  if (backdrop) document.elementsFromPoint = x => [navigation, ...backdrop(x).map(style => Object.assign(new Element(), { style }))];
   document.querySelectorAll = selector => ({ '[data-pillar]': pillarLinks, '[data-demo]': demoButtons, '[data-reveal]': [reveal] })[selector] || [];
 
   class Observer {
@@ -144,6 +146,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
     console, document, AbortController,
     innerHeight: 900, scrollY: 0,
     matchMedia: query => query.includes('reduced-motion') ? motionMedia : mobileMedia,
+    getComputedStyle: element => element.style || {},
     addEventListener: browser.addEventListener.bind(browser),
     requestAnimationFrame: callback => { const id = ++frameId; frames.set(id, callback); return id; },
     cancelAnimationFrame: id => frames.delete(id),
@@ -185,7 +188,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
   return { document, browser, root, brand, brandImage, panel, desktopTrigger, mobileTrigger, outside,
     firstMobileLink, exploreAll, foundation, products, expertise, pillarLinks, demoButtons,
     reveal, frames, observed, observers, motionMedia, sandbox, historyWrites, Element,
-    click, event, scroll, resizeMobile };
+    click, event, scroll, resizeMobile, navigation };
 }
 
 test('fixed brand uses the top logo while scrolled and restores the main logo at the top', () => {
@@ -229,6 +232,22 @@ test('Cases brand links to the current page top while compact and home at the to
   page.scroll(0);
   assert.equal(page.brand.getAttribute('href'), 'index.html');
   assert.equal(page.brand.getAttribute('aria-label'), 'INDICE Platform home');
+});
+
+test('header navigation switches to light text over dark backgrounds and back', () => {
+  let stack = [{ backgroundColor: 'rgba(0, 0, 0, 0)', backgroundImage: 'none' }, { backgroundColor: 'rgb(230, 230, 230)', backgroundImage: 'none' }];
+  const page = fixture({ backdrop: () => stack });
+  page.scroll(100);
+  assert.equal(page.navigation.classList.contains('is-on-dark'), false);
+  stack = [{ backgroundColor: 'rgba(13, 17, 23, 0.1)', backgroundImage: 'none' }, { backgroundColor: 'rgb(13, 17, 23)', backgroundImage: 'none' }];
+  page.scroll(200);
+  assert.equal(page.navigation.classList.contains('is-on-dark'), true, 'transparent layers are skipped and a dark background wins');
+  stack = [{ backgroundColor: 'rgba(0, 0, 0, 0)', backgroundImage: 'linear-gradient(110deg, rgb(5, 46, 54), rgb(20, 97, 106))' }];
+  page.scroll(300);
+  assert.equal(page.navigation.classList.contains('is-on-dark'), true, 'dark gradients count');
+  stack = [{ backgroundColor: 'rgb(245, 245, 245)', backgroundImage: 'none' }];
+  page.scroll(400);
+  assert.equal(page.navigation.classList.contains('is-on-dark'), false);
 });
 
 test('keyboard opening enters the Suite panel and Escape restores its trigger', () => {

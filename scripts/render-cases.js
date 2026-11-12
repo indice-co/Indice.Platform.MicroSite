@@ -33,7 +33,7 @@ module.exports = function renderCases(article) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#DEDAD0">
+  <meta name="theme-color" content="#E6E6E6">
   <meta name="description" content="${escape(cases.description)}">
   <title>Cases &mdash; Every case. A clear path forward.</title>
   <link rel="icon" type="image/svg+xml" href="${escape(config.logoIcon)}">
@@ -48,6 +48,7 @@ module.exports = function renderCases(article) {
 <body class="cases-page" style="--cases-color:${cases.color};--cases-gold:${cases.accent}">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <a class="hero-brand" id="hero-brand" href="index.html" data-top-href="#cases-hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
+  ${navigation('index.html')}
   <main id="main-content" tabindex="-1">
     <nav class="cases-page-links" aria-label="On this page"><a href="#cases-how">How it works</a><a href="#cases-capabilities">Capabilities</a><a href="#cases-fit">Where it fits</a><a href="#cases-deployment">Deployment</a></nav>
     <section class="cases-hero section-pad" id="cases-hero" aria-labelledby="cases-title">
@@ -125,8 +126,6 @@ module.exports = function renderCases(article) {
       <div data-reveal><p class="eyebrow">Cases</p><h2 id="demo-title">Every case.<br>A clear path forward.</h2><div class="cases-final-actions">${demo('button-light')}${guide('final-guide-note')}</div></div>
     </section>
   </main>
-  <footer class="site-footer"><a href="index.html" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
-  ${article ? '' : navigation('index.html')}
 </body>
 </html>
 `;

@@ -38,6 +38,32 @@
     }
     window.addEventListener('scroll', updateBrand, { passive: true, signal });
     updateBrand();
+
+    // The transparent header switches to light text while it sits over a dark background.
+    function backgroundIsDark(element) {
+      const style = window.getComputedStyle(element);
+      const colors = [...`${style.backgroundImage} ${style.backgroundColor}`.matchAll(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?\s*\)/g)]
+        .filter(([, , , , alpha]) => alpha === undefined || parseFloat(alpha) / (alpha.endsWith('%') ? 100 : 1) >= 0.5);
+      if (!colors.length) return null;
+      const luminance = colors.reduce((sum, [, red, green, blue]) => sum + (0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255, 0) / colors.length;
+      return luminance < 0.4;
+    }
+    function updateHeaderTone() {
+      if (!navigation || typeof document.elementsFromPoint !== 'function' || typeof window.getComputedStyle !== 'function') return;
+      const { left, right, top, bottom } = navigation.getBoundingClientRect();
+      if (!(right > left)) return;
+      const y = (top + bottom) / 2;
+      const votes = [0.1, 0.5, 0.9].map((fraction) => {
+        const stack = document.elementsFromPoint(left + (right - left) * fraction, y);
+        for (const element of stack) {
+          if (navigation.contains(element) || element.closest?.('.hero-brand')) continue;
+          const dark = backgroundIsDark(element);
+          if (dark !== null) return dark;
+        }
+        return false;
+      });
+      navigation.classList.toggle('is-on-dark', votes.filter(Boolean).length >= 2);
+    }
     const desktopTrigger = document.getElementById('products-trigger');
     const mobileTrigger = document.getElementById('menu-trigger');
     const triggers = [desktopTrigger, mobileTrigger].filter(Boolean);
@@ -135,6 +161,7 @@
     const sections = ['foundation', 'products', 'expertise'].map((id) => document.getElementById(id));
     function updateActivePillar() {
       frame = 0;
+      updateHeaderTone();
       const [foundation, products, expertise] = sections;
       if (!foundation || !products || !expertise) return;
       const probe = window.innerHeight * 0.33;

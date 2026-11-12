@@ -193,22 +193,30 @@ if (typeof document !== 'undefined') (() => {
   const toggle = $('.explorer-toggle');
   const scrim = $('[data-scrim]');
   /* The drawer is fixed, so it follows the title bar even while the design ribbon is still on screen. */
-  const placeDrawer = () => { explorer.style.top = `${Math.max(0, $('.titlebar').getBoundingClientRect().bottom)}px`; };
+  const placeDrawer = () => { explorer.style.setProperty('--drawer-top', `${Math.max(0, $('.titlebar').getBoundingClientRect().bottom)}px`); };
   function closeExplorer() {
     if (!explorer) return;
     explorer.classList.remove('is-open');
-    explorer.style.top = '';
+    explorer.style.removeProperty('--drawer-top');
+    document.documentElement.classList.remove('explorer-open');
     toggle?.setAttribute('aria-expanded', 'false');
     if (scrim) scrim.hidden = true;
   }
   toggle?.addEventListener('click', () => {
     const open = !explorer.classList.contains('is-open');
+    if (!open) { closeExplorer(); return; }
     explorer.classList.toggle('is-open', open);
+    document.documentElement.classList.add('explorer-open');
     toggle.setAttribute('aria-expanded', String(open));
     if (scrim) scrim.hidden = !open;
-    if (open) placeDrawer(); else explorer.style.top = '';
+    placeDrawer();
   });
   addEventListener('scroll', () => { if (explorer?.classList.contains('is-open')) placeDrawer(); }, { passive: true });
+  addEventListener('resize', () => {
+    if (!explorer?.classList.contains('is-open')) return;
+    if (matchMedia('(min-width: 901px)').matches) closeExplorer();
+    else placeDrawer();
+  }, { passive: true });
   scrim?.addEventListener('click', closeExplorer);
   explorer?.addEventListener('click', event => { if (event.target.closest('a')) closeExplorer(); });
   addEventListener('keydown', event => { if (event.key === 'Escape') closeExplorer(); });

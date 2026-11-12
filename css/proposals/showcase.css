@@ -82,7 +82,7 @@
   white-space:nowrap
 }
 :where(.product-showcase) .button:hover {
-  background:#3b3936
+  background:#2A313B
 }
 :where(.product-showcase) .button:active {
   transform:translateY(2px)
@@ -143,7 +143,7 @@
   display:block;
   min-height:0;
   padding:clamp(48px,8vw,112px) var(--gutter);
-  background:#e9efed
+  background:#E9EDF0
 }
 .cases-story {
   max-width:1440px;
@@ -228,10 +228,10 @@
 }
 .case-beat-copy li {
   padding:6px 0;
-  border-top:1px solid #201f1e20
+  border-top:1px solid #0D111720
 }
 .case-beat-copy ul>li:last-child {
-  border-bottom:1px solid #201f1e20
+  border-bottom:1px solid #0D111720
 }
 .case-feature-list li {
   padding:6px 0
@@ -552,7 +552,7 @@
 .explore-button:disabled,.explore-button:disabled:hover {
   background:var(--beige);
   color:var(--muted);
-  border-color:#201f1e2e;
+  border-color:#0D11172e;
   transform:none
 }
 .unavailable-note {
@@ -582,7 +582,7 @@
 .preview-placeholder {
   aspect-ratio:16/10;
   position:relative;
-  background:#e5e2da;
+  background:#ECEEF0;
   border:0;
   display:flex;
   align-items:center;
@@ -594,7 +594,7 @@
 .preview-placeholder::before,.preview-placeholder::after {
   content:'';
   position:absolute;
-  border:1px solid #201f1e17;
+  border:1px solid #0D111717;
   width:55%;
   aspect-ratio:1;
   transform:rotate(-17deg)
@@ -613,7 +613,7 @@
 .placeholder-cross::before,.placeholder-cross::after {
   content:'';
   position:absolute;
-  background:#201f1e40;
+  background:#0D111740;
   left:6px;
   top:0;
   width:1px;
@@ -629,7 +629,7 @@
   flex-direction:column;
   gap:10px;
   padding:30px;
-  background:#e5e2dadb;
+  background:#ECEEF0db;
   max-width:100%
 }
 .placeholder-caption>span:first-child {
@@ -946,10 +946,15 @@
 .story-enhanced .product-navigation {
   display:none;
   position:absolute;
-  top:24px;
-  bottom:auto;
-  left:auto;
-  right:var(--gutter);
+  /* Centered at the bottom of the viewport. */
+  top:auto;
+  bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  left:50%;
+  right:auto;
+  transform:translateX(-50%);
+  width:max-content;
+  max-width:calc(100% - 32px);
+  justify-content:center;
   padding:0;
   background:transparent;
   pointer-events:auto;
@@ -979,7 +984,7 @@
 }
 @media(min-width:761px) and (max-width:1100px) {
   .story-ready .product-navigation {
-    justify-content:flex-end;
+    justify-content:center;
     background:transparent
   }
   .product-navigation button:not(.is-active) {

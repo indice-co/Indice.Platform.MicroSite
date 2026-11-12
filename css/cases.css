@@ -108,7 +108,7 @@
   border:1px solid var(--line);
   border-radius:14px;
   padding:0 24px 24px;
-  box-shadow:0 28px 60px #201f1e1a,0 6px 16px #201f1e0a
+  box-shadow:0 28px 60px #0D11171a,0 6px 16px #0D11170a
 }
 .cases-hero-visual {
   min-width:0;
@@ -174,7 +174,7 @@
   background:var(--paper);
   border:1px solid var(--line);
   border-radius:12px;
-  box-shadow:0 12px 30px #201f1e15
+  box-shadow:0 12px 30px #0D111715
 }
 .cases-hero-update strong,.cases-hero-update div>span:last-child {
   display:block
@@ -230,7 +230,7 @@
   background:var(--cases-dark);
   color:var(--paper);
   border-radius:12px;
-  box-shadow:0 12px 25px #201f1e15;
+  box-shadow:0 12px 25px #0D111715;
   font-size:11px;
   animation:cases-screen-float 6.5s ease-in-out -3s infinite;
   animation-play-state:var(--art-play)
@@ -536,7 +536,7 @@
   border-top:3px solid var(--cases-color);
   background:var(--paper);
   border-radius:12px;
-  box-shadow:0 8px 20px #201f1e08
+  box-shadow:0 8px 20px #0D111708
 }
 .cases-intake>div::after {
   content:'';
@@ -600,7 +600,7 @@
   border:1px solid var(--line);
   background:var(--white);
   border-radius:12px;
-  box-shadow:0 20px 36px #201f1e12;
+  box-shadow:0 20px 36px #0D111712;
   border-top:4px solid var(--cases-color)
 }
 .cases-customer {
@@ -891,8 +891,8 @@
   margin-top:0
 }
 .cases-page .panel-product[aria-current="page"] {
-  background:#e7e3da;
-  box-shadow:0 0 0 8px #e7e3da;
+  background:#EDEFF1;
+  box-shadow:0 0 0 8px #EDEFF1;
   border-radius:4px
 }
 @media(max-width:999px) {

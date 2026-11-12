@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const content = require('./tech-content.js');
 const { highlight } = require('./highlight.js');
-const { designRibbon, escape, screenshotCarousel } = require('./shared.js');
+const { designRibbon, escape, headerGithub, screenshotCarousel, partnerCallout } = require('./shared.js');
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techLabel = Object.fromEntries(tech.map(item => [item.id, item.label]));
@@ -35,7 +35,7 @@ const stackSentence = product => {
 };
 
 /* ---------- Hero: layered system diagram (read bottom-up) ---------- */
-const stackDiagram = () => `<figure class="stack" id="stack-diagram" data-selected="cases" aria-labelledby="stack-caption">
+const stackDiagram = () => `<figure class="stack" id="stack-diagram" data-selected="iam" aria-labelledby="stack-caption">
         <div class="layer layer-foundation" data-layer="foundation">
           <h3 class="layer-label"><span class="no">01</span>Foundation</h3>
           <ul class="modules techs">${tech.map(item => `<li class="mod tech" data-tech="${item.id}"><b>${escape(item.label)}</b><span>${escape(item.detail)}</span></li>`).join('')}</ul>
@@ -43,7 +43,7 @@ const stackDiagram = () => `<figure class="stack" id="stack-diagram" data-select
         </div>
         <div class="layer layer-suite" data-layer="suite">
           <h3 class="layer-label"><span class="no">02</span>Suite</h3>
-          <ul class="modules products">${suite.map(product => `<li><button class="mod product" type="button" data-product="${product.id}" data-uses="${usesOf(product, 'req').join(' ')}" data-optional="${usesOf(product, 'opt').join(' ')}" aria-pressed="${product.id === 'cases'}">
+          <ul class="modules products">${suite.map(product => `<li><button class="mod product" type="button" data-product="${product.id}" data-uses="${usesOf(product, 'req').join(' ')}" data-optional="${usesOf(product, 'opt').join(' ')}" aria-pressed="${product.id === 'iam'}">
               <img src="${escape(product.icon)}" alt="" width="28" height="28"><b>${escape(product.name)}</b><span>${escape(product.baseUnit.toLowerCase())}</span></button></li>`).join('')}${pendingProducts.map(product => `<li><div class="mod product product-ph" role="img" aria-label="${escape(product.name)}, placeholder: no logo or product document yet"><span class="ico-ph" aria-hidden="true"></span><b>${escape(product.name)}</b><span>placeholder</span></div></li>`).join('')}</ul>
         </div>
         <div class="layer layer-expertise" data-layer="expertise">
@@ -85,7 +85,8 @@ function datasheet(product, index) {
           </summary>
           <div class="ds-body">
             <div class="ds-left">
-              <p class="ds-summary">${escape(product.summary)}</p>
+              <p class="ds-summary">${escape(product.summary)}</p>${product.partnership ? `
+              ${partnerCallout(product.partnership)}` : ''}
               ${screenshotCarousel(product)}
               <ol class="features">${product.highlights.map(([title, text]) => `<li><b>${escape(title)}</b><span>${escape(text)}</span></li>`).join('')}</ol>
             </div>
@@ -153,7 +154,7 @@ function render() {
     <nav class="sheetnav" aria-label="Sheets">
       <ol>${pillars.map(pillar => `<li><a href="#${pillar.id}" data-spy-link="${pillar.id}"><span class="no">${pillar.number}</span>${pillar.label}</a></li>`).join('')}</ol>
     </nav>
-    <p class="sheetbar-cta">${placeholder(contact.demo.label, 'Placeholder: demo request link not provided yet')}</p>
+    ${headerGithub.replace('class="header-github"', 'class="sheetbar-github" target="_blank" rel="noopener"')}
   </header>
 
   <main id="main" tabindex="-1">
@@ -239,9 +240,6 @@ function render() {
       <dl>
         <div><dt>Project</dt><dd>INDICE Platform</dd></div>
         <div><dt>Sheets</dt><dd>3</dd></div>
-        <div><dt>Source</dt><dd>Product documents and the public indice-co repositories</dd></div>
-        <div><dt>Libraries licence</dt><dd>MIT (Indice.Platform)</dd></div>
-        <div class="tb-links"><dt>Contact</dt><dd>${placeholder(contact.demo.label, 'Placeholder: demo request link not provided yet')}</dd></div>
         <div class="tb-links"><dt>Code</dt><dd>${external(contact.github.href, contact.github.label)} ${external(links.nuget, 'NuGet')} ${external(links.ngConfig, 'npm')}</dd></div>
       </dl>
     </section>

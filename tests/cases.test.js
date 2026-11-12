@@ -101,8 +101,10 @@ test('homepage carousel and Suite panel point to the sole Cases page', () => {
   assert(html.includes('class="cases-toc-category">Developer reference</h3>'));
   assert(!html.includes('cases-toc-number'));
   assert(html.includes('<nav class="cases-toc-nav" aria-label="Technical reference sections">'));
-  assert(!html.includes('class="floating-nav"'));
-  assert(!html.includes('id="site-nav"'));
+  const header = html.match(/<nav class="header-nav" id="site-nav"[\s\S]*?<\/nav>/)?.[0];
+  assert(header, 'Cases carries the header navigation');
+  assert(header.includes('href="index.html#foundation"') && header.includes('href="index.html#expertise"') && header.includes('class="header-github"'));
+  assert(!html.includes('class="floating-nav"') && !html.includes('class="site-footer"'), 'No floating bar or footer');
   assert.equal((html.match(/data-flowchart-open/g) || []).length, 4);
   assert.equal((html.match(/data-flowchart-orientation="horizontal"/g) || []).length, 3);
   assert.equal((html.match(/data-flowchart-orientation="vertical"/g) || []).length, 1);
@@ -144,8 +146,8 @@ test('homepage carousel and Suite panel point to the sole Cases page', () => {
   assert(!articleCss.includes('var(--cases-gold)'));
   assert(!articleCss.includes('var(--cases-dark)'));
   const articleScript = fs.readFileSync(path.join(root, 'js/cases-article.js'), 'utf8');
-  assert(articleScript.includes("primaryColor:'#f1efe9'"));
-  assert(articleScript.includes("primaryTextColor:'#201f1e'"));
+  assert(articleScript.includes("primaryColor:'#F5F5F5'"));
+  assert(articleScript.includes("primaryTextColor:'#0D1117'"));
   assert(!articleScript.includes('#12707a'));
 });
 

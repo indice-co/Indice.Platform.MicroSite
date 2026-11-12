@@ -85,11 +85,11 @@
     theme:'base',
     themeVariables:{
       fontFamily:'Manrope, sans-serif',
-      primaryColor:'#f1efe9',
-      primaryTextColor:'#201f1e',
-      primaryBorderColor:'#5c5953',
-      lineColor:'#5c5953',
-      secondaryColor:'#dedad0',
+      primaryColor:'#F5F5F5',
+      primaryTextColor:'#0D1117',
+      primaryBorderColor:'#565E69',
+      lineColor:'#565E69',
+      secondaryColor:'#E6E6E6',
       tertiaryColor:'#ffffff'
     },
     flowchart:{ useMaxWidth:true, htmlLabels:false }

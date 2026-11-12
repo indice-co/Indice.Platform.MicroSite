@@ -40,13 +40,25 @@ const contactSlashes = fs.readFileSync(path.join(__dirname, '../assets/logos/IND
   .replace('<svg ', '<svg class="contact-slash" aria-hidden="true" ')
   .replace(/<path /g, () => `<path class="contact-slash-${contactSlashIndex++ === 0 ? 'second' : 'first'}" `)
   .replace(/ fill="white"/g, '');
-// Diagram units: 600x480. Solution nodes link to the cloud edge; Workers and DEX keep a dot until their icons exist.
-const heroCloud = 'M76.7 345A113 113 0 0 1 192.2 152.3A150 150 0 0 1 449.3 123A128 128 0 0 1 534.4 345Z';
-const heroDiagram = `<svg class="hero-diagram" viewBox="0 0 600 480" preserveAspectRatio="xMaxYMid meet" fill="none" aria-hidden="true">
-<g class="hero-coordinates"><text class="hero-coordinate" x="65" y="240">+</text><text class="hero-coordinate" x="520" y="60">+</text></g>
-<g class="hero-layer hero-layer-expertise"><path class="hero-link" d="M40 110L130.2 181.6"/><path class="hero-link" d="M190 40L257.2 125.5"/><path class="hero-link" d="M410 36L368.4 112.4"/><path class="hero-link" d="M570 120L493.1 178.9"/><path class="hero-link" d="M575 330L518.4 324.3"/><path class="hero-link" d="M20 350L98.9 333.9"/><path class="hero-pulse" pathLength="1" d="M40 110L130.2 181.6" style="--pulse-delay:0s"/><path class="hero-pulse" pathLength="1" d="M190 40L257.2 125.5" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M410 36L368.4 112.4" style="--pulse-delay:1.2s"/><path class="hero-pulse" pathLength="1" d="M570 120L493.1 178.9" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M575 330L518.4 324.3" style="--pulse-delay:2.4s"/><path class="hero-pulse" pathLength="1" d="M20 350L98.9 333.9" style="--pulse-delay:3s"/><g transform="translate(46.35 51.75) scale(.85)"><path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g></g>
-<g class="hero-layer hero-layer-foundation"><path class="hero-rail" pathLength="1" d="M40 416H560" style="--draw-delay:.2s"/><path class="hero-rail" pathLength="1" d="M530 436H70" style="--draw-delay:.35s"/><path class="hero-rail" pathLength="1" d="M100 456H500" style="--draw-delay:.5s"/><path class="hero-pulse" pathLength="1" d="M40 416H560" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M530 436H70" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M100 456H500" style="--pulse-delay:3s"/><rect class="hero-rack" x="84" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="249" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="424" y="410" width="12" height="12" rx="2"/><rect class="hero-rack" x="504" y="410" width="12" height="12" rx="2"/></g>
-<g class="hero-layer hero-layer-products"><g class="hero-node" data-solution="cases" style="--node-index:0"><circle class="hero-node-ring" cx="40" cy="110" r="30"/><image href="assets/logos/cases icon.svg" x="15" y="85" width="50" height="50"/></g><g class="hero-node" data-solution="iam" style="--node-index:1"><circle class="hero-node-ring" cx="190" cy="40" r="30"/><image href="assets/logos/iam icon.svg" x="165" y="15" width="50" height="50"/></g><g class="hero-node" data-solution="messaging" style="--node-index:2"><circle class="hero-node-ring" cx="410" cy="36" r="30"/><image href="assets/logos/messaging icon.svg" x="385" y="11" width="50" height="50"/></g><g class="hero-node" data-solution="risk" style="--node-index:3"><circle class="hero-node-ring" cx="570" cy="120" r="30"/><image href="assets/logos/risk icon.svg" x="545" y="95" width="50" height="50"/></g><g class="hero-node" data-solution="workers" style="--node-index:4"><circle class="hero-node-ring" cx="575" cy="330" r="18"/><circle class="hero-node-core" cx="575" cy="330" r="8"/></g><g class="hero-node" data-solution="dex" style="--node-index:5"><circle class="hero-node-ring" cx="20" cy="350" r="18"/><circle class="hero-node-core" cx="20" cy="350" r="8"/></g></g>
+// Diagram units: 900x400. Solution nodes link to the cloud edge; Workers and DEX keep a dot until their icons exist.
+// Four arcs on a flat base; every link leaves the outline on the ray from the cloud centre (478,202) to its node.
+const heroCloud = 'M258 310A72 72 0 0 1 310.6 188.8A105 105 0 0 1 512.6 161.2A88 88 0 0 1 665.6 212.1A52 52 0 0 1 690 310Z';
+const heroLinks = [
+  [317, 162.2, 70, 100], [364.4, 108, 285, 42], [568.2, 132.7, 685, 42],
+  [641.8, 159.5, 850, 105], [716.7, 254.7, 855, 285], [239.3, 250.9, 45, 290]
+].map(([x1, y1, x2, y2]) => `M${x1} ${y1}L${x2} ${y2}`);
+const heroNodes = [
+  ['cases', 70, 100, 'cases icon.svg'], ['iam', 285, 42, 'iam icon.svg'],
+  ['messaging', 685, 42, 'messaging icon.svg'], ['risk', 850, 105, 'risk icon.svg'],
+  ['workers', 855, 285], ['dex', 45, 290]
+].map(([id, x, y, icon], index) => icon
+  ? `<g class="hero-node" data-solution="${id}" style="--node-index:${index}"><circle class="hero-node-ring" cx="${x}" cy="${y}" r="30"/><image href="assets/logos/${icon}" x="${x - 25}" y="${y - 25}" width="50" height="50"/></g>`
+  : `<g class="hero-node" data-solution="${id}" style="--node-index:${index}"><circle class="hero-node-ring" cx="${x}" cy="${y}" r="18"/><circle class="hero-node-core" cx="${x}" cy="${y}" r="8"/></g>`).join('');
+const heroDiagram = `<svg class="hero-diagram" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+<g class="hero-coordinates"><text class="hero-coordinate" x="85" y="215">+</text><text class="hero-coordinate" x="785" y="48">+</text></g>
+<g class="hero-layer hero-layer-expertise">${heroLinks.map(d => `<path class="hero-link" d="${d}"/>`).join('')}${heroLinks.map((d, i) => `<path class="hero-pulse" pathLength="1" d="${d}" style="--pulse-delay:${[0, .6, 1.2, 1.8, 2.4, 3][i]}s"/>`).join('')}<path class="hero-cloud" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/><path class="hero-cloud-trace" pathLength="1" d="${heroCloud}"/></g>
+<g class="hero-layer hero-layer-foundation"><path class="hero-rail" pathLength="1" d="M60 342H840" style="--draw-delay:.2s"/><path class="hero-rail" pathLength="1" d="M795 362H105" style="--draw-delay:.35s"/><path class="hero-rail" pathLength="1" d="M150 382H750" style="--draw-delay:.5s"/><path class="hero-pulse" pathLength="1" d="M60 342H840" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M795 362H105" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M150 382H750" style="--pulse-delay:3s"/><rect class="hero-rack" x="129" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="377" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="639" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="759" y="336" width="12" height="12" rx="2"/></g>
+<g class="hero-layer hero-layer-products">${heroNodes}</g>
 </svg>`;
 const pillarGlyphs = {
   foundation: '<path d="M3 7h16M3 11h16M3 15h16"/>',
@@ -59,7 +71,7 @@ const html = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#DEDAD0">
+  <meta name="theme-color" content="#E6E6E6">
   <meta name="description" content="${escape(c.foundation.paragraphs[0])}">
   <title>INDICE Platform</title>
   <link rel="icon" type="image/svg+xml" href="${escape(config.logoIcon)}">
@@ -79,6 +91,7 @@ const html = `<!doctype html>
   <a class="skip-link" href="#main-content">${c.navigation.skip}</a>
   ${designRibbon('original')}
   <a class="hero-brand" id="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
+  ${navigation()}
   <main id="main-content" tabindex="-1">
     <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
       <div class="hero-top"></div>
@@ -87,12 +100,11 @@ const html = `<!doctype html>
         <div class="hero-art">
           ${heroDiagram}
         </div>
-        <div class="hero-baseline"><p class="hero-motto">${c.hero.motto.replace('. ', '.<br>')}</p></div>
+        <section class="technologies" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title">${c.technologies.title}</h2><ul class="technology-list" aria-label="Technologies">${c.technologies.items.map(t => `<li class="technology"><img src="${escape(t.icon)}" width="48" height="48" alt="" decoding="async"><span>${escape(t.name)}</span></li>`).join('')}</ul></section>
+        <div class="hero-baseline"><p class="hero-motto">${c.hero.motto.replace('. ', '. <br>')}</p></div>
       </div>
       <div class="pillar-grid">${c.hero.pillars.map(p => `<a class="pillar" href="#${p.id}"><span class="pillar-label">${pillarGlyph(p.id)}${p.label}</span><span class="pillar-content"><span class="pillar-headline">${p.headline}</span>${diagonalDown}</span></a>`).join('')}</div>
     </section>
-
-    <section class="technologies section-pad" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title" data-reveal>${c.technologies.title}</h2><ul class="technology-list" aria-label="Technologies">${c.technologies.items.map((t,i) => `<li class="technology" data-reveal style="--reveal-index:${i}"><img src="${escape(t.icon)}" width="48" height="48" alt="" decoding="async"><span>${escape(t.name)}</span></li>`).join('')}</ul></section>
 
     <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
       <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.foundation.label}</span></div>
@@ -116,14 +128,11 @@ const html = `<!doctype html>
     <section class="expertise section-pad" id="expertise" aria-labelledby="expertise-title" tabindex="-1">
       <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">${c.expertise.label}</span></div>
       <div class="expertise-introduction"><h2 class="display-heading" id="expertise-title" data-reveal style="--reveal-index:2">${c.expertise.title}</h2><div>${c.expertise.paragraphs.map((p,i) => `<p data-reveal style="--reveal-index:${i+3}">${p}</p>`).join('')}</div></div>
-      <div class="expertise-list">${c.expertise.items.map((s,i) => `<article class="expertise-row" data-reveal style="--reveal-index:${i}"><span class="expertise-number" aria-hidden="true">0${i+1}</span><h3>${s.title}</h3><p>${s.description}</p><span class="expertise-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
+      <div class="expertise-list">${c.expertise.items.map((s,i) => `<article class="expertise-row" data-reveal style="--reveal-index:${i}"><h3>${s.title}</h3><p>${s.description}</p><span class="expertise-glyph glyph-${i}" aria-hidden="true"><i></i><i></i><i></i></span></article>`).join('')}</div>
     </section>
 
     <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:${contactTypingTime.toFixed(3)}s">${contactSlashes}<h2 class="display-heading" id="contact-title" aria-label="${escape(c.contact.title)}">${contactLines}</h2><div class="contact-bottom"><p>${c.contact.description}</p>${demo('button-light')}</div></section>
   </main>
-  <footer class="site-footer"><a href="#hero" aria-label="INDICE Platform home"><img src="${escape(config.logo)}" width="1490" height="400" alt="INDICE Platform" loading="lazy"></a></footer>
-
-  ${navigation()}
 </body>
 </html>
 `;
