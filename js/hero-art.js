@@ -78,8 +78,21 @@
     if (!art.classList.contains('is-animating') || !pointer.matches) resetPointer();
   }
 
+  /* Centres the hero's dotted background on the cloud, which moves with the viewport height. */
+  function centerDots() {
+    const hero = art.closest?.('.hero');
+    const cloud = cloudPaths[0];
+    if (!hero || !cloud?.getBoundingClientRect) return;
+    const area = hero.getBoundingClientRect();
+    const box = cloud.getBoundingClientRect();
+    if (!box.width) return;
+    hero.style.setProperty('--dots-x', `${box.left + box.width / 2 - area.left}px`);
+    hero.style.setProperty('--dots-y', `${box.top + box.height / 2 - area.top}px`);
+  }
+
   function measure() {
     resetPointer();
+    centerDots();
     const bounds = art.getBoundingClientRect();
     visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < innerHeight && bounds.right > 0 && bounds.left < innerWidth;
     update();
@@ -100,6 +113,8 @@
     document.addEventListener('visibilitychange', update, { signal });
     reduced.addEventListener('change', update, { signal });
     window.addEventListener('resize', measure, { passive: true, signal });
+    window.addEventListener('load', centerDots, { signal });
+    document.fonts?.ready?.then(centerDots);
     measure();
 
     if ('IntersectionObserver' in window) {

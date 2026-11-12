@@ -217,8 +217,8 @@ section:focus,article:focus,main:focus {
   z-index:-1;
   background-image:radial-gradient(circle,#0D111733 1px,transparent 1.5px);
   background-size:26px 26px;
-  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
-  mask-image:radial-gradient(ellipse 60% 70% at 26% 45%,#000 10%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 60% 70% at var(--dots-x,50%) var(--dots-y,60%),#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse 60% 70% at var(--dots-x,50%) var(--dots-y,60%),#000 10%,transparent 72%);
   pointer-events:none
 }
 .hero-top {
@@ -2869,7 +2869,15 @@ section:focus,article:focus,main:focus {
   letter-spacing:.09em
 }
 .hero .technology-list {
-  margin-top:20px
+  margin-top:20px;
+  gap:20px 8px
+}
+.hero .technology {
+  width:88px
+}
+.hero .technology img {
+  width:40px;
+  height:40px
 }
 .hero .hero-motto {
   color:var(--accent);
@@ -2959,6 +2967,13 @@ section:focus,article:focus,main:focus {
   .hero .hero-art {
     width:103.5%;
     max-width:538.2px
+  }
+  .hero .technology {
+    width:76px
+  }
+  .hero .technology img {
+    width:34px;
+    height:34px
   }
   .hero .hero-node image {
     transform-box:fill-box;
