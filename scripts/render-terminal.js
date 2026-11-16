@@ -9,6 +9,10 @@ const { designRibbon, escape, headerGithub, screenshotCarousel, partnerCallout }
 
 const { links, pillars, intro, tech, suite, pendingProducts, foundation, expertise, relations, contact } = content;
 const techById = Object.fromEntries(tech.map(item => [item.id, item]));
+const pendingProductAssets = {
+  agents: { logo: 'assets/logos/dex logo.svg', icon: 'assets/logos/dex icon.svg' },
+  workers: { logo: 'assets/logos/workers logo.svg', icon: 'assets/logos/workers icon.svg' }
+};
 const svgSize = file => {
   const [, width, height] = fs.readFileSync(path.join(__dirname, '..', file), 'utf8').match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
   return `width="${width}" height="${height}"`;
@@ -86,15 +90,16 @@ function productPanel(product, index) {
 
 const pendingPanel = product => `<section class="product" id="${product.id}" tabindex="-1" data-product="${product.id}">
       <header class="product-head">
-        <span class="plate plate-ph" role="img" aria-label="${escape(product.name)} logo placeholder"><span>${escape(product.name)} logo</span></span>
+        <span class="plate"><img src="${escape(pendingProductAssets[product.id].logo)}" ${svgSize(pendingProductAssets[product.id].logo)} alt="${escape(product.name)}" loading="lazy" decoding="async"></span>
         <p class="tagline">${escape(product.name)}</p>
         <p class="meta"><span class="chip">no product document yet</span>${placeholder('Technical reference', 'Placeholder: no document or page exists yet')}</p>
       </header>
-      <p class="summary">${escape(product.note)}</p>
+      <p class="summary">Listed in the platform. Product documentation is not provided yet.</p>
     </section>`;
 
 const explorerLink = (href, label, extra = '') => `<a href="${href}" data-spy-link="${href.slice(1)}"${extra}>${label}</a>`;
 const productIcon = product => `<img src="${escape(product.icon)}" alt="" width="14" height="14">`;
+const pendingProductIcon = (product, size = 14) => `<img src="${escape(pendingProductAssets[product.id].icon)}" alt="" width="${size}" height="${size}">`;
 const repositoryLink = headerGithub.replace('class="header-github"', 'class="explorer-github" target="_blank" rel="noopener"');
 
 function render() {
@@ -146,7 +151,7 @@ function render() {
                 <li class="dir"><span>02-suite</span><ul>
                   <li>${explorerLink('#suite', 'overview.md')}</li>
                   ${suite.map(product => `<li>${explorerLink('#' + product.id, `${productIcon(product)}${product.id}/`, ` data-product-link="${product.id}"`)}</li>`).join('\n                  ')}
-                  ${pendingProducts.map(product => `<li>${explorerLink('#' + product.id, `<span class="ico-ph" aria-hidden="true"></span>${product.id}/`, ` data-product-link="${product.id}"`)}</li>`).join('\n                  ')}
+                  ${pendingProducts.map(product => `<li>${explorerLink('#' + product.id, `${pendingProductIcon(product)}${product.id}/`, ` data-product-link="${product.id}"`)}</li>`).join('\n                  ')}
                   <li>${explorerLink('#relations', 'relations.md')}</li>
                   <li>${explorerLink('#matrix', 'matrix.md')}</li>
                 </ul></li>
@@ -233,7 +238,7 @@ function render() {
           <div class="tabs" id="suite-products">
             <div class="tablist" aria-label="Products">
               ${suite.map(product => `<a class="tab" id="tab-${product.id}" href="#${product.id}"><img src="${escape(product.icon)}" alt="" width="16" height="16">${escape(product.name)}</a>`).join('\n              ')}
-              ${pendingProducts.map(product => `<a class="tab tab-ph" id="tab-${product.id}" href="#${product.id}"><span class="ico-ph" aria-hidden="true"></span>${escape(product.name)}</a>`).join('\n              ')}
+              ${pendingProducts.map(product => `<a class="tab" id="tab-${product.id}" href="#${product.id}">${pendingProductIcon(product, 16)}${escape(product.name)}</a>`).join('\n              ')}
             </div>
             ${suite.map(productPanel).join('\n    ')}
             ${pendingProducts.map(pendingPanel).join('\n    ')}

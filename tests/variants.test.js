@@ -48,7 +48,7 @@ test('the new designs keep the three pillars, in order, with the approved pillar
   }
 });
 
-test('the new designs use the approved product logos and mark missing assets as placeholders', () => {
+test('the new designs use product logos and mark unavailable product details as placeholders', () => {
   for (const file of Object.values(variants)) {
     const html = read(file);
     for (const id of ['cases', 'iam', 'messaging', 'risk']) {
@@ -56,10 +56,24 @@ test('the new designs use the approved product logos and mark missing assets as 
       assert(html.includes(`src="${product.logo}"`), `${file} shows the ${id} logo`);
       assert(fs.existsSync(path.join(root, product.logo)));
     }
-    for (const name of ['Agents', 'Workers']) {
-      assert(new RegExp(`${name} logo`).test(html), `${file} has a ${name} logo placeholder`);
+    if (file === 'terminal.html') {
+      for (const [id, name, asset] of [
+        ['agents', 'Agents', 'dex'],
+        ['workers', 'Workers', 'workers']
+      ]) {
+        assert(html.includes(`src="assets/logos/${asset} logo.svg"`), `${file} shows the ${name} logo`);
+        assert(html.includes(`src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon`);
+        assert(html.includes(`<a class="tab" id="tab-${id}" href="#${id}"><img src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon in its suite tab`);
+        assert(html.includes(`<a href="#${id}" data-spy-link="${id}" data-product-link="${id}"><img src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon in the explorer`);
+        assert(fs.existsSync(path.join(root, `assets/logos/${asset} logo.svg`)));
+        assert(fs.existsSync(path.join(root, `assets/logos/${asset} icon.svg`)));
+        assert(html.includes(`id="tab-${id}"`), `${file} has a ${name} suite tab`);
+      }
+    } else {
+      for (const name of ['Agents', 'Workers']) {
+        assert(new RegExp(`${name} logo`).test(html), `${file} has a ${name} logo placeholder`);
+      }
     }
-    assert(!/Agents logo.*<img/.test(html), 'Placeholders are not fake images');
   }
 });
 
