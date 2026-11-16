@@ -1,11 +1,13 @@
 'use strict';
 
-/* Proposal B — "Editorial": a long-form, light-first concept set in Manrope (light display weights, bold labels,
+/* Proposal B — "Editorial": a long-form, dark-first concept set in Manrope (light display weights, bold labels,
    orange accents). A static masthead with a full-screen Contents dialog and reading progress, numbered chapters,
    and field-guide solution entries inside §02. Each entry closes with a library of screens that scrolls towards the
    pointer and opens screens in a viewer. No Solutions slider. */
 const S = require('./shared.js');
-const { content: c, solutions, escape, icons } = S;
+const { content: c, themedLogo } = require('./content-b.js');
+const { escape, icons } = S;
+const { solutions } = c;
 const ui = c.ui;
 const pad = number => String(number).padStart(2, '0');
 
@@ -18,8 +20,8 @@ const chapters = [
 ];
 const chapterNumber = id => pad(chapters.findIndex(chapter => chapter.id === id) + 1);
 const entryNumber = index => `${chapterNumber('products')}.${index + 1}`;
-// "Technical details": the Cases reference page, or the Architecture part of the solution's entry.
-const detailsHref = s => s.product.destination || `#spec-${s.id}-architecture`;
+// "Technical details": each solution's technical reference page. Only Cases has one so far; the rest are placeholders.
+const detailsHref = s => s.product.destination || '#';
 
 /* Words that rise into place; `accent` lists word positions set in the accent colour. */
 const words = (text, accent = []) => escape(text).split(' ')
@@ -35,10 +37,7 @@ const masthead = () => `<header class="pb-masthead">
     <a class="pb-brand" href="#hero" aria-label="INDICE Platform, back to top">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
     <p class="pb-masthead-note">${escape(ui.mastheadNote)}</p>
     <div class="pb-masthead-actions">
-      <div class="pb-theme" role="group" aria-label="${ui.themeGroup}">
-        <button type="button" data-theme-set="light" aria-pressed="true">${icons.sun}<span>${ui.themeLight}</span></button>
-        <button type="button" data-theme-set="dark" aria-pressed="false">${icons.moon}<span>${ui.themeDark}</span></button>
-      </div>
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="${ui.themeToggle}">${icons.sun}${icons.moon}</button>
       <a class="pb-contents-button" href="#contents" data-dialog-open="pb-contents" aria-haspopup="dialog">${ui.nav.contents}${icons.menu}</a>
     </div>
   </header>
@@ -110,7 +109,7 @@ const entry = (s, index) => `<article class="pb-entry" id="spec-${s.id}" aria-la
         <aside class="pb-entry-aside">
           <span class="pb-entry-meter" aria-hidden="true"></span>
           <p class="pb-entry-no">${entryNumber(index)}</p>
-          <div class="pb-entry-logo">${S.themedLogo(s.product)}</div>
+          <div class="pb-entry-logo">${themedLogo(s.product)}</div>
           <h4 id="pb-entry-${s.id}">${escape(s.name)}</h4>
           <p class="pb-entry-tagline">${escape(s.tagline)}</p>
           <h5>${ui.apis}</h5>
@@ -153,7 +152,7 @@ const plateArt = () => {
   const nodeMarks = nodes.map((s, index) => {
     const [x, y] = at(orbit, index, nodes.length);
     const body = s
-      ? `<circle class="pb-node-disc" r="34"/><image href="assets/logos/${escape(s.id)} icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">${escape(s.name)}</text>`
+      ? `<circle class="pb-node-disc" r="34"/><image href="${escape(s.product.icon)}" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">${escape(s.name)}</text>`
       : '<circle class="pb-node-ghost" r="34"/><path class="pb-node-plus" d="M-9 0h18M0-9v18"/>';
     return `<g transform="translate(${x} ${y})"><g class="pb-node-spin"><g class="pb-node" style="--i:${index}${s ? `;--tone:${s.product.color}` : ''}">${body}</g></g></g>`;
   }).join('');
@@ -195,7 +194,7 @@ const suite = () => `<section class="pb-chapter pb-suite" id="products" aria-lab
       <p class="pb-standfirst pb-suite-intro" data-reveal>${escape(c.suite.intro)}</p>
       <div class="pb-cards">${solutions.map((s, index) => `<article class="pb-card" style="--tone:${s.product.color};--i:${index}" aria-labelledby="pb-card-${s.id}" data-reveal>
           <p class="pb-card-fig">Fig. ${entryNumber(index)}</p>
-          <h3 class="pb-card-logo" id="pb-card-${s.id}">${S.themedLogo(s.product)}</h3>
+          <h3 class="pb-card-logo" id="pb-card-${s.id}">${themedLogo(s.product)}</h3>
           <p class="pb-card-tagline">${escape(s.tagline)}</p>
           <p class="pb-card-action">${escape(s.action)}</p>
           <p class="pb-card-stack">${s.stack.map(escape).join(' · ')}</p>
@@ -250,7 +249,7 @@ const colophon = () => `<footer class="pb-colophon">
       <h2>${ui.colophon}</h2>
       <p>${escape(ui.colophonText)}</p>
       <p>${escape(c.footer.note)}</p>
-      <ul><li><a href="cases-reference.html">${ui.casesReference}</a></li><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
+      <ul><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
     </div>
   </footer>`;
 
@@ -259,8 +258,8 @@ module.exports = function renderProposalB() {
     id: 'b',
     title: 'INDICE Platform — Proposal B · Editorial',
     description: c.hero.lede,
-    defaultTheme: 'light',
-    themeColor: '#f6f7f9',
+    defaultTheme: 'dark',
+    themeColor: '#0f1115',
     mono: true,
     screens: true,
     stylesheet: 'css/proposals/proposal-b.css'

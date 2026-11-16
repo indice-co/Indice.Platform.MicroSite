@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { renderShowcaseCss, renderScreensCss } = require('./showcase-css.js');
 const { renderDarkLogos } = require('./shared.js');
+const proposalB = require('./content-b.js');
 
 const root = path.join(__dirname, '..', '..');
 const pages = {
@@ -18,6 +19,7 @@ module.exports = function buildProposals() {
   fs.writeFileSync(path.join(root, 'css', 'proposals', 'showcase.css'), renderShowcaseCss(), 'utf8');
   fs.writeFileSync(path.join(root, 'css', 'proposals', 'screens.css'), renderScreensCss(), 'utf8');
   renderDarkLogos();
+  proposalB.renderDarkLogos();
   for (const [file, render] of Object.entries(pages)) fs.writeFileSync(path.join(root, file), render(), 'utf8');
   console.log(`Rendered ${Object.keys(pages).join(', ')}.`);
 };

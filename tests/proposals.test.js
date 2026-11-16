@@ -11,13 +11,15 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8').replace(/\r\
 require('../js/data.js');
 const { products } = globalThis.INDICE_DATA;
 const content = require('../scripts/proposals/content.js');
+const proposalB = require('../scripts/proposals/content-b.js');
+const contentFor = file => file === 'proposal-b.html' ? proposalB.content : content;
 const { pages: renderers } = require('../scripts/proposals/build.js');
 const { renderShowcaseCss, renderScreensCss } = require('../scripts/proposals/showcase-css.js');
 const { darkLogoPath, themeKey } = require('../scripts/proposals/shared.js');
 const { highlight } = require('../scripts/highlight.js');
 
 const proposals = { a: 'proposal-a.html', b: 'proposal-b.html', c: 'proposal-c.html' };
-const defaultThemes = { a: 'light', b: 'light', c: 'dark' };
+const defaultThemes = { a: 'light', b: 'dark', c: 'dark' };
 const unescapeHtml = value => value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const visibleText = html => unescapeHtml(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
 const showcaseBlock = html => {
@@ -41,6 +43,26 @@ test('proposal pages, slider styles and dark logos are generated from the curren
     const svg = read(darkLogoPath(product));
     assert(!/#1C1A33|#777685/i.test(svg), `${product.id} dark logo has light wordmark colours`);
     assert.equal(svg.replace(/#F4F4F6/gi, '#1C1A33').replace(/#A9A8B8/gi, '#777685'), read(product.logo), `${product.id} dark logo only changes the wordmark colours`);
+  }
+  for (const { product } of proposalB.content.solutions) {
+    const svg = read(proposalB.darkLogoPath(product));
+    assert.equal(proposalB.darkLogo(product), svg, `Run npm run build to refresh Proposal B's ${product.id} dark logo`);
+    const badge = svg.match(/<path\b[^>]*\sd="M[\d.]+ 2\.2202[^>]*>\s*(<path\b[^>]*>)\s*(<path\b[^>]*>)/);
+    if (badge) assert(badge.slice(1).every(letter => letter.includes('fill="#1C1A33"')), `Proposal B's ${product.id} dark logo keeps the UI letters dark`);
+  }
+  assert.match(read(proposalB.darkLogoPath({ id: 'workers' })), /<path d="M12\.32 10\.67[^>]*fill="#1C1A33"/, 'Proposal B keeps the Workers gear dark');
+});
+
+test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with placeholders where content is missing', () => {
+  const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
+  assert.deepEqual(proposalB.content.solutions.map(solution => solution.id), order);
+  const html = read(proposals.b);
+  assert.deepEqual([...html.matchAll(/<article class="pb-entry" id="spec-([a-z]+)"/g)].map(match => match[1]), order, 'Entries follow the solution order');
+  for (const [id, file] of [['agents', 'dex'], ['workers', 'workers']]) {
+    assert(html.includes(`src="assets/logos/${file} logo.svg"`) && html.includes(`href="assets/logos/${file} icon.svg"`), `${id} uses its supplied logo and icon`);
+    const solution = proposalB.content.solutions.find(item => item.id === id);
+    assert(solution.screens.every(screen => !screen.image && !screen.mock), `${id} screens are placeholders`);
+    for (const text of [solution.tagline, solution.summary, solution.problem, solution.architecture]) assert(text.startsWith('Placeholder:'), `${id} copy is marked as a placeholder`);
   }
 });
 
@@ -90,7 +112,7 @@ test('Proposal B is decorated with an illustrated plate and a halftone sun drawn
   const plate = html.slice(html.indexOf('<figure class="pb-plate"'), html.indexOf('</figure>', html.indexOf('<figure class="pb-plate"')));
   assert(plate.includes('<svg class="pb-plate-svg"') && plate.includes('aria-hidden="true"'), 'Decorative diagram hidden from assistive technology');
   assert(plate.includes('<figcaption class="pb-plate-caption">'), 'The plate is captioned');
-  assert.equal((plate.match(/class="pb-node-disc"/g) || []).length, content.solutions.length, 'One node per solution');
+  assert.equal((plate.match(/class="pb-node-disc"/g) || []).length, proposalB.content.solutions.length, 'One node per solution');
   assert.equal((plate.match(/class="pb-node-ghost"/g) || []).length, 1, 'An open slot for the next solution');
   assert(html.indexOf('class="pb-plate"') > html.indexOf('id="platform"') && html.indexOf('class="pb-plate"') < html.indexOf('id="products"'), 'The plate sits between §01 and §02');
   assert(html.includes('<div class="pb-sun" aria-hidden="true" data-parallax='), 'A sun rises behind the closing section');
@@ -129,7 +151,8 @@ test('Proposals B and C drop the slider and present how each solution works insi
     for (const solution of content.solutions) {
       const learnMore = new RegExp(`<a[^>]*href="#spec-${solution.id}"[^>]*>${content.ui.learnMore}`);
       assert.match(html, learnMore, `${file} ${solution.id} card links to its details`);
-      const details = solution.id === 'cases' ? 'cases-reference.html' : `#spec-${solution.id}-architecture`;
+      // Proposal B links the reference pages still to come to placeholders.
+      const details = solution.id === 'cases' ? 'cases-reference.html' : file === proposals.b ? '#' : `#spec-${solution.id}-architecture`;
       assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
     }
   }
@@ -196,7 +219,7 @@ test('every proposal offers a light and a dark theme, starting from its own defa
     const toggles = html.match(/<button type="button"[^>]*data-theme-toggle[^>]*aria-pressed="(?:true|false)"/g) || [];
     const segmented = html.match(/data-theme-set="(light|dark)" aria-pressed/g) || [];
     assert(toggles.length || segmented.length === 2, `proposal ${id} has a theme control`);
-    assert(html.includes('assets/logos/on-dark/cases-logo.svg'), `proposal ${id} has dark-theme product logos`);
+    assert(html.includes(id === 'b' ? 'assets/logos/on-dark/proposal-b/cases-logo.svg' : 'assets/logos/on-dark/cases-logo.svg'), `proposal ${id} has dark-theme product logos`);
   }
   const runtime = read('js/proposals/common.js');
   assert(runtime.includes("indice-proposal-${root.dataset.proposal || 'default'}-theme") && !runtime.includes('prefers-color-scheme'), 'The runtime keeps one theme per proposal and no system default');
@@ -263,7 +286,7 @@ test('Proposal A: decorated background, parallax, a full-width row of larger pro
 test('Proposal B ends each solution entry with a hover-scrolled library of labelled screens that open in a viewer', () => {
   const html = read(proposals.b);
   assert.equal((html.match(/<dialog class="lightbox [^"]+" id="screen-viewer"/g) || []).length, 1, 'One screen viewer');
-  for (const solution of content.solutions) {
+  for (const solution of proposalB.content.solutions) {
     const start = html.indexOf(`id="spec-${solution.id}"`);
     const entry = html.slice(start, html.indexOf('</article>', start));
     const strip = entry.match(/<ul class="pb-strip" id="(pb-strip-[a-z]+)" data-hover-scroll aria-labelledby="(pb-gallery-[a-z]+)">/);
@@ -305,7 +328,7 @@ test('screens are honest: approved screenshots, labelled illustrations or labell
   for (const image of approved) assert(fs.existsSync(path.join(root, image)), `${image} exists`);
   for (const file of [proposals.b, proposals.c]) {
     const html = read(file);
-    const placeholders = content.solutions.flatMap(solution => solution.screens.filter(screen => !screen.image && !screen.mock));
+    const placeholders = contentFor(file).solutions.flatMap(solution => solution.screens.filter(screen => !screen.image && !screen.mock));
     assert.equal((html.match(/<span class="ph-label" aria-hidden="true">Screenshot pending<\/span>/g) || []).length, placeholders.length, `${file} labels every placeholder`);
     assert.equal((html.match(/<span class="shot-badge">Illustrative<\/span>/g) || []).length, 2, `${file} labels the two illustrations`);
   }
@@ -315,8 +338,9 @@ test('the hero states what is offered, who it serves and what each solution does
   for (const file of Object.values(proposals)) {
     const html = read(file);
     const hero = visibleText(html.slice(html.indexOf('id="hero"'), html.indexOf('</section>', html.indexOf('id="hero"'))));
-    assert(hero.includes(content.hero.title) && hero.includes(content.hero.lede), `${file} hero has the offer and the audience`);
-    for (const solution of content.solutions) assert(hero.includes(solution.name) && hero.includes(solution.action), `${file} hero lists ${solution.name}`);
+    const { hero: copy, solutions } = contentFor(file);
+    assert(hero.includes(copy.title) && hero.includes(copy.lede), `${file} hero has the offer and the audience`);
+    for (const solution of solutions) assert(hero.includes(solution.name) && hero.includes(solution.action), `${file} hero lists ${solution.name}`);
     assert.equal((html.match(/<h1\b/g) || []).length, 1);
   }
 });
