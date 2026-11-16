@@ -13,6 +13,8 @@ const pendingProductAssets = {
   agents: { logo: 'assets/logos/dex logo.svg', icon: 'assets/logos/dex icon.svg' },
   workers: { logo: 'assets/logos/workers logo.svg', icon: 'assets/logos/workers icon.svg' }
 };
+/* Terminal links to its own technical references; Blueprint keeps the shared ones from tech-content.js. */
+const terminalDocs = { cases: 'terminal-cases-reference.html' };
 const svgSize = file => {
   const [, width, height] = fs.readFileSync(path.join(__dirname, '..', file), 'utf8').match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
   return `width="${width}" height="${height}"`;
@@ -59,8 +61,9 @@ const riskDemo = `<div class="demo" id="risk-demo">
         </div>`;
 
 function productPanel(product, index) {
-  const docs = product.docs.href
-    ? `<a class="doc-link" href="${escape(product.docs.href)}">${escape(product.docs.label)} →</a>`
+  const docsHref = terminalDocs[product.id] || product.docs.href;
+  const docs = docsHref
+    ? `<a class="doc-link" href="${escape(docsHref)}">${escape(product.docs.label)} →</a>`
     : placeholder(product.docs.label, 'Placeholder: this product’s technical reference page does not exist yet');
   return `<section class="product" id="${product.id}" tabindex="-1" data-product="${product.id}">
       <header class="product-head">
@@ -273,7 +276,7 @@ function render() {
           <header class="sec-head"><p class="crumb">contact.md</p><h2 id="contact-title"><span class="h-mark" aria-hidden="true">## </span>Talk to the engineers</h2></header>
           <ul class="contact-list">
             <li>${placeholder(contact.demo.label, 'Placeholder: demo request link not provided yet')}<span class="dim">Demo of the suite, focused on your integration points.</span></li>
-            <li>${external(contact.github.href, contact.github.label)}<span class="dim">Source of the libraries.</span></li>
+            <li>${external(links.platform, 'github.com/indice-co/Indice.Platform')}<span class="dim">Source of the libraries.</span></li>
             <li>${external(links.nuget, 'nuget.org/profiles/indice')}<span class="dim">NuGet packages.</span></li>
             <li>${external(links.ngConfig, '@indice/ng-*')}<span class="dim">npm packages (ng-config, ng-auth, ng-components).</span></li>
           </ul>
@@ -307,7 +310,7 @@ function render() {
     { label: 'matrix.md', hint: 'suite', href: '#matrix' },
     { label: 'integration-points.md', hint: 'expertise', href: '#integration-points' },
     { label: 'contact.md', hint: 'contact', href: '#contact' },
-    { label: 'cases-reference.html', hint: 'Cases technical reference', href: 'cases-reference.html' },
+    { label: 'cases/README.md', hint: 'Cases technical reference', href: terminalDocs.cases },
     { label: 'github.com/indice-co', hint: 'external', href: links.github },
     { label: 'nuget.org/profiles/indice', hint: 'external', href: links.nuget },
     { label: 'Original design', hint: 'design preview', href: 'index.html' },

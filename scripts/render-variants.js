@@ -7,10 +7,11 @@ const path = require('node:path');
 module.exports = function renderVariants() {
   const outputs = {
     'terminal.html': require('./render-terminal.js'),
+    'terminal-cases-reference.html': require('./render-terminal-reference.js'),
     'blueprint.html': require('./render-blueprint.js')
   };
   for (const [file, render] of Object.entries(outputs)) {
     fs.writeFileSync(path.join(__dirname, '..', file), render(), 'utf8');
   }
-  console.log(`Rendered ${Object.keys(outputs).join(' and ')}.`);
+  console.log(`Rendered ${Object.keys(outputs).join(', ')}.`);
 };
