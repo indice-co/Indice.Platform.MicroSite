@@ -64,6 +64,10 @@ test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with 
     assert(solution.screens.every(screen => !screen.image && !screen.mock), `${id} screens are placeholders`);
     for (const text of [solution.tagline, solution.summary, solution.problem, solution.architecture]) assert(text.startsWith('Placeholder:'), `${id} copy is marked as a placeholder`);
   }
+  const iam = html.slice(html.indexOf('id="spec-iam"'), html.indexOf('</article>', html.indexOf('id="spec-iam"')));
+  assert(iam.includes('<aside class="pb-partner"') && iam.includes('official distributor and integrator of Duende Software'), 'The IAM entry calls out the Duende partnership');
+  assert(iam.includes('href="https://duendesoftware.com/" rel="noopener" target="_blank"'), 'The partnership links to Duende Software');
+  assert.equal((html.match(/class="pb-partner"/g) || []).length, 1, 'Only the IAM entry has a partner panel');
 });
 
 test('proposals call IAM, Cases, Messaging and Risk "solutions" and never state how many there are', () => {
@@ -196,7 +200,7 @@ test('internal Solution pages keep their own sources and text', () => {
   for (const file of Object.values(proposals)) {
     const html = read(file);
     assert(html.includes('href="cases-reference.html"'), `${file} links to the Cases reference`);
-    assert(!/href="(?!cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
+    assert(!/href="(?!cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
   }
 });
 

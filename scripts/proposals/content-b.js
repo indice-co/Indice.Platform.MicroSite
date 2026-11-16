@@ -44,6 +44,16 @@ const placeholderSolution = (id, name) => ({
 const allSolutions = [...base.solutions, placeholderSolution('agents', 'Agents'), placeholderSolution('workers', 'Workers')];
 const solutions = order.map(id => ({ ...allSolutions.find(solution => solution.id === id), product: byId[id] }));
 
+/* A partnership called out in a solution's entry. */
+solutions.find(solution => solution.id === 'iam').partner = {
+  label: 'Official partner',
+  name: 'Duende Software',
+  logo: 'assets/logos/duende logo.svg',
+  text: 'INDICE is an official distributor and integrator of Duende Software, the company behind Duende IdentityServer. We license, deploy and integrate IdentityServer as part of IAM, and support it alongside the rest of the platform.',
+  href: 'https://duendesoftware.com/',
+  site: 'duendesoftware.com'
+};
+
 const content = {
   ...base,
   hero: { ...base.hero, title: 'Self-hosted .NET solutions for identity, case workflows, messaging, risk, agents and workers.' },

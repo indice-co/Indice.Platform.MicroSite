@@ -88,8 +88,10 @@ const platform = () => `<section class="pb-chapter pb-platform" id="platform" ar
    through it, and every screen opens in the viewer with the rest of this solution's screens. */
 const gallery = s => `<div class="pb-gallery" data-gallery data-shot-group data-reveal>
           <div class="pb-gallery-head">
-            <h5 class="pb-gallery-title" id="pb-gallery-${s.id}">${ui.screens}<span> · ${escape(s.name)}</span></h5>
-            <p class="pb-gallery-hint">${ui.galleryHint}</p>
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-${s.id}">${ui.screens}<span> · ${escape(s.name)}</span></h5>
+              <p class="pb-gallery-hint">${ui.galleryHint}</p>
+            </div>
             <div class="pb-gallery-nav">
               <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-${s.id}">${icons.arrowLeft}<span class="sr-only">${ui.scrollBack}: ${escape(s.name)}</span></button>
               <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-${s.id}">${icons.arrowRight}<span class="sr-only">${ui.scrollForward}: ${escape(s.name)}</span></button>
@@ -102,6 +104,15 @@ const gallery = s => `<div class="pb-gallery" data-gallery data-shot-group data-
           </div>
           <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
         </div>`;
+
+/* A partner called out inside an entry. The logo is a mask filled with the text colour, so it suits both themes. */
+const partner = p => `
+          <aside class="pb-partner" aria-label="${escape(p.label)}: ${escape(p.name)}" data-reveal>
+            <p class="pb-partner-label">${escape(p.label)}</p>
+            <span class="pb-partner-logo" role="img" aria-label="${escape(p.name)}" style="-webkit-mask-image:url('${escape(p.logo)}');mask-image:url('${escape(p.logo)}')"></span>
+            <p class="pb-partner-text">${escape(p.text)}</p>
+            ${S.external(p.href, `${escape(p.site)}${icons.arrowUpRight}`, 'pb-partner-link')}
+          </aside>`;
 
 /* The aside and body share their own grid, so the sticky aside stops before the full-width screen library. */
 const entry = (s, index) => `<article class="pb-entry" id="spec-${s.id}" aria-labelledby="pb-entry-${s.id}" style="--tone:${s.product.color}" tabindex="-1" data-scrub>
@@ -119,7 +130,7 @@ const entry = (s, index) => `<article class="pb-entry" id="spec-${s.id}" aria-la
           <a class="pb-entry-link" href="${escape(s.product.destination)}">${ui.readCasesReference}${icons.arrowRight}</a>` : ''}
         </aside>
         <div class="pb-entry-body">
-          <p class="pb-entry-summary" data-reveal>${escape(s.summary)}</p>
+          <p class="pb-entry-summary" data-reveal>${escape(s.summary)}</p>${s.partner ? partner(s.partner) : ''}
           <h5>${ui.problem}</h5>
           <p class="pb-entry-problem">${escape(s.problem)}</p>
           <h5>${ui.how}</h5>
@@ -160,7 +171,7 @@ const plateArt = () => {
     const [x, y] = at(112, index, ui.foundationStack.length, -54);
     return `<g transform="translate(${x} ${y})"><g class="pb-chip-spin"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">${escape(label)}</text></g></g>`;
   }).join('');
-  return `<svg class="pb-plate-svg" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false">
+  return `<svg class="pb-plate-svg" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false" data-tilt="7">
             <circle class="pb-ticks" r="288" pathLength="360"/>
             <circle class="pb-ring pb-ring-dashed" r="268"/>
             <circle class="pb-ring" r="${orbit}"/>
