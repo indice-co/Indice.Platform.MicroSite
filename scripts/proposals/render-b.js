@@ -246,7 +246,7 @@ const contact = () => `<section class="pb-contact" id="contact" aria-labelledby=
         <p class="pb-chapter-label"><span class="pb-chapter-no">§ ${chapterNumber('contact')}</span>${ui.contactLabel}</p>
         <h2 id="pb-contact-title">${words(c.contact.title, lastWord(c.contact.title))}</h2>
         <p>${escape(c.contact.text)}</p>
-        <div class="pb-actions">${S.demoButton('pb-btn pb-btn-solid', c.contact.button)}<a class="pb-btn pb-btn-line" href="cases-reference.html">${ui.readCasesReference}</a></div>
+        <div class="pb-actions">${S.demoButton('pb-btn pb-btn-solid', c.contact.button)}</div>
       </div>
     </section>`;
 

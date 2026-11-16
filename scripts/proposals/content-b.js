@@ -15,13 +15,18 @@ const root = path.join(__dirname, '..', '..');
 const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
 const placeholder = text => `Placeholder: ${text}`;
 
-/* Agents uses the supplied Dex artwork. */
+/* Agents uses the supplied Dex artwork. Cases links to Proposal B's own copy of its technical reference. */
+const referencePage = 'proposal-b-cases-reference.html';
 const newProducts = [
   { id: 'agents', name: 'Agents', logo: 'assets/logos/dex logo.svg', icon: 'assets/logos/dex icon.svg', color: '#E3272A', destination: null },
   { id: 'workers', name: 'Workers', logo: 'assets/logos/workers logo.svg', icon: 'assets/logos/workers icon.svg', color: '#F59E0B', destination: null }
 ];
 const byId = Object.fromEntries([
-  ...products.map(product => [product.id, { ...product, icon: `assets/logos/${product.id} icon.svg` }]),
+  ...products.map(product => [product.id, {
+    ...product,
+    icon: `assets/logos/${product.id} icon.svg`,
+    destination: product.id === 'cases' ? referencePage : product.destination
+  }]),
   ...newProducts.map(product => [product.id, product])
 ]);
 
@@ -84,4 +89,4 @@ function renderDarkLogos() {
 const themedLogo = product => logo(product, 'logo-on-light')
   + logo(product, 'logo-on-dark').replace(`src="${escape(product.logo)}"`, `src="${escape(darkLogoPath(product))}"`);
 
-module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo };
+module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo, referencePage };

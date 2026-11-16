@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* Proposal B — "Editorial". Long-form layout set in Manrope: light display weights, bold uppercase labels and an
-   orange accent. Page styles live in the "proposal" layer above css/proposals/common.css. Light is the default. */
+   orange accent. Page styles live in the "proposal" layer above css/proposals/common.css. Dark is the default. */
 @font-face {
   font-family: Manrope;
   src: url('../../assets/fonts/manrope-variable.ttf') format('truetype');

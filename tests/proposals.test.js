@@ -156,7 +156,8 @@ test('Proposals B and C drop the slider and present how each solution works insi
       const learnMore = new RegExp(`<a[^>]*href="#spec-${solution.id}"[^>]*>${content.ui.learnMore}`);
       assert.match(html, learnMore, `${file} ${solution.id} card links to its details`);
       // Proposal B links the reference pages still to come to placeholders.
-      const details = solution.id === 'cases' ? 'cases-reference.html' : file === proposals.b ? '#' : `#spec-${solution.id}-architecture`;
+      const cases = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
+      const details = solution.id === 'cases' ? cases : file === proposals.b ? '#' : `#spec-${solution.id}-architecture`;
       assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
     }
   }
@@ -199,9 +200,21 @@ test('internal Solution pages keep their own sources and text', () => {
   assert(reference.includes('Cases technical reference'));
   for (const file of Object.values(proposals)) {
     const html = read(file);
-    assert(html.includes('href="cases-reference.html"'), `${file} links to the Cases reference`);
-    assert(!/href="(?!cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
+    const reference = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
+    assert(html.includes(`href="${reference}"`), `${file} links to the Cases reference`);
+    assert(!/href="(?!cases-reference\.html|proposal-b-cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
   }
+});
+
+test('Proposal B has its own Cases technical reference with the original page\u2019s text', () => {
+  const page = read(proposalB.referencePage);
+  const original = read('cases-reference.html');
+  const text = (html, start, end) => visibleText(html.slice(html.indexOf(start), html.indexOf(end, html.indexOf(start))));
+  assert.equal(text(page, '<article class="cases-article', '</article>'), text(original, '<article class="cases-article', '</article>'), 'Same article');
+  assert.equal(text(page, '<aside class="cases-article-toc', '</aside>'), text(original, '<aside class="cases-article-toc', '</aside>'), 'Same contents');
+  assert(page.includes('data-default-theme="dark"') && page.includes('href="css/proposals/proposal-b.css"') && page.includes('href="css/proposals/proposal-b-reference.css"'), 'Set in Proposal B\u2019s design');
+  assert(page.includes('<script defer src="js/cases-article.js"></script>') && page.includes('<dialog class="flowchart-dialog'), 'Keeps the contents highlighting, chapter links and diagrams');
+  for (const file of [proposals.a, proposals.c]) assert(!read(file).includes(proposalB.referencePage), `${file} keeps the original reference`);
 });
 
 test('every proposal offers a light and a dark theme, starting from its own default', () => {

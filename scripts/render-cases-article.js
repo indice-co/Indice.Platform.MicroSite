@@ -3,7 +3,8 @@ const path = require('node:path');
 const { Marked } = require('marked');
 const { escape } = require('./shared.js');
 
-function renderArticle({ source }) {
+/* Parses a product document into the reference article: its body, its chapters and the grouped table of contents. */
+function parseArticle(source) {
   const contents = [];
   const contentGroups = [];
   const headingIds = new Set();
@@ -69,6 +70,11 @@ function renderArticle({ source }) {
     }
   });
   const body = markdown.parse(fs.readFileSync(path.join(__dirname, '..', source), 'utf8'));
+  return { body, contents, contentGroups };
+}
+
+function renderArticle({ source }) {
+  const { body, contents, contentGroups } = parseArticle(source);
   const contentsMarkup = contentGroups.map(group => `<section class="cases-toc-group"><h3 class="cases-toc-category">${escape(group.title)}</h3><ul>${group.items.map(({ id, label }) => `<li><a class="cases-toc-link" href="#${id}">${escape(label)}</a></li>`).join('')}</ul></section>`).join('');
   require('./render-cases.js')({
     filename:'cases-reference.html',
@@ -88,3 +94,4 @@ module.exports = function renderCasesArticle() {
     fs.rmSync(path.join(__dirname, '..', obsoletePage), { force:true });
   }
 };
+module.exports.parseArticle = parseArticle;
