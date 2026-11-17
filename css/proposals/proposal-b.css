@@ -426,7 +426,6 @@
   .pb-strip-wrap { position: relative; margin: 24px calc(-1 * var(--bleed)) 0; }
   .pb-strip {
     display: flex; gap: clamp(16px, 2vw, 28px); padding: 8px var(--bleed) 26px; scroll-padding-inline: var(--bleed);
-    counter-reset: shot;
   }
   /* Edge shading shows which way the strip is gliding. */
   .pb-strip-wrap::before, .pb-strip-wrap::after {
@@ -437,7 +436,7 @@
   .pb-strip-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
   .pb-gallery.is-gliding-left .pb-strip-wrap::before, .pb-gallery.is-gliding-right .pb-strip-wrap::after { opacity: .7; }
   .pb-strip-item {
-    flex: 0 0 clamp(272px, 58vw, 880px); scroll-snap-align: start; counter-increment: shot;
+    flex: 0 0 clamp(272px, 58vw, 880px); scroll-snap-align: start;
     transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
     transition-delay: calc(150ms + var(--i) * 90ms);
   }
@@ -449,11 +448,7 @@
   .pb-shot .shot-media > img, .pb-shot .shot-placeholder { transition: transform 1.2s var(--ease-out); }
   .pb-shot:hover .shot-media { transform: translateY(-6px); box-shadow: 0 44px 80px -44px var(--shadow); }
   .pb-shot:hover .shot-media > img, .pb-shot:hover .shot-placeholder { transform: scale(1.035); }
-  .pb-shot figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; margin-top: 16px; max-width: 66ch; }
-  .pb-shot figcaption::before {
-    content: counter(shot, decimal-leading-zero); grid-row: span 2; padding-top: 3px;
-    font-size: 13px; font-weight: 700; color: var(--accent);
-  }
+  .pb-shot figcaption { display: grid; gap: 4px; margin-top: 16px; max-width: 66ch; }
   .pb-shot figcaption b {
     justify-self: start; font-size: 18px; font-weight: 700; letter-spacing: -.01em;
     background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat; padding-bottom: 2px;
