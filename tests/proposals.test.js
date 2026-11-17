@@ -53,7 +53,7 @@ test('proposal pages, slider styles and dark logos are generated from the curren
   assert.match(read(proposalB.darkLogoPath({ id: 'workers' })), /<path d="M12\.32 10\.67[^>]*fill="#1C1A33"/, 'Proposal B keeps the Workers gear dark');
 });
 
-test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with placeholders where content is missing', () => {
+test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with real copy for every solution', () => {
   const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
   assert.deepEqual(proposalB.content.solutions.map(solution => solution.id), order);
   const html = read(proposals.b);
@@ -61,9 +61,10 @@ test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with 
   for (const [id, file] of [['agents', 'dex'], ['workers', 'workers']]) {
     assert(html.includes(`src="assets/logos/${file} logo.svg"`) && html.includes(`href="assets/logos/${file} icon.svg"`), `${id} uses its supplied logo and icon`);
     const solution = proposalB.content.solutions.find(item => item.id === id);
-    assert(solution.screens.every(screen => !screen.image && !screen.mock), `${id} screens are placeholders`);
-    for (const text of [solution.tagline, solution.summary, solution.problem, solution.architecture]) assert(text.startsWith('Placeholder:'), `${id} copy is marked as a placeholder`);
+    assert(solution.screens.every(screen => !screen.image && !screen.mock), `${id} has no screenshots yet, so its screens stay labelled as pending`);
   }
+  assert(!/Placeholder:/i.test(visibleText(html)), 'No placeholder copy is left');
+  assert(html.includes('<span>Swift</span></figcaption>'), 'The Swift sample is labelled Swift');
   const iam = html.slice(html.indexOf('id="spec-iam"'), html.indexOf('</article>', html.indexOf('id="spec-iam"')));
   assert(iam.includes('<aside class="pb-partner"') && iam.includes('official distributor and integrator of Duende Software'), 'The IAM entry calls out the Duende partnership');
   assert(iam.includes('href="https://duendesoftware.com/" rel="noopener" target="_blank"'), 'The partnership links to Duende Software');

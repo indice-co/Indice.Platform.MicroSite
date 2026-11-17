@@ -1,9 +1,7 @@
 'use strict';
 
 /* Proposal B's own content: the shared proposal copy with six solutions in this order, IAM, Cases, Messaging, Risk,
-   Agents and Workers. Agents and Workers have no solution documents or screenshots yet, so every text, list, code
-   sample and screen for them is a labelled placeholder. Proposals A and C, js/data.js and the main site keep the
-   original four solutions. */
+   Agents and Workers. Proposals A and C, js/data.js and the main site keep the original four solutions. */
 const fs = require('node:fs');
 const path = require('node:path');
 require('../../js/data.js');
@@ -13,7 +11,6 @@ const { products } = globalThis.INDICE_DATA;
 
 const root = path.join(__dirname, '..', '..');
 const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
-const placeholder = text => `Placeholder: ${text}`;
 
 /* Agents uses the supplied Dex artwork. Cases links to Proposal B's own copy of its technical reference. */
 const referencePage = 'proposal-b-cases-reference.html';
@@ -30,23 +27,93 @@ const byId = Object.fromEntries([
   ...newProducts.map(product => [product.id, product])
 ]);
 
-const placeholderSolution = (id, name) => ({
-  id,
-  name,
-  tagline: placeholder(`${name} tagline`),
-  action: placeholder(`what ${name} does, in one sentence.`),
-  summary: placeholder(`a short summary of ${name}: what it is, who uses it and where it runs.`),
-  problem: placeholder(`the problem ${name} addresses for technical teams.`),
-  how: [1, 2, 3].map(step => placeholder(`how ${name} works, step ${step}.`)),
-  architecture: placeholder(`how ${name} is hosted and where its data lives.`),
-  integrations: [1, 2, 3, 4].map(item => placeholder(`integration ${item}`)),
-  apis: [placeholder('key API')],
-  stack: [placeholder('stack')],
-  code: { file: `${name}/Program.cs`, language: 'csharp', source: `// Placeholder: a code sample for ${name} will go here.` },
-  screens: [1, 2, 3].map(screen => ({ title: `${name} screen ${screen}`, text: placeholder('screen description.') }))
-});
+/* Agents and Workers: written from the indice-co repositories (Indice.Platform develop: src/Indice.Features.Agents.*,
+   src/Indice.Hosting and src/Indice.Features.Workers.*; Indice.Agents.iOS and Indice.Agents.Android). Their solution
+   documents (docs/Agents-Product.md, docs/Workers-Product.md) are still empty, and no screenshots exist yet, so their
+   screens are "Screenshot pending" placeholders named after the screens in the code. Code samples are verbatim. */
+const agents = {
+  id: 'agents',
+  name: 'Agents',
+  tagline: 'Knowledge assistant with cited answers',
+  action: 'Answer questions from your own documentation, with sources, in web and mobile apps.',
+  summary: 'Agents runs Dex, a chat assistant that answers from your organisation\u2019s documentation and cites the sources it used. It ships as .NET server libraries, an Angular web chat app, and Swift and Kotlin SDKs with a ready-made chat UI, and runs in your own ASP.NET Core host on SQL Server and Azure OpenAI.',
+  problem: 'An assistant grounded in your documentation needs ingestion, retrieval, a streaming chat API, sessions and client UIs, and each team ends up building them again. Answers that the sources do not support are hard to spot.',
+  how: [
+    'Documents are ingested as markdown, split into overlapping chunks and embedded.',
+    'For each message, an intent router picks the agent that handles it, such as the knowledge agent.',
+    'The knowledge agent rewrites the question, retrieves and reranks passages, and answers with citations. With strict grounding, on by default, it declines when the sources are not enough.',
+    'The answer streams to the client over Server-Sent Events and the turn is saved to the chat session.'
+  ],
+  architecture: 'One ASP.NET Core host registers the server with AddAgents and MapAgents. Chats, messages, documents, chunks and citations live in SQL Server through EF Core, and the language and embedding models are Azure OpenAI deployments.',
+  integrations: [
+    'Azure OpenAI deployments for reasoning, fast replies and embeddings',
+    'Your identity server over OAuth2 and OpenID Connect, with optional guest access',
+    'An MCP case-retrieval service, so the operator agent can look up cases and case types',
+    'TOTP send and verify calls for operator workflows',
+    'iOS SDK through Swift Package Manager, Android SDK through JitPack',
+    'Rich replies: markdown, HTML, images, multiple choice, callouts and confirmations'
+  ],
+  apis: ['POST /api/my/chats/stream', 'POST /api/my/chats/{chatId}/messages/stream', 'PUT /api/my/chats/{chatId}/messages/{messageId}/like'],
+  stack: ['ASP.NET Core', 'EF Core · SQL Server', 'Azure OpenAI · Microsoft.Extensions.AI', 'Angular', 'SwiftUI · Jetpack Compose'],
+  code: {
+    file: 'Indice.Agents.iOS/README.md',
+    language: 'swift',
+    source: `let agents = AgentsClient()
+// Complete the existing login flow before making API calls.
+let available = try await agents.agentsService.agents()
+let page = try await agents.chatsService.chats(
+    paging: .init(page: 1, size: 20, sort: "lastActivityAt-"),
+    filter: .init(search: "support")
+)
+let profile = try await agents.profileService.profile()`
+  },
+  screens: [
+    { title: 'Web chat', text: 'Conversations with streamed answers and their cited sources, for signed-in users and, if enabled, guests.' },
+    { title: 'iOS chat', text: 'A floating bubble that opens the chat as a sheet inside your iOS app.' },
+    { title: 'Android chat', text: 'The chat screen inside your Android app, with your own name, icon and colours.' }
+  ]
+};
 
-const allSolutions = [...base.solutions, placeholderSolution('agents', 'Agents'), placeholderSolution('workers', 'Workers')];
+const workers = {
+  id: 'workers',
+  name: 'Workers',
+  tagline: 'Background jobs, queues and scheduling',
+  action: 'Run scheduled and queued background work, and watch it from one dashboard.',
+  summary: 'Workers runs scheduled and queue-triggered background jobs inside your ASP.NET Core hosts, built on Quartz. Developers write the job handlers in C#; operators use a dashboard to inspect queues, scheduled tasks, servers and locks, and to requeue or run work.',
+  problem: 'Background processing such as nightly ETL or event handling has to run reliably across several instances, and stuck, failing or poisoned work is hard to see without querying tables by hand.',
+  how: [
+    'A host calls AddWorkerHost and registers each handler with AddJob, triggered by a cron schedule or by a queue.',
+    'Handlers are plain classes with a Process method; the queue item and any services are injected.',
+    'Messages arrive through IMessageQueue or IEventDispatcher, and those that exceed the retry limit move to a poison queue.',
+    'Each worker registers itself with a heartbeat. The dashboard reads the worker tables and can requeue messages, run or pause tasks and release locks.'
+  ],
+  architecture: 'Workers run inside any ASP.NET Core host; the dashboard API and its Angular UI run in a separate back-office host. Queues, scheduled tasks, servers and locks live in a relational database under the work schema, on SQL Server or PostgreSQL.',
+  integrations: [
+    'Quartz for scheduling and job execution',
+    'EF Core stores on SQL Server or PostgreSQL, or your own DbContext',
+    'Messages enqueued in the same SaveChanges transaction as your data',
+    'Health checks for poison messages and stuck tasks',
+    'Metrics on the Indice.Hosting meter, for OpenTelemetry or dotnet-counters',
+    'Your identity server, with the workers scope and reader and admin roles'
+  ],
+  apis: ['GET api/workers/queues', 'POST api/workers/queues/{queueName}/messages', 'POST api/workers/scheduled-tasks/{taskId}/run'],
+  stack: ['ASP.NET Core', 'Quartz', 'EF Core · SQL Server or PostgreSQL', 'Angular'],
+  code: {
+    file: 'Indice.Hosting/README.md',
+    language: 'csharp',
+    source: `services.AddWorkerHost(options => options.UseStoreRelational<BankingDbContext>(builder => builder.UseSqlServer(connectionString)))
+    .AddJob<OrderCreatedHandler>()
+        .WithQueueTrigger<OrderCreatedEvent>(options => options.QueueName = "order-created");`
+  },
+  screens: [
+    { title: 'Dashboard', text: 'Counters, messages per minute, queue depth over time, the busiest queues and the tasks that need attention.' },
+    { title: 'Queues', text: 'Every queue with its messages per status and its throughput; each opens to its enqueued, scheduled, retrying and poison messages.' },
+    { title: 'Scheduled tasks', text: 'Each task\u2019s cron schedule, last and next run, an enabled switch and Run now.' },
+    { title: 'Servers and locks', text: 'Live and stale workers with their queues, tasks and throughput, and the distributed locks, which can be released.' }
+  ]
+};
+
+const allSolutions = [...base.solutions, agents, workers];
 const solutions = order.map(id => ({ ...allSolutions.find(solution => solution.id === id), product: byId[id] }));
 
 /* Proposal B's Cases screens: only the three supplied screenshots. */

@@ -105,6 +105,11 @@ const gallery = s => `<div class="pb-gallery" data-gallery data-shot-group data-
           <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
         </div>`;
 
+/* The shared code block labels every sample C# or JSON; B's samples also include Swift. */
+const codeLabels = { csharp: 'C#', jsonc: 'JSON', swift: 'Swift', kotlin: 'Kotlin' };
+const codeBlock = code => S.codeBlock(code, 'pb-code')
+  .replace(/<span>(?:C#|JSON)<\/span><\/figcaption>/, `<span>${codeLabels[code.language] || code.language}</span></figcaption>`);
+
 /* A partner called out inside an entry. The logo is a mask filled with the text colour, so it suits both themes. */
 const partner = p => `
           <aside class="pb-partner" aria-label="${escape(p.label)}: ${escape(p.name)}" data-reveal>
@@ -140,7 +145,7 @@ const entry = (s, index) => `<article class="pb-entry" id="spec-${s.id}" aria-la
           <h5>${ui.integrations}</h5>
           <ul class="pb-entry-integrations">${s.integrations.map(item => `<li>${escape(item)}</li>`).join('')}</ul>
           <h5>${ui.code}</h5>
-          ${S.codeBlock(s.code, 'pb-code')}
+          ${codeBlock(s.code)}
         </div>
         </div>
         ${gallery(s)}
