@@ -39,7 +39,9 @@ const reference = () => {
   const { body: fullBody, contents, contentGroups } = parseArticle('cases-product.md');
   // Proposal B leaves out the "For developers" chapter (its heading and one-line intro); the developer chapters follow
   // straight after "3. Where Cases shines". Overview sits on its own above the groups. Anchors are unchanged.
-  const body = fullBody.replace(new RegExp(`<h2 id="${developersId}"[\\s\\S]*?(?=<h3 )`), '');
+  // The chapter table at the top lists both columns of chapters in the same style.
+  const body = fullBody.replace(new RegExp(`<h2 id="${developersId}"[\\s\\S]*?(?=<h3 )`), '')
+    .replace(/<div class="article-table"(?=[^>]*>\s*<table><thead><tr><th scope="col">[^<]*The product<\/th>)/, '<div class="article-table pbr-chapter-table"');
   const groupTitles = { Product: 'The product', 'Developer reference': 'For developers' };
   const [overview, ...groups] = contentGroups.map(group => ({
     ...group, title: groupTitles[group.title] || group.title, items: group.items.filter(item => item.id !== developersId)

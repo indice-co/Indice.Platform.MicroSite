@@ -83,6 +83,7 @@
   .pbr-article th { padding: 12px 14px 12px 0; text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-subtle); }
   .pbr-article td { padding: 12px 14px 12px 0; border-top: 1px solid var(--border); vertical-align: top; }
   .pbr-article td:first-child { color: var(--fg); font-weight: 600; }
+  .pbr-article .pbr-chapter-table td { color: var(--fg); font-weight: 600; }
 
   /* Diagrams: Mermaid draws in light colours, so each one sits on a light plate in both themes. */
   .pbr-article .article-flowchart {
