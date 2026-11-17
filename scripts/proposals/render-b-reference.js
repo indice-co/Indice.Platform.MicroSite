@@ -5,7 +5,7 @@
    page (scripts/render-cases-article.js), and js/cases-article.js adds the contents highlighting, chapter links and
    the Mermaid diagrams. Only Proposal B links here; the other designs keep cases-reference.html. */
 const S = require('./shared.js');
-const { content: c, themedLogo } = require('./content-b.js');
+const { content: c, themedLogo, githubRepo } = require('./content-b.js');
 const { parseArticle } = require('../render-cases-article.js');
 const { escape, icons } = S;
 const ui = c.ui;
@@ -80,7 +80,7 @@ module.exports = function renderProposalBReference() {
   </main>
   ${colophon()}
   ${dialog()}
-  ${S.githubTab('pb-gh')}
+  ${S.githubTab('pb-gh').replace(`href="${c.footer.github}"`, `href="${githubRepo}"`)}
   ${S.backToTop('pb-to-top', `${icons.arrowUp}<span aria-hidden="true">${ui.backToTop}</span>`)}
 </body>
 </html>

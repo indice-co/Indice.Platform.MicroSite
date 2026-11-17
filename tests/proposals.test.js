@@ -99,7 +99,8 @@ test('headings never crop descenders, B keeps its masthead in view and C outline
 test('Proposals B and C keep a GitHub link fixed on screen', () => {
   for (const [file, cls] of [[proposals.b, 'pb-gh'], [proposals.c, 'pc-gh']]) {
     const html = read(file);
-    assert(html.includes(`<a class="gh-tab ${cls}" href="https://github.com/indice-co" rel="noopener" target="_blank">`), `${file} has the GitHub tab`);
+    const repo = file === proposals.b ? proposalB.githubRepo : 'https://github.com/indice-co';
+    assert(html.includes(`<a class="gh-tab ${cls}" href="${repo}" rel="noopener" target="_blank">`), `${file} has the GitHub tab`);
     assert(html.indexOf('class="gh-tab') > html.indexOf('</main>'), `${file} GitHub tab sits outside the main content`);
   }
   assert.match(read('css/proposals/common.css'), /\.gh-tab \{\s*position: fixed;[^}]*right: 0; top: 50%;/, 'Fixed to the middle of the right edge');

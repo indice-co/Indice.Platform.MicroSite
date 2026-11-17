@@ -14,6 +14,8 @@ const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
 
 /* Agents uses the supplied Dex artwork. Cases links to Proposal B's own copy of its technical reference. */
 const referencePage = 'proposal-b-cases-reference.html';
+/* Proposal B's GitHub tab opens the platform repository; its label stays "GitHub indice-co". */
+const githubRepo = 'https://github.com/indice-co/Indice.Platform';
 const newProducts = [
   { id: 'agents', name: 'Agents', logo: 'assets/logos/dex logo.svg', icon: 'assets/logos/dex icon.svg', color: '#E3272A', destination: null },
   { id: 'workers', name: 'Workers', logo: 'assets/logos/workers logo.svg', icon: 'assets/logos/workers icon.svg', color: '#F59E0B', destination: null }
@@ -159,6 +161,7 @@ const content = {
   ...base,
   hero: { ...base.hero, title: 'Self-hosted .NET solutions for identity, case workflows, messaging, risk, agents and workers.' },
   platform: { ...base.platform, intro: base.platform.intro.replace('Cases, IAM, Messaging and Risk', 'IAM, Cases, Messaging, Risk, Agents and Workers') },
+  services: { ...base.services, label: 'Expertise' },
   ui: { ...base.ui, colophonText: 'Set in Manrope. Dark by default; your theme choice is remembered for this proposal.' },
   solutions
 };
@@ -185,4 +188,4 @@ function renderDarkLogos() {
 const themedLogo = product => logo(product, 'logo-on-light')
   + logo(product, 'logo-on-dark').replace(`src="${escape(product.logo)}"`, `src="${escape(darkLogoPath(product))}"`);
 
-module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo, referencePage };
+module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo, referencePage, githubRepo };

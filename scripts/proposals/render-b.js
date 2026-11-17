@@ -5,7 +5,7 @@
    and field-guide solution entries inside §02. Each entry closes with a library of screens that scrolls towards the
    pointer and opens screens in a viewer. No Solutions slider. */
 const S = require('./shared.js');
-const { content: c, themedLogo } = require('./content-b.js');
+const { content: c, themedLogo, githubRepo } = require('./content-b.js');
 const { escape, icons } = S;
 const { solutions } = c;
 const ui = c.ui;
@@ -298,7 +298,7 @@ module.exports = function renderProposalB() {
     ${contact()}
   </main>
   ${colophon()}
-  ${S.githubTab('pb-gh')}
+  ${S.githubTab('pb-gh').replace(`href="${c.footer.github}"`, `href="${githubRepo}"`)}
   ${S.backToTop('pb-to-top', `${icons.arrowUp}<span aria-hidden="true">${ui.backToTop}</span>`)}
   ${S.lightbox('pb-lightbox')}
 </body>
