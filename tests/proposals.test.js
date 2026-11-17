@@ -61,7 +61,7 @@ test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with 
   for (const [id, file] of [['agents', 'dex'], ['workers', 'workers']]) {
     assert(html.includes(`src="assets/logos/${file} logo.svg"`) && html.includes(`href="assets/logos/${file} icon.svg"`), `${id} uses its supplied logo and icon`);
     const solution = proposalB.content.solutions.find(item => item.id === id);
-    assert(solution.screens.every(screen => !screen.mock) && (id === 'agents' ? solution.screens.every(screen => screen.image) : solution.screens.every(screen => !screen.image)), `${id} shows its screenshots, or labelled pending screens until it has some`);
+    assert(solution.screens.every(screen => screen.image && !screen.mock), `${id} shows its screenshots`);
   }
   assert(!/Placeholder:/i.test(visibleText(html)), 'No placeholder copy is left');
   assert(html.includes('<span>Swift</span></figcaption>'), 'The Swift sample is labelled Swift');
@@ -125,7 +125,7 @@ test('Proposal B is decorated with an illustrated plate and a halftone sun drawn
   const css = read('css/proposals/proposal-b.css');
   assert.match(css, /\.pb-card-logo \.product-logo \{ width: auto; height: 38px;/, 'Suite logos are 20% larger than the 32px of the previous round');
   assert.match(css, /\.pb-gallery-head \{[^}]*border-top: 1px solid var\(--border\);/, 'The line above each screen library is grey');
-  assert.match(css, /\.pb-gallery-progress span \{[^}]*background: var\(--blue\);/, 'The library progress bar is blue');
+  assert.match(css, /\.pb-gallery-progress span \{[^}]*background: var\(--accent-mark\);/, 'The library progress bar is orange');
   assert.match(css, /\.pb-entry \{ padding: 56px 0 0; border-top: 3px solid var\(--rule\); \}/, 'Entries are separated by a heavy dark rule');
   assert.match(css, /\.pb-entry \+ \.pb-entry \{ margin-top: 80px; \}/, '80px below the previous library');
 });

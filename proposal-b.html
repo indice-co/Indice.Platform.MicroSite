@@ -572,25 +572,20 @@
           </div>
           <div class="pb-strip-wrap">
             <ul class="pb-strip" id="pb-strip-workers" data-hover-scroll aria-labelledby="pb-gallery-workers">
-              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="Counters, messages per minute, queue depth over time, the busiest queues and the tasks that need attention." style="--i:0">
-            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Dashboard: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
-            <figcaption><b>Dashboard</b><span>Counters, messages per minute, queue depth over time, the busiest queues and the tasks that need attention.</span></figcaption>
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="A live view of enqueued, scheduled, retrying and poison messages, scheduled tasks, running and failing tasks and active locks, with queue depth over time, the busiest queues and the tasks that need attention." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/workers/01.workers.indice.gr_.png" width="1920" height="1080" alt="Workers dashboard with message and task counters, a live queue depth chart, the busiest queues and tasks needing attention" loading="lazy" decoding="async"></span>
+            <figcaption><b>Dashboard</b><span>A live view of enqueued, scheduled, retrying and poison messages, scheduled tasks, running and failing tasks and active locks, with queue depth over time, the busiest queues and the tasks that need attention.</span></figcaption>
             <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Dashboard"></button>
           </figure></li>
-              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Queues" data-text="Every queue with its messages per status and its throughput; each opens to its enqueued, scheduled, retrying and poison messages." style="--i:1">
-            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Queues: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
-            <figcaption><b>Queues</b><span>Every queue with its messages per status and its throughput; each opens to its enqueued, scheduled, retrying and poison messages.</span></figcaption>
-            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Queues"></button>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Queue message" data-text="One message with its queue, status, availability, attempts and JSON payload, ready to requeue, edit and requeue, or delete." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/workers/02.workers.indice.gr_messages_e38ce480-dcd2-4024-9ad5-f0363e49b716.png" width="1920" height="1080" alt="Workers message detail showing the queue, status, available-at time, attempts and JSON payload, with Requeue, Edit and requeue and Delete" loading="lazy" decoding="async"></span>
+            <figcaption><b>Queue message</b><span>One message with its queue, status, availability, attempts and JSON payload, ready to requeue, edit and requeue, or delete.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Queue message"></button>
           </figure></li>
-              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Scheduled tasks" data-text="Each task’s cron schedule, last and next run, an enabled switch and Run now." style="--i:2">
-            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Scheduled tasks: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
-            <figcaption><b>Scheduled tasks</b><span>Each task’s cron schedule, last and next run, an enabled switch and Run now.</span></figcaption>
-            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Scheduled tasks"></button>
-          </figure></li>
-              <li class="pb-strip-item" style="--i:3"><figure class="pb-shot" data-shot data-title="Servers and locks" data-text="Live and stale workers with their queues, tasks and throughput, and the distributed locks, which can be released." style="--i:3">
-            <span class="shot-media"><span class="shot-placeholder" role="img" aria-label="Servers and locks: screenshot pending"><span class="ph-bar" aria-hidden="true"><i></i><i></i></span><span class="ph-side" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="ph-main" aria-hidden="true"><span class="ph-row"><i></i><i></i><i></i></span><i class="ph-panel"></i></span><span class="ph-label" aria-hidden="true">Screenshot pending</span></span></span>
-            <figcaption><b>Servers and locks</b><span>Live and stale workers with their queues, tasks and throughput, and the distributed locks, which can be released.</span></figcaption>
-            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Servers and locks"></button>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Scheduled task" data-text="A task’s handler, description, last and next run and run count, its last error and the state it keeps between runs, with Run now and an Enabled switch." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/workers/03.workers.indice.gr_scheduled_samples.report.png" width="1920" height="1080" alt="Workers scheduled task detail showing its overview, last error and persisted state, with Run now and an Enabled switch" loading="lazy" decoding="async"></span>
+            <figcaption><b>Scheduled task</b><span>A task’s handler, description, last and next run and run count, its last error and the state it keeps between runs, with Run now and an Enabled switch.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Scheduled task"></button>
           </figure></li>
             </ul>
           </div>

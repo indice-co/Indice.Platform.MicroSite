@@ -31,8 +31,7 @@ const byId = Object.fromEntries([
 
 /* Agents and Workers: written from the indice-co repositories (Indice.Platform develop: src/Indice.Features.Agents.*,
    src/Indice.Hosting and src/Indice.Features.Workers.*; Indice.Agents.iOS and Indice.Agents.Android). Their solution
-   documents (docs/Agents-Product.md, docs/Workers-Product.md) are still empty. Agents uses the supplied screenshots;
-   Workers has none yet, so its screens are "Screenshot pending" placeholders named after the screens in the code.
+   documents (docs/Agents-Product.md, docs/Workers-Product.md) are still empty. Both use the supplied screenshots.
    Code samples are verbatim. */
 const agents = {
   id: 'agents',
@@ -109,10 +108,9 @@ const workers = {
         .WithQueueTrigger<OrderCreatedEvent>(options => options.QueueName = "order-created");`
   },
   screens: [
-    { title: 'Dashboard', text: 'Counters, messages per minute, queue depth over time, the busiest queues and the tasks that need attention.' },
-    { title: 'Queues', text: 'Every queue with its messages per status and its throughput; each opens to its enqueued, scheduled, retrying and poison messages.' },
-    { title: 'Scheduled tasks', text: 'Each task\u2019s cron schedule, last and next run, an enabled switch and Run now.' },
-    { title: 'Servers and locks', text: 'Live and stale workers with their queues, tasks and throughput, and the distributed locks, which can be released.' }
+    { title: 'Dashboard', text: 'A live view of enqueued, scheduled, retrying and poison messages, scheduled tasks, running and failing tasks and active locks, with queue depth over time, the busiest queues and the tasks that need attention.', image: 'assets/uis/workers/01.workers.indice.gr_.png', alt: 'Workers dashboard with message and task counters, a live queue depth chart, the busiest queues and tasks needing attention' },
+    { title: 'Queue message', text: 'One message with its queue, status, availability, attempts and JSON payload, ready to requeue, edit and requeue, or delete.', image: 'assets/uis/workers/02.workers.indice.gr_messages_e38ce480-dcd2-4024-9ad5-f0363e49b716.png', alt: 'Workers message detail showing the queue, status, available-at time, attempts and JSON payload, with Requeue, Edit and requeue and Delete' },
+    { title: 'Scheduled task', text: 'A task’s handler, description, last and next run and run count, its last error and the state it keeps between runs, with Run now and an Enabled switch.', image: 'assets/uis/workers/03.workers.indice.gr_scheduled_samples.report.png', alt: 'Workers scheduled task detail showing its overview, last error and persisted state, with Run now and an Enabled switch' }
   ]
 };
 

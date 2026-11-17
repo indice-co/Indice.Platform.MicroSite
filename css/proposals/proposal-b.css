@@ -457,9 +457,9 @@
   .pb-shot:hover figcaption b { background-size: 100% 1px; }
   .pb-shot figcaption span { font-size: 15px; line-height: 1.55; color: var(--fg-muted); }
   .pb-shot .shot-open:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 6px; border-radius: 16px; }
-  .pb-gallery-progress { height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--blue) 22%, transparent); overflow: hidden; }
+  .pb-gallery-progress { height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--accent-mark) 22%, transparent); overflow: hidden; }
   .pb-gallery-progress span {
-    display: block; height: 100%; border-radius: inherit; background: var(--blue); transform-origin: left;
+    display: block; height: 100%; border-radius: inherit; background: var(--accent-mark); transform-origin: left;
     transform: scaleX(calc(.12 + var(--gallery-progress, 0) * .88)); transition: transform .25s linear;
   }
 
