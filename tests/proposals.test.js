@@ -212,8 +212,14 @@ test('Proposal B has its own Cases technical reference with the original page\u2
   const page = read(proposalB.referencePage);
   const original = read('cases-reference.html');
   const text = (html, start, end) => visibleText(html.slice(html.indexOf(start), html.indexOf(end, html.indexOf(start))));
-  assert.equal(text(page, '<article class="cases-article', '</article>'), text(original, '<article class="cases-article', '</article>'), 'Same article');
-  assert.equal(text(page, '<aside class="cases-article-toc', '</aside>'), text(original, '<aside class="cases-article-toc', '</aside>'), 'Same contents');
+  // Proposal B leaves out the short "For developers" chapter; everything else matches the original page.
+  const withoutDevelopers = html => html.replace(/<h2 id="article-for-developers"[\s\S]*?(?=<h3 )/, '').replace(/<li><a class="cases-toc-link" href="#article-for-developers">[^<]*<\/a><\/li>/, '');
+  assert(!page.includes('article-for-developers'), 'No "For developers" chapter or contents entry');
+  assert.equal(text(page, '<article class="cases-article', '</article>'), text(withoutDevelopers(original), '<article class="cases-article', '</article>'), 'Same article');
+  const links = html => [...html.matchAll(/<a class="cases-toc-link" href="(#[^"]+)">([^<]*)<\/a>/g)].map(match => `${match[1]} ${match[2]}`);
+  assert.deepEqual(links(page), links(withoutDevelopers(original)), 'Same contents links and anchors');
+  assert(page.indexOf('href="#article-cases"') < page.indexOf('<h3 class="cases-toc-category">The product</h3>'), 'Overview sits above the product group');
+  assert(page.includes('<h3 class="cases-toc-category">For developers</h3>'), 'The developer group is labelled For developers');
   assert(page.includes('data-default-theme="dark"') && page.includes('href="css/proposals/proposal-b.css"') && page.includes('href="css/proposals/proposal-b-reference.css"'), 'Set in Proposal B\u2019s design');
   assert(page.includes('<script defer src="js/cases-article.js"></script>') && page.includes('<dialog class="flowchart-dialog'), 'Keeps the contents highlighting, chapter links and diagrams');
   for (const file of [proposals.a, proposals.c]) assert(!read(file).includes(proposalB.referencePage), `${file} keeps the original reference`);

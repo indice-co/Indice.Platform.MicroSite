@@ -7,7 +7,8 @@
 
   /* ---------- Hero ---------- */
   .pbr-hero { align-items: start; padding-bottom: clamp(48px, 6vw, 80px); }
-  .pbr-hero-main { grid-column: 1 / span 9; }
+  .pbr-hero-main { grid-column: 1 / -1; }
+  .pbr-hero .pb-lede { max-width: none; }
   .pbr-logo .product-logo { width: auto; height: 38px; margin-bottom: 30px; animation: pb-rise 1s var(--ease-out) both; }
   .pbr-hero h1 { font-size: clamp(40px, 5vw, 72px); }
   .pbr-note {
@@ -26,6 +27,7 @@
     max-height: calc(100dvh - var(--mast-h) - 56px); overflow: auto; padding-top: 20px; border-top: 3px solid var(--rule);
   }
   .pbr-toc .cases-toc-title { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .pbr-toc-overview { margin-top: 18px; }
   .pbr-toc .cases-toc-group { margin-top: 20px; }
   .pbr-toc .cases-toc-category { margin-bottom: 6px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-subtle); }
   .pbr-toc .cases-toc-link {
@@ -115,7 +117,6 @@
   .pbr-colophon { grid-template-columns: minmax(0, 1fr); }
 
   @media (max-width: 1100px) {
-    .pbr-hero-main { grid-column: 1 / -1; }
     .pbr-toc { grid-column: 1 / span 4; }
     .pbr-article { grid-column: 5 / -1; }
   }

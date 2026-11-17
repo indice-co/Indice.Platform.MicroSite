@@ -10,7 +10,6 @@ const { parseArticle } = require('../render-cases-article.js');
 const { escape, icons } = S;
 const ui = c.ui;
 
-const { copy } = globalThis.INDICE_DATA;
 const cases = c.solutions.find(solution => solution.id === 'cases').product;
 
 const words = text => escape(text).split(' ')
@@ -31,14 +30,24 @@ const hero = () => `<section class="pb-hero pbr-hero" id="hero" aria-labelledby=
         <p class="pb-kicker">Case management &amp; back-office workflows</p>
         <h1 id="cases-title">${words('Every case.')}<br>${words('A clear path forward.')}</h1>
         <p class="pb-lede">${escape(cases.description)}</p>
-        <div class="pb-actions">${S.demoButton('pb-btn pb-btn-solid', copy.navigation.demo)}</div>
       </div>
       <p class="pbr-note"><span aria-hidden="true">//</span>One case, two views. A shared workflow, with a clear boundary between customer updates and internal work.</p>
     </section>`;
 
+const developersId = 'article-for-developers';
 const reference = () => {
-  const { body, contents, contentGroups } = parseArticle('cases-product.md');
-  const toc = contentGroups.map(group => `<section class="cases-toc-group"><h3 class="cases-toc-category">${escape(group.title)}</h3><ul>${group.items.map(({ id, label }) => `<li><a class="cases-toc-link" href="#${id}">${escape(label)}</a></li>`).join('')}</ul></section>`).join('');
+  const { body: fullBody, contents, contentGroups } = parseArticle('cases-product.md');
+  // Proposal B leaves out the "For developers" chapter (its heading and one-line intro); the developer chapters follow
+  // straight after "3. Where Cases shines". Overview sits on its own above the groups. Anchors are unchanged.
+  const body = fullBody.replace(new RegExp(`<h2 id="${developersId}"[\\s\\S]*?(?=<h3 )`), '');
+  const groupTitles = { Product: 'The product', 'Developer reference': 'For developers' };
+  const [overview, ...groups] = contentGroups.map(group => ({
+    ...group, title: groupTitles[group.title] || group.title, items: group.items.filter(item => item.id !== developersId)
+  }));
+  const link = ({ id, label }) => `<li><a class="cases-toc-link" href="#${id}">${escape(label)}</a></li>`;
+  const toc = `<ul class="pbr-toc-overview">${link(overview.items[0])}</ul>`
+    + [{ ...overview, items: overview.items.slice(1) }, ...groups]
+      .map(group => `<section class="cases-toc-group"><h3 class="cases-toc-category">${escape(group.title)}</h3><ul>${group.items.map(link).join('')}</ul></section>`).join('');
   return `<div class="pbr-layout">
       <aside class="cases-article-toc pbr-toc"><nav class="cases-toc-nav" aria-label="Technical reference sections"><h2 class="cases-toc-title">On this page</h2>${toc}</nav></aside>
       <article class="cases-article pbr-article" aria-labelledby="${contents[0].id}">${body}<p class="sr-only" id="chapter-copy-status" role="status" aria-live="polite" aria-atomic="true"></p></article>
