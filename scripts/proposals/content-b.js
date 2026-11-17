@@ -56,6 +56,20 @@ solutions.find(solution => solution.id === 'cases').screens = [
   { title: 'Case details', text: 'The submitted form data next to the case information, the customer and the history, with tabs for attachments, data versions and related cases.', image: 'assets/uis/cases/03.cases.indice.gr_cases_82752196-2740-4a81-85d2-b7cf4a20b6fd_details.png', alt: 'Case details showing the case data form, basic case information, customer information and the case history' }
 ];
 
+/* Proposal B's Risk screens: only the three supplied screenshots. */
+solutions.find(solution => solution.id === 'risk').screens = [
+  { title: 'Dashboard', text: 'Events received, high-risk evaluations and active rules, with the evaluations by risk level, the evaluations that need review and the rules that score every event.', image: 'assets/uis/risk/01.risk.indice.gr_dashboard.png', alt: 'Risk dashboard with events received, high risk and active rules, risk evaluations by level, needs review and rules' },
+  { title: 'Risk events', text: 'Every transaction and user action reported for evaluation, filtered by date and more. Each event opens with its subject, amount, IP address, source, session and data.', image: 'assets/uis/risk/02.risk.indice.gr_risk-events(rightpane_event_3da35c57-56d0-4fce-8125-22ebcc68f028).png', alt: 'Risk events list with an event open in a side panel showing its type, amount, subject, IP address, source, session and JSON data' },
+  { title: 'Risk results', text: 'The outcome of every evaluation, filtered by risk level. Each result opens with its level, score and the score and level of every rule that ran.', image: 'assets/uis/risk/03.risk.indice.gr_risk-results(rightpane_result_fcc9d829-486d-40bf-b5d9-f409287ad4ea)_page=1&filter=riskLevel__eq__None.png', alt: 'Risk results list filtered by risk level, with a result open in a side panel showing its risk level, score, rules executed and each rule\u2019s result' }
+];
+
+/* Proposal B's Messaging screens: only the three supplied screenshots. */
+solutions.find(solution => solution.id === 'messaging').screens = [
+  { title: 'Dashboard', text: 'Dispatched and failed messages, delivery success rate and active campaigns, with dispatches over time, the channel mix, audience reach and recent campaigns.', image: 'assets/uis/messaging/01.messaging.indice.gr_dashboard.png', alt: 'Messaging dashboard with dispatched, failed, delivery success rate and active campaigns, a dispatched versus failed chart, channel mix, audience and reach, and recent campaigns' },
+  { title: 'Campaign details', text: 'A campaign\u2019s status, type, duration, call to action, communication channels, distribution list and email sender, with tabs for content, reports and recipients.', image: 'assets/uis/messaging/02.messaging.indice.gr_campaigns_ff73ecec-144d-4659-8520-12b0355d08a5_campaign-details.png', alt: 'Messaging campaign details showing the basic information of a published campaign' },
+  { title: 'Template content', text: 'A template\u2019s content per communication channel: email, SMS, push notification and inbox, edited in a code editor next to a live preview.', image: 'assets/uis/messaging/03.messaging.indice.gr_templates_39373841-dd67-40fb-a9cd-4bd449b26739_template-content.png', alt: 'Messaging template editor with channel selection, the email sender, subject and HTML body, and a live preview of the email' }
+];
+
 /* Proposal B's IAM screens: only the three supplied screenshots. */
 const iam = solutions.find(solution => solution.id === 'iam');
 iam.screens = [

@@ -401,7 +401,7 @@ test('proposal pages resolve their references and keep basic accessibility', () 
       for (const ref of refs.split(' ')) assert(ids.includes(ref), `${file} ARIA target exists: ${ref}`);
     }
     for (const [, ref] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[^"#]+|[a-z-]+\.html)"/g)) {
-      assert(fs.existsSync(path.join(root, decodeURI(ref))), `${file} local reference exists: ${ref}`);
+      assert(fs.existsSync(path.join(root, decodeURI(unescapeHtml(ref)))), `${file} local reference exists: ${ref}`);
     }
     for (const [, url] of html.matchAll(/url\('([^']+)'\)/g)) assert(fs.existsSync(path.join(root, url)), `${file} mask icon exists: ${url}`);
     for (const [, attrs] of html.matchAll(/<button\b([^>]*)>/g)) assert(/\btype="button"/.test(attrs), `${file} buttons do not submit`);
