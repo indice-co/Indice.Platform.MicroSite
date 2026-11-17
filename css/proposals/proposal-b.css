@@ -559,7 +559,10 @@
   .pb-chip-spin { animation: pb-spin 90s linear infinite; }
   .pb-plate:hover :is(.pb-orbit, .pb-node-spin, .pb-foundation, .pb-chip-spin) { animation-play-state: paused; }
   @keyframes pb-spin { to { rotate: 360deg; } }
-  .pb-node { transition: scale .7s cubic-bezier(.34, 1.56, .64, 1); transition-delay: calc(.25s + var(--i) * 110ms); }
+  .pb-node { transition: scale .7s cubic-bezier(.34, 1.56, .64, 1) calc(.25s + var(--i) * 110ms), translate .45s var(--ease-out) 0s; }
+  /* Each element moves away from the pointer on its own (js/proposals/proposal-b.js). */
+  [data-repel] { translate: var(--repel-x, 0px) var(--repel-y, 0px); }
+  [data-repel]:not(.pb-node) { transition: translate .45s var(--ease-out); }
   .pb-node-disc { fill: var(--surface-raised); stroke: var(--tone); stroke-width: 2.5; }
   .pb-node-name { fill: var(--fg); font-size: 14px; font-weight: 700; text-anchor: middle; letter-spacing: -.01em; }
   .pb-node-ghost { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; stroke-dasharray: 4 5; }

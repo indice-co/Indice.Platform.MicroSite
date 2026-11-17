@@ -165,23 +165,25 @@ const plateArt = () => {
     const body = s
       ? `<circle class="pb-node-disc" r="34"/><image href="${escape(s.product.icon)}" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">${escape(s.name)}</text>`
       : '<circle class="pb-node-ghost" r="34"/><path class="pb-node-plus" d="M-9 0h18M0-9v18"/>';
-    return `<g transform="translate(${x} ${y})"><g class="pb-node-spin"><g class="pb-node" style="--i:${index}${s ? `;--tone:${s.product.color}` : ''}">${body}</g></g></g>`;
+    return `<g transform="translate(${x} ${y})"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:${index}${s ? `;--tone:${s.product.color}` : ''}">${body}</g></g></g>`;
   }).join('');
   const chips = ui.foundationStack.map((label, index) => {
     const [x, y] = at(112, index, ui.foundationStack.length, -54);
-    return `<g transform="translate(${x} ${y})"><g class="pb-chip-spin"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">${escape(label)}</text></g></g>`;
+    return `<g transform="translate(${x} ${y})"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">${escape(label)}</text></g></g></g>`;
   }).join('');
-  return `<svg class="pb-plate-svg" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false" data-tilt="7">
-            <circle class="pb-ticks" r="288" pathLength="360"/>
-            <circle class="pb-ring pb-ring-dashed" r="268"/>
-            <circle class="pb-ring" r="${orbit}"/>
-            <circle class="pb-ring pb-ring-dotted" r="112"/>
+  return `<svg class="pb-plate-svg" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false" data-repel-area>
+            <circle class="pb-ticks" r="288" pathLength="360" data-repel="4"/>
+            <circle class="pb-ring pb-ring-dashed" r="268" data-repel="5"/>
+            <circle class="pb-ring" r="${orbit}" data-repel="6"/>
+            <circle class="pb-ring pb-ring-dotted" r="112" data-repel="7"/>
             <g class="pb-orbit">${spokes}${nodeMarks}</g>
             <g class="pb-foundation">${chips}</g>
-            <circle class="pb-core-halo" r="84"/>
-            <circle class="pb-core" r="66"/>
-            <text class="pb-core-text" y="-3">${escape(c.plate.core[0])}</text>
-            <text class="pb-core-text pb-core-sub" y="17">${escape(c.plate.core[1])}</text>
+            <circle class="pb-core-halo" r="84" data-repel="6"/>
+            <g data-repel="9">
+              <circle class="pb-core" r="66"/>
+              <text class="pb-core-text" y="-3">${escape(c.plate.core[0])}</text>
+              <text class="pb-core-text pb-core-sub" y="17">${escape(c.plate.core[1])}</text>
+            </g>
           </svg>`;
 };
 
@@ -274,7 +276,7 @@ module.exports = function renderProposalB() {
     mono: true,
     screens: true,
     stylesheet: 'css/proposals/proposal-b.css'
-  })}
+  }).replace('</head>', '  <script defer src="js/proposals/proposal-b.js"></script>\n</head>')}
 <body class="pb">
   <a class="skip-link" href="#main">Skip to content</a>
   ${S.designRibbon('proposal-b')}
