@@ -10,28 +10,11 @@ const { parseArticle } = require('../render-cases-article.js');
 const { escape, icons } = S;
 const ui = c.ui;
 
-const { copy, casesPage } = globalThis.INDICE_DATA;
+const { copy } = globalThis.INDICE_DATA;
 const cases = c.solutions.find(solution => solution.id === 'cases').product;
 
 const words = text => escape(text).split(' ')
   .map((word, index) => `<span class="pb-w" style="--w:${index}"><span>${word}</span></span>`).join(' ');
-
-/* The case detail screen of the original hero: the approved screenshot, or the same labelled layout placeholder. */
-const caseWindow = () => casesPage.detailScreenshot
-  ? `<figure class="pbr-window"><img src="${escape(casesPage.detailScreenshot)}" alt="Cases case detail showing the timeline and available actions"><figcaption>Case detail: timeline and available actions.</figcaption></figure>`
-  : `<figure class="pbr-window">
-            <div class="pbr-window-bar" aria-hidden="true"><i></i><i></i><i></i><span>Cases</span></div>
-            <div class="pbr-window-body">
-              <p class="pbr-window-label">Case detail screenshot &mdash; awaiting approved asset</p>
-              <div class="pbr-case-title"><div><span class="pbr-small">Illustrative case / 0248</span><strong>Customer request</strong></div><span class="pbr-status">In progress</span></div>
-              <ol class="pbr-stages" aria-label="Illustrative workflow stages"><li class="is-done">Assigned</li><li class="is-current">In review</li><li>Decision</li></ol>
-              <div class="pbr-case-cols">
-                <div><p class="pbr-small">Case timeline</p><ol class="pbr-timeline"><li><strong>Request received</strong><span>Customer submission</span></li><li><strong>Assigned to a team</strong><span>Internal review</span></li><li><strong>Pending second approval</strong><span>Private checkpoint</span></li></ol></div>
-                <div><p class="pbr-small">Available actions</p><details><summary>Review case</summary><p>Illustration only. Staff review the case before a decision.</p></details><details><summary>View history</summary><p>The timeline keeps case updates and internal steps together.</p></details><p class="pbr-private">Staff view &middot; Internal notes stay private</p></div>
-              </div>
-            </div>
-            <figcaption>Layout placeholder only, not a product screenshot. The supplied dashboard does not show case detail.</figcaption>
-          </figure>`;
 
 const masthead = () => `<header class="pb-masthead">
     <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
@@ -49,11 +32,6 @@ const hero = () => `<section class="pb-hero pbr-hero" id="hero" aria-labelledby=
         <h1 id="cases-title">${words('Every case.')}<br>${words('A clear path forward.')}</h1>
         <p class="pb-lede">${escape(cases.description)}</p>
         <div class="pb-actions">${S.demoButton('pb-btn pb-btn-solid', copy.navigation.demo)}</div>
-      </div>
-      <div class="pbr-visual" style="--tone:${cases.color}">
-        ${caseWindow()}
-        <div class="pbr-update"><span class="pbr-update-dot" aria-hidden="true"></span><div><span class="pbr-small">Illustrative customer update</span><strong>In progress</strong><span>In your connected application</span></div></div>
-        <p class="pbr-badge" aria-hidden="true">One case.<br>Controlled visibility.</p>
       </div>
       <p class="pbr-note"><span aria-hidden="true">//</span>One case, two views. A shared workflow, with a clear boundary between customer updates and internal work.</p>
     </section>`;
@@ -73,7 +51,7 @@ const colophon = () => `<footer class="pb-colophon pbr-colophon">
     <div class="pb-colophon-meta">
       <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
       <p>${escape(c.footer.note)}</p>
-      <ul><li><a href="proposal-b.html#spec-cases">Back to the Platform overview</a></li><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
+      <ul><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
     </div>
   </footer>`;
 
