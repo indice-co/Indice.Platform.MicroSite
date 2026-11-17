@@ -347,7 +347,8 @@ test('screens are honest: approved screenshots, labelled illustrations or labell
     const html = read(file);
     const placeholders = contentFor(file).solutions.flatMap(solution => solution.screens.filter(screen => !screen.image && !screen.mock));
     assert.equal((html.match(/<span class="ph-label" aria-hidden="true">Screenshot pending<\/span>/g) || []).length, placeholders.length, `${file} labels every placeholder`);
-    assert.equal((html.match(/<span class="shot-badge">Illustrative<\/span>/g) || []).length, 2, `${file} labels the two illustrations`);
+    const illustrations = contentFor(file).solutions.flatMap(solution => solution.screens.filter(screen => screen.mock)).length;
+    assert.equal((html.match(/<span class="shot-badge">Illustrative<\/span>/g) || []).length, illustrations, `${file} labels every illustration`);
   }
 });
 

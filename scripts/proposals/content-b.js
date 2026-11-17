@@ -49,6 +49,21 @@ const placeholderSolution = (id, name) => ({
 const allSolutions = [...base.solutions, placeholderSolution('agents', 'Agents'), placeholderSolution('workers', 'Workers')];
 const solutions = order.map(id => ({ ...allSolutions.find(solution => solution.id === id), product: byId[id] }));
 
+/* Proposal B's Cases screens: only the three supplied screenshots. */
+solutions.find(solution => solution.id === 'cases').screens = [
+  { title: 'Dashboard', text: 'The case pipeline from waiting to completed, cases that need attention, your own queue, new cases per day and totals by case type and status.', image: 'assets/uis/cases/01.cases.indice.gr_dashboard.png', alt: 'Cases dashboard with the open case pipeline, cases needing attention, my queue, new cases this week and totals by case type and status' },
+  { title: 'Case list', text: 'Every case with its customer, case type, checkpoint, assignee and submission date, with search, filters, saved searches and an assigned-to-me switch.', image: 'assets/uis/cases/02.cases.indice.gr_cases.png', alt: 'Cases list showing case number, customer, tax ID, group, case type, checkpoint, assignee and submission date for each case' },
+  { title: 'Case details', text: 'The submitted form data next to the case information, the customer and the history, with tabs for attachments, data versions and related cases.', image: 'assets/uis/cases/03.cases.indice.gr_cases_82752196-2740-4a81-85d2-b7cf4a20b6fd_details.png', alt: 'Case details showing the case data form, basic case information, customer information and the case history' }
+];
+
+/* Proposal B's IAM screens: only the three supplied screenshots. */
+const iam = solutions.find(solution => solution.id === 'iam');
+iam.screens = [
+  { title: 'Admin dashboard', text: 'Users, sign-ins today, client applications and failed sign-ins, with daily sign-in activity, engagement, account security and the accounts that need attention.', image: 'assets/uis/iam/01.my.indice.gr_admin_dashboard.png', alt: 'IAM admin dashboard with user and sign-in totals, a 30-day sign-in activity chart, engagement, account security and accounts that need attention' },
+  { title: 'Claim types', text: 'Every kind of information stored about users, with its display name and value type, and whether users can edit it or must provide it.', image: 'assets/uis/iam/02.my.indice.gr_admin_claim-types.png', alt: 'IAM claim types list showing name, display name, value type, user editable and required for each claim' },
+  { title: 'Identity resources', text: 'Groups of user claims, such as email, phone, profile and role, that clients can request, marked required or emphasised.', image: 'assets/uis/iam/03.my.indice.gr_admin_resources_identity.png', alt: 'IAM identity resources list showing each resource with its display name, description and number of claims' }
+];
+
 /* A partnership called out in a solution's entry. */
 solutions.find(solution => solution.id === 'iam').partner = {
   label: 'Official partner',
