@@ -31,8 +31,9 @@ const byId = Object.fromEntries([
 
 /* Agents and Workers: written from the indice-co repositories (Indice.Platform develop: src/Indice.Features.Agents.*,
    src/Indice.Hosting and src/Indice.Features.Workers.*; Indice.Agents.iOS and Indice.Agents.Android). Their solution
-   documents (docs/Agents-Product.md, docs/Workers-Product.md) are still empty, and no screenshots exist yet, so their
-   screens are "Screenshot pending" placeholders named after the screens in the code. Code samples are verbatim. */
+   documents (docs/Agents-Product.md, docs/Workers-Product.md) are still empty. Agents uses the supplied screenshots;
+   Workers has none yet, so its screens are "Screenshot pending" placeholders named after the screens in the code.
+   Code samples are verbatim. */
 const agents = {
   id: 'agents',
   name: 'Agents',
@@ -70,9 +71,9 @@ let page = try await agents.chatsService.chats(
 let profile = try await agents.profileService.profile()`
   },
   screens: [
-    { title: 'Web chat', text: 'Conversations with streamed answers and their cited sources, for signed-in users and, if enabled, guests.' },
-    { title: 'iOS chat', text: 'A floating bubble that opens the chat as a sheet inside your iOS app.' },
-    { title: 'Android chat', text: 'The chat screen inside your Android app, with your own name, icon and colours.' }
+    { title: 'New chat', text: 'Ask Dex a question, or start from a suggested prompt. Auto lets the router pick the agent; earlier conversations are listed and searchable on the left.', image: 'assets/uis/agents/01.agents.indice.gr_.png', alt: 'Dex web chat start screen with the question box, the agent selector set to Auto, suggested prompts and an empty conversation list' },
+    { title: 'Answer with sources', text: 'A streamed answer drawn from your documentation, with numbered citations in the text and the source sections it used listed below.', image: 'assets/uis/agents/02.agents.indice.gr_ (2).png', alt: 'Dex answer about Indice.Platform with inline citations and two linked source sections below it' },
+    { title: 'Rich replies', text: 'Answers can carry markdown, code and diagrams, here a sequence diagram of the IAM sign-in and validation flow.', image: 'assets/uis/agents/03.agents.indice.gr_ (3).png', alt: 'Dex answer containing a sequence diagram of the IAM registration, email confirmation and validation flow' }
   ]
 };
 

@@ -61,7 +61,7 @@ test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with 
   for (const [id, file] of [['agents', 'dex'], ['workers', 'workers']]) {
     assert(html.includes(`src="assets/logos/${file} logo.svg"`) && html.includes(`href="assets/logos/${file} icon.svg"`), `${id} uses its supplied logo and icon`);
     const solution = proposalB.content.solutions.find(item => item.id === id);
-    assert(solution.screens.every(screen => !screen.image && !screen.mock), `${id} has no screenshots yet, so its screens stay labelled as pending`);
+    assert(solution.screens.every(screen => !screen.mock) && (id === 'agents' ? solution.screens.every(screen => screen.image) : solution.screens.every(screen => !screen.image)), `${id} shows its screenshots, or labelled pending screens until it has some`);
   }
   assert(!/Placeholder:/i.test(visibleText(html)), 'No placeholder copy is left');
   assert(html.includes('<span>Swift</span></figcaption>'), 'The Swift sample is labelled Swift');
