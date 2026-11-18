@@ -7,7 +7,7 @@ require('../js/data.js');
 
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'cases-reference.html'), 'utf8');
-const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const home = fs.readFileSync(path.join(root, 'original.html'), 'utf8');
 const { products } = globalThis.INDICE_DATA;
 
 test('Cases has one generated internal page: the technical reference', () => {
@@ -103,7 +103,7 @@ test('homepage carousel and Suite panel point to the sole Cases page', () => {
   assert(html.includes('<nav class="cases-toc-nav" aria-label="Technical reference sections">'));
   const header = html.match(/<nav class="header-nav" id="site-nav"[\s\S]*?<\/nav>/)?.[0];
   assert(header, 'Cases carries the header navigation');
-  assert(header.includes('href="index.html#foundation"') && header.includes('href="index.html#expertise"') && header.includes('class="header-github"'));
+  assert(header.includes('href="original.html#foundation"') && header.includes('href="original.html#expertise"') && header.includes('class="header-github"'));
   assert(!html.includes('class="floating-nav"') && !html.includes('class="site-footer"'), 'No floating bar or footer');
   assert.equal((html.match(/data-flowchart-open/g) || []).length, 4);
   assert.equal((html.match(/data-flowchart-orientation="horizontal"/g) || []).length, 3);

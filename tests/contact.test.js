@@ -75,7 +75,7 @@ test('reduced motion disables playback and observer-free scrolling still works',
 });
 
 test('three typed lines preserve the accessible title and stagger every character', () => {
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   const lines = [...html.matchAll(/<span class="contact-line" aria-hidden="true">([\s\S]*?)<\/span><\/span>/g)];
   assert.equal(lines.length, 3);
   assert(html.includes('aria-label="The foundation. The solutions. The expertise."'));
@@ -99,7 +99,7 @@ test('typing waits until the entire heading is visible rather than the section e
 });
 
 test('closing slashes preserve the hero geometry and reveal the second after ignition', () => {
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   const source = fs.readFileSync(path.join(__dirname, '../assets/logos/INDICE_slashes.svg'), 'utf8');
   const art = html.match(/<svg class="contact-slash"[\s\S]*?<\/svg>/)[0];
   assert(art.includes('viewBox="0 0 250 202"'));

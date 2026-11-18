@@ -12,13 +12,13 @@ require('../js/data.js');
 const { products } = globalThis.INDICE_DATA;
 const content = require('../scripts/proposals/content.js');
 const proposalB = require('../scripts/proposals/content-b.js');
-const contentFor = file => file === 'proposal-b.html' ? proposalB.content : content;
+const contentFor = file => file === 'index.html' ? proposalB.content : content;
 const { pages: renderers } = require('../scripts/proposals/build.js');
 const { renderShowcaseCss, renderScreensCss } = require('../scripts/proposals/showcase-css.js');
 const { darkLogoPath, themeKey } = require('../scripts/proposals/shared.js');
 const { highlight } = require('../scripts/highlight.js');
 
-const proposals = { a: 'proposal-a.html', b: 'proposal-b.html', c: 'proposal-c.html' };
+const proposals = { a: 'proposal-a.html', b: 'index.html', c: 'proposal-c.html' };
 const defaultThemes = { a: 'light', b: 'dark', c: 'dark' };
 const unescapeHtml = value => value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const visibleText = html => unescapeHtml(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
@@ -131,7 +131,7 @@ test('Proposal B is decorated with an illustrated plate and a halftone sun drawn
 });
 
 test('Proposal A keeps the original Solutions slider structure and behaviour hooks', () => {
-  const original = skeleton(showcaseBlock(read('index.html')));
+  const original = skeleton(showcaseBlock(read('original.html')));
   const html = read(proposals.a);
   assert.equal(skeleton(showcaseBlock(html)), original, 'Proposal A slider markup matches the original structure');
   assert(html.includes('<script defer src="js/data.js"></script>') && html.includes('<script defer src="js/showcase.js"></script>'), 'Proposal A runs the original slider script');
@@ -165,8 +165,8 @@ test('Proposals B and C drop the slider and present how each solution works insi
   }
 });
 
-test('the slider shows homepage-only revised copy in Proposal A and the original copy on index.html', () => {
-  const index = read('index.html');
+test('the slider shows homepage-only revised copy in Proposal A and the original copy on original.html', () => {
+  const index = read('original.html');
   const { chapters, cases } = content.slider;
   const slider = visibleText(showcaseBlock(read(proposals.a)));
   for (const chapter of Object.values(chapters)) {
@@ -178,16 +178,16 @@ test('the slider shows homepage-only revised copy in Proposal A and the original
   }
   for (const product of products) assert(!slider.includes(product.description), `Proposal A no longer shows the original ${product.id} description`);
   assert(!slider.includes('Operational workflows, engineered to evolve.'));
-  assert(index.includes('Operational workflows, engineered to evolve.'), 'index.html keeps its slider copy');
+  assert(index.includes('Operational workflows, engineered to evolve.'), 'original.html keeps its slider copy');
   for (const product of products.filter(item => item.id !== 'cases')) {
-    assert(visibleText(index).includes(product.description), `index.html keeps the ${product.id} description`);
+    assert(visibleText(index).includes(product.description), `original.html keeps the ${product.id} description`);
   }
 });
 
 test('the revised Cases slider heading is no longer than the original, so the pinned heading keeps its height', () => {
   // The pinned heading is absolutely positioned above step text that starts at a fixed offset; longer copy overlaps it.
-  const original = read('index.html').match(/<h3 id="title-cases">([^<]+)<\/h3>\s*<p>([^<]+)<\/p>/);
-  assert(original, 'index.html has the original Cases heading');
+  const original = read('original.html').match(/<h3 id="title-cases">([^<]+)<\/h3>\s*<p>([^<]+)<\/p>/);
+  assert(original, 'original.html has the original Cases heading');
   const [, title, intro] = original.map(unescapeHtml);
   assert(content.slider.cases.title.length <= title.length + 4, `Cases slider title fits the original two lines: ${content.slider.cases.title}`);
   assert(content.slider.cases.intro.length <= intro.length, `Cases slider intro is no longer than the original: ${content.slider.cases.intro}`);
@@ -204,7 +204,7 @@ test('internal Solution pages keep their own sources and text', () => {
     const html = read(file);
     const reference = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
     assert(html.includes(`href="${reference}"`), `${file} links to the Cases reference`);
-    assert(!/href="(?!cases-reference\.html|proposal-b-cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
+    assert(!/href="(?!cases-reference\.html|proposal-b-cases-reference\.html|index\.html|original\.html|terminal\.html|blueprint\.html|proposal-[ac]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
   }
 });
 

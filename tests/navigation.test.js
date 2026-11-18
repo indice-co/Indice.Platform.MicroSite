@@ -91,7 +91,7 @@ function fixture({ mobile = false, reduced = false, observerAvailable = true, ob
 
   const root = new Element();
   const brandImage = new Element('img');
-  const brand = new Element('a', casesBrand ? { href: 'index.html', 'data-top-href': '#cases-hero' } : { href: '#hero' }, [brandImage]);
+  const brand = new Element('a', casesBrand ? { href: 'original.html', 'data-top-href': '#cases-hero' } : { href: '#hero' }, [brandImage]);
   brand.querySelector = () => brandImage;
   const outside = new Element('button');
   const firstMobileLink = new Element('a', { href: '#foundation' });
@@ -213,7 +213,7 @@ test('fixed brand uses the top logo while scrolled and restores the main logo at
 
 test('Cases brand links to the current page top while compact and home at the top', () => {
   const page = fixture({ casesBrand: true });
-  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  assert.equal(page.brand.getAttribute('href'), 'original.html');
   page.scroll(500);
   assert.equal(page.brand.getAttribute('href'), '#cases-hero');
   assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
@@ -230,7 +230,7 @@ test('Cases brand links to the current page top while compact and home at the to
   assert.equal(page.brand.getAttribute('href'), '#cases-hero');
   assert.equal(page.brand.getAttribute('aria-label'), 'Back to top');
   page.scroll(0);
-  assert.equal(page.brand.getAttribute('href'), 'index.html');
+  assert.equal(page.brand.getAttribute('href'), 'original.html');
   assert.equal(page.brand.getAttribute('aria-label'), 'INDICE Platform home');
 });
 

@@ -40,7 +40,8 @@
   align-items: center;
   gap: 7px;
   padding: 5px 10px;
-  border-radius: 4px;
+  border: 1px solid #ffffff38;
+  border-radius: 999px;
   color: #e6e8ec;
   text-decoration: none;
   white-space: nowrap;
@@ -56,15 +57,6 @@
   border-radius: 50%;
   border: 1px solid currentColor;
   font-size: 10px;
-}
-.design-ribbon .design-ribbon-divider {
-  align-self: stretch;
-  width: 1px;
-  margin: 7px 8px;
-  background: #ffffff33;
-}
-.design-ribbon a.design-ribbon-proposal {
-  border: 1px solid #ffffff38;
 }
 .design-ribbon a.design-ribbon-proposal::before {
   content: '';

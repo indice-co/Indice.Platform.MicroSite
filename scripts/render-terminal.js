@@ -313,7 +313,7 @@ function render() {
     { label: 'cases/README.md', hint: 'Cases technical reference', href: terminalDocs.cases },
     { label: 'github.com/indice-co', hint: 'external', href: links.github },
     { label: 'nuget.org/profiles/indice', hint: 'external', href: links.nuget },
-    { label: 'Original design', hint: 'design preview', href: 'index.html' },
+    { label: 'Original design', hint: 'design preview', href: 'original.html' },
     { label: 'Blueprint design', hint: 'design preview', href: 'blueprint.html' }
   ]).replace(/</g, '\\u003c')}</script>
 </body>

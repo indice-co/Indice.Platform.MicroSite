@@ -16,11 +16,11 @@ const words = text => escape(text).split(' ')
   .map((word, index) => `<span class="pb-w" style="--w:${index}"><span>${word}</span></span>`).join(' ');
 
 const masthead = () => `<header class="pb-masthead">
-    <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
     <p class="pb-masthead-note">Cases technical reference</p>
     <div class="pb-masthead-actions">
       <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="${ui.themeToggle}">${icons.sun}${icons.moon}</button>
-      <a class="pb-contents-button pbr-back" href="proposal-b.html#spec-cases">${icons.arrowLeft}<span>Overview</span></a>
+      <a class="pb-contents-button pbr-back" href="index.html#spec-cases">${icons.arrowLeft}<span>Overview</span></a>
     </div>
   </header>`;
 
@@ -60,7 +60,7 @@ const dialog = () => `<dialog class="flowchart-dialog pbr-dialog" aria-labelledb
 
 const colophon = () => `<footer class="pb-colophon pbr-colophon">
     <div class="pb-colophon-meta">
-      <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
       <p>${escape(c.footer.note)}</p>
       <ul><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
     </div>
