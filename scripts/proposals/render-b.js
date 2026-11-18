@@ -20,8 +20,10 @@ const chapters = [
 ];
 const chapterNumber = id => pad(chapters.findIndex(chapter => chapter.id === id) + 1);
 const entryNumber = index => `${chapterNumber('products')}.${index + 1}`;
-// "Technical details": each solution's technical reference page. Only Cases has one so far; the rest are placeholders.
-const detailsHref = s => s.product.destination || '#';
+// "Technical details" stays inert until that solution has a technical reference page.
+const detailsLink = s => s.product.destination
+  ? `<a href="${escape(s.product.destination)}">${ui.details}${icons.arrowRight}<span class="sr-only"> for ${escape(s.name)}</span></a>`
+  : `<span class="pb-link-disabled" role="link" aria-disabled="true">${ui.details}${icons.arrowRight}<span class="sr-only"> for ${escape(s.name)}</span></span>`;
 
 /* Words that rise into place; `accent` lists word positions set in the accent colour. */
 const words = (text, accent = []) => escape(text).split(' ')
@@ -218,7 +220,7 @@ const suite = () => `<section class="pb-chapter pb-suite" id="products" aria-lab
           <p class="pb-card-stack">${s.stack.map(escape).join(' · ')}</p>
           <div class="pb-card-links">
             <a href="#spec-${s.id}">${ui.learnMore}${icons.arrowDown}<span class="sr-only"> about ${escape(s.name)}</span></a>
-            <a href="${escape(detailsHref(s))}">${ui.details}${icons.arrowRight}<span class="sr-only"> for ${escape(s.name)}</span></a>
+            ${detailsLink(s)}
           </div>
         </article>`).join('')}</div>
       <section class="pb-guide" id="specs" aria-labelledby="pb-guide-title" tabindex="-1">

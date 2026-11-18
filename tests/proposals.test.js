@@ -157,11 +157,27 @@ test('Proposals B and C drop the slider and present how each solution works insi
     for (const solution of content.solutions) {
       const learnMore = new RegExp(`<a[^>]*href="#spec-${solution.id}"[^>]*>${content.ui.learnMore}`);
       assert.match(html, learnMore, `${file} ${solution.id} card links to its details`);
-      // Proposal B links the reference pages still to come to placeholders.
-      const cases = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
-      const details = solution.id === 'cases' ? cases : file === proposals.b ? '#' : `#spec-${solution.id}-architecture`;
-      assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
+      if (file === proposals.b && solution.id !== 'cases') {
+        assert(html.includes(`<span class="pb-link-disabled" role="link" aria-disabled="true">${content.ui.details}`), `${file} ${solution.id} technical details are disabled`);
+      } else {
+        const details = solution.id === 'cases'
+          ? file === proposals.b ? proposalB.referencePage : 'cases-reference.html'
+          : `#spec-${solution.id}-architecture`;
+        assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
+      }
     }
+  }
+});
+
+test('Proposal B enables Technical details only for Cases', () => {
+  const html = read('index.html');
+  const cards = html.slice(html.indexOf('<div class="pb-cards">'), html.indexOf('<section class="pb-guide"'));
+  const technicalLinks = [...cards.matchAll(/<a href="([^"]+)">Technical details/g)].map(match => match[1]);
+  assert.deepEqual(technicalLinks, [proposalB.referencePage]);
+  for (const solution of proposalB.content.solutions.filter(solution => solution.id !== 'cases')) {
+    const card = cards.match(new RegExp(`<article class="pb-card"[^>]*aria-labelledby="pb-card-${solution.id}"[\\s\\S]*?</article>`))?.[0];
+    assert(card?.includes('<span class="pb-link-disabled" role="link" aria-disabled="true">Technical details'), `${solution.name} technical details are disabled`);
+    assert(card?.includes(`<span class="sr-only"> for ${solution.name}</span></span>`), `${solution.name} disabled label is associated with its solution`);
   }
 });
 
