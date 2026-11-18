@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-proposal="b" data-default-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f7f9">
+  <meta name="description" content="Risk scores operations such as payments, transfers, logins and profile changes in real time, before your application commits them. Rules are C# classes; their thresholds are settings that operators change at runtime.">
+  <title>Risk — INDICE Platform · Proposal B</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-b-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='light';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/proposal-b.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+</head>
+<body class="pb pb-inner">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li class="design-ribbon-divider" aria-hidden="true"></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-b.html" aria-current="page" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <div class="pb-progress" data-progress aria-hidden="true"></div>
+  <header class="pb-masthead">
+    <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <p class="pb-masthead-note">Solution page · Risk</p>
+    <div class="pb-masthead-actions">
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="false" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+      <a class="pb-contents-button" href="proposal-b.html#products"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg>All solutions</a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="pb-hero pb-inner-hero" id="hero" aria-labelledby="pb-inner-title" tabindex="-1" style="--tone:#0F7C8C">
+      <div class="pb-hero-main">
+        <nav class="pb-crumbs" aria-label="Breadcrumb">
+          <ol><li><a href="proposal-b.html">Platform</a></li><li><a href="proposal-b.html#products">Solutions</a></li><li><a href="#hero" aria-current="page">Risk</a></li></ol>
+        </nav>
+        <p class="pb-kicker">02.4 · Solution page</p>
+        <div class="pb-inner-logo"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div>
+        <h1 id="pb-inner-title"><span class="sr-only">Risk: </span><span class="pb-w" style="--w:0"><span>Real-time</span></span> <span class="pb-w" style="--w:1"><span>risk</span></span> <span class="pb-w" style="--w:2"><span>scoring</span></span> <span class="pb-w" style="--w:3"><span>for</span></span> <span class="pb-w" style="--w:4"><span>transactions</span></span> <span class="pb-w" style="--w:5"><span>and</span></span> <span class="pb-w" style="--w:6"><span>activity</span></span></h1>
+        <p class="pb-lede">Risk scores operations such as payments, transfers, logins and profile changes in real time, before your application commits them. Rules are C# classes; their thresholds are settings that operators change at runtime.</p>
+        <div class="pb-actions">
+          <button type="button" class="pb-btn pb-btn-solid" data-demo>Request a demo</button>
+          <a class="pb-btn pb-btn-line" href="proposal-b.html#spec-risk">Read the overview</a>
+        </div>
+      </div>
+      <aside class="pb-glance" aria-labelledby="pb-glance-title">
+        <h2 id="pb-glance-title">At a glance</h2>
+        <dl>
+          <div><dt>Status</dt><dd><span class="pb-soon">Technical page in preparation</span></dd></div>
+          <div><dt>Key APIs</dt><dd><ul class="pb-entry-apis"><li><code>POST api/risk</code></li><li><code>POST api/risk/events</code></li><li><code>GET risk-events/session/{sessionId}</code></li></ul></dd></div>
+          <div><dt>Stack</dt><dd>ASP.NET Core · EF Core · SQL Server · NetTopologySuite · MaxMind GeoLite2 · Angular</dd></div>
+        </dl>
+      </aside>
+    </section>
+    <section class="pb-chapter pb-inner-soon" id="planned" aria-labelledby="pb-planned-title" tabindex="-1">
+      <header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§</span>In preparation</p>
+        <h2 id="pb-planned-title"><span class="pb-w" style="--w:0"><span>The</span></span> <span class="pb-w" style="--w:1"><span>full</span></span> <span class="pb-w" style="--w:2"><span>technical</span></span> <span class="pb-w" style="--w:3"><span>page</span></span> <span class="pb-w" style="--w:4"><span>is</span></span> <span class="pb-w" style="--w:5"><span>being</span></span> <span class="pb-w" style="--w:6"><span>written.</span></span></h2>
+      </header>
+      <div class="pb-platform-body">
+        <div class="pb-inner-intro" data-reveal>
+          <p class="pb-standfirst">This page will document Risk in depth. Until then, the overview covers how it works, its architecture and a code sample.</p>
+        </div>
+        <ol class="pb-points"><li data-reveal style="--i:0"><span class="pb-point-no">01</span><div><h3>Architecture</h3><p>How Risk sits inside your ASP.NET Core host, its data model and the services it registers.</p><span class="pb-point-meta">In preparation</span></div></li><li data-reveal style="--i:1"><span class="pb-point-no">02</span><div><h3>APIs</h3><p>Every endpoint, with request and response examples and the scopes each one needs.</p><span class="pb-point-meta">In preparation</span></div></li><li data-reveal style="--i:0"><span class="pb-point-no">03</span><div><h3>Configuration</h3><p>Options, extension points and the C# interfaces you implement to change behaviour.</p><span class="pb-point-meta">In preparation</span></div></li><li data-reveal style="--i:1"><span class="pb-point-no">04</span><div><h3>Integrations</h3><p>Connecting identity, storage, messaging and third-party providers.</p><span class="pb-point-meta">In preparation</span></div></li><li data-reveal style="--i:0"><span class="pb-point-no">05</span><div><h3>Screens</h3><p>The admin and self-service screens, with what each one is for.</p><span class="pb-point-meta">In preparation</span></div></li></ol>
+      </div>
+    </section>
+    <nav class="pb-chapter pb-inner-more" aria-labelledby="pb-more-title">
+      <p class="pb-chapter-label" id="pb-more-title">Other solutions</p>
+      <ol class="pb-index"><li style="--i:0"><a href="proposal-b-cases.html" style="--tone:#12707A"><span class="pb-index-no">02.1</span><span class="pb-index-name">Cases</span><span class="pb-index-text">Run applications and approvals as configurable case types.</span></a></li><li style="--i:1"><a href="proposal-b-iam.html" style="--tone:#3D5AFE"><span class="pb-index-no">02.2</span><span class="pb-index-name">IAM</span><span class="pb-index-text">Sign in staff, customers and partners with MFA and device trust.</span></a></li><li style="--i:2"><a href="proposal-b-messaging.html" style="--tone:#5B4FE0"><span class="pb-index-no">02.3</span><span class="pb-index-name">Messaging</span><span class="pb-index-text">Send campaigns and transactional messages on every channel.</span></a></li></ol>
+    </nav>
+  </main>
+  <footer class="pb-colophon">
+    <div class="pb-colophon-meta">
+      <a class="pb-brand" href="proposal-b.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <p>Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+      <ul><li><a href="proposal-b.html">Read the overview</a></li><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul>
+    </div>
+  </footer>
+  <a class="gh-tab pb-gh" href="https://github.com/indice-co" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pb-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><span aria-hidden="true">Back to top</span></a>
+</body>
+</html>

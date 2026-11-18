@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* Proposal B — "Editorial". Long-form layout set in Manrope: light display weights, bold uppercase labels and an
-   orange accent. Page styles live in the "proposal" layer above css/proposals/common.css. Light is the default. */
+   orange accent. Page styles live in the "proposal" layer above css/proposals/common.css. Dark is the default. */
 @font-face {
   font-family: Manrope;
   src: url('../../assets/fonts/manrope-variable.ttf') format('truetype');
@@ -27,7 +27,7 @@
 
 @layer proposal {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
     --font-sans: Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --bg: light-dark(#f6f7f9, #0f1115);
@@ -141,20 +141,17 @@
   .pb-masthead-actions { display: flex; align-items: center; gap: 10px; }
   /* A pill slides between the two theme buttons. */
   .pb-theme {
-    position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 3px;
-    border: 1px solid var(--border); border-radius: 999px;
+    position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; width: 64px; height: 34px; padding: 3px;
+    border: 1px solid var(--border); border-radius: 999px; transition: border-color .25s;
   }
+  .pb-theme:hover { border-color: var(--fg); }
   .pb-theme::before {
     content: ''; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px;
     background: var(--fg); transition: transform .45s var(--ease-out);
   }
   :root[data-theme="dark"] .pb-theme::before { transform: translateX(100%); }
-  .pb-theme button {
-    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; padding: 0 12px;
-    border-radius: 999px; font-size: 13px; font-weight: 650; color: var(--fg-muted); transition: color .35s;
-  }
-  .pb-theme button svg { width: 15px; height: 15px; }
-  .pb-theme button[aria-pressed="true"] { color: var(--bg); }
+  .pb-theme svg { position: relative; justify-self: center; width: 15px; height: 15px; color: var(--fg-muted); transition: color .35s; }
+  :root:not([data-theme="dark"]) .pb-theme svg:first-child, :root[data-theme="dark"] .pb-theme svg:last-child { color: var(--bg); }
   .pb-contents-button {
     display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 16px;
     border: 1px solid var(--rule); border-radius: 999px; font-size: 14px; font-weight: 700;
@@ -238,11 +235,13 @@
   .pb-glance dt { font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-subtle); }
   .pb-glance dd { margin-top: 2px; font-size: 14.5px; line-height: 1.45; }
   .pb-index {
-    grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 40px;
+    grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px;
     border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
   }
   .pb-index li { animation: pb-rise .9s var(--ease-out) both; animation-delay: calc(1s + var(--i) * 90ms); }
   .pb-index li + li { border-left: 1px solid var(--border); }
+  .pb-index li:nth-child(3n + 1) { border-left: 0; }
+  .pb-index li:nth-child(n + 4) { border-top: 1px solid var(--border); }
   .pb-index a {
     position: relative; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; height: 100%; padding: 20px 20px 22px;
     transition: background .3s;
@@ -289,7 +288,7 @@
   .pb-point-meta { display: block; margin-top: 10px; font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-subtle); }
 
   /* ---------- §02 suite cards ---------- */
-  .pb-suite-intro { margin-bottom: 48px; }
+  .pb-suite-intro { max-width: none; margin-bottom: 48px; }
   .pb-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
   .pb-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 34px 36px 30px 0; border-bottom: 1px solid var(--border); }
   .pb-card:nth-child(even) { padding: 34px 0 30px 36px; border-left: 1px solid var(--border); }
@@ -319,6 +318,7 @@
   /* ---------- §02 field guide: how each solution works ---------- */
   .pb-guide { margin-top: clamp(84px, 10vw, 128px); }
   .pb-guide-head { margin-bottom: 52px; }
+  .pb-guide-head .pb-standfirst { max-width: none; }
   .pb-guide-title {
     max-width: 18ch; margin: 24px 0 22px; font-weight: 300;
     font-size: clamp(32px, 4vw, 56px); line-height: 1.04; letter-spacing: -.04em;
@@ -356,6 +356,29 @@
   .pb-entry-summary { font-size: clamp(22px, 2.1vw, 29px); font-weight: 400; line-height: 1.36; letter-spacing: -.02em; text-wrap: pretty; }
   .pb-entry-body > p:not(.pb-entry-summary) { font-size: 17px; color: var(--fg-muted); }
   .pb-entry-problem { padding-left: 18px; border-left: 3px solid var(--tone); }
+  .pb-partner {
+    position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px 28px;
+    margin-top: 32px; padding: 26px 28px; border: 1px solid color-mix(in srgb, var(--tone) 55%, var(--border));
+    border-radius: 14px; overflow: hidden;
+    background: linear-gradient(120deg, color-mix(in srgb, var(--tone) 16%, var(--surface-raised)), var(--surface-raised) 70%);
+  }
+  .pb-partner::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--tone); }
+  .pb-partner-label {
+    grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 8px; justify-self: start;
+    padding: 5px 10px; border-radius: 999px; background: var(--tone); color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .pb-partner-logo {
+    display: block; width: 170px; aspect-ratio: 288 / 53; background: var(--fg);
+    -webkit-mask: no-repeat center / contain; mask: no-repeat center / contain;
+  }
+  .pb-entry-body .pb-partner-text { font-size: 16px; line-height: 1.55; color: var(--fg); }
+  .pb-partner-link {
+    grid-column: 2; justify-self: start; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 700; color: var(--fg); border-bottom: 1px solid var(--tone); padding-bottom: 2px;
+    transition: gap .3s var(--ease-out);
+  }
+  .pb-partner-link:hover { gap: 10px; }
   .pb-entry-steps { counter-reset: step; display: grid; gap: 16px; }
   .pb-entry-steps li { counter-increment: step; display: grid; grid-template-columns: 48px 1fr; gap: 8px; font-size: 16.5px; color: var(--fg-muted); }
   .pb-entry-steps li::before {
@@ -385,10 +408,12 @@
     margin-top: clamp(52px, 6vw, 80px);
   }
   .pb-gallery-head {
-    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px 28px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px 28px;
     padding-top: 22px; border-top: 1px solid var(--border);
   }
-  .pb-gallery-title { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  /* The label and hint share a baseline; as a pair they are centred against the arrows. */
+  .pb-gallery-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 28px; }
+  .pb-entry .pb-gallery-title { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
   .pb-gallery-title span { color: var(--fg-subtle); }
   .pb-gallery-hint { font-size: 14px; color: var(--fg-muted); }
   .pb-gallery-nav { display: flex; gap: 8px; }
@@ -401,7 +426,6 @@
   .pb-strip-wrap { position: relative; margin: 24px calc(-1 * var(--bleed)) 0; }
   .pb-strip {
     display: flex; gap: clamp(16px, 2vw, 28px); padding: 8px var(--bleed) 26px; scroll-padding-inline: var(--bleed);
-    counter-reset: shot;
   }
   /* Edge shading shows which way the strip is gliding. */
   .pb-strip-wrap::before, .pb-strip-wrap::after {
@@ -412,7 +436,7 @@
   .pb-strip-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
   .pb-gallery.is-gliding-left .pb-strip-wrap::before, .pb-gallery.is-gliding-right .pb-strip-wrap::after { opacity: .7; }
   .pb-strip-item {
-    flex: 0 0 clamp(272px, 58vw, 880px); scroll-snap-align: start; counter-increment: shot;
+    flex: 0 0 clamp(272px, 58vw, 880px); scroll-snap-align: start;
     transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
     transition-delay: calc(150ms + var(--i) * 90ms);
   }
@@ -424,11 +448,7 @@
   .pb-shot .shot-media > img, .pb-shot .shot-placeholder { transition: transform 1.2s var(--ease-out); }
   .pb-shot:hover .shot-media { transform: translateY(-6px); box-shadow: 0 44px 80px -44px var(--shadow); }
   .pb-shot:hover .shot-media > img, .pb-shot:hover .shot-placeholder { transform: scale(1.035); }
-  .pb-shot figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; margin-top: 16px; max-width: 66ch; }
-  .pb-shot figcaption::before {
-    content: counter(shot, decimal-leading-zero); grid-row: span 2; padding-top: 3px;
-    font-size: 13px; font-weight: 700; color: var(--accent);
-  }
+  .pb-shot figcaption { display: grid; gap: 4px; margin-top: 16px; max-width: 66ch; }
   .pb-shot figcaption b {
     justify-self: start; font-size: 18px; font-weight: 700; letter-spacing: -.01em;
     background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat; padding-bottom: 2px;
@@ -437,9 +457,9 @@
   .pb-shot:hover figcaption b { background-size: 100% 1px; }
   .pb-shot figcaption span { font-size: 15px; line-height: 1.55; color: var(--fg-muted); }
   .pb-shot .shot-open:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 6px; border-radius: 16px; }
-  .pb-gallery-progress { height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--blue) 22%, transparent); overflow: hidden; }
+  .pb-gallery-progress { height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--accent-mark) 22%, transparent); overflow: hidden; }
   .pb-gallery-progress span {
-    display: block; height: 100%; border-radius: inherit; background: var(--blue); transform-origin: left;
+    display: block; height: 100%; border-radius: inherit; background: var(--accent-mark); transform-origin: left;
     transform: scaleX(calc(.12 + var(--gallery-progress, 0) * .88)); transition: transform .25s linear;
   }
 
@@ -453,7 +473,7 @@
   .pb-lightbox .lightbox-figure .shot-media { border: 1px solid var(--border); box-shadow: 0 50px 120px -50px var(--shadow); }
 
   /* ---------- Services ---------- */
-  .pb-services > .pb-standfirst { margin-bottom: 48px; }
+  .pb-services > .pb-standfirst { max-width: none; margin-bottom: 48px; }
   .pb-service-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
   .pb-service-list li { padding: 30px 32px 8px 0; }
   .pb-service-list li + li { padding-left: 32px; border-left: 1px solid var(--border); }
@@ -534,7 +554,10 @@
   .pb-chip-spin { animation: pb-spin 90s linear infinite; }
   .pb-plate:hover :is(.pb-orbit, .pb-node-spin, .pb-foundation, .pb-chip-spin) { animation-play-state: paused; }
   @keyframes pb-spin { to { rotate: 360deg; } }
-  .pb-node { transition: scale .7s cubic-bezier(.34, 1.56, .64, 1); transition-delay: calc(.25s + var(--i) * 110ms); }
+  .pb-node { transition: scale .7s cubic-bezier(.34, 1.56, .64, 1) calc(.25s + var(--i) * 110ms), translate .45s var(--ease-out) 0s; }
+  /* Each element moves away from the pointer on its own (js/proposals/proposal-b.js). */
+  [data-repel] { translate: var(--repel-x, 0px) var(--repel-y, 0px); }
+  [data-repel]:not(.pb-node) { transition: translate .45s var(--ease-out); }
   .pb-node-disc { fill: var(--surface-raised); stroke: var(--tone); stroke-width: 2.5; }
   .pb-node-name { fill: var(--fg); font-size: 14px; font-weight: 700; text-anchor: middle; letter-spacing: -.01em; }
   .pb-node-ghost { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; stroke-dasharray: 4 5; }
@@ -653,7 +676,8 @@
     .pb-hero, .pb-platform-body, .pb-entry-main { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
     .pb-plate-inner { grid-template-columns: minmax(0, 1fr); gap: 40px; }
     .pb-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pb-index li:nth-child(3) { border-left: 0; }
+    .pb-index li:nth-child(n) { border-left: 1px solid var(--border); }
+    .pb-index li:nth-child(odd) { border-left: 0; }
     .pb-index li:nth-child(n + 3) { border-top: 1px solid var(--border); }
     .pb-platform-body .pb-standfirst, .pb-points { grid-column: 1 / -1; position: static; }
     .pb-points { margin-top: 36px; }
@@ -663,8 +687,7 @@
     .pb-card:hover::before { width: 100%; }
     .pb-entry-aside, .pb-entry-body { grid-column: 1 / -1; position: relative; top: auto; }
     .pb-entry-body { margin-top: 12px; }
-    .pb-gallery-head { grid-template-columns: minmax(0, 1fr) auto; }
-    .pb-gallery-hint { grid-column: 1 / -1; grid-row: 2; }
+    .pb-gallery-hint { flex-basis: 100%; }
     .pb-service-list { grid-template-columns: minmax(0, 1fr); }
     .pb-service-list li, .pb-service-list li + li { padding: 28px 0; border-left: 0; }
     .pb-service-list li + li { border-top: 1px solid var(--border); }
@@ -678,13 +701,14 @@
     body { font-size: 16px; }
     .pb-masthead { gap: 12px; }
     .pb-brand-name { display: none; }
-    .pb-theme button span { display: none; }
-    .pb-theme button { padding: 0 9px; }
     .pb-contents-button { padding: 0 12px; }
     .pb-glance dl { grid-template-columns: minmax(0, 1fr); }
     .pb-index { grid-template-columns: minmax(0, 1fr); }
-    .pb-index li + li { border-left: 0; border-top: 1px solid var(--border); }
+    .pb-index li:nth-child(n) { border-left: 0; }
+    .pb-index li:nth-child(n + 2) { border-top: 1px solid var(--border); }
     .pb-entry-integrations { grid-template-columns: minmax(0, 1fr); }
+    .pb-partner { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
+    .pb-partner-link { grid-column: 1; }
     .pb-chip { font-size: 13px; }
     .pb-node-name { font-size: 19px; }
     .pb-core-text { font-size: 22px; }

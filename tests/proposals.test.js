@@ -11,13 +11,15 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8').replace(/\r\
 require('../js/data.js');
 const { products } = globalThis.INDICE_DATA;
 const content = require('../scripts/proposals/content.js');
+const proposalB = require('../scripts/proposals/content-b.js');
+const contentFor = file => file === 'proposal-b.html' ? proposalB.content : content;
 const { pages: renderers } = require('../scripts/proposals/build.js');
 const { renderShowcaseCss, renderScreensCss } = require('../scripts/proposals/showcase-css.js');
 const { darkLogoPath, themeKey } = require('../scripts/proposals/shared.js');
 const { highlight } = require('../scripts/highlight.js');
 
 const proposals = { a: 'proposal-a.html', b: 'proposal-b.html', c: 'proposal-c.html' };
-const defaultThemes = { a: 'light', b: 'light', c: 'dark' };
+const defaultThemes = { a: 'light', b: 'dark', c: 'dark' };
 const unescapeHtml = value => value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const visibleText = html => unescapeHtml(html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
 const showcaseBlock = html => {
@@ -42,6 +44,31 @@ test('proposal pages, slider styles and dark logos are generated from the curren
     assert(!/#1C1A33|#777685/i.test(svg), `${product.id} dark logo has light wordmark colours`);
     assert.equal(svg.replace(/#F4F4F6/gi, '#1C1A33').replace(/#A9A8B8/gi, '#777685'), read(product.logo), `${product.id} dark logo only changes the wordmark colours`);
   }
+  for (const { product } of proposalB.content.solutions) {
+    const svg = read(proposalB.darkLogoPath(product));
+    assert.equal(proposalB.darkLogo(product), svg, `Run npm run build to refresh Proposal B's ${product.id} dark logo`);
+    const badge = svg.match(/<path\b[^>]*\sd="M[\d.]+ 2\.2202[^>]*>\s*(<path\b[^>]*>)\s*(<path\b[^>]*>)/);
+    if (badge) assert(badge.slice(1).every(letter => letter.includes('fill="#1C1A33"')), `Proposal B's ${product.id} dark logo keeps the UI letters dark`);
+  }
+  assert.match(read(proposalB.darkLogoPath({ id: 'workers' })), /<path d="M12\.32 10\.67[^>]*fill="#1C1A33"/, 'Proposal B keeps the Workers gear dark');
+});
+
+test('Proposal B presents IAM, Cases, Messaging, Risk, Agents and Workers, with real copy for every solution', () => {
+  const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
+  assert.deepEqual(proposalB.content.solutions.map(solution => solution.id), order);
+  const html = read(proposals.b);
+  assert.deepEqual([...html.matchAll(/<article class="pb-entry" id="spec-([a-z]+)"/g)].map(match => match[1]), order, 'Entries follow the solution order');
+  for (const [id, file] of [['agents', 'dex'], ['workers', 'workers']]) {
+    assert(html.includes(`src="assets/logos/${file} logo.svg"`) && html.includes(`href="assets/logos/${file} icon.svg"`), `${id} uses its supplied logo and icon`);
+    const solution = proposalB.content.solutions.find(item => item.id === id);
+    assert(solution.screens.every(screen => screen.image && !screen.mock), `${id} shows its screenshots`);
+  }
+  assert(!/Placeholder:/i.test(visibleText(html)), 'No placeholder copy is left');
+  assert(html.includes('<span>Swift</span></figcaption>'), 'The Swift sample is labelled Swift');
+  const iam = html.slice(html.indexOf('id="spec-iam"'), html.indexOf('</article>', html.indexOf('id="spec-iam"')));
+  assert(iam.includes('<aside class="pb-partner"') && iam.includes('official distributor and integrator of Duende Software'), 'The IAM entry calls out the Duende partnership');
+  assert(iam.includes('href="https://duendesoftware.com/" rel="noopener" target="_blank"'), 'The partnership links to Duende Software');
+  assert.equal((html.match(/class="pb-partner"/g) || []).length, 1, 'Only the IAM entry has a partner panel');
 });
 
 test('proposals call IAM, Cases, Messaging and Risk "solutions" and never state how many there are', () => {
@@ -72,7 +99,8 @@ test('headings never crop descenders, B keeps its masthead in view and C outline
 test('Proposals B and C keep a GitHub link fixed on screen', () => {
   for (const [file, cls] of [[proposals.b, 'pb-gh'], [proposals.c, 'pc-gh']]) {
     const html = read(file);
-    assert(html.includes(`<a class="gh-tab ${cls}" href="https://github.com/indice-co" rel="noopener" target="_blank">`), `${file} has the GitHub tab`);
+    const repo = file === proposals.b ? proposalB.githubRepo : 'https://github.com/indice-co';
+    assert(html.includes(`<a class="gh-tab ${cls}" href="${repo}" rel="noopener" target="_blank">`), `${file} has the GitHub tab`);
     assert(html.indexOf('class="gh-tab') > html.indexOf('</main>'), `${file} GitHub tab sits outside the main content`);
   }
   assert.match(read('css/proposals/common.css'), /\.gh-tab \{\s*position: fixed;[^}]*right: 0; top: 50%;/, 'Fixed to the middle of the right edge');
@@ -90,14 +118,14 @@ test('Proposal B is decorated with an illustrated plate and a halftone sun drawn
   const plate = html.slice(html.indexOf('<figure class="pb-plate"'), html.indexOf('</figure>', html.indexOf('<figure class="pb-plate"')));
   assert(plate.includes('<svg class="pb-plate-svg"') && plate.includes('aria-hidden="true"'), 'Decorative diagram hidden from assistive technology');
   assert(plate.includes('<figcaption class="pb-plate-caption">'), 'The plate is captioned');
-  assert.equal((plate.match(/class="pb-node-disc"/g) || []).length, content.solutions.length, 'One node per solution');
+  assert.equal((plate.match(/class="pb-node-disc"/g) || []).length, proposalB.content.solutions.length, 'One node per solution');
   assert.equal((plate.match(/class="pb-node-ghost"/g) || []).length, 1, 'An open slot for the next solution');
   assert(html.indexOf('class="pb-plate"') > html.indexOf('id="platform"') && html.indexOf('class="pb-plate"') < html.indexOf('id="products"'), 'The plate sits between §01 and §02');
   assert(html.includes('<div class="pb-sun" aria-hidden="true" data-parallax='), 'A sun rises behind the closing section');
   const css = read('css/proposals/proposal-b.css');
   assert.match(css, /\.pb-card-logo \.product-logo \{ width: auto; height: 38px;/, 'Suite logos are 20% larger than the 32px of the previous round');
   assert.match(css, /\.pb-gallery-head \{[^}]*border-top: 1px solid var\(--border\);/, 'The line above each screen library is grey');
-  assert.match(css, /\.pb-gallery-progress span \{[^}]*background: var\(--blue\);/, 'The library progress bar is blue');
+  assert.match(css, /\.pb-gallery-progress span \{[^}]*background: var\(--accent-mark\);/, 'The library progress bar is orange');
   assert.match(css, /\.pb-entry \{ padding: 56px 0 0; border-top: 3px solid var\(--rule\); \}/, 'Entries are separated by a heavy dark rule');
   assert.match(css, /\.pb-entry \+ \.pb-entry \{ margin-top: 80px; \}/, '80px below the previous library');
 });
@@ -129,7 +157,9 @@ test('Proposals B and C drop the slider and present how each solution works insi
     for (const solution of content.solutions) {
       const learnMore = new RegExp(`<a[^>]*href="#spec-${solution.id}"[^>]*>${content.ui.learnMore}`);
       assert.match(html, learnMore, `${file} ${solution.id} card links to its details`);
-      const details = solution.id === 'cases' ? 'cases-reference.html' : `#spec-${solution.id}-architecture`;
+      // Proposal B links the reference pages still to come to placeholders.
+      const cases = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
+      const details = solution.id === 'cases' ? cases : file === proposals.b ? '#' : `#spec-${solution.id}-architecture`;
       assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
     }
   }
@@ -172,9 +202,27 @@ test('internal Solution pages keep their own sources and text', () => {
   assert(reference.includes('Cases technical reference'));
   for (const file of Object.values(proposals)) {
     const html = read(file);
-    assert(html.includes('href="cases-reference.html"'), `${file} links to the Cases reference`);
-    assert(!/href="(?!cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
+    const reference = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
+    assert(html.includes(`href="${reference}"`), `${file} links to the Cases reference`);
+    assert(!/href="(?!cases-reference\.html|proposal-b-cases-reference\.html|index\.html|terminal\.html|blueprint\.html|proposal-[abc]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
   }
+});
+
+test('Proposal B has its own Cases technical reference with the original page\u2019s text', () => {
+  const page = read(proposalB.referencePage);
+  const original = read('cases-reference.html');
+  const text = (html, start, end) => visibleText(html.slice(html.indexOf(start), html.indexOf(end, html.indexOf(start))));
+  // Proposal B leaves out the short "For developers" chapter; everything else matches the original page.
+  const withoutDevelopers = html => html.replace(/<h2 id="article-for-developers"[\s\S]*?(?=<h3 )/, '').replace(/<li><a class="cases-toc-link" href="#article-for-developers">[^<]*<\/a><\/li>/, '');
+  assert(!page.includes('article-for-developers'), 'No "For developers" chapter or contents entry');
+  assert.equal(text(page, '<article class="cases-article', '</article>'), text(withoutDevelopers(original), '<article class="cases-article', '</article>'), 'Same article');
+  const links = html => [...html.matchAll(/<a class="cases-toc-link" href="(#[^"]+)">([^<]*)<\/a>/g)].map(match => `${match[1]} ${match[2]}`);
+  assert.deepEqual(links(page), links(withoutDevelopers(original)), 'Same contents links and anchors');
+  assert(page.indexOf('href="#article-cases"') < page.indexOf('<h3 class="cases-toc-category">The product</h3>'), 'Overview sits above the product group');
+  assert(page.includes('<h3 class="cases-toc-category">For developers</h3>'), 'The developer group is labelled For developers');
+  assert(page.includes('data-default-theme="dark"') && page.includes('href="css/proposals/proposal-b.css"') && page.includes('href="css/proposals/proposal-b-reference.css"'), 'Set in Proposal B\u2019s design');
+  assert(page.includes('<script defer src="js/cases-article.js"></script>') && page.includes('<dialog class="flowchart-dialog'), 'Keeps the contents highlighting, chapter links and diagrams');
+  for (const file of [proposals.a, proposals.c]) assert(!read(file).includes(proposalB.referencePage), `${file} keeps the original reference`);
 });
 
 test('every proposal offers a light and a dark theme, starting from its own default', () => {
@@ -196,7 +244,7 @@ test('every proposal offers a light and a dark theme, starting from its own defa
     const toggles = html.match(/<button type="button"[^>]*data-theme-toggle[^>]*aria-pressed="(?:true|false)"/g) || [];
     const segmented = html.match(/data-theme-set="(light|dark)" aria-pressed/g) || [];
     assert(toggles.length || segmented.length === 2, `proposal ${id} has a theme control`);
-    assert(html.includes('assets/logos/on-dark/cases-logo.svg'), `proposal ${id} has dark-theme product logos`);
+    assert(html.includes(id === 'b' ? 'assets/logos/on-dark/proposal-b/cases-logo.svg' : 'assets/logos/on-dark/cases-logo.svg'), `proposal ${id} has dark-theme product logos`);
   }
   const runtime = read('js/proposals/common.js');
   assert(runtime.includes("indice-proposal-${root.dataset.proposal || 'default'}-theme") && !runtime.includes('prefers-color-scheme'), 'The runtime keeps one theme per proposal and no system default');
@@ -263,7 +311,7 @@ test('Proposal A: decorated background, parallax, a full-width row of larger pro
 test('Proposal B ends each solution entry with a hover-scrolled library of labelled screens that open in a viewer', () => {
   const html = read(proposals.b);
   assert.equal((html.match(/<dialog class="lightbox [^"]+" id="screen-viewer"/g) || []).length, 1, 'One screen viewer');
-  for (const solution of content.solutions) {
+  for (const solution of proposalB.content.solutions) {
     const start = html.indexOf(`id="spec-${solution.id}"`);
     const entry = html.slice(start, html.indexOf('</article>', start));
     const strip = entry.match(/<ul class="pb-strip" id="(pb-strip-[a-z]+)" data-hover-scroll aria-labelledby="(pb-gallery-[a-z]+)">/);
@@ -305,9 +353,10 @@ test('screens are honest: approved screenshots, labelled illustrations or labell
   for (const image of approved) assert(fs.existsSync(path.join(root, image)), `${image} exists`);
   for (const file of [proposals.b, proposals.c]) {
     const html = read(file);
-    const placeholders = content.solutions.flatMap(solution => solution.screens.filter(screen => !screen.image && !screen.mock));
+    const placeholders = contentFor(file).solutions.flatMap(solution => solution.screens.filter(screen => !screen.image && !screen.mock));
     assert.equal((html.match(/<span class="ph-label" aria-hidden="true">Screenshot pending<\/span>/g) || []).length, placeholders.length, `${file} labels every placeholder`);
-    assert.equal((html.match(/<span class="shot-badge">Illustrative<\/span>/g) || []).length, 2, `${file} labels the two illustrations`);
+    const illustrations = contentFor(file).solutions.flatMap(solution => solution.screens.filter(screen => screen.mock)).length;
+    assert.equal((html.match(/<span class="shot-badge">Illustrative<\/span>/g) || []).length, illustrations, `${file} labels every illustration`);
   }
 });
 
@@ -315,8 +364,9 @@ test('the hero states what is offered, who it serves and what each solution does
   for (const file of Object.values(proposals)) {
     const html = read(file);
     const hero = visibleText(html.slice(html.indexOf('id="hero"'), html.indexOf('</section>', html.indexOf('id="hero"'))));
-    assert(hero.includes(content.hero.title) && hero.includes(content.hero.lede), `${file} hero has the offer and the audience`);
-    for (const solution of content.solutions) assert(hero.includes(solution.name) && hero.includes(solution.action), `${file} hero lists ${solution.name}`);
+    const { hero: copy, solutions } = contentFor(file);
+    assert(hero.includes(copy.title) && hero.includes(copy.lede), `${file} hero has the offer and the audience`);
+    for (const solution of solutions) assert(hero.includes(solution.name) && hero.includes(solution.action), `${file} hero lists ${solution.name}`);
     assert.equal((html.match(/<h1\b/g) || []).length, 1);
   }
 });
@@ -359,7 +409,7 @@ test('proposal pages resolve their references and keep basic accessibility', () 
       for (const ref of refs.split(' ')) assert(ids.includes(ref), `${file} ARIA target exists: ${ref}`);
     }
     for (const [, ref] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[^"#]+|[a-z-]+\.html)"/g)) {
-      assert(fs.existsSync(path.join(root, decodeURI(ref))), `${file} local reference exists: ${ref}`);
+      assert(fs.existsSync(path.join(root, decodeURI(unescapeHtml(ref)))), `${file} local reference exists: ${ref}`);
     }
     for (const [, url] of html.matchAll(/url\('([^']+)'\)/g)) assert(fs.existsSync(path.join(root, url)), `${file} mask icon exists: ${url}`);
     for (const [, attrs] of html.matchAll(/<button\b([^>]*)>/g)) assert(/\btype="button"/.test(attrs), `${file} buttons do not submit`);

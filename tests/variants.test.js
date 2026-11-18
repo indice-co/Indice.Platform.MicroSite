@@ -48,7 +48,7 @@ test('the new designs keep the three pillars, in order, with the approved pillar
   }
 });
 
-test('the new designs use the approved product logos and mark missing assets as placeholders', () => {
+test('the new designs use product logos and mark unavailable product details as placeholders', () => {
   for (const file of Object.values(variants)) {
     const html = read(file);
     for (const id of ['cases', 'iam', 'messaging', 'risk']) {
@@ -56,10 +56,24 @@ test('the new designs use the approved product logos and mark missing assets as 
       assert(html.includes(`src="${product.logo}"`), `${file} shows the ${id} logo`);
       assert(fs.existsSync(path.join(root, product.logo)));
     }
-    for (const name of ['Agents', 'Workers']) {
-      assert(new RegExp(`${name} logo`).test(html), `${file} has a ${name} logo placeholder`);
+    if (file === 'terminal.html') {
+      for (const [id, name, asset] of [
+        ['agents', 'Agents', 'dex'],
+        ['workers', 'Workers', 'workers']
+      ]) {
+        assert(html.includes(`src="assets/logos/${asset} logo.svg"`), `${file} shows the ${name} logo`);
+        assert(html.includes(`src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon`);
+        assert(html.includes(`<a class="tab" id="tab-${id}" href="#${id}"><img src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon in its suite tab`);
+        assert(html.includes(`<a href="#${id}" data-spy-link="${id}" data-product-link="${id}"><img src="assets/logos/${asset} icon.svg"`), `${file} shows the ${name} icon in the explorer`);
+        assert(fs.existsSync(path.join(root, `assets/logos/${asset} logo.svg`)));
+        assert(fs.existsSync(path.join(root, `assets/logos/${asset} icon.svg`)));
+        assert(html.includes(`id="tab-${id}"`), `${file} has a ${name} suite tab`);
+      }
+    } else {
+      for (const name of ['Agents', 'Workers']) {
+        assert(new RegExp(`${name} logo`).test(html), `${file} has a ${name} logo placeholder`);
+      }
     }
-    assert(!/Agents logo.*<img/.test(html), 'Placeholders are not fake images');
   }
 });
 
@@ -114,8 +128,35 @@ test('missing links are visible placeholders and external links are safe and exp
       assert(/https:\/\/(github\.com\/indice-co|www\.nuget\.org\/profiles\/indice|www\.npmjs\.com\/package\/@indice\/|duendesoftware\.com)/.test(tag), `Only known sources are linked: ${tag}`);
     }
   }
-  assert(read('terminal.html').includes('href="cases-reference.html"'), 'Cases links to its real technical reference');
+  assert(read('terminal.html').includes('href="terminal-cases-reference.html"'), 'Terminal links Cases to its terminal-styled technical reference');
   assert(read('blueprint.html').includes('href="cases-reference.html"'));
+});
+
+test('Terminal Cases reference renders the Cases Markdown in the terminal shell', () => {
+  const html = read('terminal-cases-reference.html');
+  const original = read('cases-reference.html');
+  assert(html.includes('href="css/terminal.css"') && html.includes('src="js/terminal.js"'), 'Uses the terminal shell styles and behaviour');
+  assert(html.includes('<a class="tree-up" href="terminal.html#cases">'), 'Explorer leads back to the suite');
+  const count = (page, pattern) => (page.match(pattern) || []).length;
+  assert.equal(count(html, /<pre class="mermaid"/g), count(original, /<pre class="mermaid"/g));
+  assert.equal(count(html, /<table>/g), count(original, /<table>/g));
+  const chapters = [...original.matchAll(/<h[23] id="([^"]+)" class="article-chapter">/g)].map(match => match[1]);
+  assert.deepEqual([...html.matchAll(/<h[23] id="([^"]+)" class="doc-chapter">/g)].map(match => match[1]), chapters, 'Same chapters and anchors');
+  for (const id of chapters) assert(html.includes(`data-spy-link="${id}"`), `Explorer lists ${id}`);
+  const text = visibleText(html);
+  const article = original.slice(original.indexOf('<article'), original.indexOf('</article>'));
+  for (const [, , block] of article.matchAll(/<(p|li|td)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
+    const sentence = visibleText(block).replace(/\p{Extended_Pictographic}\uFE0F?/gu, '').trim();
+    if (sentence) assert(text.includes(sentence), `Keeps the reference text: ${sentence}`);
+  }
+  for (const sentence of ['Every case. A clear path forward.', products.find(item => item.id === 'cases').description, 'One case, two views. A shared workflow, with a clear boundary between customer updates and internal work.']) {
+    assert(text.includes(sentence), `Keeps the hero text: ${sentence}`);
+  }
+  const all = ids(html);
+  assert.equal(new Set(all).size, all.length, 'ids are unique');
+  for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) assert(all.includes(target), `anchor exists: ${target}`);
+  for (const [, ref] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[^"#]+|[a-z-]+\.html)/g)) assert(fs.existsSync(path.join(root, ref)), `local asset exists: ${ref}`);
+  for (const [, attrs] of html.matchAll(/<button\b([^>]+)>/g)) assert(/\btype="button"/.test(attrs), 'buttons do not submit');
 });
 
 test('copy is plain and technical: no marketing language, no unreleased features', () => {
@@ -235,6 +276,7 @@ test('Terminal explorer opens each pillar with an overview.md that links to its 
 
 test('generated pages are up to date with the renderers', () => {
   assert.equal(require('../scripts/render-terminal.js')(), read('terminal.html'), 'Run npm run build to refresh terminal.html');
+  assert.equal(require('../scripts/render-terminal-reference.js')(), read('terminal-cases-reference.html'), 'Run npm run build to refresh terminal-cases-reference.html');
   assert.equal(require('../scripts/render-blueprint.js')(), read('blueprint.html'), 'Run npm run build to refresh blueprint.html');
 });
 
