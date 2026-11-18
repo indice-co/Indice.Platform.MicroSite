@@ -4,6 +4,8 @@
    orange accents). A static masthead with a full-screen Contents dialog and reading progress, numbered chapters,
    and field-guide solution entries inside §02. Each entry closes with a library of screens that scrolls towards the
    pointer and opens screens in a viewer. No Solutions slider. */
+const fs = require('node:fs');
+const path = require('node:path');
 const S = require('./shared.js');
 const { content: c, themedLogo, githubRepo } = require('./content-b.js');
 const { escape, icons } = S;
@@ -112,11 +114,17 @@ const codeLabels = { csharp: 'C#', jsonc: 'JSON', swift: 'Swift', kotlin: 'Kotli
 const codeBlock = code => S.codeBlock(code, 'pb-code')
   .replace(/<span>(?:C#|JSON)<\/span><\/figcaption>/, `<span>${codeLabels[code.language] || code.language}</span></figcaption>`);
 
-/* A partner called out inside an entry. The logo is a mask filled with the text colour, so it suits both themes. */
+/* The partner's logo, written into the page and drawn in the text colour so it suits both themes. Inline rather than a
+   CSS mask, which browsers block when the page is opened from a local file. */
+const partnerLogo = p => fs.readFileSync(path.join(__dirname, '..', '..', p.logo), 'utf8').trim()
+  .replace(/fill="#[0-9a-f]{3,8}"/gi, 'fill="currentColor"')
+  .replace('<svg ', `<svg class="pb-partner-logo" role="img" aria-label="${escape(p.name)}" `);
+
+/* A partner called out inside an entry. */
 const partner = p => `
           <aside class="pb-partner" aria-label="${escape(p.label)}: ${escape(p.name)}" data-reveal>
             <p class="pb-partner-label">${escape(p.label)}</p>
-            <span class="pb-partner-logo" role="img" aria-label="${escape(p.name)}" style="-webkit-mask-image:url('${escape(p.logo)}');mask-image:url('${escape(p.logo)}')"></span>
+            ${partnerLogo(p)}
             <p class="pb-partner-text">${escape(p.text)}</p>
             ${S.external(p.href, `${escape(p.site)}${icons.arrowUpRight}`, 'pb-partner-link')}
           </aside>`;

@@ -369,10 +369,7 @@
     padding: 5px 10px; border-radius: 999px; background: var(--tone); color: #fff;
     font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
   }
-  .pb-partner-logo {
-    display: block; width: 170px; aspect-ratio: 288 / 53; background: var(--fg);
-    -webkit-mask: no-repeat center / contain; mask: no-repeat center / contain;
-  }
+  .pb-partner-logo { display: block; width: 170px; height: auto; color: var(--fg); }
   .pb-entry-body .pb-partner-text { font-size: 16px; line-height: 1.55; color: var(--fg); }
   .pb-partner-link {
     grid-column: 2; justify-self: start; display: inline-flex; align-items: center; gap: 6px;
