@@ -12,8 +12,9 @@ const { products } = globalThis.INDICE_DATA;
 const root = path.join(__dirname, '..', '..');
 const order = ['iam', 'cases', 'messaging', 'risk', 'agents', 'workers'];
 
-/* Agents uses the supplied Dex artwork. Cases links to Proposal B's own copy of its technical reference. */
-const referencePage = 'proposal-b-cases-reference.html';
+/* Agents uses the supplied Dex artwork. Cases, IAM, Messaging and Risk link to Proposal B's technical reference pages. */
+const referencePages = Object.fromEntries(['cases', 'iam', 'messaging', 'risk'].map(id => [id, `proposal-b-${id}-reference.html`]));
+const referencePage = referencePages.cases;
 /* Proposal B's GitHub tab opens the platform repository; its label stays "GitHub indice-co". */
 const githubRepo = 'https://github.com/indice-co/Indice.Platform';
 const newProducts = [
@@ -24,7 +25,7 @@ const byId = Object.fromEntries([
   ...products.map(product => [product.id, {
     ...product,
     icon: `assets/logos/${product.id} icon.svg`,
-    destination: product.id === 'cases' ? referencePage : product.destination
+    destination: referencePages[product.id] || product.destination
   }]),
   ...newProducts.map(product => [product.id, product])
 ]);
@@ -187,4 +188,4 @@ function renderDarkLogos() {
 const themedLogo = product => logo(product, 'logo-on-light')
   + logo(product, 'logo-on-dark').replace(`src="${escape(product.logo)}"`, `src="${escape(darkLogoPath(product))}"`);
 
-module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo, referencePage, githubRepo };
+module.exports = { content, newProducts, darkLogo, darkLogoPath, renderDarkLogos, themedLogo, referencePage, referencePages, githubRepo };

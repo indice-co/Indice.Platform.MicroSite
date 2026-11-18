@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en" data-proposal="b" data-default-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="description" content="INDICE IAM brings sign-in, multi-factor authentication, trusted devices, and account management together for customers, employees, and partners. An identity and access management solution deployed within the organisation’s own environment.">
+  <title>IAM technical reference — INDICE Platform · Proposal B</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-b-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/proposal-b.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+  <link rel="stylesheet" href="css/proposals/proposal-b-reference.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>
+  <script defer src="js/cases-article.js"></script>
+</head>
+<body class="pb pb-reference" style="--tone:#3D5AFE">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html" aria-current="page" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="original.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <div class="pb-progress" data-progress aria-hidden="true"></div>
+  <header class="pb-masthead">
+    <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <p class="pb-masthead-note">IAM technical reference</p>
+    <div class="pb-masthead-actions">
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+      <a class="pb-contents-button pbr-back" href="index.html#spec-iam"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span>Overview</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="pb-hero pbr-hero" id="hero" aria-labelledby="iam-title" tabindex="-1">
+      <div class="pb-hero-main pbr-hero-main">
+        <div class="pbr-logo"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></div>
+        <p class="pb-kicker">Identity &amp; access management</p>
+        <h1 id="iam-title"><span class="pb-w" style="--w:0"><span>Connected</span></span> <span class="pb-w" style="--w:1"><span>identities.</span></span><br><span class="pb-w" style="--w:0"><span>Controlled</span></span> <span class="pb-w" style="--w:1"><span>access.</span></span></h1>
+        <p class="pb-lede">INDICE IAM brings sign-in, multi-factor authentication, trusted devices, and account management together for customers, employees, and partners. An identity and access management solution deployed within the organisation’s own environment.</p>
+      </div>
+      <p class="pbr-note"><span aria-hidden="true">//</span>Workforce, partners and customers sign in through the same pipeline, are audited by the same logs and follow the same MFA and device-trust rules.</p>
+    </section>
+    <div class="pbr-layout">
+      <aside class="cases-article-toc pbr-toc"><nav class="cases-toc-nav" aria-label="Technical reference sections"><h2 class="cases-toc-title">On this page</h2><ul class="pbr-toc-overview"><li><a class="cases-toc-link" href="#article-indice-iam">Overview</a></li></ul><section class="cases-toc-group"><h3 class="cases-toc-category">The product</h3><ul><li><a class="cases-toc-link" href="#article-1-core-features-capabilities">Core features &amp; capabilities</a></li><li><a class="cases-toc-link" href="#article-2-flows">Flows</a></li><li><a class="cases-toc-link" href="#article-3-where-indice-iam-shines">Where Indice IAM shines</a></li></ul></section><section class="cases-toc-group"><h3 class="cases-toc-category">For developers</h3><ul><li><a class="cases-toc-link" href="#article-4-architecture-hosting">Architecture &amp; hosting</a></li><li><a class="cases-toc-link" href="#article-5-feature-internals-integration">Feature internals &amp; integration</a></li><li><a class="cases-toc-link" href="#article-6-configuration">Configuration</a></li></ul></section></nav></aside>
+      <article class="cases-article pbr-article" aria-labelledby="article-indice-iam"><h2 id="article-indice-iam" class="article-chapter"><span class="chapter-heading-text">🆔 Indice IAM</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="Indice IAM" aria-label="Copy link to Indice IAM" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h2>
+<p><em>Owned, .NET-native identity &amp; access management.</em></p>
+<p>A complete identity product the client deploys on their own infrastructure. <strong>Users</strong> are the base unit: each one
+signs in through one <strong>sign-in pipeline</strong> (password or external provider, then MFA, then the post-login validation
+activities) and receives tokens for the <strong>clients</strong> (OIDC applications) and <strong>APIs</strong> you register. Workforce, partners
+and customers sign in through the same pipeline, are audited by the same logs and follow the same MFA and device-trust
+rules.</p>
+<ul>
+<li><strong>A deployed system, not a SaaS</strong> — your databases, your signing keys, your delivery accounts, your operations.</li>
+<li><strong>Built on standard foundations</strong> — ASP.NET Core Identity stores the users, Duende IdentityServer speaks OIDC / OAuth2;
+Indice adds the grants, MFA, devices, audit and UI on top.</li>
+</ul>
+<h4 id="article-where-it-fits"><span class="chapter-heading-text">🌍 Where it fits</span></h4>
+<ul>
+<li><strong>Workforce</strong> — sign-on into internal and back-office apps, role-based access, enforced MFA.</li>
+<li><strong>B2C</strong> — public registration, social logins, branded sign-in pages, self-service profile.</li>
+<li><strong>B2B &amp; partners</strong> — federated logins, API clients with their own users, delegated (on-behalf-of) access.</li>
+<li><strong>Mobile &amp; devices</strong> — device registration, trusted devices, push approval, device-secret authentication.</li>
+<li><strong>Regulated &amp; public sector</strong> — GovGr (TaxisNet) login, terms re-acceptance, two audit trails, data in your own database.</li>
+</ul>
+<div class="article-table pbr-chapter-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">📘 The product</th><th scope="col">🛠️ For developers</th></tr></thead><tbody><tr><td>1. Core features &amp; capabilities</td><td>4. Architecture &amp; hosting</td></tr><tr><td>2. Flows</td><td>5. Feature internals &amp; integration</td></tr><tr><td>3. Where Indice IAM shines</td><td>6. Configuration</td></tr></tbody></table></div>
+<hr>
+<h3 id="article-1-core-features-capabilities" class="article-chapter"><span class="chapter-heading-text">1. Core features &amp; capabilities</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="1. Core features &amp; capabilities" aria-label="Copy link to 1. Core features &amp; capabilities" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-users-accounts-the-base-unit"><span class="chapter-heading-text">⚡ Users &amp; accounts — the base unit</span></h4>
+<p>Everything starts at a user record: an ASP.NET Core Identity user, extended with the state a real deployment needs.</p>
+<ul>
+<li><strong><code>User</code></strong> — email / phone (with confirmation state), claims, roles, password history and expiration, MFA policy,
+blocked flag, devices, <code>TermsAcceptedDate</code>.</li>
+<li><strong>Claims as data</strong> — <code>ClaimType</code> definitions (<code>api/claim-types</code>) describe which user claims exist, which are
+required and which users may edit; your own claim types are rows, not code.</li>
+<li><strong>Roles</strong> — managed through <code>api/roles</code>; the management APIs use them together with API scopes.</li>
+<li><strong>Seeded on first run</strong> — initial users, roles and custom claims come from the host
+(<code>InitialUsers</code>, <code>CustomRoles</code>, <code>CustomClaims</code>).</li>
+<li><strong>Avatars</strong> — profile pictures in several sizes and formats (<code>jpg</code>, <code>png</code>, <code>webp</code>); an initials image is drawn when
+the user has not uploaded one.</li>
+</ul>
+<h4 id="article-sign-in-sessions"><span class="chapter-heading-text">🔑 Sign-in &amp; sessions</span></h4>
+<ul>
+<li><strong>Username + password</strong> — the Razor Pages login, with lockout, password expiration and history.</li>
+<li><strong>External providers</strong> — Apple, Google, Microsoft (tenant-aware), Facebook and GovGr ship wired in the template; each
+turns on when its keys are set. Any standard OIDC / OAuth2 provider can be added. External users can be
+auto-provisioned (per provider) or associated with an existing account.</li>
+<li><strong>Server-side sessions</strong> — <code>EnableServerSideSessions</code> stores the session in the database; the cookie only holds a
+reference, so a session is revoked by deleting it.</li>
+<li><strong>Single active session</strong> — <code>EnforceSingleActiveSession</code> ends a user&#39;s older sessions when they sign in again.</li>
+<li><strong>Remember me &amp; trusted browsers</strong> — &quot;remember login&quot; duration, and an MFA-trusted-browser cookie with sliding or
+absolute expiration.</li>
+</ul>
+<blockquote>
+<p>A session is a row you can see and delete. &quot;Sign this user out everywhere&quot; is an operation, not a wait for tokens to expire.</p>
+</blockquote>
+<h4 id="article-custom-grants"><span class="chapter-heading-text">🎫 Custom grants</span></h4>
+<p>Five grant types ship on top of the standard OIDC / OAuth2 flows; the same <code>IExtensionGrantValidator</code> seam is open to you.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Grant</th><th scope="col"><code>grant_type</code></th><th scope="col">Purpose</th></tr></thead><tbody><tr><td>TOTP</td><td><code>totp</code></td><td>Exchange an OTP for a token — step-up for a client that already holds the user&#39;s identity</td></tr><tr><td>OTP authenticate</td><td><code>mfa</code></td><td>Complete a password sign-in with a one-time code</td></tr><tr><td>Device authentication</td><td><code>device_authentication</code></td><td>A registered device signs in with its own secret (mobile apps, kiosks)</td></tr><tr><td>Delegation</td><td><code>delegation</code></td><td>Act on behalf of a user, for back-office and service-to-service calls</td></tr><tr><td>Guest</td><td><code>urn:indice:guest</code></td><td>Anonymous app installs get a token for the APIs open to guests (<code>AddGuestGrantValidator</code>)</td></tr></tbody></table></div>
+<h4 id="article-multi-factor-authentication"><span class="chapter-heading-text">📱 Multi-factor authentication</span></h4>
+<p>Six methods, chosen per deployment in one builder.</p>
+<ul>
+<li><strong>Methods</strong> — SMS, Email, Viber, Authenticator app (TOTP), Trusted device (push approval) and FIDO2 / WebAuthn
+(security keys and platform authenticators).</li>
+<li><strong>Push approval</strong> — the browser waits on the <code>/mfa</code> SignalR hub; the user approves or rejects on their trusted device.</li>
+<li><strong>Policy</strong> — <code>Optional</code> (users opt in from their profile) or <code>Enforced</code> (MFA from the first sign-in), globally and per user.</li>
+<li><strong>Trusted browsers</strong> — remembered for <code>RememberDurationInDays</code>, sliding or absolute, optionally across sessions.</li>
+<li><strong>Conditional step-up</strong> — <code>RequireWhen.UserHasTrustedBrowserButExpiredPassword</code> asks for MFA again when the password
+has expired, even on a trusted browser.</li>
+<li><strong>No downgrade</strong> — <code>AllowDowngradeAuthenticationMethod: false</code> stops a user from falling back to a weaker method.</li>
+</ul>
+<h4 id="article-devices-trust"><span class="chapter-heading-text">📲 Devices &amp; trust</span></h4>
+<p>Devices are records with a trust state, a push registration and a lifecycle.</p>
+<ul>
+<li><strong>Device API</strong> — <code>api/my/devices</code> for the user (register, update, delete, request trust); <code>api/devices</code> for administrators.</li>
+<li><strong>Trust activation delay</strong> — a device asks for trust and becomes trusted only after <code>TrustActivationDelay</code> (48 hours
+in the template), so stolen credentials cannot trust a new device straight away.</li>
+<li><strong>Limits</strong> — default and maximum registered devices, maximum trusted devices; the user can change their own cap
+within the maximum.</li>
+<li><strong>Push</strong> — device registrations go to Azure Notification Hubs (APNS / FCM) for MFA approvals and notifications.</li>
+<li><strong>Password after profile change</strong> — <code>RequirePasswordAfterUserUpdate</code> asks for the password again after a sensitive update.</li>
+<li><strong>Events</strong> — <code>DeviceCreatedEvent</code>, <code>DeviceUpdatedEvent</code>, <code>DeviceDeletedEvent</code>, <code>DeviceTrustRequestedEvent</code>.</li>
+</ul>
+<h4 id="article-post-login-validation-pipeline"><span class="chapter-heading-text">🚦 Post-login validation pipeline</span></h4>
+<p>After the credentials check and before the sign-in completes, the user runs through a chain of activities. Each one
+either sends the user to a page or passes to the next.</p>
+<ul>
+<li><strong><code>RequiresTermsAcceptanceActivity</code></strong> — the user accepted the terms before <code>TermsLastModifiedDate</code>, or never.</li>
+<li><strong><code>RequiresMfaOnboardingActivity</code></strong> — MFA is enforced and the user has no method yet.</li>
+<li><strong><code>RequiresEmailVerificationActivity</code></strong> / <strong><code>RequiresPhoneNumberVerificationActivity</code></strong> — email or phone not confirmed.</li>
+<li><strong><code>RequiresPasswordChangeActivity</code></strong> — the password has expired under <code>PasswordExpirationPolicy</code>.</li>
+<li><strong>Your own</strong> — implement <code>IIdentityValidationActivity</code> for a KYC step, a consent step, missing profile data.</li>
+</ul>
+<blockquote>
+<p>Onboarding and compliance live in one ordered chain. Changing the terms is a date in configuration; the next sign-in
+of every affected user goes through acceptance before a token is issued.</p>
+</blockquote>
+<h4 id="article-hardening"><span class="chapter-heading-text">🛡️ Hardening</span></h4>
+<ul>
+<li><strong>Rate limiting</strong> — 20 per-endpoint rules in the template&#39;s <code>appsettings.json</code> (login, register, forgot-password,
+TOTP, every <code>my/account</code> change endpoint …), each with its own limit, window and HTTP method.</li>
+<li><strong>Action guard</strong> — a separate attempt counter for sensitive actions (default 5 attempts per 24 hours).</li>
+<li><strong>reCAPTCHA</strong> — v3 (invisible, score-based) on login, register and forgot-password, falling back to the v2 checkbox
+when the score is below <code>ScoreThreshold</code>.</li>
+<li><strong>Lockout</strong> — failed-attempt limit and lockout duration, applied to new users too.</li>
+<li><strong>Password rules</strong> — length and character classes, history (<code>PasswordHistoryLimit</code>), blacklist, &quot;not the username&quot;
+(<code>MaxAllowedUserNameSubset</code>), <code>NonCommonPasswordValidator</code>, allowed / Unicode character validators.</li>
+<li><strong>Blacklists</strong> — disposable email domains and specific phone numbers are rejected (<code>EmailBlacklist</code>, <code>PhoneBlacklist</code>).</li>
+<li><strong>Headers &amp; keys</strong> — a configurable Content Security Policy, data-protection keys in Azure Storage or on disk, token
+signing from your own PFX.</li>
+<li><strong>Security notifications</strong> — users are told about security-relevant changes to their account (can be switched off).</li>
+</ul>
+<h4 id="article-sign-in-logs-impossible-travel"><span class="chapter-heading-text">📊 Sign-in logs &amp; impossible travel</span></h4>
+<p>An audit trail of every sign-in attempt, written off the request path.</p>
+<ul>
+<li><strong>Captured from IdentityServer events</strong> — successful and failed logins, optionally token and password events.</li>
+<li><strong>Enriched</strong> — device, location (IP → country and coordinates), request id, session id, sign-in type, subject name.</li>
+<li><strong>Anonymisation</strong> — <code>AnonymizePersonalData</code> strips personal data from entries when turned on.</li>
+<li><strong>Impossible travel</strong> — the speed between two sign-ins is checked against <code>AcceptableSpeed</code> (400 km/h by default);
+on a hit the user is either asked for MFA (<code>PromptMfa</code>, default) or refused (<code>DenyLogin</code>).</li>
+<li><strong>Retention</strong> — entries older than 90 days (default) are deleted in batches every hour.</li>
+<li><strong>Queryable</strong> — a sign-in logs API and admin UI screens with filters, a map and dashboard series.</li>
+</ul>
+<h4 id="article-activity-logs"><span class="chapter-heading-text">📝 Activity logs</span></h4>
+<p>A second audit trail, of what changed rather than who signed in.</p>
+<ul>
+<li><strong>From platform events</strong> — <code>IdentityEventsActivityLogConverter</code> turns identity events (user created, email or
+password changed, client created or updated, devices, blocks …) into activity entries.</li>
+<li><strong>Own database</strong> — <code>ActivityLogsDb</code>, with its own queue, enrichers and retention.</li>
+<li><strong>Your events too</strong> — write an <code>IActivityLogFromEventConverter</code> for your own platform events.</li>
+</ul>
+<blockquote>
+<p>Two logs because they answer two questions: the sign-in log is one row per attempt (fraud, support, travel checks);
+the activity log is one row per change (audit, compliance). Each can sit on the storage tier that suits it.</p>
+</blockquote>
+<h4 id="article-self-service-the-myaccount-api"><span class="chapter-heading-text">🧾 Self-service — the <code>my/account</code> API</span></h4>
+<p>What a signed-in user can do from your apps, without the back office.</p>
+<ul>
+<li><strong>Profile</strong> — claims (<code>my/account/claims</code>), picture, password, password expiration policy.</li>
+<li><strong>Email &amp; phone</strong> — change with confirmation (link or OTP), resend confirmation.</li>
+<li><strong>Grants</strong> — list and revoke the applications the user has consented to.</li>
+<li><strong>Devices</strong> — register, trust and remove their devices; change their own device cap.</li>
+<li><strong>Account</strong> — block or delete their own account.</li>
+<li><strong>Public helpers</strong> — <code>account/register</code>, <code>account/forgot-password</code>, <code>account/username-exists</code>,
+<code>account/validate-password</code>, <code>account/password-options</code>, <code>account/calling-codes</code> (all rate-limited).</li>
+</ul>
+<h4 id="article-branding-theming-localization"><span class="chapter-heading-text">🎨 Branding, theming &amp; localization</span></h4>
+<ul>
+<li><strong>Razor Class Library</strong> — every page can be overridden by a file with the same path in the host project; static
+files in the host&#39;s <code>wwwroot</code> win over the library&#39;s.</li>
+<li><strong>Two UI frameworks</strong> — <code>Bootstrap5</code> or <code>Tailwind</code>, chosen with <code>&lt;IdentityUIFrameworkVersion&gt;</code> in the <code>.csproj</code>.</li>
+<li><strong>Themes</strong> — <code>Minimal</code>, <code>Split</code> (default), <code>Columns</code>, <code>Panel</code> or your own, as a set of <code>--idui-*</code> CSS variables
+<strong>(next release)</strong>.</li>
+<li><strong>Per-client theming</strong> — a client can carry its own theme config, applied to the pages it sends users to
+(<code>ClientThemeAttribute</code>, <code>ClientThemingService</code>).</li>
+<li><strong>Footer links</strong> and <strong>email confirmation by OTP</strong> (<code>EmailConfirmationMethod.Otp</code>) <strong>(next release)</strong>.</li>
+<li><strong>Legal pages</strong> — terms and privacy policy are Markdown files in <code>wwwroot/legal</code>, per language.</li>
+<li><strong>Localization</strong> — Greek, Spanish, Italian and Japanese resources ship (German, French, Portuguese partially); the
+template enables English and Greek, picked from the query string, <code>ui_locales</code> or a cookie.</li>
+</ul>
+<h4 id="article-runtime-settings"><span class="chapter-heading-text">⚙️ Runtime settings</span></h4>
+<ul>
+<li><strong><code>api/app-settings</code></strong> — administrators read, add, update and delete settings stored in the database; the host reads
+them at startup (<code>AddDatabaseSettings</code>), on top of <code>appsettings.json</code>.</li>
+<li><strong>Bootstrap</strong> — <code>api/app-settings/load</code> copies <code>appsettings.json</code> into the database on first deploy.</li>
+</ul>
+<h4 id="article-admin-ui-angular-spa"><span class="chapter-heading-text">🖥️ Admin UI — Angular SPA</span></h4>
+<p>An operator surface served embedded from the identity host, signing in through the same pipeline as everyone else.</p>
+<ul>
+<li><strong>Mounted at <code>/admin</code></strong> — OIDC client <code>idsrv-admin-ui</code>, scopes <code>identity</code>, <code>identity:clients</code>, <code>identity:users</code>, <code>identity:logs</code>.</li>
+<li><strong>Screens</strong> — users (claims, roles, devices, MFA, blocks), roles, clients, API and identity resources, scopes, claim
+types, sign-in logs, activity logs, settings, dashboard.</li>
+<li><strong>Same rules for operators</strong> — admins are subject to the same MFA, device and audit rules as end users.</li>
+</ul>
+<hr>
+<h3 id="article-2-flows" class="article-chapter"><span class="chapter-heading-text">2. Flows</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="2. Flows" aria-label="Copy link to 2. Flows" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-from-credentials-to-token"><span class="chapter-heading-text">🔄 From credentials to token</span></h4>
+<p>Whatever the user signs in with, the road to a token is the same.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="From credentials to token diagram">flowchart LR
+    Pwd[&quot;Password&lt;br/&gt;login page&quot;] --&gt; Check[&quot;Credentials checked&lt;br/&gt;lockout · expiration&quot;]
+    Ext[&quot;External provider&lt;br/&gt;Google · Apple · GovGr …&quot;] --&gt; Check
+    Check --&gt; Mfa{&quot;MFA needed?&quot;}
+    Mfa -- yes --&gt; Second[&quot;Second factor&lt;br/&gt;SMS · Viber · email · TOTP · push · FIDO2&quot;]
+    Mfa -- &quot;no / trusted browser&quot; --&gt; Chain[&quot;Validation activities&quot;]
+    Second --&gt; Chain
+    Chain --&gt; Token[&quot;Session + tokens&lt;br/&gt;for the client&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="From credentials to token" aria-label="Open larger view of From credentials to token" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>The trusted-browser cookie skips the second factor, unless a rule such as an expired password asks for it again.
+Every attempt, successful or not, is queued to the sign-in log without slowing the response.</p>
+<h4 id="article-the-post-login-validation-chain"><span class="chapter-heading-text">🔄 The post-login validation chain</span></h4>
+<figure class="article-flowchart article-flowchart-compact"><pre class="mermaid" aria-label="The post-login validation chain diagram">%%{init: {&quot;themeVariables&quot;: {&quot;fontSize&quot;: &quot;10px&quot;}}}%%
+flowchart TD
+    In[&quot;User authenticated&quot;] --&gt; T{&quot;Terms changed&lt;br/&gt;since acceptance?&quot;}
+    T -- yes --&gt; TP[&quot;Accept terms&quot;] --&gt; M
+    T -- no --&gt; M{&quot;MFA enforced,&lt;br/&gt;no method?&quot;}
+    M -- yes --&gt; MP[&quot;MFA onboarding&quot;] --&gt; E
+    M -- no --&gt; E{&quot;Email / phone&lt;br/&gt;unconfirmed?&quot;}
+    E -- yes --&gt; EP[&quot;Confirm email / phone&quot;] --&gt; P
+    E -- no --&gt; P{&quot;Password&lt;br/&gt;expired?&quot;}
+    P -- yes --&gt; PP[&quot;Change password&quot;] --&gt; Done
+    P -- no --&gt; Done[&quot;Sign-in completes&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="vertical" data-flowchart-title="The post-login validation chain" aria-label="Open larger view of The post-login validation chain" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>Each check is its own activity class; the order is the chain&#39;s order, and your own activities slot into it.</p>
+<h4 id="article-example-push-approval-from-a-trusted-device"><span class="chapter-heading-text">🔄 Example: push approval from a trusted device</span></h4>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="Example push approval from a trusted device diagram">flowchart LR
+    B[&quot;Browser&lt;br/&gt;waits on /mfa hub&quot;] --&gt; N[&quot;Push to the user&#39;s&lt;br/&gt;trusted device&quot;]
+    N --&gt; D[&quot;User approves&lt;br/&gt;in the mobile app&quot;]
+    D --&gt; API[&quot;MFA API&lt;br/&gt;login approved&quot;]
+    API --&gt; Hub[&quot;SignalR hub&lt;br/&gt;notifies the browser&quot;]
+    Hub --&gt; C[&quot;Sign-in continues&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="Example push approval from a trusted device" aria-label="Open larger view of Example push approval from a trusted device" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>The device that approves must already be trusted — and trust only arrives after the activation delay, so a phished
+password alone cannot approve its own sign-in.</p>
+<hr>
+<h3 id="article-3-where-indice-iam-shines" class="article-chapter"><span class="chapter-heading-text">3. Where Indice IAM shines</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="3. Where Indice IAM shines" aria-label="Copy link to 3. Where Indice IAM shines" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Two things set Indice IAM apart. The whole sign-in journey — grants, MFA, onboarding steps, audit — runs as .NET code
+in your own process, extensible with C# classes rather than a policy language; and the protections regulated,
+customer-facing deployments need (device trust, impossible travel, two audit trails, revocable sessions) ship as
+switches rather than projects. The two pillars below expand each.</p>
+<h4 id="article-your-identity-your-code"><span class="chapter-heading-text">🧭 Your identity, your code</span></h4>
+<ul>
+<li><strong>An ASP.NET Core app</strong> — the identity server is a regular host; set a breakpoint in the sign-in path and step through it.</li>
+<li><strong>Standard parts</strong> — ASP.NET Core Identity and Duende IdentityServer; your team&#39;s existing knowledge applies.</li>
+<li><strong>Extensible by class</strong> — a new grant, a new onboarding step, a new audit field or a new MFA method is one class.</li>
+<li><strong>Pages you own</strong> — any page can be replaced by a Razor file in the host, without forking the library.</li>
+<li><strong>Data you own</strong> — users, sessions and logs live in your SQL databases, migrated with EF Core.</li>
+</ul>
+<h4 id="article-built-for-regulated-customer-facing-identity"><span class="chapter-heading-text">🛡️ Built for regulated, customer-facing identity</span></h4>
+<ul>
+<li><strong>Device trust with a delay</strong> — a new device is not trusted until the activation window passes.</li>
+<li><strong>Impossible travel</strong> — prompt for MFA or deny, per deployment.</li>
+<li><strong>Two audit trails</strong> — sign-in logs and activity logs, each with its own store and retention.</li>
+<li><strong>Revocable sessions</strong> — server-side sessions and single active session are two switches.</li>
+<li><strong>Terms re-acceptance</strong> — one date in configuration sends every affected user through acceptance.</li>
+<li><strong>Regional channels</strong> — Viber OTP and Greek SMS gateways next to the global providers; GovGr login built in.</li>
+</ul>
+<h4 id="article-capability-summary"><span class="chapter-heading-text">✅ Capability summary</span></h4>
+<p>One grid to take to your team — the capability on the left, the mechanism that delivers it on the right.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Capability</th><th scope="col">How it&#39;s delivered</th></tr></thead><tbody><tr><td>OIDC / OAuth2 server</td><td>✅ Duende IdentityServer + ASP.NET Core Identity</td></tr><tr><td>Social, enterprise and GovGr logins</td><td>✅ Apple · Google · Microsoft · Facebook · GovGr</td></tr><tr><td>Custom grants</td><td>✅ <code>totp</code> · <code>mfa</code> · <code>device_authentication</code> · <code>delegation</code> · <code>urn:indice:guest</code></td></tr><tr><td>Six MFA methods incl. push and FIDO2</td><td>✅ <code>AddAuthenticationMethods</code></td></tr><tr><td>Optional / enforced MFA, trusted browsers</td><td>✅ <code>IdentityOptions:SignIn:Mfa</code></td></tr><tr><td>Device registration and delayed trust</td><td>✅ <code>api/my/devices</code> + <code>TrustActivationDelay</code></td></tr><tr><td>Post-login onboarding chain</td><td>✅ <code>IIdentityValidationActivity</code></td></tr><tr><td>Server-side and single active sessions</td><td>✅ <code>EnableServerSideSessions</code>, <code>EnforceSingleActiveSession</code></td></tr><tr><td>Per-endpoint rate limiting</td><td>✅ 20 rules in <code>IdentityServer:RateLimiter</code></td></tr><tr><td>reCAPTCHA v3 with v2 fallback</td><td>✅ <code>Recaptcha</code> section</td></tr><tr><td>Password policy, history, expiration, blacklists</td><td>✅ <code>IdentityOptions:Password</code> + validators</td></tr><tr><td>Sign-in audit with geo and impossible travel</td><td>✅ <code>AddSignInLogs</code></td></tr><tr><td>Entity-change audit</td><td>✅ <code>AddActivityLogs</code></td></tr><tr><td>Self-service account API</td><td>✅ <code>my/account/*</code></td></tr><tr><td>Runtime settings in the database</td><td>✅ <code>api/app-settings</code></td></tr><tr><td>Bootstrap5 / Tailwind pages, per-client themes</td><td>✅ Razor Class Library + <code>ClientThemingService</code></td></tr><tr><td>Embedded admin SPA</td><td>✅ <code>UseAdminUI</code></td></tr></tbody></table></div>
+<hr>
+<h3 id="article-4-architecture-hosting" class="article-chapter"><span class="chapter-heading-text">4. Architecture &amp; hosting</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="4. Architecture &amp; hosting" aria-label="Copy link to 4. Architecture &amp; hosting" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<ul>
+<li><strong>Built on <code>Indice.Platform</code></strong> — <code>Indice.Features.Identity.{Core, Server, SignInLogs, UI, AdminUI}</code> and <code>Indice.Features.ActivityLogs</code>.</li>
+<li><strong>Standard foundations</strong> — ASP.NET Core (Razor Pages + Minimal APIs), ASP.NET Core Identity, Duende IdentityServer
+(IdentityServer4 on .NET 8), EF Core (SQL Server), SignalR.</li>
+<li><strong>Reference template</strong> — <code>Indice.IdentityPages</code> (<code>dotnet new</code>), a complete production wiring of the libraries.</li>
+</ul>
+<h4 id="article-4-1-high-level-architecture"><span class="chapter-heading-text">🏗️ 4.1 High-level architecture</span></h4>
+<p>Composable feature libraries in one host; the host talks directly to its databases and delivery providers.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="4.1 High-level architecture diagram">flowchart LR
+    Apps[&quot;Your apps&lt;br/&gt;OIDC clients&quot;] --&gt; Host[&quot;Identity host&quot;]
+    Users[&quot;Browsers&lt;br/&gt;login pages&quot;] --&gt; Host
+    Admin[&quot;Admin SPA&lt;br/&gt;/admin&quot;] --&gt; Host
+    Host --&gt; Core[&quot;Core + Server&lt;br/&gt;users · grants · MFA · devices · APIs&quot;]
+    Core --&gt; Db[(&quot;Identity · Configuration&lt;br/&gt;· Operational DBs&quot;)]
+    Host --&gt; Logs[&quot;SignInLogs&quot;] --&gt; LogsDb[(&quot;SignInLogsDb&quot;)]
+    Host --&gt; Act[&quot;ActivityLogs&quot;] --&gt; ActDb[(&quot;ActivityLogsDb&quot;)]
+    Core --&gt; Delivery[&quot;SMS · Viber · Email · Push&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="4.1 High-level architecture" aria-label="Open larger view of 4.1 High-level architecture" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<h4 id="article-4-2-whats-deployed-in-production"><span class="chapter-heading-text">🏭 4.2 What&#39;s deployed in production</span></h4>
+<ul>
+<li><strong>One host</strong> — login pages, OIDC endpoints, management APIs, MFA hub and admin SPA in a single ASP.NET Core app.</li>
+<li><strong>Five databases</strong> — <code>IdentityDb</code> (users), <code>ConfigurationDb</code> (clients, resources), <code>OperationalDb</code> (grants, sessions,
+keys), <code>SignInLogsDb</code>, <code>ActivityLogsDb</code>. They can share a server or live apart.</li>
+<li><strong>Hosted services</strong> — <code>PersistLogsHostedService</code> (drains the sign-in log queue), <code>LogCleanupHostedService</code>
+(retention), the activity-log equivalents; <code>FastTokenCleanupService</code> optionally replaces Duende&#39;s token cleanup.</li>
+<li><strong>MFA hub at <code>/mfa</code></strong> — in-process SignalR, or Azure SignalR when <code>ConnectionStrings:SignalRService</code> is set.</li>
+<li><strong>Shared state</strong> — distributed cache in Redis, SQL Server or memory; data-protection keys and files in Azure Storage
+when <code>StorageConnection</code> is set, on disk otherwise.</li>
+<li><strong>Health checks</strong> — SQL Server (or PostgreSQL) and Blob storage.</li>
+</ul>
+<blockquote>
+<p>One deployable, five stores: identity data sits on your most protected tier, sign-in logs on storage you query
+daily, activity logs on cheaper storage with longer retention.</p>
+</blockquote>
+<h4 id="article-4-3-composition-reference-template"><span class="chapter-heading-text">🔧 4.3 Composition + reference template</span></h4>
+<pre><code class="language-csharp">// Indice.IdentityPages/Program.cs (trimmed)
+builder.Services.AddIdentityUI(builder.Configuration, options =&gt; {
+    options.EnableRegisterPage = true;
+    options.AutoProvisionExternalUsers = false;
+});
+builder.Services
+       .AddExtendedIdentityServer(builder.Configuration, builder.Environment, options =&gt; {
+           options.InitialUsers = UsersSeed.GetInitialUsers();
+           options.EnableServerSideSessions = true;
+           options.EnforceSingleActiveSession = true;
+       })
+       .AddGuestGrantValidator()
+       .AddExtendedEndpoints(options =&gt; options.DisableCache = true)   // management + my/account APIs
+       .AddDatabaseSettingEndpoints()                                  // api/app-settings
+       .AddDeviceEndpoints(options =&gt; options.UsePushNotificationsServiceAzure())
+       .AddSignInLogs(options =&gt; options.UseEntityFrameworkCoreStore(/* SignInLogsDb */))
+       .IdentityBuilder
+       .AddAuthenticationMethods(methods =&gt; methods.UseInMemoryProvider(m =&gt; m
+           .AddSms().AddEmail().AddViber().AddAuthenticatorApp().AddTrustedDevice().AddFido2()));
+builder.Services.AddActivityLogs(builder.Configuration)
+       .ListenToPlatformEvents&lt;IdentityEventsActivityLogConverter&gt;()
+       .UseEntityFrameworkCoreStore(/* ActivityLogsDb */);
+
+var app = builder.Build();
+app.UseRateLimiter();
+app.UseIdentityServer();
+app.UseAdminUI(options =&gt; options.PathPrefix = &quot;admin&quot;);
+app.MapIdentityServer();                  // management, account and device APIs
+app.MapRazorPages();                      // login, register, MFA, profile pages
+app.MapMultiFactorAuthentication();       // MFA API
+app.MapMultiFactorAuthenticationHub();    // /mfa SignalR hub</code></pre>
+<hr>
+<h3 id="article-5-feature-internals-integration" class="article-chapter"><span class="chapter-heading-text">5. Feature internals &amp; integration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="5. Feature internals &amp; integration" aria-label="Copy link to 5. Feature internals &amp; integration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-sign-in"><span class="chapter-heading-text">🔑 Sign-in</span></h4>
+<ul>
+<li><strong>Password grant</strong> — <code>ExtendedResourceOwnerPasswordValidator</code> applies the same lockout, MFA and blocked-user rules as
+the login page; the <code>mfa</code> grant completes it with an OTP.</li>
+<li><strong>Authentication methods</strong> — <code>AddAuthenticationMethods</code> registers the methods the UI offers; <code>Add&lt;TMethod&gt;()</code> adds your own.</li>
+<li><strong>Push approval</strong> — the MFA API (<code>MapMultiFactorAuthentication</code>) receives the device&#39;s answer and signals the waiting
+browser through the hub.</li>
+</ul>
+<h4 id="article-sign-in-logs"><span class="chapter-heading-text">📊 Sign-in logs</span></h4>
+<ul>
+<li><strong>Event sink</strong> — <code>SignInLogEventSink</code> hooks into IdentityServer&#39;s event pipeline and enqueues entries.</li>
+<li><strong>Bounded queue</strong> — capacity 100, drained in batches by <code>PersistLogsHostedService</code>; a sign-in never waits on the write.</li>
+<li><strong>Enrichers</strong> — device, user device, location, request id, session id, sign-in type, subject name, anonymisation;
+<code>AddSignInLogEnricher&lt;T&gt;()</code> adds your own <code>ISignInLogEntryEnricher</code>.</li>
+<li><strong>Geography</strong> — locations are stored as spatial points (NetTopologySuite); the impossible-travel detector reads them back.</li>
+</ul>
+<h4 id="article-activity-logs-2"><span class="chapter-heading-text">📝 Activity logs</span></h4>
+<ul>
+<li><strong>Converter</strong> — <code>IActivityLogFromEventConverter</code> maps a platform event to an entry; <code>ListenToPlatformEvents&lt;T&gt;()</code> wires it.</li>
+<li><strong>Same shape</strong> — queue, enrichers (<code>IActivityLogEntryEnricher</code>), cleanup and API prefix, configured separately.</li>
+</ul>
+<h4 id="article-events"><span class="chapter-heading-text">🧩 Events</span></h4>
+<ul>
+<li><strong>Platform events</strong> — <code>UserCreatedEvent</code>, <code>UserUpdatedEvent</code>, <code>UserDeletedEvent</code>, <code>UserBlockedEvent</code>,
+<code>UserUnBlockedEvent</code>, <code>UserEmailChangedEvent</code>, <code>EmailConfirmedEvent</code>, <code>PhoneNumberConfirmedEvent</code>,
+<code>PasswordChangedEvent</code>, <code>AccountLockedEvent</code>, <code>ClientCreatedEvent</code>, <code>ClientUpdatedEvent</code>, <code>Device*Event</code>,
+<code>TwoFactorPreferenceChangedEvent</code>, <code>SecurityNotificationEvent</code>, login success / failure events and more.</li>
+<li><strong>Subscribe</strong> — implement <code>IPlatformEventHandler&lt;TEvent&gt;</code>; activity logs are one subscriber among others.</li>
+</ul>
+<h4 id="article-apis"><span class="chapter-heading-text">🌐 APIs</span></h4>
+<ul>
+<li><strong>Management</strong> (<code>api/…</code>, scope <code>identity</code> + sub-scopes) — <code>users</code>, <code>roles</code>, <code>clients</code>, <code>resources</code>, <code>claim-types</code>,
+<code>devices</code>, <code>dashboard</code>, <code>lookups</code>, <code>app-settings</code>, <code>totp</code>.</li>
+<li><strong>User</strong> — <code>my/account/*</code>, <code>my/devices</code>; public <code>account/*</code> helpers.</li>
+<li><strong>Docs</strong> — OpenAPI document with Scalar UI (Swagger UI on .NET 8) when enabled.</li>
+</ul>
+<h4 id="article-admin-ui"><span class="chapter-heading-text">🖥️ Admin UI</span></h4>
+<ul>
+<li><strong>Served in-process</strong> — <code>UseAdminUI()</code> streams the packaged Angular bundle from the identity host; no separate deployment.</li>
+<li><strong>Configurable</strong> — path prefix, authority, scopes, static-file caching.</li>
+</ul>
+<hr>
+<h3 id="article-6-configuration" class="article-chapter"><span class="chapter-heading-text">6. Configuration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="6. Configuration" aria-label="Copy link to 6. Configuration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Everything that can be a setting is a setting. Code is for the seams: grants, activities, enrichers, methods, pages.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Section</th><th scope="col">What it controls</th></tr></thead><tbody><tr><td><code>ConnectionStrings</code></td><td><code>IdentityDb</code>, <code>ConfigurationDb</code>, <code>OperationalDb</code>, <code>SignInLogsDb</code>, <code>ActivityLogsDb</code>; optional <code>Redis</code> / <code>CacheDb</code>, <code>StorageConnection</code>, <code>SignalRService</code></td></tr><tr><td><code>IdentityOptions</code></td><td>password, lockout, sign-in (MFA, confirmations, terms), user and device rules, claim types</td></tr><tr><td><code>IdentityServer</code></td><td>feature flags, rate limiter, signing key, endpoints, Duende licence</td></tr><tr><td><code>Auth</code></td><td>external providers: Apple, Facebook, Google, Microsoft, GovGr</td></tr><tr><td><code>Email</code> / <code>Sms</code> / <code>Totp</code> / <code>PushNotifications</code></td><td>delivery providers, OTP length and lifetime</td></tr><tr><td><code>Recaptcha</code></td><td>v3 / v2 keys, score threshold</td></tr><tr><td><code>Csp</code> / <code>DataProtectionOptions</code></td><td>content security policy, data-protection key settings</td></tr><tr><td><code>General</code></td><td>authority, host, API resource and scopes, HSTS / HTTPS redirection</td></tr></tbody></table></div>
+<h4 id="article-password-lockout"><span class="chapter-heading-text">🔑 Password &amp; lockout</span></h4>
+<pre><code class="language-jsonc">&quot;IdentityOptions&quot;: {
+  &quot;Password&quot;: {
+    &quot;RequiredLength&quot;: 8, &quot;RequireDigit&quot;: true, &quot;RequireUppercase&quot;: true,
+    &quot;RequireLowercase&quot;: true, &quot;RequireNonAlphanumeric&quot;: true,
+    &quot;PasswordHistoryLimit&quot;: 3,
+    &quot;PasswordExpirationPolicy&quot;: &quot;Annually&quot;,  // Never · NextLogin · Monthly · Quarterly · Semesterly · Annually · Biannually
+    &quot;Blacklist&quot;: [ &quot;123abc!&quot; ],
+    &quot;MaxAllowedUserNameSubset&quot;: 4
+  },
+  &quot;Lockout&quot;: { &quot;AllowedForNewUsers&quot;: true, &quot;MaxFailedAccessAttempts&quot;: 5, &quot;DefaultLockoutTimeSpan&quot;: &quot;00.00:05:00&quot; }
+}</code></pre>
+<ul>
+<li><strong>History</strong> stops <code>Password1</code> → <code>Password2</code> rotation; <strong>expiration</strong> feeds the validation chain.</li>
+<li><strong><code>EnablePasswordConfirmation</code></strong> (<code>IdentityUIOptions</code>) adds a confirm-password field to the password forms.</li>
+</ul>
+<h4 id="article-mfa-sign-in-requirements"><span class="chapter-heading-text">📱 MFA &amp; sign-in requirements</span></h4>
+<pre><code class="language-jsonc">&quot;IdentityOptions&quot;: {
+  &quot;SignIn&quot;: {
+    &quot;Mfa&quot;: {
+      &quot;Policy&quot;: &quot;Default&quot;,                          // Default (= Optional) · Enforced
+      &quot;AllowDowngradeAuthenticationMethod&quot;: true,
+      &quot;PersistTrustedBrowsers&quot;: true,
+      &quot;RememberDurationInDays&quot;: 90,
+      &quot;RememberExpirationType&quot;: &quot;Sliding&quot;,          // or Absolute
+      &quot;RememberTrustedBrowserAcrossSessions&quot;: true,
+      &quot;RequireWhen&quot;: { &quot;UserHasTrustedBrowserButExpiredPassword&quot;: true }
+    },
+    &quot;RequirePostSigninConfirmedEmail&quot;: true,
+    &quot;RequirePostSigninConfirmedPhoneNumber&quot;: true,
+    &quot;RequirePostSigninAcceptedTerms&quot;: false,
+    &quot;TermsLastModifiedDate&quot;: null                   // yyyy-MM-dd+00:00 — bump it when the terms change
+  }
+}</code></pre>
+<h4 id="article-devices"><span class="chapter-heading-text">📲 Devices</span></h4>
+<pre><code class="language-jsonc">&quot;IdentityOptions&quot;: {
+  &quot;User&quot;: {
+    &quot;Devices&quot;: {
+      &quot;TrustActivationDelay&quot;: &quot;02.00:00:00&quot;,        // 48 hours
+      &quot;RequirePasswordAfterUserUpdate&quot;: true
+      // &quot;DefaultAllowedRegisteredDevices&quot;: 3, &quot;MaxAllowedRegisteredDevices&quot;: 6, &quot;MaxTrustedDevices&quot;: 1
+    }
+  }
+}</code></pre>
+<h4 id="article-rate-limiter-feature-flags"><span class="chapter-heading-text">🛡️ Rate limiter &amp; feature flags</span></h4>
+<pre><code class="language-jsonc">&quot;IdentityServer&quot;: {
+  &quot;Features&quot;: {
+    &quot;PublicRegistration&quot;: false, &quot;SignInLogs&quot;: true, &quot;ActivityLogs&quot;: true,
+    &quot;ImpossibleTravel&quot;: false, &quot;DashboardMetrics&quot;: true, &quot;DisableSecurityNotifications&quot;: false
+  },
+  &quot;RateLimiter&quot;: {
+    &quot;RejectionStatusCode&quot;: 429,
+    &quot;Rules&quot;: [
+      { &quot;Endpoint&quot;: &quot;login&quot;,           &quot;PermitLimit&quot;: 5,  &quot;Window&quot;: &quot;00:00:01&quot;, &quot;HttpMethod&quot;: &quot;POST&quot; },
+      { &quot;Endpoint&quot;: &quot;forgot-password&quot;, &quot;PermitLimit&quot;: 1,  &quot;Window&quot;: &quot;00:01:00&quot;, &quot;HttpMethod&quot;: &quot;POST&quot; },
+      { &quot;Endpoint&quot;: &quot;totp&quot;,            &quot;PermitLimit&quot;: 20, &quot;Window&quot;: &quot;00:01:00&quot; }
+      // … 17 more in the template
+    ]
+  }
+}</code></pre>
+<ul>
+<li><strong>Per endpoint</strong> — <code>forgot-password</code> is slowed to one request a minute; <code>login</code> allows quick retries but not stuffing.</li>
+</ul>
+<h4 id="article-sign-in-logs-2"><span class="chapter-heading-text">📊 Sign-in logs</span></h4>
+<pre><code class="language-csharp">.AddSignInLogs(options =&gt; {
+    options.UseEntityFrameworkCoreStore(db =&gt; db.UseSqlServer(cs, sql =&gt; sql.UseNetTopologySuite()));
+    options.AnonymizePersonalData = true;                       // default false
+    options.DatabaseSchema = &quot;auth&quot;;                            // default
+    options.Cleanup.RetentionDays = 90;                         // default; swept every hour in batches of 4000
+    options.ImpossibleTravel.AcceptableSpeed = 400;             // km/h, default
+    options.ImpossibleTravel.FlowType = ImpossibleTravelFlowType.PromptMfa;  // or DenyLogin
+})</code></pre>
+<ul>
+<li><strong>On / off by flag</strong> — <code>IdentityServer:Features:SignInLogs</code> and <code>IdentityServer:Features:ImpossibleTravel</code>.</li>
+</ul>
+<h4 id="article-delivery-providers"><span class="chapter-heading-text">🔌 Delivery providers</span></h4>
+<pre><code class="language-jsonc">&quot;Email&quot;: { &quot;Provider&quot;: &quot;Smtp&quot;, &quot;Sender&quot;: &quot;no-reply@your-domain.gr&quot; },  // Smtp · SendGrid · SparkPost · Brevo
+&quot;Sms&quot;:   { &quot;Provider&quot;: &quot;Yuboto&quot;, &quot;ApiKey&quot;: &quot;…&quot;, &quot;Sender&quot;: &quot;MyBrand&quot; }, // Twilio · Apifon · Yuboto · MStat · Vonage
+&quot;Totp&quot;:  { &quot;CodeLength&quot;: 6, &quot;CodeDuration&quot;: 2, &quot;Email&quot;: { &quot;CodeDuration&quot;: 4 } },
+&quot;PushNotifications&quot;: { &quot;NotificationHubPath&quot;: &quot;…&quot; }</code></pre>
+<h4 id="article-identity-provisioning"><span class="chapter-heading-text">🔐 Identity provisioning</span></h4>
+<ul>
+<li><strong>API resource</strong> <code>identity</code> with the scopes <code>identity:clients</code>, <code>identity:users</code>, <code>identity:logs</code>, <code>identity:totp</code>,
+<code>identity:users.devices.secret.read</code>.</li>
+<li><strong>Clients</strong> — <code>idsrv-admin-ui</code> (authorization code) for the admin SPA, <code>swagger-ui</code> for the API docs, <code>postman</code> for testing.</li>
+<li><strong>Other products</strong> — the template also seeds the <code>cases</code>, <code>messages</code>, <code>messages:send</code>, <code>media</code> and agents resources,
+so the other Indice products can sign in against this server.</li>
+<li><strong>Signing</strong> — <code>IdentityServer:SigningPfxFile</code> / <code>SigningPfxPass</code>; the key never leaves your environment.</li>
+</ul>
+<h4 id="article-databases-migrations"><span class="chapter-heading-text">🗄️ Databases &amp; migrations</span></h4>
+<ul>
+<li><strong>Five contexts</strong> — identity, configuration, operational, sign-in logs and activity logs, each migrated on its own.</li>
+<li><strong>Development setup</strong> — in Development the template creates and seeds the stores on start
+(<code>ConfigurationStoreSetup</code>, <code>OperationalStoreSetup</code>, <code>IdentityStoreSetup</code>, <code>SignInStoreSetup</code>, <code>ActivityStoreSetup</code>),
+seeding clients and resources from <code>Security/*.cs</code>.</li>
+</ul>
+<h4 id="article-extensibility"><span class="chapter-heading-text">🧰 Extensibility</span></h4>
+<p>The C# seams where your code plugs into the product without forking anything.</p>
+<pre><code class="language-text">IExtensionGrantValidator        new OAuth grant types
+IIdentityValidationActivity     new post-login steps (KYC, consent, profile completion)
+Add&lt;TAuthenticationMethod&gt;()    new MFA / authentication methods
+ISignInLogEntryEnricher         extra sign-in log fields (AddSignInLogEnricher&lt;T&gt;())
+IActivityLogFromEventConverter  activity log entries from your own events
+IPlatformEventHandler&lt;TEvent&gt;   react to user, client, device and login events
+Razor page / wwwroot overrides  replace any page or asset by path in the host
+ClientThemeConfig               per-client theme data</code></pre>
+<ul>
+<li><strong>C# interfaces, not a DSL</strong> — the team that writes ASP.NET Core writes the extensions.</li>
+<li><strong>In-process</strong> — extensions run in your host, debuggable with the rest of your app.</li>
+<li><strong>Safe defaults</strong> — the template runs as-is; every seam is optional.</li>
+</ul>
+<p class="sr-only" id="chapter-copy-status" role="status" aria-live="polite" aria-atomic="true"></p></article>
+    </div>
+  </main>
+  <footer class="pb-colophon pbr-colophon">
+    <div class="pb-colophon-meta">
+      <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <p>Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+      <ul><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul>
+    </div>
+  </footer>
+  <dialog class="flowchart-dialog pbr-dialog" aria-labelledby="flowchart-dialog-title"><div class="flowchart-dialog-shell"><header class="flowchart-dialog-header"><div><p class="flowchart-dialog-eyebrow">Workflow diagram</p><h2 class="flowchart-dialog-title" id="flowchart-dialog-title"></h2></div><button class="flowchart-dialog-close" type="button" aria-label="Close diagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header><div class="flowchart-dialog-canvas" aria-live="polite"></div></div></dialog>
+  <a class="gh-tab pb-gh" href="https://github.com/indice-co/Indice.Platform" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pb-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><span aria-hidden="true">Back to top</span></a>
+</body>
+</html>

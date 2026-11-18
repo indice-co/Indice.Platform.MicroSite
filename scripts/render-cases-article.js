@@ -4,7 +4,8 @@ const { Marked } = require('marked');
 const { escape } = require('./shared.js');
 
 /* Parses a product document into the reference article: its body, its chapters and the grouped table of contents. */
-function parseArticle(source) {
+/* `compactDiagram(index, orientation)` picks the diagrams drawn smaller (10px text, narrower); by default the second. */
+function parseArticle(source, { compactDiagram = index => index === 1 } = {}) {
   const contents = [];
   const contentGroups = [];
   const headingIds = new Set();
@@ -54,11 +55,12 @@ function parseArticle(source) {
         if (lang === 'mermaid') {
           const index = mermaidCount++;
           const orientation = /\bflowchart\s+(?:TD|TB)\b/.test(text) ? 'vertical' : 'horizontal';
-          const sourceText = index === 1
+          const compact = compactDiagram(index, orientation);
+          const sourceText = compact
             ? `%%{init: {"themeVariables": {"fontSize": "10px"}}}%%\n${text}`
             : text;
           const expandButton = `<button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="${orientation}" data-flowchart-title="${escape(currentHeading)}" aria-label="Open larger view of ${escape(currentHeading)}" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button>`;
-          return `<figure class="article-flowchart${index === 1 ? ' article-flowchart-compact' : ''}"><pre class="mermaid" aria-label="${escape(currentHeading)} diagram">${escape(sourceText)}</pre>${expandButton}</figure>\n`;
+          return `<figure class="article-flowchart${compact ? ' article-flowchart-compact' : ''}"><pre class="mermaid" aria-label="${escape(currentHeading)} diagram">${escape(sourceText)}</pre>${expandButton}</figure>\n`;
         }
         return `<pre><code${lang ? ` class="language-${escape(lang)}"` : ''}>${escape(text)}</code></pre>\n`;
       },

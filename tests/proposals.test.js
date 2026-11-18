@@ -157,24 +157,28 @@ test('Proposals B and C drop the slider and present how each solution works insi
     for (const solution of content.solutions) {
       const learnMore = new RegExp(`<a[^>]*href="#spec-${solution.id}"[^>]*>${content.ui.learnMore}`);
       assert.match(html, learnMore, `${file} ${solution.id} card links to its details`);
-      if (file === proposals.b && solution.id !== 'cases') {
+      if (file === proposals.b && !proposalB.referencePages[solution.id]) {
         assert(html.includes(`<span class="pb-link-disabled" role="link" aria-disabled="true">${content.ui.details}`), `${file} ${solution.id} technical details are disabled`);
       } else {
-        const details = solution.id === 'cases'
-          ? file === proposals.b ? proposalB.referencePage : 'cases-reference.html'
-          : `#spec-${solution.id}-architecture`;
+        const details = file === proposals.b ? proposalB.referencePages[solution.id]
+          : solution.id === 'cases' ? 'cases-reference.html' : `#spec-${solution.id}-architecture`;
         assert(html.includes(`href="${details}">${content.ui.details}`), `${file} ${solution.id} technical details link`);
       }
     }
   }
 });
 
-test('Proposal B enables Technical details only for Cases', () => {
+test('Proposal B enables Technical details for the solutions that have a technical reference', () => {
   const html = read('index.html');
   const cards = html.slice(html.indexOf('<div class="pb-cards">'), html.indexOf('<section class="pb-guide"'));
   const technicalLinks = [...cards.matchAll(/<a href="([^"]+)">Technical details/g)].map(match => match[1]);
-  assert.deepEqual(technicalLinks, [proposalB.referencePage]);
-  for (const solution of proposalB.content.solutions.filter(solution => solution.id !== 'cases')) {
+  const withReference = proposalB.content.solutions.filter(solution => proposalB.referencePages[solution.id]);
+  assert.deepEqual(withReference.map(solution => solution.id), ['iam', 'cases', 'messaging', 'risk']);
+  assert.deepEqual(technicalLinks, withReference.map(solution => proposalB.referencePages[solution.id]));
+  for (const solution of withReference) {
+    assert(html.includes(`<a class="pb-entry-link" href="${proposalB.referencePages[solution.id]}">Read the ${solution.name} technical reference`), `${solution.name} entry links to its reference`);
+  }
+  for (const solution of proposalB.content.solutions.filter(solution => !proposalB.referencePages[solution.id])) {
     const card = cards.match(new RegExp(`<article class="pb-card"[^>]*aria-labelledby="pb-card-${solution.id}"[\\s\\S]*?</article>`))?.[0];
     assert(card?.includes('<span class="pb-link-disabled" role="link" aria-disabled="true">Technical details'), `${solution.name} technical details are disabled`);
     assert(card?.includes(`<span class="sr-only"> for ${solution.name}</span></span>`), `${solution.name} disabled label is associated with its solution`);
@@ -220,7 +224,7 @@ test('internal Solution pages keep their own sources and text', () => {
     const html = read(file);
     const reference = file === proposals.b ? proposalB.referencePage : 'cases-reference.html';
     assert(html.includes(`href="${reference}"`), `${file} links to the Cases reference`);
-    assert(!/href="(?!cases-reference\.html|proposal-b-cases-reference\.html|index\.html|original\.html|terminal\.html|blueprint\.html|proposal-[ac]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
+    assert(!/href="(?!cases-reference\.html|proposal-b-(?:cases|iam|messaging|risk)-reference\.html|index\.html|original\.html|terminal\.html|blueprint\.html|proposal-[ac]\.html|#|https:\/\/github\.com\/indice-co|https:\/\/duendesoftware\.com\/|css\/|assets\/)/.test(html), `${file} links only to existing pages`);
   }
 });
 
@@ -239,6 +243,29 @@ test('Proposal B has its own Cases technical reference with the original page\u2
   assert(page.includes('data-default-theme="dark"') && page.includes('href="css/proposals/proposal-b.css"') && page.includes('href="css/proposals/proposal-b-reference.css"'), 'Set in Proposal B\u2019s design');
   assert(page.includes('<script defer src="js/cases-article.js"></script>') && page.includes('<dialog class="flowchart-dialog'), 'Keeps the contents highlighting, chapter links and diagrams');
   for (const file of [proposals.a, proposals.c]) assert(!read(file).includes(proposalB.referencePage), `${file} keeps the original reference`);
+});
+
+test('Proposal B has IAM, Messaging and Risk technical references built from their product documents', () => {
+  const { parseArticle } = require('../scripts/render-cases-article.js');
+  const { sources } = require('../scripts/proposals/render-b-reference.js');
+  for (const id of ['iam', 'messaging', 'risk']) {
+    const solution = proposalB.content.solutions.find(item => item.id === id);
+    const page = read(proposalB.referencePages[id]);
+    const label = proposalB.referencePages[id];
+    assert(page.includes(`<p class="pb-masthead-note">${solution.name} technical reference</p>`) && page.includes(`href="index.html#spec-${id}"`), `${label} names its solution and links back to it`);
+    assert(page.includes(`src="${solution.product.logo}"`), `${label} shows the ${solution.name} logo`);
+    assert(visibleText(page).includes(unescapeHtml(solution.product.description)), `${label} hero has the ${solution.name} description`);
+    assert(page.includes(`style="--tone:${solution.product.color}"`), `${label} uses the ${solution.name} colour`);
+    // Every chapter of the document is on the page, except the short "For developers" introduction.
+    const { contents } = parseArticle(sources[id]);
+    const chapters = contents.filter(item => item.id !== 'article-for-developers');
+    assert(!page.includes('article-for-developers'), `${label} leaves out the "For developers" chapter`);
+    for (const chapter of chapters) assert(page.includes(`id="${chapter.id}"`) && page.includes(`href="#${chapter.id}"`), `${label} has chapter ${chapter.label}`);
+    const ids = [...page.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(new Set(ids).size, ids.length, `${label} ids are unique`);
+    for (const [, target] of page.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(target), `${label} anchor exists: ${target}`);
+    assert(!/href="[^"]*\.md"/.test(page), `${label} has no links to unpublished documents`);
+  }
 });
 
 test('every proposal offers a light and a dark theme, starting from its own default', () => {

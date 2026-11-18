@@ -12,7 +12,7 @@ const root = path.join(__dirname, '..', '..');
 const pages = {
   'proposal-a.html': require('./render-a.js'),
   'index.html': require('./render-b.js'),
-  'proposal-b-cases-reference.html': require('./render-b-reference.js'),
+  ...require('./render-b-reference.js').pages,
   'proposal-c.html': require('./render-c.js')
 };
 

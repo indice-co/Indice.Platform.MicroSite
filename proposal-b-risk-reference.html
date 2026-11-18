@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" data-proposal="b" data-default-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="description" content="INDICE Risk evaluates transactions and customer activity against configurable business rules. Consolidated risk scores, detailed assessment records, and adjustable thresholds support consistent decisions across applications.">
+  <title>Risk technical reference — INDICE Platform · Proposal B</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-b-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/proposal-b.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+  <link rel="stylesheet" href="css/proposals/proposal-b-reference.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>
+  <script defer src="js/cases-article.js"></script>
+</head>
+<body class="pb pb-reference" style="--tone:#0F7C8C">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html" aria-current="page" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="original.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <div class="pb-progress" data-progress aria-hidden="true"></div>
+  <header class="pb-masthead">
+    <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <p class="pb-masthead-note">Risk technical reference</p>
+    <div class="pb-masthead-actions">
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+      <a class="pb-contents-button pbr-back" href="index.html#spec-risk"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span>Overview</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="pb-hero pbr-hero" id="hero" aria-labelledby="risk-title" tabindex="-1">
+      <div class="pb-hero-main pbr-hero-main">
+        <div class="pbr-logo"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div>
+        <p class="pb-kicker">Risk assessment for transactions &amp; customer activity</p>
+        <h1 id="risk-title"><span class="pb-w" style="--w:0"><span>Clearer</span></span> <span class="pb-w" style="--w:1"><span>risk</span></span> <span class="pb-w" style="--w:2"><span>insight.</span></span><br><span class="pb-w" style="--w:0"><span>Informed</span></span> <span class="pb-w" style="--w:1"><span>decisions.</span></span></h1>
+        <p class="pb-lede">INDICE Risk evaluates transactions and customer activity against configurable business rules. Consolidated risk scores, detailed assessment records, and adjustable thresholds support consistent decisions across applications.</p>
+      </div>
+      <p class="pbr-note"><span aria-hidden="true">//</span>One engine for every application: web banking, mobile, payments and identity flows all call the same API and follow the same policy.</p>
+    </section>
+    <div class="pbr-layout">
+      <aside class="cases-article-toc pbr-toc"><nav class="cases-toc-nav" aria-label="Technical reference sections"><h2 class="cases-toc-title">On this page</h2><ul class="pbr-toc-overview"><li><a class="cases-toc-link" href="#article-indice-risk">Overview</a></li></ul><section class="cases-toc-group"><h3 class="cases-toc-category">The product</h3><ul><li><a class="cases-toc-link" href="#article-1-core-features-capabilities">Core features &amp; capabilities</a></li><li><a class="cases-toc-link" href="#article-2-flows">Flows</a></li><li><a class="cases-toc-link" href="#article-3-where-indice-risk-shines">Where Indice Risk shines</a></li></ul></section><section class="cases-toc-group"><h3 class="cases-toc-category">For developers</h3><ul><li><a class="cases-toc-link" href="#article-4-architecture-hosting">Architecture &amp; hosting</a></li><li><a class="cases-toc-link" href="#article-5-feature-internals-integration">Feature internals &amp; integration</a></li><li><a class="cases-toc-link" href="#article-6-configuration">Configuration</a></li></ul></section></nav></aside>
+      <article class="cases-article pbr-article" aria-labelledby="article-indice-risk"><h2 id="article-indice-risk" class="article-chapter"><span class="chapter-heading-text">🛡️ Indice Risk</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="Indice Risk" aria-label="Copy link to Indice Risk" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h2>
+<p><em>Owned, configurable risk assessment for transactions &amp; customer activity.</em></p>
+<p>A complete risk assessment engine the client deploys on their own infrastructure. <strong>Risk rules</strong> are the base unit:
+each one is a C# class that looks at an operation, and its thresholds are settings that operators change at runtime.
+Before an application commits a transfer, a payment, a login or a profile change, it sends the operation to the
+engine. The engine adds the location of the caller&#39;s IP address, runs every enabled rule and combines the results
+into one <strong>risk score</strong> and one <strong>risk level</strong> (<code>None</code> · <code>Low</code> · <code>Medium</code> · <code>High</code>). The application then lets the
+operation through, asks for step-up authentication, or blocks it.</p>
+<ul>
+<li><strong>A deployed system, not a SaaS</strong> — your database, your rules, your thresholds, your operations.</li>
+<li><strong>One engine for every application</strong> — antifraud logic leaves the individual business workflows; web banking,
+mobile, payments and identity flows all call the same API and follow the same policy.</li>
+</ul>
+<h4 id="article-where-it-fits"><span class="chapter-heading-text">🌍 Where it fits</span></h4>
+<ul>
+<li><strong>Payments &amp; transfers</strong> — assess the amount, destination and frequency before execution.</li>
+<li><strong>Authentication &amp; sessions</strong> — flag logins from new countries or impossible locations, then require step-up authentication (MFA).</li>
+<li><strong>Account changes</strong> — profile, device or beneficiary changes followed by an unusual operation.</li>
+<li><strong>Session-level analysis</strong> — group the events of one session and review them together.</li>
+<li><strong>Fraud operations</strong> — investigators search assessments and events and see why each one scored the way it did.</li>
+</ul>
+<div class="article-table pbr-chapter-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">📘 The product</th><th scope="col">🛠️ For developers</th></tr></thead><tbody><tr><td>1. Core features &amp; capabilities</td><td>4. Architecture &amp; hosting</td></tr><tr><td>2. Flows</td><td>5. Feature internals &amp; integration</td></tr><tr><td>3. Where Indice Risk shines</td><td>6. Configuration</td></tr></tbody></table></div>
+<hr>
+<h3 id="article-1-core-features-capabilities" class="article-chapter"><span class="chapter-heading-text">1. Core features &amp; capabilities</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="1. Core features &amp; capabilities" aria-label="Copy link to 1. Core features &amp; capabilities" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-risk-rules-the-base-unit"><span class="chapter-heading-text">⚡ Risk rules — the base unit</span></h4>
+<p>A rule is one piece of fraud policy: it looks at an operation and returns a risk level, a score and a reason.</p>
+<ul>
+<li><strong><code>RiskRule</code></strong> — a unique <code>Name</code> (also the rule id) and an <code>ExecuteAsync</code> method that receives the enriched event.</li>
+<li><strong>Full access to your services</strong> — rules come from dependency injection, so a rule can query the subject&#39;s history,
+call your own systems or use anything else in the container.</li>
+<li><strong>Typed verdicts</strong> — <code>NoRisk()</code>, <code>LowRisk(…)</code>, <code>MediumRisk(…)</code>, <code>HighRisk(…)</code>, each with an optional exact score and
+a reason, for example <code>HighRisk(3000, &quot;The URL … is a known suspicious URL.&quot;)</code>.</li>
+<li><strong>One registration call</strong> — <code>AddRule&lt;TRule, TOptions, TValidator&gt;(name)</code>; a new requirement is a new rule class in the
+host, not a change to the engine.</li>
+<li><strong>Sample included</strong> — the template&#39;s <code>DummyModelRiskRule</code> flags suspicious URLs and texts in the operation&#39;s data.</li>
+</ul>
+<blockquote>
+<p>The engine encodes no fraud policy of its own. It runs your rules, combines their results and records what happened.</p>
+</blockquote>
+<h4 id="article-rule-options-thresholds-as-data"><span class="chapter-heading-text">⚙️ Rule options — thresholds as data</span></h4>
+<p>Every rule has a typed options class, and its values are stored settings rather than constants in code.</p>
+<ul>
+<li><strong><code>RuleOptions</code></strong> — <code>FriendlyName</code>, <code>Description</code>, <code>Enabled</code> and <code>EligibleEvents</code> (the event names the rule is meant
+for, kept with its options so the rule can check them).</li>
+<li><strong>Your own fields</strong> — amount limits, allowed countries, block lists, time windows: whatever the rule needs.</li>
+<li><strong>Stored in <code>RiskDb</code></strong> — options live in the database, not in <code>appsettings.json</code>.</li>
+<li><strong>Changed at runtime</strong> — operators edit them from the back-office UI; new assessments pick up the change within
+seconds, without a redeploy.</li>
+<li><strong>Switch rules on and off</strong> — <code>Enabled</code> takes a noisy rule out of scoring without touching code.</li>
+</ul>
+<h4 id="article-risk-assessment-post-apirisk"><span class="chapter-heading-text">🎯 Risk assessment — <code>POST api/risk</code></span></h4>
+<p>One call evaluates one operation in real time and returns the verdict.</p>
+<ul>
+<li><strong>Input</strong> — who (<code>SubjectId</code>), what kind of operation (<code>Type</code>, <code>Name</code>), <code>Amount</code>, <code>IpAddress</code>, <code>SessionId</code>, which system
+(<code>SourceId</code>) and its transaction id (<code>SourceTransId</code>), plus <code>Data</code>: any JSON payload your rules understand.</li>
+<li><strong>Enriched</strong> — before any rule runs, the IP address is resolved to a location, a country and coordinates.</li>
+<li><strong>Every enabled rule runs</strong> — disabled rules are skipped.</li>
+<li><strong>Verdict</strong> — a result id, the number of rules executed, the overall score and level, and each rule&#39;s level, score and reason.</li>
+<li><strong>Kept</strong> — every assessment is stored with its input and per-rule breakdown, whether or not the operation goes ahead.</li>
+<li><strong>Validated</strong> — <code>SubjectId</code> and <code>Type</code> are required, and field lengths are checked.</li>
+</ul>
+<h4 id="article-scoring-risk-levels"><span class="chapter-heading-text">🧮 Scoring &amp; risk levels</span></h4>
+<p>Rule results become one score and one level; both steps are configuration.</p>
+<ul>
+<li><strong>Level ranges</strong> — each level gets a score range. The default is None 0–1 · Low 2–333 · Medium 334–666 · High 667–1000;
+the template uses 0 · 1–1000 · 1001–2000 · 2001–3000.</li>
+<li><strong>Aggregation</strong> — <code>Sum</code> (risk accumulates across rules) or <code>Maximum</code> (the worst single rule decides).</li>
+<li><strong>Consistent scores</strong> — a rule&#39;s explicit score must fall in its level&#39;s range; without one, the score is the top of that range.</li>
+<li><strong>Your response policy</strong> — the calling application maps levels to actions, for example <code>None</code> / <code>Low</code> → allow,
+<code>Medium</code> → step-up authentication, <code>High</code> → block or review.</li>
+</ul>
+<blockquote>
+<p>The engine says how risky an operation is; the institution decides what that means for the customer.</p>
+</blockquote>
+<h4 id="article-events-history-post-apiriskevents"><span class="chapter-heading-text">🗂️ Events &amp; history — <code>POST api/risk/events</code></span></h4>
+<p>An assessment answers &quot;how risky is this?&quot;; an event records &quot;this happened&quot;. Recorded events are the history rules work with.</p>
+<ul>
+<li><strong>Recorded after the fact</strong> — applications usually record the event once the operation completes.</li>
+<li><strong>Linked to the verdict</strong> — send the assessment&#39;s <code>ResultId</code> with the event, and each completed operation keeps the
+assessment it was given.</li>
+<li><strong>Enriched</strong> — stored events carry location, country and coordinates, plus session, source system, transaction id and data.</li>
+<li><strong>Queried by rules</strong> — a subject&#39;s past events by name, time window and arbitrary filters. This is how rules check
+velocity, frequency, new-country or &quot;first time to this beneficiary&quot; conditions.</li>
+</ul>
+<h4 id="article-geolocation"><span class="chapter-heading-text">🌍 Geolocation</span></h4>
+<ul>
+<li><strong>Local, offline lookup</strong> — MaxMind GeoLite2 City / Country / ASN databases ship with the product; no external service.</li>
+<li><strong>Rule input</strong> — rules see the country and coordinates, so they can check for an unexpected country, distance from
+the last login or impossible travel.</li>
+<li><strong>Searchable</strong> — back-office users filter events by country and location.</li>
+</ul>
+<h4 id="article-investigation-administration-the-admin-api"><span class="chapter-heading-text">🔎 Investigation &amp; administration — the admin API</span></h4>
+<p>The endpoints the back-office SPA uses, also available to your own tools.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Endpoint</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>GET risk-results</code></td><td>paged, sortable assessments; filter by date range, id, subject, name, type, IP</td></tr><tr><td><code>GET risk-events</code></td><td>paged, sortable events; filter by date range, id, subject, name, type, IP, session, country, location, source transaction</td></tr><tr><td><code>GET risk-events/session/{sessionId}</code></td><td>every event of one session</td></tr><tr><td><code>GET risk-rules</code></td><td>the registered rules, with display name, description and enabled state</td></tr><tr><td><code>GET risk-rule/{ruleName}</code></td><td>the stored options of one rule</td></tr><tr><td><code>POST risk-rule/{ruleName}</code></td><td>save one rule&#39;s options</td></tr></tbody></table></div>
+<ul>
+<li><strong>Filter clauses</strong> — <code>eq</code>, <code>neq</code> and <code>contains</code> on each supported field, plus <code>from</code> / <code>to</code> date bounds.</li>
+</ul>
+<h4 id="article-back-office-ui-angular-spa"><span class="chapter-heading-text">🖥️ Back-office UI — Angular SPA</span></h4>
+<p>An operator console, compiled into <code>Risk.UI</code> and served embedded from the API host.</p>
+<ul>
+<li><strong>Risk results</strong> — every assessment with its time, level, score, event, subject, amount, number of rules and IP.
+The detail pane shows the verdict, each rule&#39;s score, level and reason, the evaluated data and a link to the recorded event.</li>
+<li><strong>Risk events</strong> — every recorded event, filterable by subject, name, type, IP, country, location, session and source
+transaction; the detail pane lists every field, geolocation included.</li>
+<li><strong>Rules</strong> — the registered rules and their state. The options form is generated from the stored options: toggles for
+flags, text for values, eligible events as a comma-separated list.</li>
+<li><strong>Themes</strong> — light, dark and system.</li>
+</ul>
+<h4 id="article-access"><span class="chapter-heading-text">🔐 Access</span></h4>
+<ul>
+<li><strong>OAuth2-protected</strong> — every endpoint requires a bearer token with the <code>risk</code> scope, or a system client.</li>
+<li><strong>Machine to machine</strong> — calling applications use client-credentials clients.</li>
+<li><strong>Operators</strong> — sign in to the SPA through your identity server.</li>
+</ul>
+<hr>
+<h3 id="article-2-flows" class="article-chapter"><span class="chapter-heading-text">2. Flows</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="2. Flows" aria-label="Copy link to 2. Flows" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-assess-act-record"><span class="chapter-heading-text">🔄 Assess, act, record</span></h4>
+<p>The typical integration: one call before the operation, the institution&#39;s own decision, one call after.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="Assess act record diagram">flowchart LR
+    App[&quot;Calling app&lt;br/&gt;POST api/risk&quot;] --&gt; Enrich[&quot;GeoIP enrichment&lt;br/&gt;country · coordinates&quot;]
+    Enrich --&gt; Run[&quot;Run enabled rules&quot;]
+    Run --&gt; Agg[&quot;Aggregate&lt;br/&gt;score → level&quot;]
+    Agg --&gt; Store[&quot;Store result&quot;]
+    Store --&gt; Verdict[&quot;Verdict&lt;br/&gt;id · score · level · reasons&quot;]
+    Verdict --&gt; Decide{&quot;App policy&quot;}
+    Decide -- &quot;allow&quot; --&gt; Exec[&quot;Execute operation&quot;]
+    Decide -- &quot;step-up&quot; --&gt; MFA[&quot;Extra authentication&quot;] --&gt; Exec
+    Decide -- &quot;block&quot; --&gt; Stop[&quot;Reject / review&quot;]
+    Exec --&gt; Rec[&quot;POST api/risk/events&lt;br/&gt;with ResultId&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="Assess act record" aria-label="Open larger view of Assess act record" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>The assessment is stored whether or not the operation goes ahead. The event is recorded only for what actually
+happened, and the <code>ResultId</code> links the two. Every later assessment for the same subject can use the recorded events as history.</p>
+<h4 id="article-example-one-assessment-two-strategies"><span class="chapter-heading-text">🧮 Example: one assessment, two strategies</span></h4>
+<p>With the template&#39;s ranges (Low 1–1000, Medium 1001–2000, High 2001–3000), suppose two rules fire on a transfer:</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="Example one assessment two strategies diagram">flowchart LR
+    A[&quot;Amount rule&lt;br/&gt;Low · 800&quot;] --&gt; S[&quot;Sum&lt;br/&gt;2300 → High&quot;]
+    B[&quot;New-country rule&lt;br/&gt;Medium · 1500&quot;] --&gt; S
+    A --&gt; M[&quot;Maximum&lt;br/&gt;1500 → Medium&quot;]
+    B --&gt; M</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="Example one assessment two strategies" aria-label="Open larger view of Example one assessment two strategies" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>Under <code>Sum</code>, two moderate signals together reach <code>High</code>. Under <code>Maximum</code>, only the strongest single signal counts.
+The choice is configuration, and so is the score range of each level.</p>
+<h4 id="article-changing-a-threshold-without-a-redeploy"><span class="chapter-heading-text">⚙️ Changing a threshold without a redeploy</span></h4>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="Changing a threshold without a redeploy diagram">flowchart LR
+    Op[&quot;Operator&lt;br/&gt;Rules → options&quot;] --&gt; Post[&quot;POST risk-rule/{name}&quot;]
+    Post --&gt; Db[(&quot;RiskDb&lt;br/&gt;rule options&quot;)]
+    Db --&gt; Reload[&quot;Configuration reload&lt;br/&gt;every few seconds&quot;]
+    Reload --&gt; Next[&quot;Next assessment&lt;br/&gt;uses the new value&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="Changing a threshold without a redeploy" aria-label="Open larger view of Changing a threshold without a redeploy" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>An operator raises an amount limit, adds a destination to a block list or disables a noisy rule. The change is saved
+to <code>RiskDb</code>, and within the reload interval every new assessment runs with it.</p>
+<hr>
+<h3 id="article-3-where-indice-risk-shines" class="article-chapter"><span class="chapter-heading-text">3. Where Indice Risk shines</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="3. Where Indice Risk shines" aria-label="Copy link to 3. Where Indice Risk shines" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Two things set Indice Risk apart. Fraud policy is split between code that defines <em>what</em> to check and data that
+defines <em>how strict</em> to be, so each changes at its own pace; and every verdict can be explained, rule by rule, long
+after it was given. The two pillars below expand each.</p>
+<h4 id="article-policy-as-code-data"><span class="chapter-heading-text">🧭 Policy as code + data</span></h4>
+<p>A new fraud pattern is a new rule; a tighter limit is a setting.</p>
+<ul>
+<li><strong>Rules in code</strong> — detection logic is reviewed, versioned, unit-tested and debugged like the rest of your software.</li>
+<li><strong>Thresholds as data</strong> — operators change limits, lists and switches from the UI; no redeploy.</li>
+<li><strong>Scoring as configuration</strong> — level ranges and the aggregation strategy are set once in the host.</li>
+<li><strong>History built in</strong> — recorded events give every rule the subject&#39;s past activity.</li>
+<li><strong>One policy, every channel</strong> — all applications call the same engine with the same rules.</li>
+</ul>
+<h4 id="article-explainable-auditable-decisions"><span class="chapter-heading-text">🔍 Explainable, auditable decisions</span></h4>
+<ul>
+<li><strong>Every assessment stored</strong> — input, score, level and each rule&#39;s contribution.</li>
+<li><strong>Reasons, not just numbers</strong> — each rule says why it scored the way it did.</li>
+<li><strong>Verdict linked to outcome</strong> — a recorded event points back to the assessment it was given.</li>
+<li><strong>Investigation console</strong> — filter by subject, session, IP, country or transaction and drill into any decision.</li>
+<li><strong>Your data stays home</strong> — events, assessments and rule settings live in your SQL Server; GeoIP lookups never leave the host.</li>
+</ul>
+<h4 id="article-capability-summary"><span class="chapter-heading-text">✅ Capability summary</span></h4>
+<p>One grid to take to your team — the capability on the left, the mechanism that delivers it on the right.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Capability</th><th scope="col">How it&#39;s delivered</th></tr></thead><tbody><tr><td>Real-time risk assessment</td><td>✅ <code>POST api/risk</code></td></tr><tr><td>Custom rules in C#</td><td>✅ <code>RiskRule</code> + <code>AddRule&lt;…&gt;</code></td></tr><tr><td>Runtime-editable rule thresholds</td><td>✅ <code>RuleOptions</code> in <code>RiskDb</code>, hot-reloaded</td></tr><tr><td>Typed, per-rule options</td><td>✅ <code>RuleOptions</code> subclass per rule</td></tr><tr><td>Enable / disable rules without a redeploy</td><td>✅ <code>Enabled</code> option, rules toggle in the UI</td></tr><tr><td>Configurable risk levels</td><td>✅ <code>RiskLevelRangeMapping</code>, overlap-checked</td></tr><tr><td>Configurable aggregation</td><td>✅ <code>Sum</code> / <code>Maximum</code></td></tr><tr><td>Per-rule reasons and scores</td><td>✅ <code>AggregateRuleExecutionResult.Results</code></td></tr><tr><td>Historical activity for rules</td><td>✅ <code>IRiskEventStore.GetList(subject, names, dates, filters)</code></td></tr><tr><td>IP geolocation enrichment</td><td>✅ bundled GeoLite2, country + coordinates stored</td></tr><tr><td>Session-level view</td><td>✅ <code>SessionId</code>, <code>risk-events/session/{id}</code></td></tr><tr><td>Verdict ↔ operation link</td><td>✅ <code>ResultId</code> on the recorded event</td></tr><tr><td>Searchable events and results</td><td>✅ admin API filter clauses + SPA</td></tr><tr><td>Embedded back-office SPA</td><td>✅ <code>UseRisksUI</code></td></tr><tr><td>OAuth2-protected APIs</td><td>✅ <code>risk</code> scope or system client</td></tr><tr><td>Step-through debugging of a verdict</td><td>✅ rules run in your own process</td></tr></tbody></table></div>
+<hr>
+<h3 id="article-4-architecture-hosting" class="article-chapter"><span class="chapter-heading-text">4. Architecture &amp; hosting</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="4. Architecture &amp; hosting" aria-label="Copy link to 4. Architecture &amp; hosting" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<ul>
+<li><strong>Built on <code>Indice.Platform</code></strong> — <code>Indice.Features.Risk.{Core, Server, UI}</code>; the SPA source is <code>Indice.Features.Risk.App</code>.</li>
+<li><strong>Standard foundations</strong> — ASP.NET Core Minimal APIs, EF Core (SQL Server + NetTopologySuite), FluentValidation,
+MaxMind GeoLite2 (through <code>Indice.Features.GeoIP</code>).</li>
+<li><strong>Reference template</strong> — <code>Indice.Risk</code>: one host serving the API and the embedded back-office SPA, with a sample rule.</li>
+</ul>
+<h4 id="article-4-1-high-level-architecture"><span class="chapter-heading-text">🏗️ 4.1 High-level architecture</span></h4>
+<p>Composable feature libraries in one host. Calling applications use the risk API; operators use the admin API through the SPA.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="4.1 High-level architecture diagram">flowchart LR
+    Apps[&quot;Calling apps&lt;br/&gt;e-banking · payments · identity&quot;] --&gt; API[&quot;Risk API&lt;br/&gt;Server&quot;]
+    BO[&quot;Back-office SPA&lt;br/&gt;Risk.UI&quot;] --&gt; Admin[&quot;Admin API&lt;br/&gt;Server&quot;]
+    API --&gt; Core[&quot;Core&lt;br/&gt;engine · rules · scoring&quot;]
+    Admin --&gt; Core
+    Core --&gt; Geo[&quot;GeoIP&lt;br/&gt;GeoLite2&quot;]
+    Core --&gt; Rules[&quot;Your rules&lt;br/&gt;RiskRule classes&quot;]
+    Rules -- &quot;history&quot; --&gt; Db
+    Core --&gt; Db[(&quot;RiskDb&lt;br/&gt;events · results · rule options&quot;)]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="4.1 High-level architecture" aria-label="Open larger view of 4.1 High-level architecture" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<ul>
+<li><strong>Core</strong> — <code>RiskService</code> (runs the rules and aggregates), <code>RiskStoreService</code> (events and results), <code>AdminRuleService</code>
+(rule catalogue and options), the <code>RiskRule</code> / <code>RuleOptions</code> / <code>RuleOptionsValidator</code> base types, <code>RiskDbContext</code> and the EF Core stores.</li>
+<li><strong>Server</strong> — Minimal API endpoints for calling apps (<code>MapRisk</code>) and for administration (<code>MapAdminRisk&lt;TOptions&gt;</code>), plus request validation.</li>
+<li><strong>UI</strong> — the packaged Angular SPA, served embedded from the API host (<code>UseRisksUI</code>).</li>
+</ul>
+<h4 id="article-4-2-whats-deployed-in-production"><span class="chapter-heading-text">🏭 4.2 What&#39;s deployed in production</span></h4>
+<ul>
+<li><strong>One host</strong> — risk API, admin API and back-office SPA in a single ASP.NET Core app.</li>
+<li><strong>One database</strong> — <code>RiskDb</code> on SQL Server: <code>RiskEvent</code> and <code>RiskResult</code> hold the history, <code>AppSetting</code> holds every rule&#39;s options.</li>
+<li><strong>Spatial support</strong> — event coordinates are stored as geography points (SRID 4326) through NetTopologySuite.</li>
+<li><strong>Bundled GeoIP data</strong> — the GeoLite2 databases ship inside <code>Indice.Features.GeoIP</code>.</li>
+<li><strong>Database-backed configuration</strong> — rule options are read through the database configuration provider and reloaded
+on an interval (5 seconds in the template).</li>
+<li><strong>Distributed cache</strong> — memory by default, Redis when <code>ConnectionStrings:Redis</code> is set.</li>
+</ul>
+<blockquote>
+<p>One deployable, one store: every assessment, every recorded event and every rule setting is a row in the client&#39;s own SQL Server.</p>
+</blockquote>
+<h4 id="article-4-3-composition-reference-template"><span class="chapter-heading-text">🔧 4.3 Composition + reference template</span></h4>
+<pre><code class="language-csharp">// Indice.Risk/Extensions/RiskConfigurationExtensions.cs
+builder.WebHost.AddDatabaseSettings&lt;RiskDbContext&gt;((options, configuration) =&gt; {
+    options.ReloadOnInterval = TimeSpan.FromSeconds(5);      // rule options hot-reload from RiskDb
+    options.ConfigureDbContext = db =&gt; db.UseSqlServer(cs, sql =&gt; sql.UseNetTopologySuite());
+});
+
+builder.Services.AddRiskEngine(options =&gt; {
+    options.RiskLevelRangeMapping = new RiskLevelRangeDictionary(new Dictionary&lt;RiskLevel, IntegerRange&gt; {
+        [RiskLevel.None]   = new IntegerRange(0, 0),
+        [RiskLevel.Low]    = new IntegerRange(1, 1000),
+        [RiskLevel.Medium] = new IntegerRange(1001, 2000),
+        [RiskLevel.High]   = new IntegerRange(2001, 3000)
+    });
+    options.RiskAggregateScoreResolution = RiskAggregateScoreResolutionType.Sum;
+})
+.AddRule&lt;DummyModelRiskRule, DummyModelRiskRuleOptions, DummyModelRiskRuleOptionsValidator&gt;(nameof(DummyModelRiskRule))
+.AddEntityFrameworkCoreStore(db =&gt; db.UseSqlServer(cs, sql =&gt; sql.UseNetTopologySuite()));
+
+// Indice.Risk/Program.cs
+app.UseRisksUI();                          // embedded back-office SPA
+app.MapRisk();                             // POST api/risk, POST api/risk/events
+app.MapAdminRisk&lt;DummyRuleOptions&gt;();      // events, results, rules, rule options</code></pre>
+<hr>
+<h3 id="article-5-feature-internals-integration" class="article-chapter"><span class="chapter-heading-text">5. Feature internals &amp; integration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="5. Feature internals &amp; integration" aria-label="Copy link to 5. Feature internals &amp; integration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-the-assessment-pipeline"><span class="chapter-heading-text">🎯 The assessment pipeline</span></h4>
+<figure class="article-flowchart article-flowchart-compact"><pre class="mermaid" aria-label="The assessment pipeline diagram">%%{init: {&quot;themeVariables&quot;: {&quot;fontSize&quot;: &quot;10px&quot;}}}%%
+flowchart TD
+    Req[&quot;POST api/risk&lt;br/&gt;RiskModel&quot;] --&gt; Val[&quot;Validate&lt;br/&gt;SubjectId · Type · lengths&quot;]
+    Val --&gt; Geo[&quot;GeoIP lookup&lt;br/&gt;location · country · coordinates&quot;]
+    Geo --&gt; Rules[&quot;Resolve rules from DI&lt;br/&gt;skip disabled&quot;]
+    Rules --&gt; Exec[&quot;ExecuteAsync per rule&quot;]
+    Exec --&gt; Agg[&quot;Sum / Maximum&lt;br/&gt;score → level&quot;]
+    Agg --&gt; Save[&quot;IRiskResultStore&lt;br/&gt;RiskResult row&quot;]
+    Save --&gt; Resp[&quot;AggregateRuleExecutionResult&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="vertical" data-flowchart-title="The assessment pipeline" aria-label="Open larger view of The assessment pipeline" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<ul>
+<li><strong>Rules are transient services</strong> — resolved per assessment, so they can take scoped services such as <code>IOptionsSnapshot</code>
+and the stores.</li>
+<li><strong>The engine runs every enabled rule</strong> — it does not filter by <code>EligibleEvents</code>; a rule that applies only to some
+events checks the event name itself.</li>
+<li><strong>Per-rule breakdown</strong> — <code>Results</code> carries each rule&#39;s name, level, score and reason, and is stored with the result.</li>
+</ul>
+<h4 id="article-rule-options-storage"><span class="chapter-heading-text">⚙️ Rule options storage</span></h4>
+<ul>
+<li><strong>Flattened keys</strong> — each option is an <code>AppSetting</code> row keyed <code>RuleOptions:{rule}:{field}</code>.</li>
+<li><strong>Bound per rule</strong> — <code>AddRule</code> binds the options class to <code>RuleOptions:{name}</code>; a rule reads them through <code>IOptionsSnapshot</code>.</li>
+<li><strong>Hot reload</strong> — <code>AddDatabaseSettings&lt;RiskDbContext&gt;</code> reloads the configuration on <code>ReloadOnInterval</code>.</li>
+<li><strong>Polymorphic over HTTP</strong> — the admin endpoints read and write options as the host&#39;s base options type, with a
+discriminator that selects each rule&#39;s concrete class.</li>
+<li><strong>Duplicate names fail at startup</strong> — two rules registered under the same name stop the host.</li>
+</ul>
+<h4 id="article-scoring"><span class="chapter-heading-text">🧮 Scoring</span></h4>
+<ul>
+<li><strong><code>RiskLevelRangeDictionary</code></strong> — overlapping ranges throw at startup; a score above the <code>High</code> range counts as <code>High</code>.</li>
+<li><strong>Default scores</strong> — a verdict without an explicit score takes the upper limit of its level&#39;s range, so rules agree on scale.</li>
+</ul>
+<h4 id="article-event-result-stores"><span class="chapter-heading-text">🗂️ Event &amp; result stores</span></h4>
+<ul>
+<li><strong><code>IRiskEventStore.GetList(subjectId, names, startDate, endDate, filters)</code></strong> — the history query rules use.</li>
+<li><strong>Indexes</strong> — <code>RiskEvent</code> by <code>SubjectId</code>, plus a filtered index on <code>SessionId</code>.</li>
+<li><strong>No store, still scoring</strong> — without <code>AddEntityFrameworkCoreStore</code>, events go to a no-op store and the engine still scores.</li>
+</ul>
+<h4 id="article-back-office-ui"><span class="chapter-heading-text">🖥️ Back-office UI</span></h4>
+<ul>
+<li><strong>Served in-process</strong> — <code>UseRisksUI()</code> streams the packaged bundle; OIDC client <code>risk-ui</code>, scopes <code>openid profile role email risk</code>.</li>
+<li><strong>Stack</strong> — Angular, Tailwind 4 + daisyUI 5, light / dark / system themes.</li>
+</ul>
+<h4 id="article-authorization"><span class="chapter-heading-text">🔐 Authorization</span></h4>
+<ul>
+<li><strong>One policy</strong> — the risk API and the admin API both require the <code>risk</code> scope or a system client.</li>
+<li><strong><code>RiskApiOptions</code></strong> — <code>ApiPrefix</code>, <code>ApiScope</code> and <code>AuthenticationScheme</code>, set through <code>AddRiskEndpoints</code>.</li>
+</ul>
+<hr>
+<h3 id="article-6-configuration" class="article-chapter"><span class="chapter-heading-text">6. Configuration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="6. Configuration" aria-label="Copy link to 6. Configuration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Everything that can be a setting is a setting. Code is for the seams: rules, stores, scoring.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Section</th><th scope="col">What it controls</th></tr></thead><tbody><tr><td><code>ConnectionStrings</code></td><td><code>RiskDb</code> (SQL Server with NetTopologySuite), optional <code>Redis</code></td></tr><tr><td><code>General:Authority</code> / <code>General:Api</code></td><td>identity server, the <code>risk</code> API resource and its introspection secret</td></tr><tr><td><code>RiskEngineOptions</code></td><td>level ranges (<code>RiskLevelRangeMapping</code>) and aggregation (<code>Sum</code> / <code>Maximum</code>)</td></tr><tr><td><code>RuleOptions:{rule}</code></td><td>each rule&#39;s options, stored in <code>RiskDb</code> and editable at runtime</td></tr><tr><td><code>RiskApiOptions</code></td><td>API prefix, required scope, authentication scheme</td></tr><tr><td><code>RisksUIOptions</code></td><td>API URL, language, OIDC client and scope of the SPA</td></tr></tbody></table></div>
+<h4 id="article-engine"><span class="chapter-heading-text">🧮 Engine</span></h4>
+<pre><code class="language-csharp">builder.Services.AddRiskEngine(options =&gt; {
+    options.RiskLevelRangeMapping = new RiskLevelRangeDictionary(new Dictionary&lt;RiskLevel, IntegerRange&gt; {
+        [RiskLevel.None]   = new IntegerRange(0, 0),
+        [RiskLevel.Low]    = new IntegerRange(1, 1000),
+        [RiskLevel.Medium] = new IntegerRange(1001, 2000),
+        [RiskLevel.High]   = new IntegerRange(2001, 3000)
+    });
+    options.RiskAggregateScoreResolution = RiskAggregateScoreResolutionType.Maximum;
+})
+.AddRule&lt;LargeTransferRule, LargeTransferRuleOptions, LargeTransferRuleOptionsValidator&gt;(&quot;LargeTransfer&quot;)
+.AddRule&lt;NewCountryRule, NewCountryRuleOptions, NewCountryRuleOptionsValidator&gt;(&quot;NewCountry&quot;)
+.AddEntityFrameworkCoreStore(db =&gt; db.UseSqlServer(cs, sql =&gt; sql.UseNetTopologySuite()));</code></pre>
+<ul>
+<li><strong>Scale to fit your policy</strong> — a wide scale such as 0–3000 leaves room for many rules to accumulate under <code>Sum</code>.</li>
+<li><strong>Checked at startup</strong> — overlapping ranges and duplicate rule names stop the host from starting.</li>
+</ul>
+<h4 id="article-writing-a-rule"><span class="chapter-heading-text">✍️ Writing a rule</span></h4>
+<pre><code class="language-csharp">public class LargeTransferRule(IOptionsSnapshot&lt;LargeTransferRuleOptions&gt; options, IRiskEventStore events)
+    : RiskRule(&quot;LargeTransfer&quot;)
+{
+    public override async ValueTask&lt;RuleExecutionResult&gt; ExecuteAsync(DbRiskEvent @event) {
+        var o = options.Value;
+        if (@event.Amount &lt; o.Threshold) return RuleExecutionResult.NoRisk();
+        var recent = await events.GetList(@event.SubjectId, [&quot;Transfer&quot;], DateTime.UtcNow.AddHours(-24));
+        return recent.Count() &gt;= o.MaxPerDay
+            ? RuleExecutionResult.HighRisk($&quot;{recent.Count()} large transfers in 24h.&quot;)
+            : RuleExecutionResult.MediumRisk($&quot;Transfer above {o.Threshold}.&quot;);
+    }
+}
+
+public class LargeTransferRuleOptions : MyRuleOptions { public decimal Threshold { get; set; } public int MaxPerDay { get; set; } }
+
+public class LargeTransferRuleOptionsValidator : RuleOptionsValidator&lt;LargeTransferRuleOptions&gt; {
+    public LargeTransferRuleOptionsValidator() { RuleFor(x =&gt; x.Threshold).GreaterThan(0); }
+}</code></pre>
+<ul>
+<li><strong>Three classes per rule</strong> — the rule, its options and its validator; the base validator requires <code>FriendlyName</code> and <code>Description</code>.</li>
+<li><strong>Seed or edit</strong> — initial options can be seeded into <code>AppSetting</code> (see <code>Seed/DummyRiskRuleSeed.cs</code>) or entered from the UI.</li>
+</ul>
+<h4 id="article-polymorphic-options-for-the-admin-api"><span class="chapter-heading-text">🔀 Polymorphic options for the admin API</span></h4>
+<pre><code class="language-csharp">public class MyRuleOptions : RuleOptions { internal const string TypeDiscriminator = &quot;name&quot;; }
+
+builder.Services.ConfigureHttpJsonOptions(o =&gt;
+    o.SerializerOptions.Converters.Add(new JsonPolymorphicConverterFactory&lt;MyRuleOptions&gt;(MyRuleOptions.TypeDiscriminator)));
+
+app.MapAdminRisk&lt;MyRuleOptions&gt;();</code></pre>
+<ul>
+<li><strong>One base type per host</strong> — every options class derives from it, and the admin endpoints deserialize each rule&#39;s
+options to its concrete type.</li>
+</ul>
+<h4 id="article-api-ui"><span class="chapter-heading-text">🔌 API &amp; UI</span></h4>
+<pre><code class="language-csharp">builder.Services.AddRiskEndpoints(o =&gt; {
+    o.ApiPrefix = &quot;/api&quot;;                // default
+    o.ApiScope = &quot;risk&quot;;                 // default
+    o.AuthenticationScheme = &quot;Bearer&quot;;   // default
+});
+app.UseRisksUI(o =&gt; { o.ApiUrl = &quot;…&quot;; o.Lang = &quot;en&quot;; });</code></pre>
+<ul>
+<li><strong>Defaults work</strong> — the template doesn&#39;t call <code>AddRiskEndpoints</code> and calls <code>UseRisksUI()</code> without options.</li>
+</ul>
+<h4 id="article-identity-provisioning"><span class="chapter-heading-text">🔐 Identity provisioning</span></h4>
+<ul>
+<li><strong>API resource</strong> <code>risk</code>, with an introspection secret (<code>General:Api:Secrets:Introspection</code>).</li>
+<li><strong>Client</strong> <code>risk-ui</code> (authorization code + PKCE) for the back-office SPA, with scopes <code>openid profile role email risk</code>.</li>
+<li><strong>Client</strong> <code>swagger-ui</code> for the API documentation at <code>/docs</code>.</li>
+<li><strong>Calling applications</strong> — client-credentials clients with the <code>risk</code> scope.</li>
+</ul>
+<h4 id="article-database-migrations"><span class="chapter-heading-text">🗄️ Database &amp; migrations</span></h4>
+<ul>
+<li><strong>One context</strong> — <code>RiskDbContext</code> with <code>RiskEvent</code>, <code>RiskResult</code> and <code>AppSetting</code>.</li>
+<li><strong>Spatial types</strong> — enable <code>UseNetTopologySuite()</code> on the SQL Server provider, for both the context and the settings provider.</li>
+<li><strong>Template bootstrap</strong> — the template creates the schema on first run and seeds the sample rule&#39;s options; a
+production host uses its own migrations.</li>
+</ul>
+<h4 id="article-extensibility"><span class="chapter-heading-text">🧰 Extensibility</span></h4>
+<p>The C# seams where your code plugs into the engine without forking anything.</p>
+<pre><code class="language-text">RiskRule                       your fraud logic (AddRule&lt;TRule, TOptions, TValidator&gt;)
+RuleOptions                    your thresholds, lists and limits, editable at runtime
+RuleOptionsValidator&lt;T&gt;        your validation of those options (FluentValidation)
+IRiskEventStore                history queries inside rules, or your own event store
+IRiskResultStore               your own result persistence
+IRuleOptionsStore              your own rule-options storage
+RiskEngineOptions              level ranges and aggregation strategy
+RisksUIOptions                 API URL and language of the SPA</code></pre>
+<ul>
+<li><strong>C# classes, not a DSL</strong> — the team that writes ASP.NET Core writes the rules.</li>
+<li><strong>In-process</strong> — rules run in your host, debuggable with breakpoints and unit-testable as ordinary classes.</li>
+<li><strong>Safe defaults</strong> — without a store registered, events go to a no-op store and the engine still scores.</li>
+</ul>
+<p class="sr-only" id="chapter-copy-status" role="status" aria-live="polite" aria-atomic="true"></p></article>
+    </div>
+  </main>
+  <footer class="pb-colophon pbr-colophon">
+    <div class="pb-colophon-meta">
+      <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <p>Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+      <ul><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul>
+    </div>
+  </footer>
+  <dialog class="flowchart-dialog pbr-dialog" aria-labelledby="flowchart-dialog-title"><div class="flowchart-dialog-shell"><header class="flowchart-dialog-header"><div><p class="flowchart-dialog-eyebrow">Workflow diagram</p><h2 class="flowchart-dialog-title" id="flowchart-dialog-title"></h2></div><button class="flowchart-dialog-close" type="button" aria-label="Close diagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header><div class="flowchart-dialog-canvas" aria-live="polite"></div></div></dialog>
+  <a class="gh-tab pb-gh" href="https://github.com/indice-co/Indice.Platform" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pb-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><span aria-hidden="true">Back to top</span></a>
+</body>
+</html>

@@ -134,7 +134,7 @@ const entry = (s, index) => `<article class="pb-entry" id="spec-${s.id}" aria-la
           <ul class="pb-entry-apis">${s.apis.map(api => `<li><code>${escape(api)}</code></li>`).join('')}</ul>
           <h5>${ui.stack}</h5>
           <ul class="pb-entry-stack">${s.stack.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${s.product.destination ? `
-          <a class="pb-entry-link" href="${escape(s.product.destination)}">${ui.readCasesReference}${icons.arrowRight}</a>` : ''}
+          <a class="pb-entry-link" href="${escape(s.product.destination)}">Read the ${escape(s.name)} technical reference${icons.arrowRight}</a>` : ''}
         </aside>
         <div class="pb-entry-body">
           <p class="pb-entry-summary" data-reveal>${escape(s.summary)}</p>${s.partner ? partner(s.partner) : ''}

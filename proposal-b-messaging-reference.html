@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" data-proposal="b" data-default-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="description" content="INDICE Messaging unifies campaigns and transactional notifications across email, SMS, push, and in-app inbox. Personalised content, recipient preferences, and delivery and engagement analytics support coordinated communications through configurable delivery providers.">
+  <title>Messaging technical reference — INDICE Platform · Proposal B</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-b-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
+  <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
+  <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/proposal-b.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+  <link rel="stylesheet" href="css/proposals/proposal-b-reference.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>
+  <script defer src="js/cases-article.js"></script>
+</head>
+<body class="pb pb-reference" style="--tone:#5B4FE0">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="design-ribbon" aria-label="Design versions">
+  <span class="design-ribbon-title">Design preview</span>
+  <ul><li><a href="index.html" aria-current="page" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="original.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+</nav>
+  <div class="pb-progress" data-progress aria-hidden="true"></div>
+  <header class="pb-masthead">
+    <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <p class="pb-masthead-note">Messaging technical reference</p>
+    <div class="pb-masthead-actions">
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+      <a class="pb-contents-button pbr-back" href="index.html#spec-messaging"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span>Overview</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="pb-hero pbr-hero" id="hero" aria-labelledby="messaging-title" tabindex="-1">
+      <div class="pb-hero-main pbr-hero-main">
+        <div class="pbr-logo"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></div>
+        <p class="pb-kicker">Multichannel messaging &amp; campaigns</p>
+        <h1 id="messaging-title"><span class="pb-w" style="--w:0"><span>Multiple</span></span> <span class="pb-w" style="--w:1"><span>channels.</span></span><br><span class="pb-w" style="--w:0"><span>One</span></span> <span class="pb-w" style="--w:1"><span>messaging</span></span> <span class="pb-w" style="--w:2"><span>hub.</span></span></h1>
+        <p class="pb-lede">INDICE Messaging unifies campaigns and transactional notifications across email, SMS, push, and in-app inbox. Personalised content, recipient preferences, and delivery and engagement analytics support coordinated communications through configurable delivery providers.</p>
+      </div>
+      <p class="pbr-note"><span aria-hidden="true">//</span>Marketing broadcasts and transactional messages (OTPs, receipts, alerts) run through the same pipeline, with the same templates, audiences and analytics.</p>
+    </section>
+    <div class="pbr-layout">
+      <aside class="cases-article-toc pbr-toc"><nav class="cases-toc-nav" aria-label="Technical reference sections"><h2 class="cases-toc-title">On this page</h2><ul class="pbr-toc-overview"><li><a class="cases-toc-link" href="#article-indice-messaging">Overview</a></li></ul><section class="cases-toc-group"><h3 class="cases-toc-category">The product</h3><ul><li><a class="cases-toc-link" href="#article-1-core-features-capabilities">Core features &amp; capabilities</a></li><li><a class="cases-toc-link" href="#article-2-flows">Flows</a></li><li><a class="cases-toc-link" href="#article-3-where-indice-messaging-shines">Where Indice Messaging shines</a></li></ul></section><section class="cases-toc-group"><h3 class="cases-toc-category">For developers</h3><ul><li><a class="cases-toc-link" href="#article-4-architecture-hosting">Architecture &amp; hosting</a></li><li><a class="cases-toc-link" href="#article-5-feature-internals-integration">Feature internals &amp; integration</a></li><li><a class="cases-toc-link" href="#article-6-configuration">Configuration</a></li></ul></section></nav></aside>
+      <article class="cases-article pbr-article" aria-labelledby="article-indice-messaging"><h2 id="article-indice-messaging" class="article-chapter"><span class="chapter-heading-text">📨 Indice Messaging</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="Indice Messaging" aria-label="Copy link to Indice Messaging" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h2>
+<p><em>Owned, multichannel messaging &amp; campaigns.</em></p>
+<p>A complete, campaign-based messaging product the client deploys on their own infrastructure. <strong>Campaigns</strong> are the
+base unit: each one fans out to the right <strong>channels</strong> (Inbox, Push, Email, SMS) based on the campaign&#39;s settings and
+each recipient&#39;s preferences and contact details. Marketing broadcasts and transactional messages (OTPs, receipts,
+alerts) run through the same pipeline, with the same templates, audiences and analytics.</p>
+<ul>
+<li><strong>A deployed system, not a SaaS</strong> — your databases, your queues, your delivery accounts, your operations.</li>
+<li><strong>Campaigns and transactional on one pipeline</strong> — operators publish campaigns from the admin UI; other systems send
+through the send API; both are delivered the same way.</li>
+</ul>
+<h4 id="article-where-it-fits"><span class="chapter-heading-text">🌍 Where it fits</span></h4>
+<ul>
+<li><strong>Broadcast &amp; marketing</strong> — newsletters, announcements, promotions to distribution lists or CSV-imported audiences.</li>
+<li><strong>Transactional &amp; system</strong> — OTPs, receipts, status alerts fired by other systems through the send API.</li>
+<li><strong>Employees &amp; customers</strong> — the same product serves internal workforce comms and external B2C / B2B audiences.</li>
+<li><strong>One campaign, many channels</strong> — a single campaign targets Inbox, Push, Email and SMS, chosen per recipient.</li>
+</ul>
+<div class="article-table pbr-chapter-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">📘 The product</th><th scope="col">🛠️ For developers</th></tr></thead><tbody><tr><td>1. Core features &amp; capabilities</td><td>4. Architecture &amp; hosting</td></tr><tr><td>2. Flows</td><td>5. Feature internals &amp; integration</td></tr><tr><td>3. Where Indice Messaging shines</td><td>6. Configuration</td></tr></tbody></table></div>
+<hr>
+<h3 id="article-1-core-features-capabilities" class="article-chapter"><span class="chapter-heading-text">1. Core features &amp; capabilities</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="1. Core features &amp; capabilities" aria-label="Copy link to 1. Core features &amp; capabilities" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-campaigns-the-base-unit"><span class="chapter-heading-text">⚡ Campaigns — the base unit</span></h4>
+<p>Everything you send is a campaign; a campaign carries its channels, content, audience and schedule.</p>
+<ul>
+<li><strong><code>Campaign</code></strong> — the unit operators and systems create; turned into one <code>Message</code> per recipient.</li>
+<li><strong>Per-channel content</strong> — title, body and optional sender per channel: rich HTML for email, short text for SMS.</li>
+<li><strong>Target channels</strong> — which of Inbox, Push, Email and SMS this campaign may use.</li>
+<li><strong>Call to action</strong> — an <code>ActionLink</code>, tracked for click analytics.</li>
+<li><strong>Scheduling &amp; gating</strong> — <code>ActivePeriod</code> window, <code>Published</code> gate, <code>IsGlobal</code> broadcast, <code>IgnoreUserPreferences</code> override.</li>
+<li><strong>Associations</strong> — message <code>Type</code>, optional <code>Attachment</code>, and a <code>DistributionList</code> (the audience).</li>
+</ul>
+<blockquote>
+<p>A campaign is &quot;this content, on these channels, to this audience, in this window&quot; — turned into one rendered
+message per recipient per channel.</p>
+</blockquote>
+<h4 id="article-channels-delivery-providers"><span class="chapter-heading-text">📡 Channels &amp; delivery providers</span></h4>
+<p>One campaign, several channels; each channel goes through the vendor you choose.</p>
+<ul>
+<li><strong>Inbox</strong> — in-app &quot;My Messages&quot;, stored in your database; no external provider.</li>
+<li><strong>Push</strong> — mobile push via Azure Notification Hubs → APNS (Apple) and FCM v1 (Android / Firebase).</li>
+<li><strong>Email</strong> — SMTP, SendGrid, SparkPost, Brevo, Azure Communication Services.</li>
+<li><strong>SMS / Viber</strong> — Yuboto, Yuboto Omni, Apifon, Twilio, Vonage, SmsUp, KapaTEL, Mstat (Viber via Yuboto Omni).</li>
+<li><strong>Your accounts</strong> — the vendor per channel is a setting; switching vendors does not change campaigns, templates or audiences.</li>
+</ul>
+<h4 id="article-contacts-recipients-distribution-lists"><span class="chapter-heading-text">👥 Contacts, recipients &amp; distribution lists</span></h4>
+<p>Audiences are first-class data — imported, retained, de-duplicated, and reusable across campaigns.</p>
+<ul>
+<li><strong><code>Contact</code></strong> — a recipient keyed by <code>RecipientId</code> (your correlation code), with name, email and phone.</li>
+<li><strong>Distribution lists</strong> — reusable audiences; each member can be marked <code>Unsubscribed</code>.</li>
+<li><strong>CSV import / export</strong> — upload a CSV into a list, export a list back out.</li>
+<li><strong>Retained</strong> — contacts persist across campaigns; a campaign without a list gets a <em>system-generated</em> distribution list.</li>
+<li><strong>Dedup &amp; merge</strong> — find duplicate contacts and merge them; lists, messages and events move to the surviving contact.</li>
+</ul>
+<blockquote>
+<p>Yesterday&#39;s recipients are tomorrow&#39;s audience — and who a campaign reached is always recoverable from its list.</p>
+</blockquote>
+<h4 id="article-preferences-consent"><span class="chapter-heading-text">✅ Preferences &amp; consent</span></h4>
+<p>Delivery respects what each recipient chose and what they can actually receive — decided per campaign, per contact.</p>
+<ul>
+<li><strong><code>ContactPreference</code></strong> — <code>Locale</code>, <code>ConsentCommercial</code> (+ date), <code>DefaultChannels</code>.</li>
+<li><strong>Per message type</strong> — preferred channels per message type, so &quot;email me offers, push me alerts&quot; is expressible.</li>
+<li><strong>Reachability</strong> — no email drops Email, no phone drops SMS, an anonymous contact drops Push and Inbox.</li>
+<li><strong><code>IgnoreUserPreferences</code></strong> — bypasses preferences for genuine system messages; reachability still applies.</li>
+<li><strong>Self-service</strong> — recipients read and update their own preferences through the inbox API.</li>
+</ul>
+<blockquote>
+<p>Preferences are applied when the campaign is sent, not when it is written: an operator picks &quot;Email + SMS&quot;; each
+recipient still only gets the channels they chose and can receive.</p>
+</blockquote>
+<h4 id="article-templates-rendering"><span class="chapter-heading-text">🧩 Templates &amp; rendering</span></h4>
+<p>Reusable, composable content — authored per channel and rendered per recipient with Handlebars.</p>
+<ul>
+<li><strong><code>Template</code></strong> — per-channel content, optional sample <code>Data</code> for preview, optional message type.</li>
+<li><strong>Three kinds</strong> — Full (a complete message), Partial (a reusable fragment), Layout (a wrapper).</li>
+<li><strong>Personalised</strong> — <code>{{contact.…}}</code>, <code>{{data.…}}</code>, campaign <code>title</code> / <code>actionLink</code> / <code>now</code> are available in every template.</li>
+<li><strong>Composition</strong> — <code>{{&gt; alias}}</code> fragments and layout wrappers are pulled from the templates store when a message is rendered.</li>
+<li><strong>Channel-aware encoding</strong> — HTML-encoded for email and inbox, plain text for SMS.</li>
+</ul>
+<p>Full guide: Templates.md.</p>
+<h4 id="article-message-types-senders"><span class="chapter-heading-text">🏷️ Message types &amp; senders</span></h4>
+<ul>
+<li><strong><code>MessageType</code></strong> — a category (<code>Name</code>, <code>Alias</code>) with a <code>Classification</code>: System, Commercial, Info, Success, Error, Warning.</li>
+<li><strong>Preferences pivot on type</strong> — recipients set their channel choices per message type.</li>
+<li><strong><code>MessageSender</code></strong> — a configured &quot;from&quot; identity per channel (<code>Sender</code>, <code>DisplayName</code>, <code>IsDefault</code>).</li>
+</ul>
+<h4 id="article-analytics-tracking"><span class="chapter-heading-text">📊 Analytics &amp; tracking</span></h4>
+<p>Every meaningful action is recorded and rolled up into operator-facing KPIs.</p>
+<ul>
+<li><strong>Event types</strong> — Created, Sent, Delivered, Read, UnRead, Opened, Deleted — per channel, with a success flag.</li>
+<li><strong>Click tracking</strong> — CTA links go through a tracking URL that records a hit, then redirects to the <code>ActionLink</code>.</li>
+<li><strong>KPIs</strong> — <strong>Reached, Engaged, Acted, Coverage</strong>, plus volume per channel and per message type.</li>
+<li><strong>Time series</strong> — from the last 24 hours up to the last 12 months.</li>
+</ul>
+<blockquote>
+<p>Reached vs Engaged vs Acted: the dashboard separates &quot;we sent it&quot; from &quot;they opened it&quot; from &quot;they clicked&quot;.</p>
+</blockquote>
+<h4 id="article-inbox-self-service"><span class="chapter-heading-text">📥 Inbox &amp; self-service</span></h4>
+<p>The in-app channel is a full surface of its own — read state, bulk actions, and preference management.</p>
+<ul>
+<li><strong>My messages</strong> — a recipient lists their messages, opens one, marks it read or unread.</li>
+<li><strong>Bulk actions</strong> — &quot;mark all read&quot; / &quot;mark all unread&quot;.</li>
+<li><strong>Read state feeds analytics</strong> — Read, UnRead, Opened and Deleted are all recorded events.</li>
+<li><strong>Preference self-service</strong> — recipients manage their communication preferences through the same API.</li>
+</ul>
+<h4 id="article-media-library-attachments"><span class="chapter-heading-text">🖼️ Media library &amp; attachments</span></h4>
+<ul>
+<li><strong>Attachments</strong> — files attached to a campaign, delivered with email and inbox messages.</li>
+<li><strong>Media library</strong> — folders and uploads managed from the admin UI.</li>
+<li><strong>Reusable in templates</strong> — media links and images are available to templates.</li>
+</ul>
+<h4 id="article-management-ui-angular-spa"><span class="chapter-heading-text">🖥️ Management UI — Angular SPA</span></h4>
+<p>A full operator surface, compiled and served embedded from the API host.</p>
+<ul>
+<li><strong>Screens</strong> — campaigns (create / edit builder), templates designer, distribution lists + CSV import, contacts,
+message types, media library, dashboard, events, settings.</li>
+<li><strong>Template designer</strong> — a Handlebars code editor for per-channel content.</li>
+<li><strong>Dashboard</strong> — charts over the analytics KPIs.</li>
+</ul>
+<h4 id="article-transactional-send-api-access"><span class="chapter-heading-text">📤 Transactional send API &amp; access</span></h4>
+<p>Other systems send messages through the same pipeline as operators — with their own, narrower permission.</p>
+<ul>
+<li><strong>Send API</strong> — a system triggers a message with one request, under the <code>messages:send</code> scope.</li>
+<li><strong>Same pipeline</strong> — a transactional send is delivered exactly like a campaign published from the UI.</li>
+<li><strong>Two scopes</strong> — <code>messages</code> for operators (management), <code>messages:send</code> for machines (send only).</li>
+<li><strong>Campaign managers</strong> — campaign authoring is limited to a role, not just a scope.</li>
+<li><strong>Optional multi-tenancy</strong> — one deployment can isolate several tenants&#39; data.</li>
+</ul>
+<hr>
+<h3 id="article-2-flows" class="article-chapter"><span class="chapter-heading-text">2. Flows</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="2. Flows" aria-label="Copy link to 2. Flows" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-from-request-to-delivery"><span class="chapter-heading-text">🔄 From request to delivery</span></h4>
+<p>Whether an operator publishes a campaign or another system calls the send API, the road is the same: the API accepts
+the request and queues it; the worker delivers it.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="From request to delivery diagram">flowchart LR
+    UI[&quot;Admin UI&lt;br/&gt;publish campaign&quot;] --&gt; API[&quot;API&lt;br/&gt;queue the campaign&quot;]
+    Sys[&quot;System&lt;br/&gt;send API · messages:send&quot;] --&gt; API
+    API --&gt; Queue[(&quot;Queue&quot;)]
+    Queue --&gt; Worker[&quot;Worker&quot;]
+    Worker --&gt; Dispatch[&quot;Resolve · render · send&lt;br/&gt;Inbox · Push · Email · SMS&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="From request to delivery" aria-label="Open larger view of From request to delivery" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>The <code>Published</code> gate is the control point — a campaign can be created and scheduled, but nothing is sent until it is
+published. A transactional message (e.g. an OTP) is a one-recipient, immediately-published campaign on this same
+pipeline — with <code>IgnoreUserPreferences</code> for a true system message, and a fast <code>202 Accepted</code> back to the caller.</p>
+<h4 id="article-which-channels-a-recipient-gets"><span class="chapter-heading-text">🧭 Which channels a recipient gets</span></h4>
+<p>Each recipient&#39;s channels are worked out separately, when the campaign is sent.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="Which channels a recipient gets diagram">flowchart LR
+    C[&quot;Campaign channels&lt;br/&gt;e.g. Email · SMS · Inbox&quot;] --&gt; P{&quot;Ignore user&lt;br/&gt;preferences?&quot;}
+    P -- no --&gt; T[&quot;Keep the recipient&#39;s channels&lt;br/&gt;for this message type&lt;br/&gt;(or their defaults)&quot;]
+    P -- yes --&gt; R
+    T --&gt; R[&quot;Drop unreachable channels&lt;br/&gt;no email · no phone · anonymous&quot;]
+    R --&gt; S[&quot;Render and send&lt;br/&gt;on what is left&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="Which channels a recipient gets" aria-label="Open larger view of Which channels a recipient gets" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<p>One campaign can reach one recipient by email and SMS, another by inbox only, and skip a third who has neither an
+email address nor a phone number — without the operator writing a rule for any of them.</p>
+<hr>
+<h3 id="article-3-where-indice-messaging-shines" class="article-chapter"><span class="chapter-heading-text">3. Where Indice Messaging shines</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="3. Where Indice Messaging shines" aria-label="Copy link to 3. Where Indice Messaging shines" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Two things set Indice Messaging apart. Multichannel delivery and recipient preferences are a single decision made
+per recipient, not two features bolted together; and the delivery vendors are yours to choose and change without
+touching campaigns, templates or audiences. The two pillars below expand each.</p>
+<h4 id="article-one-campaign-every-channel-preference-aware"><span class="chapter-heading-text">🧭 One campaign, every channel, preference-aware</span></h4>
+<ul>
+<li><strong>One campaign, four channels</strong> — Inbox, Push, Email and SMS on a single campaign, content authored per channel.</li>
+<li><strong>Per-recipient channels</strong> — campaign channels, narrowed by the recipient&#39;s preference, minus what they can&#39;t receive.</li>
+<li><strong>Preferences per message type</strong> — offers by email, alerts by push, chosen by the recipient.</li>
+<li><strong>Transactional override</strong> — <code>IgnoreUserPreferences</code> separates &quot;you opted in&quot; from &quot;you must receive this&quot;.</li>
+<li><strong>Reusable audiences</strong> — distribution lists, CSV import and retained contacts feed every campaign.</li>
+</ul>
+<h4 id="article-your-vendors-your-accounts"><span class="chapter-heading-text">🔌 Your vendors, your accounts</span></h4>
+<ul>
+<li><strong>Swap providers by setting</strong> — email, SMS / Viber and push vendors chosen in configuration.</li>
+<li><strong>Regional channels</strong> — Viber and local Greek SMS gateways alongside the global providers.</li>
+<li><strong>Test mode</strong> — staging runs the full send path without real SMS cost.</li>
+<li><strong>Your data stays home</strong> — contacts, messages and analytics live in your database; consent and preferences come
+from your identity server.</li>
+</ul>
+<h4 id="article-capability-summary"><span class="chapter-heading-text">✅ Capability summary</span></h4>
+<p>One grid to take to your team — the capability on the left, the mechanism that delivers it on the right.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Capability</th><th scope="col">How it&#39;s delivered</th></tr></thead><tbody><tr><td>One campaign → Inbox / Push / Email / SMS</td><td>✅ <code>MessageChannelKind</code> flags</td></tr><tr><td>Preference-aware delivery</td><td>✅ <code>GetAvailableChannels</code> per recipient</td></tr><tr><td>Transactional send API for other systems</td><td>✅ <code>messages:send</code> endpoint</td></tr><tr><td>Handlebars templates</td><td>✅ Full / Partial / Layout</td></tr><tr><td>CSV recipient import / export</td><td>✅ distribution list import / export</td></tr><tr><td>Distribution lists + auto system lists</td><td>✅ per campaign, retained</td></tr><tr><td>Contact dedup / merge</td><td>✅ <code>MergeContacts</code></td></tr><tr><td>Delivery + engagement analytics</td><td>✅ Reached / Engaged / Acted / Coverage</td></tr><tr><td>CTA click tracking</td><td>✅ tracked link + redirect</td></tr><tr><td>In-app inbox with read state</td><td>✅ <code>MyMessages</code> API</td></tr><tr><td>Media library + attachments</td><td>✅ local / Azure Blob storage</td></tr><tr><td>Email / SMS / Viber / Push vendors</td><td>✅ chosen by configuration</td></tr><tr><td>Scheduled + global (broadcast) campaigns</td><td>✅ <code>ActivePeriod</code> + <code>IsGlobal</code></td></tr><tr><td>Embedded Angular admin SPA</td><td>✅ <code>UseMessagesUI</code></td></tr><tr><td>Multi-tenancy</td><td>✅ optional (<code>UseMultiTenancy</code>)</td></tr></tbody></table></div>
+<hr>
+<h3 id="article-4-architecture-hosting" class="article-chapter"><span class="chapter-heading-text">4. Architecture &amp; hosting</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="4. Architecture &amp; hosting" aria-label="Copy link to 4. Architecture &amp; hosting" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<ul>
+<li><strong>Built on <code>Indice.Platform</code></strong> — <code>Indice.Features.Messages.{Core, AspNetCore, Worker, Worker.Azure, UI}</code>.</li>
+<li><strong>Standard foundations</strong> — ASP.NET Core Minimal APIs, EF Core (SQL Server), Azure Storage / Service Bus, Handlebars.Net.</li>
+<li><strong>Reference templates</strong> — <code>Indice.Messaging</code> (API + embedded admin UI) and <code>Indice.Messaging.Workers</code> (Azure Functions).</li>
+</ul>
+<h4 id="article-4-1-high-level-architecture"><span class="chapter-heading-text">🏗️ 4.1 High-level architecture</span></h4>
+<p>Composable feature libraries; your host runs them; delivery happens off-thread through a queue and pluggable providers.</p>
+<figure class="article-flowchart"><pre class="mermaid" aria-label="4.1 High-level architecture diagram">flowchart LR
+    Clients[&quot;Admin UI · systems&quot;] --&gt; API[&quot;API host&quot;]
+    API --&gt; Core[&quot;Core&lt;br/&gt;campaigns · contacts · templates · rendering&quot;]
+    Core --&gt; Queue[(&quot;Queue&quot;)]
+    Queue --&gt; Worker[&quot;Worker&quot;]
+    Worker --&gt; Providers[&quot;Email · SMS · Push providers&quot;]
+    Worker --&gt; Data[(&quot;Inbox · SQL · Blob&quot;)]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="horizontal" data-flowchart-title="4.1 High-level architecture" aria-label="Open larger view of 4.1 High-level architecture" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<h4 id="article-4-2-whats-deployed-in-production"><span class="chapter-heading-text">🏭 4.2 What&#39;s deployed in production</span></h4>
+<ul>
+<li><strong>API host</strong> — <code>MapMessaging()</code> + <code>UseMessagesUI()</code>, serving the endpoints and the embedded admin SPA.</li>
+<li><strong>Worker host</strong> — Azure Functions (<code>Indice.Messaging.Workers</code>) <em>or</em> an in-process generic-host worker; both consume the same queues.</li>
+<li><strong>Event transport</strong> — Azure Storage Queues (gzip-compressed envelopes) or Azure Service Bus.</li>
+<li><strong>Data</strong> — SQL Server (<code>MessagesDb</code>, schema <code>cmp</code>), Blob storage for attachments and media.</li>
+<li><strong>Analytics batcher</strong> — a hosted service drains an in-memory event queue into the analytics table off the hot path.</li>
+<li><strong>Retention cleanup</strong> — a timer / cron job prunes old campaigns and inbox messages on your schedule.</li>
+</ul>
+<blockquote>
+<p>Two hosts, one queue: the API stays responsive because it only enqueues; delivery, rendering and analytics all
+happen in the worker.</p>
+</blockquote>
+<h4 id="article-4-3-composition-reference-templates"><span class="chapter-heading-text">🔧 4.3 Composition + reference templates</span></h4>
+<pre><code class="language-csharp">// API host (Indice.Messaging/Program.cs)
+builder.Services.AddMessaging(options =&gt; {
+    options.ConfigureDbContext = (sp, db) =&gt; db.UseSqlServer(cfg.GetConnectionString(&quot;MessagesDb&quot;));
+    options.RequiredScope = cfg.GetApiResourceName();   // &quot;messages&quot;
+    options.PathPrefix    = &quot;/api&quot;;
+    options.UseFilesAzure();                            // Blob attachments/media
+    options.UseEventDispatcherAzure();                  // Azure Storage Queue transport
+    options.UseIdentityContactResolver(o =&gt; { /* pull contact data + prefs from Identity */ });
+});
+app.UseMessagesUI(o =&gt; { o.EnableMediaLibrary = true; });
+app.MapMessaging();
+
+// Worker host (Indice.Messaging.Workers/Program.cs)
+builder.AddMessageFunctions(options =&gt; {
+    options.UseEventDispatcherAzure()
+           .UsePushNotificationServiceAzure()
+           .UseEmailService(cfg).UseSmsService(cfg)     // providers picked by config
+           .UseIdentityContactResolver(/* … */);
+    options.DatabaseCleanUpOptions.Enabled = true;      // retention: 180d inbox / 120d other
+});</code></pre>
+<hr>
+<h3 id="article-5-feature-internals-integration" class="article-chapter"><span class="chapter-heading-text">5. Feature internals &amp; integration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="5. Feature internals &amp; integration" aria-label="Copy link to 5. Feature internals &amp; integration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<h4 id="article-resolve-fan-out-in-the-worker"><span class="chapter-heading-text">🔄 Resolve &amp; fan-out in the worker</span></h4>
+<p>The worker resolves each recipient, renders per channel, writes the inbox copy, then emits one send-event per
+allowed channel.</p>
+<figure class="article-flowchart article-flowchart-compact"><pre class="mermaid" aria-label="Resolve &amp; fan-out in the worker diagram">%%{init: {&quot;themeVariables&quot;: {&quot;fontSize&quot;: &quot;10px&quot;}}}%%
+flowchart TD
+    Ev[&quot;Resolve-event&lt;br/&gt;one per recipient&quot;] --&gt; Resolve[&quot;Resolve contact&lt;br/&gt;cached within retain period&quot;]
+    Resolve --&gt; Render[&quot;Render per channel&lt;br/&gt;Handlebars&quot;]
+    Render --&gt; Inbox[&quot;Persist inbox Message&quot;]
+    Inbox --&gt; Pick{&quot;GetAvailableChannels&quot;}
+    Pick --&gt; Email[&quot;Email&quot;]
+    Pick --&gt; SMS[&quot;SMS&quot;]
+    Pick --&gt; Push[&quot;Push&quot;]</pre><button class="flowchart-expand" type="button" data-flowchart-open data-flowchart-orientation="vertical" data-flowchart-title="Resolve &amp; fan-out in the worker" aria-label="Open larger view of Resolve &amp; fan-out in the worker" title="Open larger view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6m0 6 7-7M3 9V3h6M3 3l7 7m11 5v6h-6m6 0-7-7"/></svg></button></figure>
+<ul>
+<li><strong>Zero to three send-events</strong> — external channels are emitted only if <code>GetAvailableChannels</code> allows them.</li>
+<li><strong>Thin send handlers</strong> — call the provider, record the outcome off-thread; the send itself never blocks.</li>
+<li><strong>Scheduling is the queue</strong> — far-future campaigns ride the visibility timeout and are re-enqueued in windows.</li>
+</ul>
+<h4 id="article-channels"><span class="chapter-heading-text">📡 Channels</span></h4>
+<ul>
+<li><strong><code>[Flags]</code> enum</strong> — <code>MessageChannelKind</code>: Inbox <code>1</code>, PushNotification <code>2</code>, Email <code>4</code>, SMS <code>8</code>; <code>Email | SMS | Inbox</code> is one value.</li>
+<li><strong>Keyed DI</strong> — each channel resolves to an injected service (<code>IEmailService</code>, <code>ISmsService</code>, <code>IPushNotificationService</code>)
+or the inbox store.</li>
+</ul>
+<h4 id="article-analytics"><span class="chapter-heading-text">📊 Analytics</span></h4>
+<ul>
+<li><strong>Async capture</strong> — actions enqueue an event; the analytics hosted service batches them into <code>MessageEvent</code> records.</li>
+<li><strong>Click tracking</strong> — links are rewritten to <code>/_tracking/…</code>; <code>TrackingHandlers</code> records a <code>Hit</code>, then 302-redirects.</li>
+<li><strong>Roll-ups</strong> — <code>OverviewMetrics</code>, <code>RecipientMetrics</code> and <code>MessageEventSeries</code>; <code>analytics/*</code> endpoints are output-cached.</li>
+</ul>
+<h4 id="article-inbox"><span class="chapter-heading-text">📥 Inbox</span></h4>
+<ul>
+<li><strong><code>MyMessagesApi</code></strong> — list, get, mark read / unread, preferences.</li>
+<li><strong>Bulk actions on queues</strong> — <code>my-messages-mark-all-read</code> / <code>my-messages-mark-all-unread</code>.</li>
+</ul>
+<h4 id="article-media-library"><span class="chapter-heading-text">🖼️ Media library</span></h4>
+<ul>
+<li><strong>Own context</strong> — <code>MediaDbContext</code>, in the same <code>MessagesDb</code> as the campaigns.</li>
+<li><strong>Storage</strong> — <code>IFileService</code>: <code>UseFilesLocal()</code> for dev, <code>UseFilesAzure()</code> for production.</li>
+<li><strong>Wiring</strong> — <code>AddMediaLibrary()</code> / <code>MapMediaLibrary()</code>, shown in the admin UI with <code>EnableMediaLibrary = true</code>.</li>
+</ul>
+<h4 id="article-management-ui"><span class="chapter-heading-text">🖥️ Management UI</span></h4>
+<ul>
+<li><strong>Served in-process</strong> — <code>UseMessagesUI()</code> streams the packaged Angular bundle; no separate deployment.</li>
+<li><strong>Sign-in</strong> — OIDC client <code>messaging-ui</code> through your identity server; NSwag-generated API clients.</li>
+</ul>
+<h4 id="article-authorization"><span class="chapter-heading-text">🔐 Authorization</span></h4>
+<ul>
+<li><strong>Policies</strong> — <code>BeCampaignManager</code> (role or admin) and <code>HaveMessagesScope</code> guard the management endpoints.</li>
+<li><strong>Contacts</strong> — <code>ContactsCsvUtility</code> handles import / export; <code>GetDuplicates</code> / <code>MergeContacts</code> handle dedup.</li>
+</ul>
+<hr>
+<h3 id="article-6-configuration" class="article-chapter"><span class="chapter-heading-text">6. Configuration</span><span class="chapter-heading-actions"><button class="chapter-copy" type="button" data-copy-anchor data-copy-title="6. Configuration" aria-label="Copy link to 6. Configuration" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button></span></h3>
+<p>Everything that can be a setting is a setting. Code is for the seams — providers, resolvers, custom handlers.</p>
+<div class="article-table" role="region" aria-label="Product reference table" tabindex="0"><table><thead><tr><th scope="col">Section</th><th scope="col">What it controls</th></tr></thead><tbody><tr><td><code>ConnectionStrings</code></td><td><code>MessagesDb</code> (SQL), <code>StorageConnection</code> (queues + blob), <code>PushNotificationsConnection</code></td></tr><tr><td><code>General:Authority</code> / <code>General:Api</code></td><td>identity server, <code>messages</code> resource, <code>messages:send</code> scope, introspection secret, worker <code>ClientId</code> / <code>ClientSecret</code></td></tr><tr><td><code>Email</code> / <code>Sms</code> / <code>PushNotifications</code></td><td>delivery providers and their parameters</td></tr><tr><td>Event dispatcher</td><td>Azure Storage Queue, Azure Service Bus, or in-process</td></tr><tr><td>Worker options</td><td>polling / triggers, schema, contact retain period</td></tr><tr><td><code>Analytics</code></td><td>enable + batching</td></tr><tr><td>Database cleanup</td><td>retention (inbox vs other), cron</td></tr><tr><td>Multi-tenancy / auth</td><td>scopes, access level, policies</td></tr></tbody></table></div>
+<h4 id="article-channel-providers"><span class="chapter-heading-text">🔌 Channel providers</span></h4>
+<p>Per-channel provider selection and credentials. The pipeline calls an abstraction; config decides the implementation.</p>
+<pre><code class="language-jsonc">&quot;Email&quot;: {
+  &quot;Provider&quot;: &quot;SparkPost&quot;,   // Smtp · SendGrid · SparkPost · Brevo · AzureCommunicationServices
+  &quot;Sender&quot;: &quot;no-reply@your-domain.gr&quot;,
+  &quot;SmtpHost&quot;: &quot;…&quot;, &quot;SmtpPort&quot;: 587, &quot;UseSSL&quot;: true
+},
+&quot;Sms&quot;: {
+  &quot;Provider&quot;: &quot;Yuboto&quot;,      // Yuboto · YubotoOmni · Apifon · Twilio · Vonage · SmsUp · KapaTEL · Mstat
+  &quot;ApiKey&quot;: &quot;…&quot;, &quot;Sender&quot;: &quot;MyBrand&quot;,
+  &quot;TestMode&quot;: false          // wire the pipeline without spending on real sends
+},
+&quot;PushNotifications&quot;: { &quot;ConnectionString&quot;: &quot;…&quot;, &quot;NotificationHubPath&quot;: &quot;…&quot; }</code></pre>
+<ul>
+<li><strong>Swap vendors by config</strong> — moving from SparkPost to SendGrid is one line, no code change.</li>
+<li><strong><code>TestMode</code></strong> lets staging exercise the full send path without real SMS cost.</li>
+</ul>
+<h4 id="article-event-dispatch-workers"><span class="chapter-heading-text">🔀 Event dispatch &amp; workers</span></h4>
+<p>The transport between the API host and the worker, and the worker&#39;s own trigger model.</p>
+<pre><code class="language-jsonc">// API host — choose the dispatcher
+// options.UseEventDispatcherAzure();            // Azure Storage Queues (gzip envelopes)
+// options.UseEventDispatcherAzureServiceBus();  // Azure Service Bus
+
+// Worker (Azure Functions) — host.json queue tuning
+&quot;extensions&quot;: {
+  &quot;queues&quot;: { &quot;batchSize&quot;: 16, &quot;maxDequeueCount&quot;: 5, &quot;visibilityTimeout&quot;: &quot;00:00:30&quot; }
+}</code></pre>
+<ul>
+<li><strong>Two transports, one code path</strong> — Storage Queues for simplicity, Service Bus for higher scale / ordering needs.</li>
+<li><strong>Two worker models</strong> — Azure Functions (serverless) or an in-process hosted worker; same handlers.</li>
+</ul>
+<h4 id="article-contact-resolution-retention"><span class="chapter-heading-text">🔗 Contact resolution &amp; retention</span></h4>
+<p>Where contact data and preferences come from, and how long a resolved contact is trusted before re-fetching.</p>
+<pre><code class="language-csharp">options.UseIdentityContactResolver(o =&gt; {
+    o.BaseAddress  = new Uri(authority);
+    o.ClientId     = &quot;…&quot;; o.ClientSecret = &quot;…&quot;;
+    o.ClaimsToResolve = [ ConsentCommercial, ConsentCommercialDate, Locale, CommunicationPreferences ];
+});
+// Re-resolve a contact from source only after the retain period
+// MessageWorkerOptions.ContactRetainPeriodInDays = 30;</code></pre>
+<ul>
+<li><strong>Single source of truth</strong> — consent, locale and preferences come from your identity server, not a copy.</li>
+<li><strong>Retain period</strong> balances freshness against load.</li>
+</ul>
+<h4 id="article-analytics-2"><span class="chapter-heading-text">📊 Analytics</span></h4>
+<pre><code class="language-jsonc">&quot;Analytics&quot;: { &quot;Enabled&quot;: true }
+// Batching handled by the analytics hosted service (default ~10 events / 1s)
+// analytics/* endpoints are output-cached (~10 min)</code></pre>
+<ul>
+<li><strong>Off the hot path</strong> — capture is a bounded in-memory queue; a send never waits on an analytics write.</li>
+<li><strong>Fully optional</strong> — turn analytics off where you don&#39;t need it.</li>
+</ul>
+<h4 id="article-database-cleanup-retention"><span class="chapter-heading-text">🧹 Database cleanup &amp; retention</span></h4>
+<pre><code class="language-csharp">options.DatabaseCleanUpOptions.Enabled = true;
+options.DatabaseCleanUpOptions.RetentionDaysForInbox = 180;  // campaigns with an inbox copy
+options.DatabaseCleanUpOptions.RetentionDaysForOther = 120;  // everything else
+// runs on a timer/cron trigger (MessagingDatabaseCleanUp)</code></pre>
+<ul>
+<li><strong>Inbox lives longer than transport</strong> — users revisit inbox messages; a delivered SMS record needn&#39;t linger as long.</li>
+<li><strong>Bounded growth</strong> — retention keeps <code>MessagesDb</code> from growing without limit.</li>
+</ul>
+<h4 id="article-multi-tenancy-authorization"><span class="chapter-heading-text">🔐 Multi-tenancy &amp; authorization</span></h4>
+<pre><code class="language-csharp">options.RequiredScope = &quot;messages&quot;;     // management API scope
+// SendScope           = &quot;messages:send&quot; // transactional send scope
+// options.UseMultiTenancy(accessLevel); // isolate data across tenants
+// Policies: BeCampaignManager · HaveMessagesScope</code></pre>
+<h4 id="article-identity-provisioning"><span class="chapter-heading-text">🔐 Identity provisioning</span></h4>
+<ul>
+<li><strong>API resource</strong> <code>messages</code> with the claims <code>admin</code>, <code>email</code>, <code>given_name</code>, <code>family_name</code>, <code>name</code>, <code>phone_number</code>, <code>role</code>, <code>sub</code>;
+plus the <code>messages:send</code> scope for systems that only send.</li>
+<li><strong>API resource</strong> <code>media</code> for the media library, with the same claims.</li>
+<li><strong>Client</strong> <code>messaging-ui</code> (authorization code) for the admin SPA; API resources <code>identity</code>, <code>messages</code>, <code>media</code>;
+identity resources <code>openid</code>, <code>profile</code>, <code>email</code>, <code>role</code>, <code>offline_access</code>.</li>
+<li><strong>Worker client</strong> — a client-credentials client (<code>General:Api:Secrets:ClientId</code> / <code>ClientSecret</code>, <code>messages-worker</code>
+in the template) used by the contact resolver.</li>
+</ul>
+<h4 id="article-databases-migrations"><span class="chapter-heading-text">🗄️ Databases &amp; migrations</span></h4>
+<ul>
+<li><strong>Two contexts, one database</strong> — <code>CampaignsDbContext</code> and <code>MediaDbContext</code> in <code>MessagesDb</code>, each with its own
+migrations history table.</li>
+<li><strong>Your migrations assembly</strong> — the template&#39;s <code>README.md</code> shows the <code>MigrationsAssembly</code> / <code>MigrationsHistoryTable</code>
+setup and the <code>dotnet ef migrations add --context …</code> commands.</li>
+</ul>
+<h4 id="article-extensibility"><span class="chapter-heading-text">🧰 Extensibility</span></h4>
+<p>The C# seams where your code plugs into the pipeline without forking anything.</p>
+<pre><code class="language-text">IContactResolver              your own source of truth for contacts + preferences
+ICampaignJobHandler&lt;TEvent&gt;   react to pipeline events / add processing steps
+Use* provider builders        swap Email / SMS / Push implementations by config
+IFileService                  your own storage for attachments and media
+Template (Partial / Layout)   compose content from reusable fragments at render time
+UseMessagesUI overrides       theme and configure the embedded admin SPA</code></pre>
+<ul>
+<li><strong>C# interfaces, not a DSL</strong> — the team that writes ASP.NET Core writes the extensions.</li>
+<li><strong>In-process</strong> — extensions run in your host, debuggable with the rest of your app.</li>
+<li><strong>Event-driven</strong> — new behaviour slots in as a handler on an existing event.</li>
+</ul>
+<p class="sr-only" id="chapter-copy-status" role="status" aria-live="polite" aria-atomic="true"></p></article>
+    </div>
+  </main>
+  <footer class="pb-colophon pbr-colophon">
+    <div class="pb-colophon-meta">
+      <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <p>Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+      <ul><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul>
+    </div>
+  </footer>
+  <dialog class="flowchart-dialog pbr-dialog" aria-labelledby="flowchart-dialog-title"><div class="flowchart-dialog-shell"><header class="flowchart-dialog-header"><div><p class="flowchart-dialog-eyebrow">Workflow diagram</p><h2 class="flowchart-dialog-title" id="flowchart-dialog-title"></h2></div><button class="flowchart-dialog-close" type="button" aria-label="Close diagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header><div class="flowchart-dialog-canvas" aria-live="polite"></div></div></dialog>
+  <a class="gh-tab pb-gh" href="https://github.com/indice-co/Indice.Platform" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pb-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><span aria-hidden="true">Back to top</span></a>
+</body>
+</html>
