@@ -305,11 +305,12 @@
   .pb-card-action { max-width: 40ch; font-size: 16px; color: var(--fg-muted); }
   .pb-card-stack { margin-top: auto; padding-top: 8px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-subtle); }
   .pb-card-links { display: flex; flex-wrap: wrap; gap: 8px 28px; }
-  .pb-card-links a {
+  .pb-card-links a, .pb-card-links .pb-link-disabled {
     display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700;
     background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
     padding-bottom: 3px; transition: color .2s, background-size .45s var(--ease-out);
   }
+  .pb-card-links .pb-link-disabled { opacity: .42; cursor: not-allowed; }
   .pb-card-links a:hover { color: var(--accent); background-size: 100% 1px; }
   .pb-card-links .icon-arrow { transition: transform .3s var(--ease-out); }
   .pb-card-links a:first-child:hover .icon-arrow { transform: translateY(3px); }
