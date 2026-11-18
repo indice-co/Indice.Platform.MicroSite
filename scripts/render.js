@@ -7,7 +7,7 @@ const { escape, arrow, down, demo, logo, navigation, designRibbon } = require('.
 const { renderShowcase } = require('./showcase-markup.js');
 const diagonalDown = '<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg>';
 const suiteProducts = ['cases', 'iam', 'messaging', 'risk'].map(id => products.find(product => product.id === id));
-// Original slider copy for index.html; the homepage proposals pass their own (scripts/proposals/content.js).
+// Original slider copy for original.html; the homepage proposals pass their own (scripts/proposals/content.js).
 const casesStory = {
   kicker: 'CASE MANAGEMENT / WORKFLOW PLATFORM',
   title: 'Operational workflows, engineered to evolve.',
@@ -136,7 +136,7 @@ const html = `<!doctype html>
 </body>
 </html>
 `;
-fs.writeFileSync(path.join(__dirname, '../index.html'), html, 'utf8');
+fs.writeFileSync(path.join(__dirname, '../original.html'), html, 'utf8');
 console.log(`Rendered homepage with ${products.length} products.`);
 require('./render-cases-article.js')();
 require('./render-variants.js')();

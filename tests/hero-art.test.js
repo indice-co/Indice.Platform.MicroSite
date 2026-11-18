@@ -8,7 +8,7 @@ const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../js/hero-art.js'), 'utf8');
 
 test('hero diagram has no slash artwork and draws the cloud once', () => {
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
   const hero = html.match(/<svg class="hero-diagram"[\s\S]*?<\/svg>\s*<\/div>[\s\S]*?<div class="hero-baseline"/)?.[0];
   assert(hero, 'Hero diagram is present');
@@ -21,7 +21,7 @@ test('hero diagram has no slash artwork and draws the cloud once', () => {
 
 test('desktop hero centres the title, lays the pillars in three columns and places a wide artwork below', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   assert.match(css, /grid-template-rows:52px 24px max-content max-content max-content max-content/);
   assert.match(css, /@media\(min-width:1000px\) \{\s*\.hero h1#hero-title,\.hero \.hero-baseline \{\s*text-align:center/);
   assert.match(css, /\.hero \.pillar-grid \{\s*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
@@ -32,7 +32,7 @@ test('desktop hero centres the title, lays the pillars in three columns and plac
 
 test('hero technologies follow the artwork and match the INDICE Platform title style', () => {
   const css = fs.readFileSync(path.join(__dirname, '../css/styles.css'), 'utf8');
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   const art = html.indexOf('<div class="hero-art">');
   const technologies = html.indexOf('<section class="technologies"');
   const foundation = html.indexOf('<section class="foundation');
@@ -99,7 +99,7 @@ test('mobile hero leaves breathing room above the artwork and less space below i
 });
 
 test('each hero pillar groups its arrow beside its headline without changing its destination', () => {
-  const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../original.html'), 'utf8');
   const pillars = [...html.matchAll(/<a class="pillar" href="#([^"]+)">([\s\S]*?)<\/a>/g)];
   assert.deepEqual(pillars.map(match => match[1]), ['foundation', 'products', 'expertise']);
   for (const [, , content] of pillars) {

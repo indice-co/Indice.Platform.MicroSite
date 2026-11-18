@@ -11,7 +11,7 @@ const previews = {
   messaging: 'assets/uis/messaging dashboard.png',
   risk: null,
 };
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'original.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
 const foundation = html.match(/<section class="foundation\b[\s\S]*?<\/section>/)[0];
 const foundationRevealIndices = [...foundation.matchAll(/data-reveal style="--reveal-index:(\d+)"/g)].map(match => Number(match[1]));

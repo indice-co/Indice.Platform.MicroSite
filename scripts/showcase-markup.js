@@ -1,8 +1,8 @@
 'use strict';
 
-/* The Solutions slider (#product-showcase), shared by index.html and the homepage proposals.
+/* The Solutions slider (#product-showcase), shared by original.html and the homepage proposals.
    js/showcase.js and the slider styles rely on these ids, classes and data attributes, so pages only vary the
-   copy and how logos are rendered. index.html passes its original copy; the proposals pass homepage-only copy. */
+   copy and how logos are rendered. original.html passes its original copy; the proposals pass homepage-only copy. */
 const { escape, arrow } = require('./shared.js');
 
 const preview = (p, cls = '') => p.preview

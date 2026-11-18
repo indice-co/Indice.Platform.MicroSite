@@ -1,153 +1,661 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-proposal="b" data-default-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#E6E6E6">
-  <meta name="description" content="The technological foundation behind INDICE solutions combines reusable tools, engineering expertise, cloud practices, and in-depth fintech experience.">
-  <title>INDICE Platform</title>
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="description" content="For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.">
+  <title>INDICE Platform — Proposal B · Editorial</title>
+  <script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('indice-proposal-b-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>
   <link rel="icon" type="image/svg+xml" href="assets/logos/indice icon.svg">
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="assets/logos/indice icon.svg" as="image">
-  <link rel="preload" href="assets/logos/indice top.svg" as="image">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/design-ribbon.css">
+  <link rel="stylesheet" href="css/proposals/common.css">
+  <link rel="stylesheet" href="css/proposals/screens.css">
+  <link rel="stylesheet" href="css/proposals/proposal-b.css">
   <script defer src="js/data.js"></script>
-  <script defer src="js/main.js"></script>
-  <script defer src="js/hero-art.js"></script>
-  <script defer src="js/foundation-art.js"></script>
-  <script defer src="js/contact.js"></script>
-  <script defer src="js/showcase.js"></script>
+  <script defer src="js/proposals/common.js"></script>
+  <script defer src="js/proposals/proposal-b.js"></script>
 </head>
-<body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
+<body class="pb">
+  <a class="skip-link" href="#main">Skip to content</a>
   <nav class="design-ribbon" aria-label="Design versions">
   <span class="design-ribbon-title">Design preview</span>
-  <ul><li><a href="index.html" aria-current="page"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li class="design-ribbon-divider" aria-hidden="true"></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-b.html" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
+  <ul><li><a href="index.html" aria-current="page" class="design-ribbon-proposal">Proposal B<span class="design-ribbon-name"> · Editorial</span></a></li><li><a href="original.html"><span class="design-ribbon-index" aria-hidden="true">1</span>Original</a></li><li><a href="terminal.html"><span class="design-ribbon-index" aria-hidden="true">2</span>Terminal</a></li><li><a href="blueprint.html"><span class="design-ribbon-index" aria-hidden="true">3</span>Blueprint</a></li><li><a href="proposal-a.html" class="design-ribbon-proposal">Proposal A<span class="design-ribbon-name"> · Graphite</span></a></li><li><a href="proposal-c.html" class="design-ribbon-proposal">Proposal C<span class="design-ribbon-name"> · Modular</span></a></li></ul>
 </nav>
-  <a class="hero-brand" id="hero-brand" href="#hero" aria-label="INDICE Platform home"><img src="assets/logos/indice platform grey.svg" width="1490" height="400" alt="INDICE Platform" fetchpriority="high"></a>
-  <nav class="header-nav" id="site-nav" aria-label="Main navigation">
-    <div class="desktop-nav-links"><a href="#foundation" data-pillar="foundation">Foundation</a><button id="products-trigger" type="button" aria-controls="products-panel" aria-expanded="false" data-pillar="products">Suite<svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true"><path d="m3 5 3 3 3-3" stroke="currentColor" stroke-width="1.3"/></svg></button><a href="#expertise" data-pillar="expertise">Expertise</a></div>
-    <button class="mobile-menu-trigger" id="menu-trigger" type="button" aria-controls="products-panel" aria-expanded="false">Menu<span aria-hidden="true">+</span></button>
-    <a class="header-github" href="https://github.com/indice-co/Indice.Platform" aria-label="INDICE Platform on GitHub"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18a4.63 4.63 0 0 1 1.24 3.22c0 4.6-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg></a>
-    <div class="products-panel" id="products-panel" role="region" aria-label="Suite" hidden>
-      <div class="panel-section-links" aria-label="Sections"><a href="#foundation" data-pillar="foundation">Foundation</a><a href="#products" data-pillar="products">Suite</a><a href="#expertise" data-pillar="expertise">Expertise</a></div>
-      <div class="panel-heading"><span>Suite Solutions</span></div>
-      <div class="panel-product-grid"><a class="panel-product" href="cases-reference.html"><img class="product-logo " src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><p>Case management and business workflows</p></a><div class="panel-product"><img class="product-logo " src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><p>Identity and access management</p></div><div class="panel-product"><img class="product-logo " src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><p>Multichannel campaigns and notifications</p></div><div class="panel-product"><img class="product-logo " src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><p>Risk assessment for transactions and activity</p></div></div>
-      <a class="text-link panel-explore" id="panel-explore-all" href="#products">Explore all solutions<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  <div class="pb-progress" data-progress aria-hidden="true"></div>
+  <header class="pb-masthead">
+    <a class="pb-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+    <p class="pb-masthead-note">Platform overview for technical managers and developers</p>
+    <div class="pb-masthead-actions">
+      <button type="button" class="pb-theme" data-theme-toggle aria-pressed="true" aria-label="Dark theme"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.5 8.5 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z"/></svg></button>
+      <a class="pb-contents-button" href="#contents" data-dialog-open="pb-contents" aria-haspopup="dialog">Contents<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></a>
     </div>
-  </nav>
-  <main id="main-content" tabindex="-1">
-    <section class="hero" id="hero" aria-labelledby="hero-title" tabindex="-1">
-      <div class="hero-top"></div>
-      <div class="hero-composition">
-        <h1 id="hero-title">INDICE <span>Platform</span></h1>
-        <div class="hero-art">
-          <svg class="hero-diagram" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
-<g class="hero-coordinates"><text class="hero-coordinate" x="85" y="215">+</text><text class="hero-coordinate" x="785" y="48">+</text></g>
-<g class="hero-layer hero-layer-expertise"><path class="hero-link" d="M317 162.2L70 100"/><path class="hero-link" d="M364.4 108L285 42"/><path class="hero-link" d="M568.2 132.7L685 42"/><path class="hero-link" d="M641.8 159.5L850 105"/><path class="hero-link" d="M716.7 254.7L855 285"/><path class="hero-link" d="M239.3 250.9L45 290"/><path class="hero-pulse" pathLength="1" d="M317 162.2L70 100" style="--pulse-delay:0s"/><path class="hero-pulse" pathLength="1" d="M364.4 108L285 42" style="--pulse-delay:0.6s"/><path class="hero-pulse" pathLength="1" d="M568.2 132.7L685 42" style="--pulse-delay:1.2s"/><path class="hero-pulse" pathLength="1" d="M641.8 159.5L850 105" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M716.7 254.7L855 285" style="--pulse-delay:2.4s"/><path class="hero-pulse" pathLength="1" d="M239.3 250.9L45 290" style="--pulse-delay:3s"/><path class="hero-cloud" pathLength="1" d="M258 310A72 72 0 0 1 310.6 188.8A105 105 0 0 1 512.6 161.2A88 88 0 0 1 665.6 212.1A52 52 0 0 1 690 310Z"/><path class="hero-cloud-trace" pathLength="1" d="M258 310A72 72 0 0 1 310.6 188.8A105 105 0 0 1 512.6 161.2A88 88 0 0 1 665.6 212.1A52 52 0 0 1 690 310Z"/><path class="hero-cloud-trace" pathLength="1" d="M258 310A72 72 0 0 1 310.6 188.8A105 105 0 0 1 512.6 161.2A88 88 0 0 1 665.6 212.1A52 52 0 0 1 690 310Z"/></g>
-<g class="hero-layer hero-layer-foundation"><path class="hero-rail" pathLength="1" d="M60 342H840" style="--draw-delay:.2s"/><path class="hero-rail" pathLength="1" d="M795 362H105" style="--draw-delay:.35s"/><path class="hero-rail" pathLength="1" d="M150 382H750" style="--draw-delay:.5s"/><path class="hero-pulse" pathLength="1" d="M60 342H840" style="--pulse-delay:.6s"/><path class="hero-pulse" pathLength="1" d="M795 362H105" style="--pulse-delay:1.8s"/><path class="hero-pulse" pathLength="1" d="M150 382H750" style="--pulse-delay:3s"/><rect class="hero-rack" x="129" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="377" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="639" y="336" width="12" height="12" rx="2"/><rect class="hero-rack" x="759" y="336" width="12" height="12" rx="2"/></g>
-<g class="hero-layer hero-layer-products"><g class="hero-node" data-solution="cases" style="--node-index:0"><circle class="hero-node-ring" cx="70" cy="100" r="30"/><image href="assets/logos/cases icon.svg" x="45" y="75" width="50" height="50"/></g><g class="hero-node" data-solution="iam" style="--node-index:1"><circle class="hero-node-ring" cx="285" cy="42" r="30"/><image href="assets/logos/iam icon.svg" x="260" y="17" width="50" height="50"/></g><g class="hero-node" data-solution="messaging" style="--node-index:2"><circle class="hero-node-ring" cx="685" cy="42" r="30"/><image href="assets/logos/messaging icon.svg" x="660" y="17" width="50" height="50"/></g><g class="hero-node" data-solution="risk" style="--node-index:3"><circle class="hero-node-ring" cx="850" cy="105" r="30"/><image href="assets/logos/risk icon.svg" x="825" y="80" width="50" height="50"/></g><g class="hero-node" data-solution="workers" style="--node-index:4"><circle class="hero-node-ring" cx="855" cy="285" r="18"/><circle class="hero-node-core" cx="855" cy="285" r="8"/></g><g class="hero-node" data-solution="dex" style="--node-index:5"><circle class="hero-node-ring" cx="45" cy="290" r="18"/><circle class="hero-node-core" cx="45" cy="290" r="8"/></g></g>
-</svg>
-        </div>
-        <section class="technologies" id="technologies" aria-labelledby="technologies-title"><h2 id="technologies-title">Engineered with trusted technologies</h2><ul class="technology-list" aria-label="Technologies"><li class="technology"><img src="assets/logos/technologies/dotnet.svg" width="48" height="48" alt="" decoding="async"><span>.net</span></li><li class="technology"><img src="assets/logos/technologies/angular.svg" width="48" height="48" alt="" decoding="async"><span>angular</span></li><li class="technology"><img src="assets/logos/technologies/swift.svg" width="48" height="48" alt="" decoding="async"><span>swift</span></li><li class="technology"><img src="assets/logos/technologies/kotlin.svg" width="48" height="48" alt="" decoding="async"><span>kotlin</span></li><li class="technology"><img src="assets/logos/technologies/sqlserver.svg" width="48" height="48" alt="" decoding="async"><span>sql server</span></li><li class="technology"><img src="assets/logos/technologies/azure.svg" width="48" height="48" alt="" decoding="async"><span>azure</span></li><li class="technology"><img src="assets/logos/technologies/workflow.svg" width="48" height="48" alt="" decoding="async"><span>elsa</span></li><li class="technology"><img src="assets/logos/technologies/duende.svg" width="48" height="48" alt="" decoding="async"><span>duende</span></li><li class="technology"><img src="assets/logos/technologies/openid.svg" width="48" height="48" alt="" decoding="async"><span>openid</span></li><li class="technology"><img src="assets/logos/technologies/api.svg" width="48" height="48" alt="" decoding="async"><span>openapi</span></li></ul></section>
-        <div class="hero-baseline"><p class="hero-motto">Solid foundations. <br>Greater possibilities.</p></div>
+  </header>
+  <dialog class="pb-dialog" id="pb-contents" aria-labelledby="pb-contents-title">
+    <div class="pb-dialog-inner">
+      <div class="pb-dialog-head">
+        <h2 id="pb-contents-title">Contents</h2>
+        <button type="button" class="pb-dialog-close" data-dialog-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close contents</span></button>
       </div>
-      <div class="pillar-grid"><a class="pillar" href="#foundation"><span class="pillar-label"><svg class="pillar-glyph" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h16M3 11h16M3 15h16"/></svg>Foundation</span><span class="pillar-content"><span class="pillar-headline">Open-source .NET libraries on NuGet and Angular libraries on npm give every product the same ASP.NET Core, EF Core and OpenID Connect base. You extend tested packages and deploy them in your own environment.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg></span></a><a class="pillar" href="#products"><span class="pillar-label"><svg class="pillar-glyph" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="3.5" y="12.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="12.5" width="6" height="6" rx="1.5"/></svg>Suite</span><span class="pillar-content"><span class="pillar-headline">Cases, IAM, Messaging and Risk are products you host inside your own ASP.NET Core applications, each with its own SQL Server database, APIs and Angular admin UI. Adopt one or combine several, and extend them with your own code.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg></span></a><a class="pillar" href="#expertise"><span class="pillar-label"><svg class="pillar-glyph" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6.5 17.5h9.25a3.75 3.75 0 0 0 .55-7.46 5.25 5.25 0 0 0-10.1-.04A3.75 3.75 0 0 0 6.5 17.5Z"/></svg>Expertise</span><span class="pillar-content"><span class="pillar-headline">Our engineers build custom applications on the platform and integrate its products with your existing systems and identity providers. After go-live we provide updates, CVE patching and direct engineering support.</span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 19 19M5 19h14V5" stroke="currentColor" stroke-width="1.5"/></svg></span></a></div>
-    </section>
-
-    <section class="foundation section-pad" id="foundation" aria-labelledby="foundation-title" tabindex="-1">
-      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">Platform Foundation</span></div>
-      <h2 class="display-heading foundation-heading" id="foundation-title" data-reveal style="--reveal-index:2">A strong foundation for robust digital solutions.</h2>
-      <div class="foundation-layout">
-        <div class="foundation-art" data-reveal style="--reveal-index:3">
-          <div class="foundation-shapes" aria-hidden="true"><div class="foundation-plane plane-one art-piece" data-art-piece></div><div class="foundation-plane plane-two art-piece" data-art-piece></div><div class="foundation-plane plane-three art-piece" data-art-piece></div><div class="foundation-slash art-piece" data-art-piece></div><span class="art-coordinate coordinate-one art-piece" data-art-piece>+</span><span class="art-coordinate coordinate-two art-piece" data-art-piece>+</span></div>
+      <ol class="pb-toc"><li style="--i:0">
+          <a href="#platform"><span class="pb-toc-no">01</span><span class="pb-toc-title">Platform foundation</span><span class="pb-toc-text">One open-source foundation under every solution.</span></a>
+        </li><li style="--i:1">
+          <a href="#products"><span class="pb-toc-no">02</span><span class="pb-toc-title">Platform suite</span><span class="pb-toc-text">Adopt one solution, or run them together.</span></a>
+          <ul class="pb-toc-sub"><li><a href="#spec-iam"><span>02.1</span> IAM</a></li><li><a href="#spec-cases"><span>02.2</span> Cases</a></li><li><a href="#spec-messaging"><span>02.3</span> Messaging</a></li><li><a href="#spec-risk"><span>02.4</span> Risk</a></li><li><a href="#spec-agents"><span>02.5</span> Agents</a></li><li><a href="#spec-workers"><span>02.6</span> Workers</a></li></ul>
+        </li><li style="--i:2">
+          <a href="#services"><span class="pb-toc-no">03</span><span class="pb-toc-title">Expertise</span><span class="pb-toc-text">INDICE engineers build, integrate and support it with you.</span></a>
+        </li><li style="--i:3">
+          <a href="#faq"><span class="pb-toc-no">04</span><span class="pb-toc-title">Questions</span><span class="pb-toc-text">What technical teams ask first</span></a>
+        </li><li style="--i:4">
+          <a href="#contact"><span class="pb-toc-no">05</span><span class="pb-toc-title">Contact</span><span class="pb-toc-text">See it against your own requirements.</span></a>
+        </li></ol>
+    </div>
+  </dialog>
+  <main id="main" tabindex="-1">
+    <section class="pb-hero" id="hero" aria-labelledby="pb-hero-title" tabindex="-1">
+      <div class="pb-hero-main">
+        <p class="pb-kicker">INDICE Platform · .NET and Angular</p>
+        <h1 id="pb-hero-title"><span class="pb-w" style="--w:0"><span class="pb-accent">Self-hosted</span></span> <span class="pb-w" style="--w:1"><span>.NET</span></span> <span class="pb-w" style="--w:2"><span>solutions</span></span> <span class="pb-w" style="--w:3"><span>for</span></span> <span class="pb-w" style="--w:4"><span>identity,</span></span> <span class="pb-w" style="--w:5"><span>case</span></span> <span class="pb-w" style="--w:6"><span>workflows,</span></span> <span class="pb-w" style="--w:7"><span>messaging,</span></span> <span class="pb-w" style="--w:8"><span>risk,</span></span> <span class="pb-w" style="--w:9"><span>agents</span></span> <span class="pb-w" style="--w:10"><span>and</span></span> <span class="pb-w" style="--w:11"><span>workers.</span></span></h1>
+        <p class="pb-lede">For engineering teams in financial services, fintech and the public sector that keep data, signing keys and operations in their own environment. Each solution runs inside your ASP.NET Core host, on your SQL Server, with REST APIs and an embedded Angular admin UI that your developers extend in C#.</p>
+        <div class="pb-actions">
+          <a class="pb-btn pb-btn-solid" href="#products">Explore the solutions<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a>
+          <button type="button" class="pb-btn pb-btn-line" data-demo>Request a demo</button>
         </div>
-        <div class="foundation-text"><p data-reveal style="--reveal-index:4">The technological foundation behind INDICE solutions combines reusable tools, engineering expertise, cloud practices, and in-depth fintech experience.</p><div class="foundation-details"><div><h3 data-reveal style="--reveal-index:5">Open-source libraries</h3><p data-reveal style="--reveal-index:6">Proven, reusable INDICE tools that enable faster and more secure software development.</p></div><div><h3 data-reveal style="--reveal-index:7">Engineering expertise</h3><p data-reveal style="--reveal-index:8">Years of software development experience supported by established engineering practices.</p></div><div><h3 data-reveal style="--reveal-index:9">Cloud practices</h3><p data-reveal style="--reveal-index:10">Proven approaches to application deployment and continuous monitoring that support stability and availability.</p></div><div><h3 data-reveal style="--reveal-index:11">Fintech experience</h3><p data-reveal style="--reveal-index:12">Deep understanding of the financial sector’s requirements, regulations, and operational complexities.</p></div></div><div class="actions"><div data-reveal style="--reveal-index:13"><button class="button demo-button " type="button" data-demo>Request a demo<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button></div><a class="text-link" href="#products" data-reveal style="--reveal-index:14">Explore the suite<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.5"/></svg></a></div></div>
       </div>
+      <aside class="pb-glance" aria-labelledby="pb-glance-title">
+        <h2 id="pb-glance-title">At a glance</h2>
+        <dl>
+          <div><dt>For technical managers</dt><dd>Deliver regulated, customer-facing services on proven, reusable building blocks instead of starting each project from scratch.</dd></div>
+          <div><dt>For developers</dt><dd>Compose NuGet and npm packages in your own host, then extend them through C# interfaces, workflows and rules.</dd></div>
+          <div class="pb-glance-fact"><dt>Runs on</dt><dd>ASP.NET Core · EF Core · SQL Server</dd></div>
+          <div class="pb-glance-fact"><dt>Sign-in</dt><dd>OpenID Connect / OAuth2</dd></div>
+          <div class="pb-glance-fact"><dt>Admin UIs</dt><dd>Angular, served by each API host</dd></div>
+          <div class="pb-glance-fact"><dt>Delivered with</dt><dd>Development, integration and support</dd></div>
+        </dl>
+      </aside>
+      <ol class="pb-index" aria-label="Solutions"><li style="--i:0"><a href="#spec-iam" style="--tone:#3D5AFE"><span class="pb-index-no">02.1</span><span class="pb-index-name">IAM</span><span class="pb-index-text">Sign in staff, customers and partners with MFA and device trust.</span></a></li><li style="--i:1"><a href="#spec-cases" style="--tone:#12707A"><span class="pb-index-no">02.2</span><span class="pb-index-name">Cases</span><span class="pb-index-text">Run applications and approvals as configurable case types.</span></a></li><li style="--i:2"><a href="#spec-messaging" style="--tone:#5B4FE0"><span class="pb-index-no">02.3</span><span class="pb-index-name">Messaging</span><span class="pb-index-text">Send campaigns and transactional messages on every channel.</span></a></li><li style="--i:3"><a href="#spec-risk" style="--tone:#0F7C8C"><span class="pb-index-no">02.4</span><span class="pb-index-name">Risk</span><span class="pb-index-text">Score payments, logins and account changes before they commit.</span></a></li><li style="--i:4"><a href="#spec-agents" style="--tone:#E3272A"><span class="pb-index-no">02.5</span><span class="pb-index-name">Agents</span><span class="pb-index-text">Answer questions from your own documentation, with sources, in web and mobile apps.</span></a></li><li style="--i:5"><a href="#spec-workers" style="--tone:#F59E0B"><span class="pb-index-no">02.6</span><span class="pb-index-name">Workers</span><span class="pb-index-text">Run scheduled and queued background work, and watch it from one dashboard.</span></a></li></ol>
     </section>
-
-    <section class="products section-pad" id="products" aria-labelledby="products-title" tabindex="-1">
-      <div class="section-top" data-reveal><span class="eyebrow">Platform Suite</span></div>
-      <div class="products-introduction"><h2 class="display-heading" id="products-title" data-reveal>Our solutions.<br>A platform of possibilities.</h2><p data-reveal>Our solutions address recurring business and technology needs. Available individually or in combination, they can be adapted to each organisation’s requirements and deployed in its own environment.</p></div>
-      <div class="product-grid"><div class="product-tile tile-cases" style="--reveal-index:0" data-reveal><a class="tile-link" href="#product-cases" data-product-link="cases"><div class="tile-logo"><img class="product-logo " src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></div><span class="tile-description">Case management and business workflows</span><span class="tile-learn">Learn more <span aria-hidden="true">&darr;</span></span></a><a class="tile-learn tile-technical" href="cases-reference.html">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — Cases</span></a></div><div class="product-tile tile-iam" style="--reveal-index:1" data-reveal><a class="tile-link" href="#product-iam" data-product-link="iam"><div class="tile-logo"><img class="product-logo " src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></div><span class="tile-description">Identity and access management</span><span class="tile-learn">Learn more <span aria-hidden="true">&darr;</span></span></a><a class="tile-learn tile-technical" href="#product-iam" data-product-link="iam">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — IAM</span></a></div><div class="product-tile tile-messaging" style="--reveal-index:2" data-reveal><a class="tile-link" href="#product-messaging" data-product-link="messaging"><div class="tile-logo"><img class="product-logo " src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></div><span class="tile-description">Multichannel campaigns and notifications</span><span class="tile-learn">Learn more <span aria-hidden="true">&darr;</span></span></a><a class="tile-learn tile-technical" href="#product-messaging" data-product-link="messaging">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — Messaging</span></a></div><div class="product-tile tile-risk" style="--reveal-index:3" data-reveal><a class="tile-link" href="#product-risk" data-product-link="risk"><div class="tile-logo"><img class="product-logo " src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div><span class="tile-description">Risk assessment for transactions and activity</span><span class="tile-learn">Learn more <span aria-hidden="true">&darr;</span></span></a><a class="tile-learn tile-technical" href="#product-risk" data-product-link="risk">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — Risk</span></a></div><div class="product-tile tile-placeholder" data-suite-placeholder="workers" data-reveal style="--reveal-index:4"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">Workers lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&darr;</span><span class="sr-only"> — Workers is a placeholder, not available.</span></span><span class="tile-learn tile-technical" aria-disabled="true">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — Workers is a placeholder, not available.</span></span></div><div class="product-tile tile-placeholder" data-suite-placeholder="dex" data-reveal style="--reveal-index:5"><div class="suite-placeholder-logo">Placeholder</div><span class="tile-description">DEX lorem ipsum</span><span class="tile-learn" aria-disabled="true">Learn more <span aria-hidden="true">&darr;</span><span class="sr-only"> — DEX is a placeholder, not available.</span></span><span class="tile-learn tile-technical" aria-disabled="true">Explore technical details <span aria-hidden="true">&rarr;</span><span class="sr-only"> — DEX is a placeholder, not available.</span></span></div></div>
-    </section>
-
-    <section class="product-showcase" id="product-showcase" aria-label="Explore the solutions">
-      <div class="story-stage">
-        <nav class="product-navigation" aria-label="Solution showcase"><button type="button" data-select-product="cases" aria-controls="product-cases">Cases</button><button type="button" data-select-product="iam" aria-controls="product-iam">IAM</button><button type="button" data-select-product="messaging" aria-controls="product-messaging">Messaging</button><button type="button" data-select-product="risk" aria-controls="product-risk">Risk</button></nav>
-        <div class="story-copy"><article class="product-chapter product-chapter-cases" id="product-cases" data-product="cases" style="--product-color:#12707A" aria-labelledby="title-cases" tabindex="-1">
-    <div class="cases-story">
-      <header class="cases-story-heading">
-        <div class="chapter-logo"><img class="product-logo " src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></div>
-        <span class="cases-story-kicker">CASE MANAGEMENT / WORKFLOW PLATFORM</span>
-        <h3 id="title-cases">Operational workflows, engineered to evolve.</h3>
-        <p>Configure forms, approvals and APIs around how work moves, while keeping each decision traceable.</p>
+    <section class="pb-chapter pb-platform" id="platform" aria-labelledby="pb-platform-title" tabindex="-1">
+      <header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§ 01</span>Platform foundation</p>
+        <h2 id="pb-platform-title"><span class="pb-w" style="--w:0"><span>One</span></span> <span class="pb-w" style="--w:1"><span>open-source</span></span> <span class="pb-w" style="--w:2"><span>foundation</span></span> <span class="pb-w" style="--w:3"><span>under</span></span> <span class="pb-w" style="--w:4"><span>every</span></span> <span class="pb-w" style="--w:5"><span>solution.</span></span></h2>
       </header>
-      <div class="cases-story-beats">
-        <section class="case-beat" data-case-beat="intake" aria-label="Case intake">
-          <div class="case-beat-copy">
-            <span class="case-beat-index">01 / INTAKE</span>
-            <h4>One record. Every entry point.</h4>
-            <p>Customer applications and staff-assisted requests follow the same controlled process.</p>
-            <h5>Built for</h5>
-            <ul>
-              <li>Form-driven requests and applications.</li>
-              <li>Branch and call-centre assisted requests.</li>
-              <li>Approval-heavy operations with independent review.</li>
-            </ul>
-          </div>
-          <figure class="case-screen">
-            <figcaption><span>CASES / OPERATIONS</span><b>Team dashboard</b></figcaption>
-            <div class="case-screen-window"><img src="assets/uis/cases dashboard.png" width="1920" height="1080" alt="Cases operations dashboard showing case pipeline and team workloads" loading="lazy" decoding="async"></div>
-          </figure>
-        </section>
-        <section class="case-beat" data-case-beat="workflow" aria-label="Workflow configuration">
-          <div class="case-beat-copy">
-            <span class="case-beat-index">02 / WORKFLOW</span>
-            <h4>Shape the process. Coordinate decisions.</h4>
-            <ul class="case-feature-list">
-              <li><strong>Configure the work.</strong> Set forms, workflow stages and available actions for each case type.</li>
-              <li><strong>Route with intent.</strong> Move requests between teams and require independent approval where needed.</li>
-            </ul>
-          </div>
-          <figure class="case-screen">
-            <figcaption><span>ILLUSTRATIVE / CONFIGURATION</span><b>Workflow designer</b></figcaption>
-            <div class="case-screen-window"><div class="case-workflow-ui" role="img" aria-label="Illustrative Cases workflow designer"><div class="workflow-toolbar"><span>WORKFLOW DESIGNER</span><span class="workflow-status">Draft / Published</span></div><div class="workflow-sidebar"><span>CASE TYPE</span><b>Application review</b><span>FORM</span><b>Applicant details</b><span>WORKFLOW</span><b class="workflow-selected">Stages &amp; actions</b><span>PERMISSIONS</span><b>Access rules</b></div><div class="workflow-canvas"><div class="workflow-canvas-heading"><div><span>WORKFLOW / APPLICATION REVIEW</span><b>Default path</b></div><span>2 checkpoints</span></div><div class="workflow-route"><div class="workflow-node"><small>01 / INTAKE</small><b>Request received</b><span>Customer or staff</span></div><span class="workflow-connector"></span><div class="workflow-node"><small>02 / REVIEW</small><b>Team review</b><span>Operations</span></div><span class="workflow-connector"></span><div class="workflow-node workflow-approval"><small>03 / CHECKPOINT</small><b>Independent approval</b><span>Manager</span></div></div><div class="workflow-footer"><span>+ Add stage</span><span>Changes saved</span></div></div></div></div>
-          </figure>
-        </section>
-        <section class="case-beat" data-case-beat="governance" aria-label="History, visibility and operations">
-          <div class="case-beat-copy">
-            <span class="case-beat-index">03 / GOVERNANCE</span>
-            <h4>Control and visibility.</h4>
-            <p class="case-visibility-line">Track changes, comments and attachments in history and dashboards.</p>
-            <p class="case-visibility-line">Customers see updates; roles and ownership checks keep reviews private.</p>
-            <p class="case-ownership"><strong>Build + operate.</strong> Staff UI, workflow designer, APIs. You set processes, permissions and integrations; you run hosting, database, backups, upgrades and retention.</p>
-            <a class="button explore-button" href="cases-reference.html">Explore technical details<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </div>
-          <figure class="case-screen">
-            <figcaption><span>ILLUSTRATIVE / CASE DETAIL</span><b>Controlled visibility</b></figcaption>
-            <div class="case-screen-window"><div class="case-record-ui" role="img" aria-label="Illustrative Cases record showing activity history and separate customer and internal information"><div class="record-toolbar"><span>CASES / CASE DETAIL</span><span>•••</span></div><div class="record-summary"><div><span>APPLICATION / C-1842</span><b>Review request</b></div><span class="record-status">In review</span></div><div class="record-columns"><div class="record-main"><div class="record-section-heading"><b>Case information</b><span>Updated just now</span></div><div class="record-field"><span>Current stage</span><b>Operations review</b></div><div class="record-field"><span>Assigned team</span><b>Customer Operations</b></div><div class="record-section-heading record-history-heading"><b>Activity history</b><span>3 events</span></div><div class="record-event"><i></i><div><b>Review started</b><span>Maria P. / 10:42</span></div></div><div class="record-event"><i></i><div><b>Application submitted</b><span>Customer portal / 09:18</span></div></div></div><aside class="record-visibility"><span class="record-label">CUSTOMER VIEW</span><b>Published update</b><p>Your application is being reviewed.</p><span class="record-label record-private-label">INTERNAL ONLY</span><b>Approval note</b><p>Supporting checks completed. Awaiting independent approval.</p></aside></div></div></div>
-          </figure>
-        </section>
-      </div>
-    </div>
-  </article><article class="product-chapter" id="product-iam" data-product="iam" style="--product-color:#3D5AFE" aria-labelledby="title-iam" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo " src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></div><h3 id="title-iam">Connected identities. Controlled access.</h3><p class="chapter-description">INDICE IAM brings sign-in, multi-factor authentication, trusted devices, and account management together for customers, employees, and partners. An identity and access management solution deployed within the organisation’s own environment.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-iam">Explore IAM<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-iam">Other product pages are not available in this preview.</p></div><div class="static-preview"><img class="" src="assets/uis/iam dashboard.png" width="1920" height="1080" alt="IAM solution interface" loading="lazy" decoding="async"></div></article><article class="product-chapter" id="product-messaging" data-product="messaging" style="--product-color:#FF7A59" aria-labelledby="title-messaging" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo " src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></div><h3 id="title-messaging">Multiple channels. One messaging hub.</h3><p class="chapter-description">INDICE Messaging unifies campaigns and transactional notifications across email, SMS, push, and in-app inbox. Personalised content, recipient preferences, and delivery and engagement analytics support coordinated communications through configurable delivery providers.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-messaging">Explore Messaging<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-messaging">Other product pages are not available in this preview.</p></div><div class="static-preview"><img class="" src="assets/uis/messaging dashboard.png" width="1920" height="1080" alt="Messaging solution interface" loading="lazy" decoding="async"></div></article><article class="product-chapter" id="product-risk" data-product="risk" style="--product-color:#0F7C8C" aria-labelledby="title-risk" tabindex="-1"><div class="chapter-content"><div class="chapter-logo"><img class="product-logo " src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div><h3 id="title-risk">Clearer risk insight. Informed decisions.</h3><p class="chapter-description">INDICE Risk evaluates transactions and customer activity against configurable business rules. Consolidated risk scores, detailed assessment records, and adjustable thresholds support consistent decisions across applications.</p><button type="button" class="button explore-button" disabled aria-describedby="unavailable-risk">Explore Risk<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button><p class="unavailable-note" id="unavailable-risk">Other product pages are not available in this preview.</p></div><div class="static-preview"><div class="preview-placeholder " role="img" aria-label="Risk UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>Risk</span><span>UI screenshot — awaiting approved asset.</span></span></div></div></article></div>
-        <div class="preview-panel" aria-label="Solution UI preview"><div class="preview-viewport"><div class="preview-slide is-active" data-preview="cases"><figure class="case-screen"><figcaption><span>CASES / OPERATIONS</span><b>Team dashboard</b></figcaption><div class="case-screen-window"><img class="" src="assets/uis/cases dashboard.png" width="1920" height="1080" alt="Cases solution interface" loading="lazy" decoding="async"></div></figure></div><div class="preview-slide" data-preview="iam"><img class="" src="assets/uis/iam dashboard.png" width="1920" height="1080" alt="IAM solution interface" loading="lazy" decoding="async"></div><div class="preview-slide" data-preview="messaging"><img class="" src="assets/uis/messaging dashboard.png" width="1920" height="1080" alt="Messaging solution interface" loading="lazy" decoding="async"></div><div class="preview-slide" data-preview="risk"><div class="preview-placeholder " role="img" aria-label="Risk UI screenshot placeholder. Awaiting approved asset."><span class="placeholder-cross" aria-hidden="true"></span><span class="placeholder-caption"><span>Risk</span><span>UI screenshot — awaiting approved asset.</span></span></div></div></div></div>
+      <div class="pb-platform-body">
+        <p class="pb-standfirst" data-reveal>IAM, Cases, Messaging, Risk, Agents and Workers are assembled from the same Indice.Platform libraries, published on NuGet and npm. Your team works with standard ASP.NET Core, EF Core and Angular tooling, not a proprietary runtime.</p>
+        <ol class="pb-points"><li data-reveal style="--i:0"><span class="pb-point-no">01</span><div><h3>Open-source libraries</h3><p>Indice.Platform packages on NuGet and @indice/ng-* packages on npm provide the APIs, data access, authentication and UI components every solution uses.</p><span class="pb-point-meta">NuGet · npm</span></div></li><li data-reveal style="--i:1"><span class="pb-point-no">02</span><div><h3>Your host, your data</h3><p>Each solution is a set of libraries you compose in your own ASP.NET Core host, with its own SQL Server database and EF Core migrations. Nothing runs as SaaS.</p><span class="pb-point-meta">ASP.NET Core · EF Core</span></div></li><li data-reveal style="--i:0"><span class="pb-point-no">03</span><div><h3>One identity model</h3><p>Every solution is an OAuth2 API resource with its own scopes, such as cases, messages:send and risk. Operators sign in to each admin UI through your identity server.</p><span class="pb-point-meta">OIDC · OAuth2</span></div></li><li data-reveal style="--i:1"><span class="pb-point-no">04</span><div><h3>Extension points in C#</h3><p>Contact providers, lookups, risk rules, sign-in steps, log enrichers and workflow activities are C# interfaces with no-op defaults. Extensions run and debug in your process.</p><span class="pb-point-meta">Interfaces · DI</span></div></li><li data-reveal style="--i:0"><span class="pb-point-no">05</span><div><h3>Embedded admin UIs</h3><p>Each solution serves its Angular back office from its own API host: the Cases back office, the IAM admin at /admin, and the Messaging and Risk consoles. No separate front-end deployment.</p><span class="pb-point-meta">Angular</span></div></li><li data-reveal style="--i:1"><span class="pb-point-no">06</span><div><h3>Regulated requirements as features</h3><p>Four-eyes approval, two audit trails, impossible-travel checks, terms re-acceptance and data retention ship as configuration, informed by INDICE’s fintech experience.</p><span class="pb-point-meta">Fintech experience</span></div></li></ol>
       </div>
     </section>
-
-    <section class="expertise section-pad" id="expertise" aria-labelledby="expertise-title" tabindex="-1">
-      <div class="section-top"><span class="eyebrow" data-reveal style="--reveal-index:0">Platform Expertise</span></div>
-      <div class="expertise-introduction"><h2 class="display-heading" id="expertise-title" data-reveal style="--reveal-index:2">From platform capabilities to working solutions.</h2><div><p data-reveal style="--reveal-index:3">INDICE provides the development, integration, and ongoing support to tailor platform capabilities to each organisation.</p><p data-reveal style="--reveal-index:4">Implementation expertise and continuous improvement support the full journey, from initial delivery to evolving business requirements.</p></div></div>
-      <div class="expertise-list"><article class="expertise-row" data-reveal style="--reveal-index:0"><h3>Application development</h3><p>Custom applications and solution extensions built around specific business processes and requirements.</p><span class="expertise-glyph glyph-0" aria-hidden="true"><i></i><i></i><i></i></span></article><article class="expertise-row" data-reveal style="--reveal-index:1"><h3>Solution and system integration</h3><p>Selected platform solutions connected with existing applications, systems, and infrastructure.</p><span class="expertise-glyph glyph-1" aria-hidden="true"><i></i><i></i><i></i></span></article><article class="expertise-row" data-reveal style="--reveal-index:2"><h3>Continuous evolution and support</h3><p>New features, regular security updates, vulnerability patching, and direct support from the INDICE team.</p><span class="expertise-glyph glyph-2" aria-hidden="true"><i></i><i></i><i></i></span></article></div>
+    <figure class="pb-plate" data-reveal>
+      <div class="pb-plate-inner">
+        <figcaption class="pb-plate-caption">
+          <p class="pb-plate-label">Plate I</p>
+          <p class="pb-plate-title">One foundation under every solution.</p>
+          <p class="pb-plate-text">Every INDICE solution is assembled from the same open-source Indice.Platform libraries and runs in your own host. A solution you add later joins the same identity, hosting and extension patterns as the ones you already run.</p>
+          <ul class="pb-plate-legend"><li style="--tone:#3D5AFE">IAM</li><li style="--tone:#12707A">Cases</li><li style="--tone:#5B4FE0">Messaging</li><li style="--tone:#0F7C8C">Risk</li><li style="--tone:#E3272A">Agents</li><li style="--tone:#F59E0B">Workers</li></ul>
+        </figcaption>
+        <div class="pb-plate-art" data-parallax="-0.06">
+          <svg class="pb-plate-svg" viewBox="-300 -300 600 600" aria-hidden="true" focusable="false" data-repel-area>
+            <circle class="pb-ticks" r="288" pathLength="360" data-repel="4"/>
+            <circle class="pb-ring pb-ring-dashed" r="268" data-repel="5"/>
+            <circle class="pb-ring" r="205" data-repel="6"/>
+            <circle class="pb-ring pb-ring-dotted" r="112" data-repel="7"/>
+            <g class="pb-orbit"><line class="pb-spoke" x1="0.0" y1="-70.0" x2="0.0" y2="-165.0"/><line class="pb-spoke" x1="54.7" y1="-43.6" x2="129.0" y2="-102.9"/><line class="pb-spoke" x1="68.2" y1="15.6" x2="160.9" y2="36.7"/><line class="pb-spoke" x1="30.4" y1="63.1" x2="71.6" y2="148.7"/><line class="pb-spoke" x1="-30.4" y1="63.1" x2="-71.6" y2="148.7"/><line class="pb-spoke" x1="-68.2" y1="15.6" x2="-160.9" y2="36.7"/><line class="pb-spoke pb-spoke-ghost" x1="-54.7" y1="-43.6" x2="-129.0" y2="-102.9"/><g transform="translate(0.0 -205.0)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:0;--tone:#3D5AFE"><circle class="pb-node-disc" r="34"/><image href="assets/logos/iam icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">IAM</text></g></g></g><g transform="translate(160.3 -127.8)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:1;--tone:#12707A"><circle class="pb-node-disc" r="34"/><image href="assets/logos/cases icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">Cases</text></g></g></g><g transform="translate(199.9 45.6)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:2;--tone:#5B4FE0"><circle class="pb-node-disc" r="34"/><image href="assets/logos/messaging icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">Messaging</text></g></g></g><g transform="translate(88.9 184.7)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:3;--tone:#0F7C8C"><circle class="pb-node-disc" r="34"/><image href="assets/logos/risk icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">Risk</text></g></g></g><g transform="translate(-88.9 184.7)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:4;--tone:#E3272A"><circle class="pb-node-disc" r="34"/><image href="assets/logos/dex icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">Agents</text></g></g></g><g transform="translate(-199.9 45.6)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:5;--tone:#F59E0B"><circle class="pb-node-disc" r="34"/><image href="assets/logos/workers icon.svg" x="-18" y="-18" width="36" height="36"/><text class="pb-node-name" y="58">Workers</text></g></g></g><g transform="translate(-160.3 -127.8)"><g class="pb-node-spin"><g class="pb-node" data-repel="12" style="--i:6"><circle class="pb-node-ghost" r="34"/><path class="pb-node-plus" d="M-9 0h18M0-9v18"/></g></g></g></g>
+            <g class="pb-foundation"><g transform="translate(65.8 -90.6)"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">ASP.NET Core</text></g></g></g><g transform="translate(106.5 34.6)"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">EF Core</text></g></g></g><g transform="translate(0.0 112.0)"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">SQL Server</text></g></g></g><g transform="translate(-106.5 34.6)"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">OpenID Connect</text></g></g></g><g transform="translate(-65.8 -90.6)"><g class="pb-chip-spin"><g data-repel="9"><circle class="pb-chip-dot" r="4"/><text class="pb-chip" y="-11">Angular</text></g></g></g></g>
+            <circle class="pb-core-halo" r="84" data-repel="6"/>
+            <g data-repel="9">
+              <circle class="pb-core" r="66"/>
+              <text class="pb-core-text" y="-3">Indice</text>
+              <text class="pb-core-text pb-core-sub" y="17">Platform</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </figure>
+    <section class="pb-chapter pb-suite" id="products" aria-labelledby="pb-suite-title" tabindex="-1">
+      <header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§ 02</span>Platform suite</p>
+        <h2 id="pb-suite-title"><span class="pb-w" style="--w:0"><span>Adopt</span></span> <span class="pb-w" style="--w:1"><span>one</span></span> <span class="pb-w" style="--w:2"><span>solution,</span></span> <span class="pb-w" style="--w:3"><span>or</span></span> <span class="pb-w" style="--w:4"><span>run</span></span> <span class="pb-w" style="--w:5"><span>them</span></span> <span class="pb-w" style="--w:6"><span>together.</span></span></h2>
+      </header>
+      <p class="pb-standfirst pb-suite-intro" data-reveal>Each solution addresses one recurring need in customer-facing, regulated services. They share hosting, identity and extension patterns, so every solution you add reuses what the first one set up.</p>
+      <div class="pb-cards"><article class="pb-card" style="--tone:#3D5AFE;--i:0" aria-labelledby="pb-card-iam" data-reveal>
+          <p class="pb-card-fig">Fig. 02.1</p>
+          <h3 class="pb-card-logo" id="pb-card-iam"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Identity and access management</p>
+          <p class="pb-card-action">Sign in staff, customers and partners with MFA and device trust.</p>
+          <p class="pb-card-stack">ASP.NET Core Identity · Duende IdentityServer · EF Core · SQL Server · SignalR · Angular</p>
+          <div class="pb-card-links">
+            <a href="#spec-iam">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about IAM</span></a>
+            <a href="#">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for IAM</span></a>
+          </div>
+        </article><article class="pb-card" style="--tone:#12707A;--i:1" aria-labelledby="pb-card-cases" data-reveal>
+          <p class="pb-card-fig">Fig. 02.2</p>
+          <h3 class="pb-card-logo" id="pb-card-cases"><img class="product-logo logo-on-light" src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/cases-logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Case management and back-office workflows</p>
+          <p class="pb-card-action">Run applications and approvals as configurable case types.</p>
+          <p class="pb-card-stack">ASP.NET Core · EF Core · SQL Server · Elsa Workflows 2 · JSON Schema + JSON Forms · Angular</p>
+          <div class="pb-card-links">
+            <a href="#spec-cases">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Cases</span></a>
+            <a href="proposal-b-cases-reference.html">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Cases</span></a>
+          </div>
+        </article><article class="pb-card" style="--tone:#5B4FE0;--i:2" aria-labelledby="pb-card-messaging" data-reveal>
+          <p class="pb-card-fig">Fig. 02.3</p>
+          <h3 class="pb-card-logo" id="pb-card-messaging"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Multichannel campaigns and notifications</p>
+          <p class="pb-card-action">Send campaigns and transactional messages on every channel.</p>
+          <p class="pb-card-stack">ASP.NET Core · EF Core · SQL Server · Azure Storage / Service Bus · Handlebars.Net · Angular</p>
+          <div class="pb-card-links">
+            <a href="#spec-messaging">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Messaging</span></a>
+            <a href="#">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Messaging</span></a>
+          </div>
+        </article><article class="pb-card" style="--tone:#0F7C8C;--i:3" aria-labelledby="pb-card-risk" data-reveal>
+          <p class="pb-card-fig">Fig. 02.4</p>
+          <h3 class="pb-card-logo" id="pb-card-risk"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Real-time risk scoring for transactions and activity</p>
+          <p class="pb-card-action">Score payments, logins and account changes before they commit.</p>
+          <p class="pb-card-stack">ASP.NET Core · EF Core · SQL Server · NetTopologySuite · MaxMind GeoLite2 · Angular</p>
+          <div class="pb-card-links">
+            <a href="#spec-risk">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Risk</span></a>
+            <a href="#">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Risk</span></a>
+          </div>
+        </article><article class="pb-card" style="--tone:#E3272A;--i:4" aria-labelledby="pb-card-agents" data-reveal>
+          <p class="pb-card-fig">Fig. 02.5</p>
+          <h3 class="pb-card-logo" id="pb-card-agents"><img class="product-logo logo-on-light" src="assets/logos/dex logo.svg" width="184" height="30" alt="Agents" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/agents-logo.svg" width="184" height="30" alt="Agents" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Knowledge assistant with cited answers</p>
+          <p class="pb-card-action">Answer questions from your own documentation, with sources, in web and mobile apps.</p>
+          <p class="pb-card-stack">ASP.NET Core · EF Core · SQL Server · Azure OpenAI · Microsoft.Extensions.AI · Angular · SwiftUI · Jetpack Compose</p>
+          <div class="pb-card-links">
+            <a href="#spec-agents">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Agents</span></a>
+            <a href="#">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Agents</span></a>
+          </div>
+        </article><article class="pb-card" style="--tone:#F59E0B;--i:5" aria-labelledby="pb-card-workers" data-reveal>
+          <p class="pb-card-fig">Fig. 02.6</p>
+          <h3 class="pb-card-logo" id="pb-card-workers"><img class="product-logo logo-on-light" src="assets/logos/workers logo.svg" width="141" height="30" alt="Workers" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/workers-logo.svg" width="141" height="30" alt="Workers" loading="lazy" decoding="async"></h3>
+          <p class="pb-card-tagline">Background jobs, queues and scheduling</p>
+          <p class="pb-card-action">Run scheduled and queued background work, and watch it from one dashboard.</p>
+          <p class="pb-card-stack">ASP.NET Core · Quartz · EF Core · SQL Server or PostgreSQL · Angular</p>
+          <div class="pb-card-links">
+            <a href="#spec-workers">Learn more<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg><span class="sr-only"> about Workers</span></a>
+            <a href="#">Technical details<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only"> for Workers</span></a>
+          </div>
+        </article></div>
+      <section class="pb-guide" id="specs" aria-labelledby="pb-guide-title" tabindex="-1">
+        <header class="pb-guide-head" data-reveal>
+          <p class="pb-chapter-label"><span class="pb-chapter-no">§ 02</span>Under the hood</p>
+          <h3 class="pb-guide-title" id="pb-guide-title"><span class="pb-w" style="--w:0"><span>How</span></span> <span class="pb-w" style="--w:1"><span>each</span></span> <span class="pb-w" style="--w:2"><span>solution</span></span> <span class="pb-w" style="--w:3"><span>works</span></span></h3>
+          <p class="pb-standfirst">The problem each solution addresses, how it works, how it is deployed and what it connects to.</p>
+        </header>
+        <article class="pb-entry" id="spec-iam" aria-labelledby="pb-entry-iam" style="--tone:#3D5AFE" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.1</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/iam logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/iam-logo.svg" width="101" height="30" alt="IAM" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-iam">IAM</h4>
+          <p class="pb-entry-tagline">Identity and access management</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>my/account/*</code></li><li><code>api/my/devices</code></li><li><code>grant_type=device_authentication</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core Identity</li><li>Duende IdentityServer</li><li>EF Core · SQL Server</li><li>SignalR</li><li>Angular</li></ul>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>IAM is an OpenID Connect and OAuth2 server for workforce, customer and partner sign-in. It builds on ASP.NET Core Identity and Duende IdentityServer and adds sign-in pages, MFA, device trust, audit logs, self-service APIs and an admin UI.</p>
+          <aside class="pb-partner" aria-label="Official partner: Duende Software" data-reveal>
+            <p class="pb-partner-label">Official partner</p>
+            <span class="pb-partner-logo" role="img" aria-label="Duende Software" style="-webkit-mask-image:url('assets/logos/duende logo.svg');mask-image:url('assets/logos/duende logo.svg')"></span>
+            <p class="pb-partner-text">INDICE is an official distributor and integrator of Duende Software, the company behind Duende IdentityServer. We license, deploy and integrate IdentityServer as part of IAM, and support it alongside the rest of the platform.</p>
+            <a class="pb-partner-link" href="https://duendesoftware.com/" rel="noopener" target="_blank">duendesoftware.com<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+          </aside>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">Teams either rent identity as a service and give up control of user data and signing keys, or rebuild login, MFA, device management and audit for every application.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">Every sign-in, by password or external provider such as Apple, Google, Microsoft, Facebook or GovGr, runs through one pipeline.</li><li style="--i:1">MFA by SMS, email, Viber, authenticator app, push approval on a trusted device, or FIDO2 / WebAuthn, optional or enforced.</li><li style="--i:2">A post-login chain handles terms re-acceptance, MFA onboarding, email and phone confirmation and password expiry before tokens are issued.</li><li style="--i:3">Sign-in logs record every attempt with device and location and detect impossible travel; activity logs record every change.</li></ol>
+          <h5 id="spec-iam-architecture">Architecture</h5>
+          <p>One ASP.NET Core host serves the Razor login pages, OIDC endpoints, management and self-service APIs, the /mfa SignalR hub and the Angular admin UI. Identity, configuration, operational, sign-in log and activity log data live in five databases that can share a server or sit apart.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Your web, mobile and API clients over OpenID Connect and OAuth2</li><li>External providers: Apple, Google, Microsoft, Facebook, GovGr and any standard OIDC provider</li><li>Delivery providers for SMS, Viber and email, and Azure Notification Hubs for push</li><li>Custom grants for device sign-in, delegation, TOTP step-up and guest access</li><li>Platform events for users, clients, devices and logins</li><li>API resources for Cases and Messaging seeded by the template</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>Indice.IdentityPages/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.IdentityPages/Program.cs excerpt"><code><span class="code-line" style="--l:0">app.<span class="tok-function">UseRateLimiter</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseIdentityServer</span>();</span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseAdminUI</span>(options =&gt; options.<span class="tok-type">PathPrefix</span> = <span class="tok-string">&quot;admin&quot;</span>);</span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapIdentityServer</span>();                  <span class="tok-comment">// management, account and device APIs</span></span>
+<span class="code-line" style="--l:4">app.<span class="tok-function">MapRazorPages</span>();                      <span class="tok-comment">// login, register, MFA, profile pages</span></span>
+<span class="code-line" style="--l:5">app.<span class="tok-function">MapMultiFactorAuthentication</span>();       <span class="tok-comment">// MFA API</span></span>
+<span class="code-line" style="--l:6">app.<span class="tok-function">MapMultiFactorAuthenticationHub</span>();    <span class="tok-comment">// /mfa SignalR hub</span></span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-iam">Screens<span> · IAM</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-iam"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: IAM</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-iam"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: IAM</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-iam" data-hover-scroll aria-labelledby="pb-gallery-iam">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Admin dashboard" data-text="Users, sign-ins today, client applications and failed sign-ins, with daily sign-in activity, engagement, account security and the accounts that need attention." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/iam/01.my.indice.gr_admin_dashboard.png" width="1920" height="1080" alt="IAM admin dashboard with user and sign-in totals, a 30-day sign-in activity chart, engagement, account security and accounts that need attention" loading="lazy" decoding="async"></span>
+            <figcaption><b>Admin dashboard</b><span>Users, sign-ins today, client applications and failed sign-ins, with daily sign-in activity, engagement, account security and the accounts that need attention.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Admin dashboard"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Claim types" data-text="Every kind of information stored about users, with its display name and value type, and whether users can edit it or must provide it." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/iam/02.my.indice.gr_admin_claim-types.png" width="1920" height="1080" alt="IAM claim types list showing name, display name, value type, user editable and required for each claim" loading="lazy" decoding="async"></span>
+            <figcaption><b>Claim types</b><span>Every kind of information stored about users, with its display name and value type, and whether users can edit it or must provide it.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Claim types"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Identity resources" data-text="Groups of user claims, such as email, phone, profile and role, that clients can request, marked required or emphasised." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/iam/03.my.indice.gr_admin_resources_identity.png" width="1920" height="1080" alt="IAM identity resources list showing each resource with its display name, description and number of claims" loading="lazy" decoding="async"></span>
+            <figcaption><b>Identity resources</b><span>Groups of user claims, such as email, phone, profile and role, that clients can request, marked required or emphasised.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge IAM screen: Identity resources"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+        <article class="pb-entry" id="spec-cases" aria-labelledby="pb-entry-cases" style="--tone:#12707A" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.2</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/cases logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/cases-logo.svg" width="122" height="30" alt="Cases" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-cases">Cases</h4>
+          <p class="pb-entry-tagline">Case management and back-office workflows</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>POST my/cases</code></li><li><code>GET manage/cases/{id}/actions</code></li><li><code>GET manage/dashboard/metrics</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Elsa Workflows 2</li><li>JSON Schema + JSON Forms</li><li>Angular</li></ul>
+          <a class="pb-entry-link" href="proposal-b-cases-reference.html">Read the Cases technical reference<svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>Cases runs form-driven processes, such as applications, service requests and approvals, on one record shared by customers and back-office staff. Customers submit from your apps, staff open cases on their behalf, and both follow the same assignment, edit and approval workflow.</p>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">Request-and-approval processes tend to live in inboxes, spreadsheets or one-off screens. Each new process becomes a development project, and it is hard to show who approved what or what the customer was told.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">Define a case type: a JSON Schema for the data, a JSON Forms layout and the checkpoints the case moves through.</li><li style="--i:1">Publish an Elsa 2 workflow tagged with the case type from the designer at /workflow, without a redeploy.</li><li style="--i:2">On submit, the workflow decides who acts next. The back office shows only the actions waiting: assign, edit, approve, reject or a custom action.</li><li style="--i:3">Private checkpoints and data versions keep internal steps internal; the customer sees the public status and published data.</li></ol>
+          <h5 id="spec-cases-architecture">Architecture</h5>
+          <p>One ASP.NET Core host runs the Cases API, the Elsa workflow server and designer, and the embedded Angular back office. CasesDb holds cases and WorkflowDb holds workflow state, so a workflow upgrade never touches case data.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Customer search through IContactProvider, with an Identity Server provider built in</li><li>Form prefill from your systems with ICaseDataInitializer</li><li>Dropdown values from your systems through named ILookupService sources</li><li>Platform events such as CaseSubmittedEvent and a workflow-integration API</li><li>SMS, Viber and SMTP notifications from workflow activities</li><li>A PDF per case type through ICasePdfService</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>Indice.Cases/Program.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.Cases/Program.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">var</span> app = builder.<span class="tok-function">Build</span>();</span>
+<span class="code-line" style="--l:1">app.<span class="tok-function">UseCasesWorkflow</span>();   <span class="tok-comment">// Elsa HTTP activities, designer (/workflow), workflow-actions API</span></span>
+<span class="code-line" style="--l:2">app.<span class="tok-function">UseCasesUI</span>();         <span class="tok-comment">// embedded back-office SPA</span></span>
+<span class="code-line" style="--l:3">app.<span class="tok-function">MapCases</span>();           <span class="tok-comment">// my + manage + workflow-integration + translation endpoints</span></span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-cases">Screens<span> · Cases</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-cases"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: Cases</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-cases"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: Cases</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-cases" data-hover-scroll aria-labelledby="pb-gallery-cases">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="The case pipeline from waiting to completed, cases that need attention, your own queue, new cases per day and totals by case type and status." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/cases/01.cases.indice.gr_dashboard.png" width="1920" height="1080" alt="Cases dashboard with the open case pipeline, cases needing attention, my queue, new cases this week and totals by case type and status" loading="lazy" decoding="async"></span>
+            <figcaption><b>Dashboard</b><span>The case pipeline from waiting to completed, cases that need attention, your own queue, new cases per day and totals by case type and status.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Dashboard"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Case list" data-text="Every case with its customer, case type, checkpoint, assignee and submission date, with search, filters, saved searches and an assigned-to-me switch." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/cases/02.cases.indice.gr_cases.png" width="1920" height="1080" alt="Cases list showing case number, customer, tax ID, group, case type, checkpoint, assignee and submission date for each case" loading="lazy" decoding="async"></span>
+            <figcaption><b>Case list</b><span>Every case with its customer, case type, checkpoint, assignee and submission date, with search, filters, saved searches and an assigned-to-me switch.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Case list"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Case details" data-text="The submitted form data next to the case information, the customer and the history, with tabs for attachments, data versions and related cases." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/cases/03.cases.indice.gr_cases_82752196-2740-4a81-85d2-b7cf4a20b6fd_details.png" width="1920" height="1080" alt="Case details showing the case data form, basic case information, customer information and the case history" loading="lazy" decoding="async"></span>
+            <figcaption><b>Case details</b><span>The submitted form data next to the case information, the customer and the history, with tabs for attachments, data versions and related cases.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Cases screen: Case details"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+        <article class="pb-entry" id="spec-messaging" aria-labelledby="pb-entry-messaging" style="--tone:#5B4FE0" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.3</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/messaging logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/messaging-logo.svg" width="163" height="30" alt="Messaging" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-messaging">Messaging</h4>
+          <p class="pb-entry-tagline">Multichannel campaigns and notifications</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>messages:send</code></li><li><code>MyMessages inbox API</code></li><li><code>analytics/*</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Azure Storage / Service Bus</li><li>Handlebars.Net</li><li>Angular</li></ul>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>Messaging delivers marketing campaigns and transactional messages, such as OTPs, receipts and alerts, over in-app inbox, push, email and SMS or Viber from one pipeline, with templates, audiences, recipient preferences and analytics.</p>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">Campaigns and system notifications often run on separate tools and vendor accounts. Consent and channel preferences are checked inconsistently, and every template is tied to one vendor.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">A campaign carries per-channel content, target channels, an audience from a distribution list or CSV import, and a schedule. Nothing is sent until it is published.</li><li style="--i:1">Your systems send transactional messages with one call under the messages:send scope, through the same pipeline.</li><li style="--i:2">A worker resolves each recipient, renders Handlebars templates per channel and keeps only the channels the recipient chose and can receive.</li><li style="--i:3">Delivery and engagement events roll up into Reached, Engaged, Acted and Coverage metrics.</li></ol>
+          <h5 id="spec-messaging-architecture">Architecture</h5>
+          <p>The API host enqueues and serves the embedded Angular admin UI; a worker on Azure Functions or an in-process host renders and delivers. Azure Storage Queues or Service Bus connect them, with MessagesDb on SQL Server and Blob storage for attachments.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Email through SMTP, SendGrid, SparkPost, Brevo or Azure Communication Services</li><li>SMS and Viber through Yuboto, Apifon, Twilio, Vonage and other gateways</li><li>Push through Azure Notification Hubs to APNS and FCM</li><li>Contacts, consent and preferences resolved from your identity server</li><li>A transactional send API for other systems</li><li>Tracked call-to-action links for click analytics</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>appsettings.json</span><span>JSON</span></figcaption><pre tabindex="0" aria-label="appsettings.json excerpt"><code><span class="code-line" style="--l:0"><span class="tok-key">&quot;Email&quot;</span>: {</span>
+<span class="code-line" style="--l:1">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;SparkPost&quot;</span>,   <span class="tok-comment">// Smtp · SendGrid · SparkPost · Brevo · AzureCommunicationServices</span></span>
+<span class="code-line" style="--l:2">  <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;no-reply@your-domain.gr&quot;</span>,</span>
+<span class="code-line" style="--l:3">  <span class="tok-key">&quot;SmtpHost&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;SmtpPort&quot;</span>: <span class="tok-number">587</span>, <span class="tok-key">&quot;UseSSL&quot;</span>: <span class="tok-keyword">true</span></span>
+<span class="code-line" style="--l:4">},</span>
+<span class="code-line" style="--l:5"><span class="tok-key">&quot;Sms&quot;</span>: {</span>
+<span class="code-line" style="--l:6">  <span class="tok-key">&quot;Provider&quot;</span>: <span class="tok-string">&quot;Yuboto&quot;</span>,      <span class="tok-comment">// Yuboto · YubotoOmni · Apifon · Twilio · Vonage · SmsUp · KapaTEL · Mstat</span></span>
+<span class="code-line" style="--l:7">  <span class="tok-key">&quot;ApiKey&quot;</span>: <span class="tok-string">&quot;…&quot;</span>, <span class="tok-key">&quot;Sender&quot;</span>: <span class="tok-string">&quot;MyBrand&quot;</span>,</span>
+<span class="code-line" style="--l:8">  <span class="tok-key">&quot;TestMode&quot;</span>: <span class="tok-keyword">false</span>          <span class="tok-comment">// wire the pipeline without spending on real sends</span></span>
+<span class="code-line" style="--l:9">},</span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-messaging">Screens<span> · Messaging</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-messaging"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: Messaging</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-messaging"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: Messaging</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-messaging" data-hover-scroll aria-labelledby="pb-gallery-messaging">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="Dispatched and failed messages, delivery success rate and active campaigns, with dispatches over time, the channel mix, audience reach and recent campaigns." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/messaging/01.messaging.indice.gr_dashboard.png" width="1920" height="1080" alt="Messaging dashboard with dispatched, failed, delivery success rate and active campaigns, a dispatched versus failed chart, channel mix, audience and reach, and recent campaigns" loading="lazy" decoding="async"></span>
+            <figcaption><b>Dashboard</b><span>Dispatched and failed messages, delivery success rate and active campaigns, with dispatches over time, the channel mix, audience reach and recent campaigns.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Dashboard"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Campaign details" data-text="A campaign’s status, type, duration, call to action, communication channels, distribution list and email sender, with tabs for content, reports and recipients." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/messaging/02.messaging.indice.gr_campaigns_ff73ecec-144d-4659-8520-12b0355d08a5_campaign-details.png" width="1920" height="1080" alt="Messaging campaign details showing the basic information of a published campaign" loading="lazy" decoding="async"></span>
+            <figcaption><b>Campaign details</b><span>A campaign’s status, type, duration, call to action, communication channels, distribution list and email sender, with tabs for content, reports and recipients.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Campaign details"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Template content" data-text="A template’s content per communication channel: email, SMS, push notification and inbox, edited in a code editor next to a live preview." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/messaging/03.messaging.indice.gr_templates_39373841-dd67-40fb-a9cd-4bd449b26739_template-content.png" width="1920" height="1080" alt="Messaging template editor with channel selection, the email sender, subject and HTML body, and a live preview of the email" loading="lazy" decoding="async"></span>
+            <figcaption><b>Template content</b><span>A template’s content per communication channel: email, SMS, push notification and inbox, edited in a code editor next to a live preview.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Messaging screen: Template content"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+        <article class="pb-entry" id="spec-risk" aria-labelledby="pb-entry-risk" style="--tone:#0F7C8C" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.4</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/risk logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/risk-logo.svg" width="105" height="30" alt="Risk" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-risk">Risk</h4>
+          <p class="pb-entry-tagline">Real-time risk scoring for transactions and activity</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>POST api/risk</code></li><li><code>POST api/risk/events</code></li><li><code>GET risk-events/session/{sessionId}</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>NetTopologySuite</li><li>MaxMind GeoLite2</li><li>Angular</li></ul>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>Risk scores operations such as payments, transfers, logins and profile changes in real time, before your application commits them. Rules are C# classes; their thresholds are settings that operators change at runtime.</p>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">Fraud checks are often duplicated inside each application or hidden in an external service, so thresholds need a release and decisions cannot be explained afterwards.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">Before committing an operation, your application calls POST api/risk with the subject, type, amount, IP address and any JSON data.</li><li style="--i:1">The engine resolves the IP address to a location with the bundled GeoLite2 databases and runs every enabled rule.</li><li style="--i:2">Results combine into one score and level, from None to High, by Sum or Maximum. Your application allows the operation, asks for MFA or blocks it.</li><li style="--i:3">Record the completed operation with POST api/risk/events and its ResultId; rules query that history for velocity and new-country checks.</li></ol>
+          <h5 id="spec-risk-architecture">Architecture</h5>
+          <p>One ASP.NET Core host serves the risk API, the admin API and the embedded Angular console. RiskDb on SQL Server, with spatial support, stores events, results and rule options; options reload every few seconds.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Calling applications through client-credentials clients with the risk scope</li><li>Step-up authentication with your identity server, for example MFA on a Medium score</li><li>Offline GeoIP enrichment with bundled MaxMind GeoLite2 data</li><li>Custom event, result and rule-option stores</li><li>FluentValidation for each rule’s options</li><li>An admin API for investigation tools</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>LargeTransferRule.cs</span><span>C#</span></figcaption><pre tabindex="0" aria-label="LargeTransferRule.cs excerpt"><code><span class="code-line" style="--l:0"><span class="tok-keyword">public</span> <span class="tok-keyword">class</span> <span class="tok-function">LargeTransferRule</span>(<span class="tok-type">IOptionsSnapshot</span>&lt;<span class="tok-type">LargeTransferRuleOptions</span>&gt; options, <span class="tok-type">IRiskEventStore</span> events)</span>
+<span class="code-line" style="--l:1">    : <span class="tok-function">RiskRule</span>(<span class="tok-string">&quot;LargeTransfer&quot;</span>)</span>
+<span class="code-line" style="--l:2">{</span>
+<span class="code-line" style="--l:3">    <span class="tok-keyword">public</span> <span class="tok-keyword">override</span> <span class="tok-keyword">async</span> <span class="tok-type">ValueTask</span>&lt;<span class="tok-type">RuleExecutionResult</span>&gt; <span class="tok-function">ExecuteAsync</span>(<span class="tok-type">DbRiskEvent</span> @event) {</span>
+<span class="code-line" style="--l:4">        <span class="tok-keyword">var</span> o = options.<span class="tok-type">Value</span>;</span>
+<span class="code-line" style="--l:5">        <span class="tok-keyword">if</span> (@event.<span class="tok-type">Amount</span> &lt; o.<span class="tok-type">Threshold</span>) <span class="tok-keyword">return</span> <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">NoRisk</span>();</span>
+<span class="code-line" style="--l:6">        <span class="tok-keyword">var</span> recent = <span class="tok-keyword">await</span> events.<span class="tok-function">GetList</span>(@event.<span class="tok-type">SubjectId</span>, [<span class="tok-string">&quot;Transfer&quot;</span>], <span class="tok-type">DateTime</span>.<span class="tok-type">UtcNow</span>.<span class="tok-function">AddHours</span>(-<span class="tok-number">24</span>));</span>
+<span class="code-line" style="--l:7">        <span class="tok-keyword">return</span> recent.<span class="tok-function">Count</span>() &gt;= o.<span class="tok-type">MaxPerDay</span></span>
+<span class="code-line" style="--l:8">            ? <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">HighRisk</span>(<span class="tok-string">$&quot;{recent.Count()} large transfers in 24h.&quot;</span>)</span>
+<span class="code-line" style="--l:9">            : <span class="tok-type">RuleExecutionResult</span>.<span class="tok-function">MediumRisk</span>(<span class="tok-string">$&quot;Transfer above {o.Threshold}.&quot;</span>);</span>
+<span class="code-line" style="--l:10">    }</span>
+<span class="code-line" style="--l:11">}</span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-risk">Screens<span> · Risk</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-risk"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: Risk</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-risk"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: Risk</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-risk" data-hover-scroll aria-labelledby="pb-gallery-risk">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="Events received, high-risk evaluations and active rules, with the evaluations by risk level, the evaluations that need review and the rules that score every event." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/risk/01.risk.indice.gr_dashboard.png" width="1920" height="1080" alt="Risk dashboard with events received, high risk and active rules, risk evaluations by level, needs review and rules" loading="lazy" decoding="async"></span>
+            <figcaption><b>Dashboard</b><span>Events received, high-risk evaluations and active rules, with the evaluations by risk level, the evaluations that need review and the rules that score every event.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Dashboard"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Risk events" data-text="Every transaction and user action reported for evaluation, filtered by date and more. Each event opens with its subject, amount, IP address, source, session and data." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/risk/02.risk.indice.gr_risk-events(rightpane_event_3da35c57-56d0-4fce-8125-22ebcc68f028).png" width="1920" height="1080" alt="Risk events list with an event open in a side panel showing its type, amount, subject, IP address, source, session and JSON data" loading="lazy" decoding="async"></span>
+            <figcaption><b>Risk events</b><span>Every transaction and user action reported for evaluation, filtered by date and more. Each event opens with its subject, amount, IP address, source, session and data.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Risk events"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Risk results" data-text="The outcome of every evaluation, filtered by risk level. Each result opens with its level, score and the score and level of every rule that ran." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/risk/03.risk.indice.gr_risk-results(rightpane_result_fcc9d829-486d-40bf-b5d9-f409287ad4ea)_page=1&amp;filter=riskLevel__eq__None.png" width="1920" height="1080" alt="Risk results list filtered by risk level, with a result open in a side panel showing its risk level, score, rules executed and each rule’s result" loading="lazy" decoding="async"></span>
+            <figcaption><b>Risk results</b><span>The outcome of every evaluation, filtered by risk level. Each result opens with its level, score and the score and level of every rule that ran.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Risk screen: Risk results"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+        <article class="pb-entry" id="spec-agents" aria-labelledby="pb-entry-agents" style="--tone:#E3272A" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.5</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/dex logo.svg" width="184" height="30" alt="Agents" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/agents-logo.svg" width="184" height="30" alt="Agents" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-agents">Agents</h4>
+          <p class="pb-entry-tagline">Knowledge assistant with cited answers</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>POST /api/my/chats/stream</code></li><li><code>POST /api/my/chats/{chatId}/messages/stream</code></li><li><code>PUT /api/my/chats/{chatId}/messages/{messageId}/like</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core</li><li>EF Core · SQL Server</li><li>Azure OpenAI · Microsoft.Extensions.AI</li><li>Angular</li><li>SwiftUI · Jetpack Compose</li></ul>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>Agents runs Dex, a chat assistant that answers from your organisation’s documentation and cites the sources it used. It ships as .NET server libraries, an Angular web chat app, and Swift and Kotlin SDKs with a ready-made chat UI, and runs in your own ASP.NET Core host on SQL Server and Azure OpenAI.</p>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">An assistant grounded in your documentation needs ingestion, retrieval, a streaming chat API, sessions and client UIs, and each team ends up building them again. Answers that the sources do not support are hard to spot.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">Documents are ingested as markdown, split into overlapping chunks and embedded.</li><li style="--i:1">For each message, an intent router picks the agent that handles it, such as the knowledge agent.</li><li style="--i:2">The knowledge agent rewrites the question, retrieves and reranks passages, and answers with citations. With strict grounding, on by default, it declines when the sources are not enough.</li><li style="--i:3">The answer streams to the client over Server-Sent Events and the turn is saved to the chat session.</li></ol>
+          <h5 id="spec-agents-architecture">Architecture</h5>
+          <p>One ASP.NET Core host registers the server with AddAgents and MapAgents. Chats, messages, documents, chunks and citations live in SQL Server through EF Core, and the language and embedding models are Azure OpenAI deployments.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Azure OpenAI deployments for reasoning, fast replies and embeddings</li><li>Your identity server over OAuth2 and OpenID Connect, with optional guest access</li><li>An MCP case-retrieval service, so the operator agent can look up cases and case types</li><li>TOTP send and verify calls for operator workflows</li><li>iOS SDK through Swift Package Manager, Android SDK through JitPack</li><li>Rich replies: markdown, HTML, images, multiple choice, callouts and confirmations</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>Indice.Agents.iOS/README.md</span><span>Swift</span></figcaption><pre tabindex="0" aria-label="Indice.Agents.iOS/README.md excerpt"><code><span class="code-line" style="--l:0">let agents = AgentsClient()</span>
+<span class="code-line" style="--l:1">// Complete the existing login flow before making API calls.</span>
+<span class="code-line" style="--l:2">let available = try await agents.agentsService.agents()</span>
+<span class="code-line" style="--l:3">let page = try await agents.chatsService.chats(</span>
+<span class="code-line" style="--l:4">    paging: .init(page: 1, size: 20, sort: &quot;lastActivityAt-&quot;),</span>
+<span class="code-line" style="--l:5">    filter: .init(search: &quot;support&quot;)</span>
+<span class="code-line" style="--l:6">)</span>
+<span class="code-line" style="--l:7">let profile = try await agents.profileService.profile()</span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-agents">Screens<span> · Agents</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-agents"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: Agents</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-agents"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: Agents</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-agents" data-hover-scroll aria-labelledby="pb-gallery-agents">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="New chat" data-text="Ask Dex a question, or start from a suggested prompt. Auto lets the router pick the agent; earlier conversations are listed and searchable on the left." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/agents/01.agents.indice.gr_.png" width="1920" height="1080" alt="Dex web chat start screen with the question box, the agent selector set to Auto, suggested prompts and an empty conversation list" loading="lazy" decoding="async"></span>
+            <figcaption><b>New chat</b><span>Ask Dex a question, or start from a suggested prompt. Auto lets the router pick the agent; earlier conversations are listed and searchable on the left.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Agents screen: New chat"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Answer with sources" data-text="A streamed answer drawn from your documentation, with numbered citations in the text and the source sections it used listed below." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/agents/02.agents.indice.gr_ (2).png" width="1920" height="1080" alt="Dex answer about Indice.Platform with inline citations and two linked source sections below it" loading="lazy" decoding="async"></span>
+            <figcaption><b>Answer with sources</b><span>A streamed answer drawn from your documentation, with numbered citations in the text and the source sections it used listed below.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Agents screen: Answer with sources"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Rich replies" data-text="Answers can carry markdown, code and diagrams, here a sequence diagram of the IAM sign-in and validation flow." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/agents/03.agents.indice.gr_ (3).png" width="1920" height="1080" alt="Dex answer containing a sequence diagram of the IAM registration, email confirmation and validation flow" loading="lazy" decoding="async"></span>
+            <figcaption><b>Rich replies</b><span>Answers can carry markdown, code and diagrams, here a sequence diagram of the IAM sign-in and validation flow.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Agents screen: Rich replies"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+        <article class="pb-entry" id="spec-workers" aria-labelledby="pb-entry-workers" style="--tone:#F59E0B" tabindex="-1" data-scrub>
+        <div class="pb-entry-main">
+        <aside class="pb-entry-aside">
+          <span class="pb-entry-meter" aria-hidden="true"></span>
+          <p class="pb-entry-no">02.6</p>
+          <div class="pb-entry-logo"><img class="product-logo logo-on-light" src="assets/logos/workers logo.svg" width="141" height="30" alt="Workers" loading="lazy" decoding="async"><img class="product-logo logo-on-dark" src="assets/logos/on-dark/proposal-b/workers-logo.svg" width="141" height="30" alt="Workers" loading="lazy" decoding="async"></div>
+          <h4 id="pb-entry-workers">Workers</h4>
+          <p class="pb-entry-tagline">Background jobs, queues and scheduling</p>
+          <h5>Key APIs</h5>
+          <ul class="pb-entry-apis"><li><code>GET api/workers/queues</code></li><li><code>POST api/workers/queues/{queueName}/messages</code></li><li><code>POST api/workers/scheduled-tasks/{taskId}/run</code></li></ul>
+          <h5>Stack</h5>
+          <ul class="pb-entry-stack"><li>ASP.NET Core</li><li>Quartz</li><li>EF Core · SQL Server or PostgreSQL</li><li>Angular</li></ul>
+        </aside>
+        <div class="pb-entry-body">
+          <p class="pb-entry-summary" data-reveal>Workers runs scheduled and queue-triggered background jobs inside your ASP.NET Core hosts, built on Quartz. Developers write the job handlers in C#; operators use a dashboard to inspect queues, scheduled tasks, servers and locks, and to requeue or run work.</p>
+          <h5>The problem</h5>
+          <p class="pb-entry-problem">Background processing such as nightly ETL or event handling has to run reliably across several instances, and stuck, failing or poisoned work is hard to see without querying tables by hand.</p>
+          <h5>How it works</h5>
+          <ol class="pb-entry-steps"><li style="--i:0">A host calls AddWorkerHost and registers each handler with AddJob, triggered by a cron schedule or by a queue.</li><li style="--i:1">Handlers are plain classes with a Process method; the queue item and any services are injected.</li><li style="--i:2">Messages arrive through IMessageQueue or IEventDispatcher, and those that exceed the retry limit move to a poison queue.</li><li style="--i:3">Each worker registers itself with a heartbeat. The dashboard reads the worker tables and can requeue messages, run or pause tasks and release locks.</li></ol>
+          <h5 id="spec-workers-architecture">Architecture</h5>
+          <p>Workers run inside any ASP.NET Core host; the dashboard API and its Angular UI run in a separate back-office host. Queues, scheduled tasks, servers and locks live in a relational database under the work schema, on SQL Server or PostgreSQL.</p>
+          <h5>Integrations</h5>
+          <ul class="pb-entry-integrations"><li>Quartz for scheduling and job execution</li><li>EF Core stores on SQL Server or PostgreSQL, or your own DbContext</li><li>Messages enqueued in the same SaveChanges transaction as your data</li><li>Health checks for poison messages and stuck tasks</li><li>Metrics on the Indice.Hosting meter, for OpenTelemetry or dotnet-counters</li><li>Your identity server, with the workers scope and reader and admin roles</li></ul>
+          <h5>For developers</h5>
+          <figure class="pb-code" data-reveal><figcaption><span>Indice.Hosting/README.md</span><span>C#</span></figcaption><pre tabindex="0" aria-label="Indice.Hosting/README.md excerpt"><code><span class="code-line" style="--l:0">services.<span class="tok-function">AddWorkerHost</span>(options =&gt; options.<span class="tok-function">UseStoreRelational</span>&lt;<span class="tok-type">BankingDbContext</span>&gt;(builder =&gt; builder.<span class="tok-function">UseSqlServer</span>(connectionString)))</span>
+<span class="code-line" style="--l:1">    .<span class="tok-function">AddJob</span>&lt;<span class="tok-type">OrderCreatedHandler</span>&gt;()</span>
+<span class="code-line" style="--l:2">        .<span class="tok-function">WithQueueTrigger</span>&lt;<span class="tok-type">OrderCreatedEvent</span>&gt;(options =&gt; options.<span class="tok-type">QueueName</span> = <span class="tok-string">&quot;order-created&quot;</span>);</span></code></pre></figure>
+        </div>
+        </div>
+        <div class="pb-gallery" data-gallery data-shot-group data-reveal>
+          <div class="pb-gallery-head">
+            <div class="pb-gallery-heading">
+              <h5 class="pb-gallery-title" id="pb-gallery-workers">Screens<span> · Workers</span></h5>
+              <p class="pb-gallery-hint">Point left or right to browse. Select a screen to enlarge it.</p>
+            </div>
+            <div class="pb-gallery-nav">
+              <button type="button" class="pb-gallery-step" data-scroll-step="-1" aria-controls="pb-strip-workers"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Show previous screens: Workers</span></button>
+              <button type="button" class="pb-gallery-step" data-scroll-step="1" aria-controls="pb-strip-workers"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Show more screens: Workers</span></button>
+            </div>
+          </div>
+          <div class="pb-strip-wrap">
+            <ul class="pb-strip" id="pb-strip-workers" data-hover-scroll aria-labelledby="pb-gallery-workers">
+              <li class="pb-strip-item" style="--i:0"><figure class="pb-shot" data-shot data-title="Dashboard" data-text="A live view of enqueued, scheduled, retrying and poison messages, scheduled tasks, running and failing tasks and active locks, with queue depth over time, the busiest queues and the tasks that need attention." style="--i:0">
+            <span class="shot-media"><img src="assets/uis/workers/01.workers.indice.gr_.png" width="1920" height="1080" alt="Workers dashboard with message and task counters, a live queue depth chart, the busiest queues and tasks needing attention" loading="lazy" decoding="async"></span>
+            <figcaption><b>Dashboard</b><span>A live view of enqueued, scheduled, retrying and poison messages, scheduled tasks, running and failing tasks and active locks, with queue depth over time, the busiest queues and the tasks that need attention.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Dashboard"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:1"><figure class="pb-shot" data-shot data-title="Queue message" data-text="One message with its queue, status, availability, attempts and JSON payload, ready to requeue, edit and requeue, or delete." style="--i:1">
+            <span class="shot-media"><img src="assets/uis/workers/02.workers.indice.gr_messages_e38ce480-dcd2-4024-9ad5-f0363e49b716.png" width="1920" height="1080" alt="Workers message detail showing the queue, status, available-at time, attempts and JSON payload, with Requeue, Edit and requeue and Delete" loading="lazy" decoding="async"></span>
+            <figcaption><b>Queue message</b><span>One message with its queue, status, availability, attempts and JSON payload, ready to requeue, edit and requeue, or delete.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Queue message"></button>
+          </figure></li>
+              <li class="pb-strip-item" style="--i:2"><figure class="pb-shot" data-shot data-title="Scheduled task" data-text="A task’s handler, description, last and next run and run count, its last error and the state it keeps between runs, with Run now and an Enabled switch." style="--i:2">
+            <span class="shot-media"><img src="assets/uis/workers/03.workers.indice.gr_scheduled_samples.report.png" width="1920" height="1080" alt="Workers scheduled task detail showing its overview, last error and persisted state, with Run now and an Enabled switch" loading="lazy" decoding="async"></span>
+            <figcaption><b>Scheduled task</b><span>A task’s handler, description, last and next run and run count, its last error and the state it keeps between runs, with Run now and an Enabled switch.</span></figcaption>
+            <button type="button" class="shot-open" data-shot-open aria-label="Enlarge Workers screen: Scheduled task"></button>
+          </figure></li>
+            </ul>
+          </div>
+          <div class="pb-gallery-progress" aria-hidden="true"><span></span></div>
+        </div>
+      </article>
+      </section>
     </section>
-
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title" tabindex="-1" style="--typing-end:5.005s"><svg class="contact-slash" aria-hidden="true" width="250" height="202" viewBox="0 0 250 202" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path class="contact-slash-second" d="M124.8 0L186.2 201.7H249.4L187.7 0H124.8Z"/>
-<path class="contact-slash-first" d="M0 0L61.4 201.7H124.6L62.9 0H0Z"/>
-</svg>
-<h2 class="display-heading" id="contact-title" aria-label="The foundation. The solutions. The expertise."><span class="contact-line" aria-hidden="true"><span class="contact-character" style="--character-delay:0.000s">T</span><span class="contact-character" style="--character-delay:0.085s">h</span><span class="contact-character" style="--character-delay:0.170s">e</span><span class="contact-character" style="--character-delay:0.255s"> </span><span class="contact-character" style="--character-delay:0.340s">f</span><span class="contact-character" style="--character-delay:0.425s">o</span><span class="contact-character" style="--character-delay:0.510s">u</span><span class="contact-character" style="--character-delay:0.595s">n</span><span class="contact-character" style="--character-delay:0.680s">d</span><span class="contact-character" style="--character-delay:0.765s">a</span><span class="contact-character" style="--character-delay:0.850s">t</span><span class="contact-character" style="--character-delay:0.935s">i</span><span class="contact-character" style="--character-delay:1.020s">o</span><span class="contact-character" style="--character-delay:1.105s">n</span><span class="contact-character" style="--character-delay:1.190s">.</span></span><span class="contact-line" aria-hidden="true"><span class="contact-character" style="--character-delay:1.725s">T</span><span class="contact-character" style="--character-delay:1.810s">h</span><span class="contact-character" style="--character-delay:1.895s">e</span><span class="contact-character" style="--character-delay:1.980s"> </span><span class="contact-character" style="--character-delay:2.065s">s</span><span class="contact-character" style="--character-delay:2.150s">o</span><span class="contact-character" style="--character-delay:2.235s">l</span><span class="contact-character" style="--character-delay:2.320s">u</span><span class="contact-character" style="--character-delay:2.405s">t</span><span class="contact-character" style="--character-delay:2.490s">i</span><span class="contact-character" style="--character-delay:2.575s">o</span><span class="contact-character" style="--character-delay:2.660s">n</span><span class="contact-character" style="--character-delay:2.745s">s</span><span class="contact-character" style="--character-delay:2.830s">.</span></span><span class="contact-line" aria-hidden="true"><span class="contact-character" style="--character-delay:3.365s">T</span><span class="contact-character" style="--character-delay:3.450s">h</span><span class="contact-character" style="--character-delay:3.535s">e</span><span class="contact-character" style="--character-delay:3.620s"> </span><span class="contact-character" style="--character-delay:3.705s">e</span><span class="contact-character" style="--character-delay:3.790s">x</span><span class="contact-character" style="--character-delay:3.875s">p</span><span class="contact-character" style="--character-delay:3.960s">e</span><span class="contact-character" style="--character-delay:4.045s">r</span><span class="contact-character" style="--character-delay:4.130s">t</span><span class="contact-character" style="--character-delay:4.215s">i</span><span class="contact-character" style="--character-delay:4.300s">s</span><span class="contact-character" style="--character-delay:4.385s">e</span><span class="contact-character" style="--character-delay:4.470s">.</span></span></h2><div class="contact-bottom"><p>Discover the capabilities of INDICE Platform through a demonstration focused on relevant business and technology needs.</p><button class="button demo-button button-light" type="button" data-demo>Request a demo<svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button></div></section>
+    <section class="pb-chapter pb-services" id="services" aria-labelledby="pb-services-title" tabindex="-1">
+      <header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§ 03</span>Expertise</p>
+        <h2 id="pb-services-title"><span class="pb-w" style="--w:0"><span>INDICE</span></span> <span class="pb-w" style="--w:1"><span>engineers</span></span> <span class="pb-w" style="--w:2"><span>build,</span></span> <span class="pb-w" style="--w:3"><span>integrate</span></span> <span class="pb-w" style="--w:4"><span>and</span></span> <span class="pb-w" style="--w:5"><span>support</span></span> <span class="pb-w" style="--w:6"><span>it</span></span> <span class="pb-w" style="--w:7"><span>with</span></span> <span class="pb-w" style="--w:8"><span>you.</span></span></h2>
+      </header>
+      <p class="pb-standfirst" data-reveal>INDICE provides the development, integration and ongoing support that turn the solutions into a working service in your environment, from the first case type or login flow to later upgrades.</p>
+      <ol class="pb-service-list"><li data-reveal style="--i:0"><span class="pb-service-no" aria-hidden="true">01</span><h3>Application development</h3><p>Custom applications and solution extensions on the same .NET and Angular foundation: case types and workflows, risk rules, sign-in steps and message templates.</p></li><li data-reveal style="--i:1"><span class="pb-service-no" aria-hidden="true">02</span><h3>Integration</h3><p>The solutions connected to your core systems, identity providers, delivery vendors and hosting, on Azure or your own infrastructure.</p></li><li data-reveal style="--i:2"><span class="pb-service-no" aria-hidden="true">03</span><h3>Support and evolution</h3><p>New features, regular security updates with CVE patching, and immediate technical assistance from INDICE engineers.</p></li></ol>
+    </section>
+    <section class="pb-chapter pb-faq" id="faq" aria-labelledby="pb-faq-title" tabindex="-1">
+      <header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§ 04</span>Questions</p>
+        <h2 id="pb-faq-title"><span class="pb-w" style="--w:0"><span>What</span></span> <span class="pb-w" style="--w:1"><span>technical</span></span> <span class="pb-w" style="--w:2"><span>teams</span></span> <span class="pb-w" style="--w:3"><span>ask</span></span> <span class="pb-w" style="--w:4"><span>first</span></span></h2>
+      </header>
+      <dl class="pb-qa"><div data-reveal style="--i:0"><dt>Is this a SaaS solution?</dt><dd>No. Each solution is a set of .NET libraries and an Angular UI that run in your own ASP.NET Core host, against your own SQL Server databases, signing keys and delivery accounts.</dd></div><div data-reveal style="--i:1"><dt>What do we need to run it?</dt><dd>ASP.NET Core hosting, SQL Server and an OpenID Connect identity server, which IAM provides. Redis, Azure Storage, Service Bus and Notification Hubs are used where a solution needs caching, queues or push.</dd></div><div data-reveal style="--i:0"><dt>Can we start with one solution?</dt><dd>Yes. Each solution has its own libraries, database and admin UI. Every solution you add reuses the same hosting, identity server and extension patterns.</dd></div><div data-reveal style="--i:1"><dt>How do we customise behaviour without forking?</dt><dd>Through C# extension points registered in your host, such as risk rules, workflow activities, sign-in steps, contact providers, lookups and log enrichers, and by overriding IAM pages and back-office UI strings.</dd></div><div data-reveal style="--i:0"><dt>Where do audit trails and history live?</dt><dd>In your databases. Cases stores every checkpoint, data version and approval; IAM keeps sign-in and activity logs; Risk stores every assessment with each rule’s reason; Messaging records delivery and engagement events.</dd></div><div data-reveal style="--i:1"><dt>What does INDICE do after go-live?</dt><dd>Ongoing support: new features, regular security updates with CVE patching, immediate technical assistance, and development of new extensions as requirements change.</dd></div></dl>
+    </section>
+    <div class="pb-ticker" aria-hidden="true"><div class="pb-ticker-track" data-velocity><div><span>IAM</span><i></i><span>Cases</span><i></i><span>Messaging</span><i></i><span>Risk</span><i></i><span>Agents</span><i></i><span>Workers</span><i></i><span>Self-hosted</span><i></i><span>.NET + Angular</span><i></i></div><div><span>IAM</span><i></i><span>Cases</span><i></i><span>Messaging</span><i></i><span>Risk</span><i></i><span>Agents</span><i></i><span>Workers</span><i></i><span>Self-hosted</span><i></i><span>.NET + Angular</span><i></i></div></div></div>
+    <section class="pb-contact" id="contact" aria-labelledby="pb-contact-title" tabindex="-1">
+      <div class="pb-sun" aria-hidden="true" data-parallax="-0.22"><i></i></div>
+      <div class="pb-contact-inner" data-reveal>
+        <p class="pb-chapter-label"><span class="pb-chapter-no">§ 05</span>Contact</p>
+        <h2 id="pb-contact-title"><span class="pb-w" style="--w:0"><span>See</span></span> <span class="pb-w" style="--w:1"><span>it</span></span> <span class="pb-w" style="--w:2"><span>against</span></span> <span class="pb-w" style="--w:3"><span>your</span></span> <span class="pb-w" style="--w:4"><span>own</span></span> <span class="pb-w" style="--w:5"><span class="pb-accent">requirements.</span></span></h2>
+        <p>Request a technical demonstration focused on your processes, identity setup and integration points.</p>
+        <div class="pb-actions"><button type="button" class="pb-btn pb-btn-solid" data-demo>Request a demo</button></div>
+      </div>
+    </section>
   </main>
+  <footer class="pb-colophon">
+    <nav class="pb-colophon-toc" id="contents" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol class="pb-toc pb-toc-compact"><li style="--i:0">
+          <a href="#platform"><span class="pb-toc-no">01</span><span class="pb-toc-title">Platform foundation</span><span class="pb-toc-text">One open-source foundation under every solution.</span></a>
+        </li><li style="--i:1">
+          <a href="#products"><span class="pb-toc-no">02</span><span class="pb-toc-title">Platform suite</span><span class="pb-toc-text">Adopt one solution, or run them together.</span></a>
+          <ul class="pb-toc-sub"><li><a href="#spec-iam"><span>02.1</span> IAM</a></li><li><a href="#spec-cases"><span>02.2</span> Cases</a></li><li><a href="#spec-messaging"><span>02.3</span> Messaging</a></li><li><a href="#spec-risk"><span>02.4</span> Risk</a></li><li><a href="#spec-agents"><span>02.5</span> Agents</a></li><li><a href="#spec-workers"><span>02.6</span> Workers</a></li></ul>
+        </li><li style="--i:2">
+          <a href="#services"><span class="pb-toc-no">03</span><span class="pb-toc-title">Expertise</span><span class="pb-toc-text">INDICE engineers build, integrate and support it with you.</span></a>
+        </li><li style="--i:3">
+          <a href="#faq"><span class="pb-toc-no">04</span><span class="pb-toc-title">Questions</span><span class="pb-toc-text">What technical teams ask first</span></a>
+        </li><li style="--i:4">
+          <a href="#contact"><span class="pb-toc-no">05</span><span class="pb-toc-title">Contact</span><span class="pb-toc-text">See it against your own requirements.</span></a>
+        </li></ol>
+    </nav>
+    <div class="pb-colophon-meta">
+      <a class="pb-brand" href="#hero" aria-label="INDICE Platform, back to top"><svg class="pb-wordmark" viewBox="0 70 1180 252" role="img" aria-label="INDICE"><path fill="currentColor" d="M69.42 310.298L0 80.4583H71.045L140.79 310.298H69.42ZM693.875 310.298L624.39 80.4583H695.435L765.115 310.298H693.81H693.875ZM320.905 310.625L224.315 182.559V310.625H162.11V80.4583H220.09L316.745 209.114V80.4583H378.56V310.56H320.97L320.905 310.625ZM475.28 257.057H509.47C540.41 257.057 561.21 232.726 561.21 195.967C561.21 159.208 538.72 134.223 506.22 134.223H475.28V256.992V257.057ZM407.55 310.625V80.4583H507.52C581.36 80.4583 630.24 126.112 630.24 195.313C630.24 264.513 580.45 310.56 505.245 310.56H407.615L407.55 310.625ZM999.83 310.625V80.4583H1166.75V132.98H1067.49V169.085H1155.7V221.607H1067.49V258.038H1170V310.56H999.83V310.625ZM762.255 195.051C762.255 128.075 814.32 78.4961 884.91 78.4961C919.425 78.4961 956.15 94.2592 979.29 119.179L940.225 165.814C925.86 147.435 904.735 135.269 885.82 135.269C854.945 135.269 831.48 160.582 831.48 194.332C831.48 228.082 854.945 253.787 885.82 253.787C903.435 253.787 924.56 243.256 940.225 227.166L979.29 269.223C954.525 296.17 917.15 313.503 882.635 313.503C813.345 313.503 762.255 262.944 762.255 194.986V195.051Z"/></svg><span class="pb-brand-name" aria-hidden="true">Platform</span></a>
+      <h2>Colophon</h2>
+      <p>Set in Manrope. Dark by default; your theme choice is remembered for this proposal.</p>
+      <p>Homepage proposal for review. Solution facts come from the INDICE solution documents.</p>
+      <ul><li><a href="https://github.com/indice-co" rel="noopener" target="_blank">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li></ul>
+    </div>
+  </footer>
+  <a class="gh-tab pb-gh" href="https://github.com/indice-co/Indice.Platform" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-tab-text"><b>GitHub</b> <span>indice-co</span></span><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="to-top pb-to-top" href="#hero" data-to-top aria-label="Back to top"><svg class="icon-arrow" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5"/></svg><span aria-hidden="true">Back to top</span></a>
+  <dialog class="lightbox pb-lightbox" id="screen-viewer" aria-label="Screens" data-lightbox>
+    <div class="lightbox-inner">
+      <div class="lightbox-bar"><span class="lightbox-count" data-lightbox-count></span><button type="button" class="lightbox-button" data-dialog-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close screen viewer</span></button></div>
+      <div class="lightbox-stage">
+        <button type="button" class="lightbox-button lightbox-nav lightbox-prev" data-lightbox-step="-1"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="sr-only">Previous screen</span></button>
+        <figure class="lightbox-figure" data-lightbox-figure></figure>
+        <button type="button" class="lightbox-button lightbox-nav lightbox-next" data-lightbox-step="1"><svg class="icon-arrow" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Next screen</span></button>
+      </div>
+      <p class="lightbox-caption" data-lightbox-caption aria-live="polite"></p>
+    </div>
+  </dialog>
 </body>
 </html>
