@@ -73,25 +73,4 @@ function parseArticle(source) {
   return { body, contents, contentGroups };
 }
 
-function renderArticle({ source }) {
-  const { body, contents, contentGroups } = parseArticle(source);
-  const contentsMarkup = contentGroups.map(group => `<section class="cases-toc-group"><h3 class="cases-toc-category">${escape(group.title)}</h3><ul>${group.items.map(({ id, label }) => `<li><a class="cases-toc-link" href="#${id}">${escape(label)}</a></li>`).join('')}</ul></section>`).join('');
-  require('./render-cases.js')({
-    filename:'cases-reference.html',
-    title:'Cases technical reference',
-    navigation:'',
-    html: `    <div class="cases-article-layout section-pad">
-      <aside class="cases-article-toc"><nav class="cases-toc-nav" aria-label="Technical reference sections"><h2 class="cases-toc-title">On this page</h2>${contentsMarkup}</nav></aside>
-      <article class="cases-article" aria-labelledby="${contents[0].id}">${body}<p class="sr-only" id="chapter-copy-status" role="status" aria-live="polite" aria-atomic="true"></p></article>
-    </div>
-    <dialog class="flowchart-dialog" aria-labelledby="flowchart-dialog-title"><div class="flowchart-dialog-shell"><header class="flowchart-dialog-header"><div><p class="flowchart-dialog-eyebrow">Workflow diagram</p><h2 class="flowchart-dialog-title" id="flowchart-dialog-title"></h2></div><button class="flowchart-dialog-close" type="button" aria-label="Close diagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m18 6-12 12M6 6l12 12"/></svg></button></header><div class="flowchart-dialog-canvas" aria-live="polite"></div></div></dialog>\n`
-  });
-}
-
-module.exports = function renderCasesArticle() {
-  renderArticle({ source:'cases-product.md' });
-  for (const obsoletePage of ['cases.html', 'cases-0.2.html']) {
-    fs.rmSync(path.join(__dirname, '..', obsoletePage), { force:true });
-  }
-};
-module.exports.parseArticle = parseArticle;
+module.exports = { parseArticle };

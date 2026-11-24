@@ -1,16 +1,14 @@
 'use strict';
 
-/* Proposal B's Cases technical reference (proposal-b-cases-reference.html): the same text and content as
-   cases-reference.html, set in Proposal B's editorial design. The article comes from the same parser as the original
-   page (scripts/render-cases-article.js), and js/cases-article.js adds the contents highlighting, chapter links and
-   the Mermaid diagrams. Only Proposal B links here; the other designs keep cases-reference.html. */
+/* The Cases technical reference (cases-reference.html), generated from cases-product.md and set in the homepage's
+   editorial design. scripts/cases-article.js parses the document; js/cases-article.js adds the contents highlighting,
+   chapter links and the Mermaid diagrams. */
 const S = require('./shared.js');
-const { content: c, themedLogo, githubRepo } = require('./content-b.js');
-const { parseArticle } = require('../render-cases-article.js');
-const { escape, icons } = S;
-const ui = c.ui;
+const { parseArticle } = require('./cases-article.js');
+const { escape, icons, content: c } = S;
+const { site, ui } = c;
 
-const cases = c.solutions.find(solution => solution.id === 'cases').product;
+const cases = c.products.find(product => product.id === 'cases');
 
 const words = text => escape(text).split(' ')
   .map((word, index) => `<span class="pb-w" style="--w:${index}"><span>${word}</span></span>`).join(' ');
@@ -26,10 +24,10 @@ const masthead = () => `<header class="pb-masthead">
 
 const hero = () => `<section class="pb-hero pbr-hero" id="hero" aria-labelledby="cases-title" tabindex="-1">
       <div class="pb-hero-main pbr-hero-main">
-        <div class="pbr-logo">${themedLogo(cases)}</div>
+        <div class="pbr-logo">${S.themedLogo(cases)}</div>
         <p class="pb-kicker">Case management &amp; back-office workflows</p>
         <h1 id="cases-title">${words('Every case.')}<br>${words('A clear path forward.')}</h1>
-        <p class="pb-lede">${escape(cases.description)}</p>
+        <p class="pb-lede">${escape(cases.referenceLede)}</p>
       </div>
       <p class="pbr-note"><span aria-hidden="true">//</span>One case, two views. A shared workflow, with a clear boundary between customer updates and internal work.</p>
     </section>`;
@@ -37,8 +35,8 @@ const hero = () => `<section class="pb-hero pbr-hero" id="hero" aria-labelledby=
 const developersId = 'article-for-developers';
 const reference = () => {
   const { body: fullBody, contents, contentGroups } = parseArticle('cases-product.md');
-  // Proposal B leaves out the "For developers" chapter (its heading and one-line intro); the developer chapters follow
-  // straight after "3. Where Cases shines". Overview sits on its own above the groups. Anchors are unchanged.
+  // The "For developers" chapter heading and its one-line intro are left out; the developer chapters follow straight
+  // after "3. Where Cases shines". Overview sits on its own above the groups. Anchors are unchanged.
   // The chapter table at the top lists both columns of chapters in the same style.
   const body = fullBody.replace(new RegExp(`<h2 id="${developersId}"[\\s\\S]*?(?=<h3 )`), '')
     .replace(/<div class="article-table"(?=[^>]*>\s*<table><thead><tr><th scope="col">[^<]*The product<\/th>)/, '<div class="article-table pbr-chapter-table"');
@@ -62,27 +60,19 @@ const colophon = () => `<footer class="pb-colophon pbr-colophon">
     <div class="pb-colophon-meta">
       <a class="pb-brand" href="index.html" aria-label="INDICE Platform overview">${S.wordmark('pb-wordmark')}<span class="pb-brand-name" aria-hidden="true">Platform</span></a>
       <p>${escape(c.footer.note)}</p>
-      <ul><li>${S.external(c.footer.github, 'GitHub')}</li></ul>
+      <ul><li>${S.external(site.github, 'GitHub')}</li></ul>
     </div>
   </footer>`;
 
-module.exports = function renderProposalBReference() {
-  const head = S.head({
-    id: 'b',
-    title: 'Cases technical reference — INDICE Platform · Proposal B',
-    description: cases.description,
-    defaultTheme: 'dark',
-    themeColor: '#0f1115',
-    mono: true,
-    stylesheet: 'css/proposals/proposal-b.css'
-  }).replace('</head>', `  <link rel="stylesheet" href="css/proposals/proposal-b-reference.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js"></script>
-  <script defer src="js/cases-article.js"></script>
-</head>`);
-  return `${head}
+module.exports = function renderCasesReference() {
+  return `${S.head({
+    title: `Cases technical reference — ${site.title}`,
+    description: cases.referenceLede,
+    stylesheets: ['css/cases-reference.css'],
+    scripts: ['https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js', 'js/cases-article.js']
+  })}
 <body class="pb pb-reference">
   <a class="skip-link" href="#main">Skip to content</a>
-  ${S.designRibbon('proposal-b')}
   <div class="pb-progress" data-progress aria-hidden="true"></div>
   ${masthead()}
   <main id="main" tabindex="-1">
@@ -91,8 +81,8 @@ module.exports = function renderProposalBReference() {
   </main>
   ${colophon()}
   ${dialog()}
-  ${S.githubTab('pb-gh').replace(`href="${c.footer.github}"`, `href="${githubRepo}"`)}
-  ${S.backToTop('pb-to-top', `${icons.arrowUp}<span aria-hidden="true">${ui.backToTop}</span>`)}
+  ${S.githubTab('pb-gh')}
+  ${S.backToTop('pb-to-top')}
 </body>
 </html>
 `;

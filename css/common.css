@@ -1,8 +1,8 @@
 @charset "utf-8";
-/* Shared by the three homepage proposals. Logo switching is unlayered so it also wins inside Proposal A's slider.
-   Layers, lowest first: each proposal's element resets, these shared components, then each proposal's own styles,
-   so components are not undone by resets (layers outrank specificity) and every proposal can still restyle them. */
-@layer reset, common, proposal;
+/* Components shared by both pages: theme-aware logos, the fixed page controls, screens and the screen viewer.
+   Layers, lowest first: element resets, these shared components, then the page styles (css/site.css), so components
+   are not undone by resets (layers outrank specificity) and the page can still restyle them. */
+@layer reset, common, page;
 
 /* Product logos: the supplied artwork on light themes, a generated variant with light wordmark text on dark. */
 .logo-on-dark { display: none; }
@@ -16,11 +16,11 @@
   html { scrollbar-gutter: stable; }
   :root.dialog-open { overflow: hidden; }
 
-  /* Theme changes grow as a circle from the control that made them (js/proposals/common.js). */
+  /* Theme changes grow as a circle from the control that made them (js/common.js). */
   :root.theme-transition::view-transition-old(root),
   :root.theme-transition::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 
-  /* Back to top: appears after the first screen and stays out of the way of the pinned Solutions slider. */
+  /* Back to top: appears after the first screen. */
   .to-top {
     position: fixed; z-index: 70; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom));
     visibility: hidden; opacity: 0; transform: translateY(18px) scale(.9);
@@ -52,21 +52,13 @@
     .gh-tab-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   }
   [data-parallax] { translate: 0 var(--parallax, 0px); will-change: translate; }
-  [data-magnetic] { translate: var(--magnet-x, 0px) var(--magnet-y, 0px); transition: translate .35s cubic-bezier(.2, .8, .2, 1); }
-  [data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
-  [data-tilt].is-tilting { transition-duration: .12s; }
-
-  /* Expandable panels stay open without JavaScript; with it, their button controls them. */
-  [data-expand-panel] { overflow: clip; }
-  .js [data-expand-panel]:not(.is-open) { display: none; }
-  html:not(.js) [data-expand] { display: none; }
 
   /* Hover-scrolled galleries: free scrolling under a mouse, snapping on touch screens. */
   [data-hover-scroll] { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
   [data-hover-scroll]::-webkit-scrollbar { display: none; }
   @media (pointer: coarse) { [data-hover-scroll] { scroll-snap-type: x mandatory; } }
 
-  /* Screen media: approved screenshot, illustrative mock-up or labelled placeholder. A full-cover button opens it. */
+  /* Screen media: a supplied screenshot or a labelled placeholder. A full-cover button opens it. */
   [data-shot] { position: relative; }
   .shot-open {
     position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; padding: 0;
@@ -74,11 +66,6 @@
   }
   .shot-media { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; }
   .shot-media > img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
-  .shot-media > .case-workflow-ui, .shot-media > .case-record-ui { height: 100%; }
-  .shot-badge {
-    position: absolute; z-index: 2; top: 10px; left: 10px; padding: 3px 8px; border-radius: 999px;
-    background: #0b0b0cd9; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .04em;
-  }
   .shot-placeholder {
     position: absolute; inset: 0; display: grid; grid-template-columns: 20% 1fr; grid-template-rows: 14% 1fr;
     background: var(--shot-bg, #eef0f4); color: var(--shot-ink, #5b6170);
@@ -108,10 +95,6 @@
   .lightbox-stage { position: relative; display: grid; place-items: center; min-height: 0; touch-action: pan-y pinch-zoom; }
   .lightbox-figure { position: relative; width: min(100%, calc((100dvh - 210px) * 16 / 9), 1600px); margin: 0; }
   .lightbox-figure .shot-media { border-radius: 10px; box-shadow: 0 40px 120px -30px #000; }
-  /* The mock-ups are drawn for a small frame; enlarge them visually instead of re-flowing them. */
-  .lightbox-figure .shot-media > .case-workflow-ui, .lightbox-figure .shot-media > .case-record-ui {
-    width: 62.5%; height: 62.5%; transform: scale(1.6); transform-origin: top left;
-  }
   .lightbox-caption { justify-self: center; max-width: 860px; margin: 0; color: #fff; text-align: center; }
   .lightbox-caption b { display: block; font-size: 18px; }
   .lightbox-caption span { display: block; margin-top: 4px; font-size: 15px; opacity: .8; }
@@ -129,14 +112,12 @@
     .lightbox-prev { left: calc(50% - 56px); }
     .lightbox-next { right: calc(50% - 56px); }
     .lightbox-inner { padding-bottom: 84px; }
-    .lightbox-figure .shot-media > .case-workflow-ui, .lightbox-figure .shot-media > .case-record-ui { width: 100%; height: 100%; transform: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .to-top, .show-to-top .to-top { transition: none; }
     .gh-tab { animation: none; }
     [data-parallax] { translate: none; }
-    [data-magnetic], [data-tilt] { translate: none; transform: none; transition: none; }
     .lightbox[open]::backdrop, .lightbox[open] .lightbox-bar, .lightbox[open] .lightbox-nav { animation: none; }
   }
 }

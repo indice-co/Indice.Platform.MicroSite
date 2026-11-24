@@ -1,8 +1,8 @@
 @charset "utf-8";
-/* Proposal B's Cases technical reference (proposal-b-cases-reference.html). Loaded after proposal-b.css and set in the
-   same "proposal" layer, so it reuses Proposal B's tokens, masthead, buttons, colophon and theme handling. The class
+/* The Cases technical reference (cases-reference.html). Loaded after site.css and set in the same "page" layer, so
+   it reuses the homepage's tokens, masthead, buttons, colophon and theme handling. The class
    names of the article, contents and diagram dialog are the ones js/cases-article.js looks for. */
-@layer proposal {
+@layer page {
   .pb-reference { --tone: #12707A; }
 
   /* ---------- Hero ---------- */

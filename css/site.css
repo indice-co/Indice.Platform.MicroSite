@@ -1,20 +1,20 @@
 @charset "utf-8";
-/* Proposal B — "Editorial". Long-form layout set in Manrope: light display weights, bold uppercase labels and an
-   orange accent. Page styles live in the "proposal" layer above css/proposals/common.css. Dark is the default. */
+/* The INDICE Platform site: a long-form editorial layout set in Manrope, with light display weights, bold uppercase
+   labels and an orange accent. Page styles live in the "page" layer above css/common.css. Dark is the default. */
 @font-face {
   font-family: Manrope;
-  src: url('../../assets/fonts/manrope-variable.ttf') format('truetype');
+  src: url('../assets/fonts/manrope-variable.ttf') format('truetype');
   font-weight: 200 800;
   font-display: swap;
 }
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('../../assets/fonts/jetbrains-mono-variable.woff2') format('woff2');
+  src: url('../assets/fonts/jetbrains-mono-variable.woff2') format('woff2');
   font-weight: 100 800;
   font-display: swap;
 }
 
-/* Element resets sit below the shared components (css/proposals/common.css declares the layer order). */
+/* Element resets sit below the shared components (css/common.css declares the layer order). */
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
   img, svg { display: block; max-width: 100%; }
@@ -25,7 +25,7 @@
   ul, ol { padding: 0; list-style: none; }
 }
 
-@layer proposal {
+@layer page {
   :root {
     color-scheme: dark;
     --font-sans: Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -45,12 +45,6 @@
     --focus-ring: light-dark(#bf3f0b, #ff8f5a);
     --shadow: light-dark(#14161c2e, #000000a6);
     --code-bg: light-dark(#ffffff, #12151a);
-    --tok-keyword: light-dark(#a3237a, #f0a6d8);
-    --tok-type: light-dark(#0b6e99, #7dd3fc);
-    --tok-function: light-dark(#1d4ed8, #a5b4fc);
-    --tok-string: light-dark(#17803d, #86efac);
-    --tok-number: light-dark(#bf3f0b, #fdba74);
-    --tok-comment: light-dark(#6b7280, #7d8594);
     --shot-bg: light-dark(#eceef2, #1e222a);
     --shot-block: light-dark(#dcdfe6, #2c313b);
     --shot-bar: light-dark(#e2e5eb, #252a33);
@@ -256,6 +250,13 @@
   .pb-index-name { font-size: 30px; font-weight: 300; line-height: 1.1; letter-spacing: -.035em; transition: transform .45s var(--ease-out); }
   .pb-index a:hover .pb-index-name { transform: translateX(6px); }
   .pb-index-text { font-size: 14px; line-height: 1.45; color: var(--fg-muted); }
+  /* The three pillars: a larger index, each pillar with its role (mortar, bricks, builder) above its description. */
+  .pb-pillars a { gap: 6px 14px; padding: 26px 24px 28px; }
+  .pb-pillars a::after { background: var(--accent-mark); }
+  .pb-pillars .pb-index-no { grid-row: span 3; }
+  .pb-pillars .pb-index-name { font-size: clamp(26px, 2.6vw, 36px); }
+  .pb-index-role { font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+  .pb-pillars .pb-index-text { font-size: 15.5px; line-height: 1.5; }
 
   /* ---------- Chapters ---------- */
   .pb-chapter { max-width: var(--wrap); margin: 0 auto; padding: clamp(84px, 10vw, 140px) var(--pad) 0; }
@@ -287,6 +288,24 @@
   .pb-points p { margin-top: 6px; font-size: 16px; color: var(--fg-muted); }
   .pb-point-meta { display: block; margin-top: 10px; font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-subtle); }
 
+  /* ---------- §01 best practices: the capabilities the libraries carry, in groups ---------- */
+  .pb-practices { margin-top: clamp(72px, 9vw, 112px); }
+  .pb-practice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+  .pb-practice-grid > li { position: relative; padding: 28px 28px 30px 0; border-bottom: 1px solid var(--border); }
+  .pb-practice-grid > li:not(:nth-child(3n + 1)) { padding-left: 28px; border-left: 1px solid var(--border); }
+  .pb-practice-grid > li::before {
+    content: ''; position: absolute; top: -1px; left: 0; width: 48px; height: 3px; background: var(--accent-mark);
+    transition: width .7s var(--ease-out);
+  }
+  .pb-practice-grid > li:not(:nth-child(3n + 1))::before { left: 28px; }
+  .pb-practice-grid > li:hover::before { width: calc(100% - 28px); }
+  .pb-practice-grid h4 { font-size: 24px; font-weight: 300; line-height: 1.15; letter-spacing: -.03em; }
+  .pb-practice-grid ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .pb-practice-grid ul li {
+    padding: 5px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-raised);
+    font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--fg-muted);
+  }
+
   /* ---------- §02 suite cards ---------- */
   .pb-suite-intro { max-width: none; margin-bottom: 48px; }
   .pb-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
@@ -303,8 +322,7 @@
   .pb-card:hover .pb-card-logo .product-logo { transform: translateX(6px); }
   .pb-card-tagline { font-size: clamp(23px, 2.2vw, 30px); font-weight: 300; line-height: 1.15; letter-spacing: -.03em; }
   .pb-card-action { max-width: 40ch; font-size: 16px; color: var(--fg-muted); }
-  .pb-card-stack { margin-top: auto; padding-top: 8px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-subtle); }
-  .pb-card-links { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  .pb-card-links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: auto; padding-top: 10px; }
   .pb-card-links a, .pb-card-links .pb-link-disabled {
     display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700;
     background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
@@ -316,7 +334,7 @@
   .pb-card-links a:first-child:hover .icon-arrow { transform: translateY(3px); }
   .pb-card-links a + a:hover .icon-arrow { transform: translateX(3px); }
 
-  /* ---------- §02 field guide: how each solution works ---------- */
+  /* ---------- §02 field guide: what each product does ---------- */
   .pb-guide { margin-top: clamp(84px, 10vw, 128px); }
   .pb-guide-head { margin-bottom: 52px; }
   .pb-guide-head .pb-standfirst { max-width: none; }
@@ -345,8 +363,6 @@
     color: var(--fg-subtle); scroll-margin-top: 12px;
   }
   .pb-entry-aside h5 { margin-top: 26px; }
-  .pb-entry-apis { display: grid; gap: 6px; }
-  .pb-entry-apis code { font-size: 13px; color: var(--fg); }
   .pb-entry-stack li { padding: 6px 0; border-top: 1px solid var(--border); font-size: 14.5px; }
   .pb-entry-link {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; font-size: 15px; font-weight: 700; color: var(--accent);
@@ -356,7 +372,6 @@
   .pb-entry-body { grid-column: 6 / -1; }
   .pb-entry-summary { font-size: clamp(22px, 2.1vw, 29px); font-weight: 400; line-height: 1.36; letter-spacing: -.02em; text-wrap: pretty; }
   .pb-entry-body > p:not(.pb-entry-summary) { font-size: 17px; color: var(--fg-muted); }
-  .pb-entry-problem { padding-left: 18px; border-left: 3px solid var(--tone); }
   .pb-partner {
     position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px 28px;
     margin-top: 32px; padding: 26px 28px; border: 1px solid color-mix(in srgb, var(--tone) 55%, var(--border));
@@ -386,22 +401,12 @@
     content: counter(step, decimal-leading-zero); font-size: 26px; font-weight: 200; line-height: 1; letter-spacing: -.03em;
     color: var(--accent);
   }
-  .pb-entry-integrations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
-  .pb-entry-integrations li { position: relative; padding: 10px 0 10px 22px; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.5; color: var(--fg-muted); }
-  .pb-entry-integrations li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
-  .pb-code { border: 1px solid var(--border); background: var(--code-bg); }
-  .pb-code figcaption {
-    display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--border);
-    font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-subtle);
-  }
-  .pb-code pre { margin: 0; padding: 18px 16px; overflow-x: auto; font: 13px/1.7 var(--font-mono); color: var(--fg); }
-  .pb-code .code-line { white-space: pre; }
-  .tok-keyword { color: var(--tok-keyword); }
-  .tok-type { color: var(--tok-type); }
-  .tok-function { color: var(--tok-function); }
-  .tok-string, .tok-key { color: var(--tok-string); }
-  .tok-number { color: var(--tok-number); }
-  .tok-comment { color: var(--tok-comment); font-style: italic; }
+  /* Highlights: each feature is a short title over one line of explanation, marked in the product's colour. */
+  .pb-entry-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+  .pb-entry-features li { position: relative; display: grid; gap: 4px; align-content: start; padding: 16px 0 18px 20px; border-top: 1px solid var(--border); }
+  .pb-entry-features li::before { content: ''; position: absolute; left: 0; top: 23px; width: 8px; height: 8px; border-radius: 50%; background: var(--tone); }
+  .pb-entry-features b { font-size: 17px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; }
+  .pb-entry-features span { font-size: 15px; line-height: 1.5; color: var(--fg-muted); }
 
   /* ---------- Screen libraries: a full-width strip under each entry ---------- */
   .pb-gallery {
@@ -475,9 +480,13 @@
 
   /* ---------- Services ---------- */
   .pb-services > .pb-standfirst { max-width: none; margin-bottom: 48px; }
-  .pb-service-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
-  .pb-service-list li { padding: 30px 32px 8px 0; }
-  .pb-service-list li + li { padding-left: 32px; border-left: 1px solid var(--border); }
+  /* Five services on a six-column grid: the first two span three columns each, the other three span two. */
+  .pb-service-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+  .pb-service-list li { grid-column: span 2; padding: 30px 32px 34px; border-left: 1px solid var(--border); }
+  .pb-service-list li:nth-child(-n + 2) { grid-column: span 3; }
+  .pb-service-list li:nth-child(1), .pb-service-list li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .pb-service-list li:nth-child(n + 3) { border-top: 1px solid var(--border); }
+  .pb-service-list li:nth-child(-n + 2) p { max-width: 44ch; }
   .pb-service-no {
     display: block; font-size: 72px; font-weight: 200; line-height: 1; letter-spacing: -.05em; color: var(--accent);
     transition: transform .6s var(--ease-out), font-weight .6s;
@@ -556,7 +565,7 @@
   .pb-plate:hover :is(.pb-orbit, .pb-node-spin, .pb-foundation, .pb-chip-spin) { animation-play-state: paused; }
   @keyframes pb-spin { to { rotate: 360deg; } }
   .pb-node { transition: scale .7s cubic-bezier(.34, 1.56, .64, 1) calc(.25s + var(--i) * 110ms), translate .45s var(--ease-out) 0s; }
-  /* Each element moves away from the pointer on its own (js/proposals/proposal-b.js). */
+  /* Each element moves away from the pointer on its own (js/plate.js). */
   [data-repel] { translate: var(--repel-x, 0px) var(--repel-y, 0px); }
   [data-repel]:not(.pb-node) { transition: translate .45s var(--ease-out); }
   .pb-node-disc { fill: var(--surface-raised); stroke: var(--tone); stroke-width: 2.5; }
@@ -680,8 +689,17 @@
     .pb-index li:nth-child(n) { border-left: 1px solid var(--border); }
     .pb-index li:nth-child(odd) { border-left: 0; }
     .pb-index li:nth-child(n + 3) { border-top: 1px solid var(--border); }
+    .pb-index.pb-pillars { grid-template-columns: minmax(0, 1fr); }
+    .pb-pillars li:nth-child(n) { border-left: 0; }
+    .pb-pillars li:nth-child(n + 2) { border-top: 1px solid var(--border); }
     .pb-platform-body .pb-standfirst, .pb-points { grid-column: 1 / -1; position: static; }
     .pb-points { margin-top: 36px; }
+    .pb-practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pb-practice-grid > li:nth-child(n) { padding: 26px 24px 28px 0; border-left: 0; }
+    .pb-practice-grid > li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--border); }
+    .pb-practice-grid > li:nth-child(n)::before { left: 0; }
+    .pb-practice-grid > li:nth-child(even)::before { left: 24px; }
+    .pb-practice-grid > li:hover::before { width: calc(100% - 24px); }
     .pb-cards { grid-template-columns: minmax(0, 1fr); }
     .pb-card, .pb-card:nth-child(even) { padding: 30px 0; border-left: 0; }
     .pb-card:nth-child(even)::before { left: 0; }
@@ -690,7 +708,7 @@
     .pb-entry-body { margin-top: 12px; }
     .pb-gallery-hint { flex-basis: 100%; }
     .pb-service-list { grid-template-columns: minmax(0, 1fr); }
-    .pb-service-list li, .pb-service-list li + li { padding: 28px 0; border-left: 0; }
+    .pb-service-list li:nth-child(n) { grid-column: 1; padding: 28px 0; border-left: 0; }
     .pb-service-list li + li { border-top: 1px solid var(--border); }
     .pb-qa { grid-template-columns: minmax(0, 1fr); }
     .pb-colophon { grid-template-columns: minmax(0, 1fr); }
@@ -707,7 +725,11 @@
     .pb-index { grid-template-columns: minmax(0, 1fr); }
     .pb-index li:nth-child(n) { border-left: 0; }
     .pb-index li:nth-child(n + 2) { border-top: 1px solid var(--border); }
-    .pb-entry-integrations { grid-template-columns: minmax(0, 1fr); }
+    .pb-entry-features { grid-template-columns: minmax(0, 1fr); }
+    .pb-practice-grid { grid-template-columns: minmax(0, 1fr); }
+    .pb-practice-grid > li:nth-child(n) { padding: 24px 0 26px; border-left: 0; }
+    .pb-practice-grid > li:nth-child(n)::before { left: 0; }
+    .pb-practice-grid > li:hover::before { width: 100%; }
     .pb-partner { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
     .pb-partner-link { grid-column: 1; }
     .pb-chip { font-size: 13px; }

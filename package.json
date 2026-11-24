@@ -2,8 +2,8 @@
   "name": "indice-platform-microsite",
   "private": true,
   "scripts": {
-    "build": "node scripts/render.js",
-    "check": "node --check js/data.js && node --check js/main.js && node --check js/showcase.js && node --check js/foundation-art.js && node --check js/hero-art.js && node --check js/contact.js && node --check js/cases-art.js && node --check js/cases-tabs.js && node --check js/carousel.js && node --check js/terminal.js && node --check js/terminal-reference.js && node --check js/blueprint.js && node --check js/proposals/common.js && node --check js/proposals/proposal-b.js && node scripts/check.js",
+    "build": "node scripts/build.js",
+    "check": "node --check js/common.js && node --check js/plate.js && node --check js/cases-article.js && node scripts/check.js",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
