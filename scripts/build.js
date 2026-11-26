@@ -1,9 +1,9 @@
 'use strict';
 
-/* Builds the site: the dark-theme product logos and the two pages. Run: npm run build */
+/* Builds the site: the generated product logos and the two pages. Run: npm run build */
 const fs = require('node:fs');
 const path = require('node:path');
-const { renderDarkLogos } = require('./shared.js');
+const { renderLogos } = require('./shared.js');
 
 const root = path.join(__dirname, '..');
 const pages = {
@@ -12,7 +12,7 @@ const pages = {
 };
 
 function build() {
-  renderDarkLogos();
+  renderLogos();
   for (const [file, render] of Object.entries(pages)) fs.writeFileSync(path.join(root, file), render(), 'utf8');
   console.log(`Rendered ${Object.keys(pages).join(', ')}.`);
 }

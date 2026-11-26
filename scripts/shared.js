@@ -13,9 +13,23 @@ const themeKey = 'indice-platform-theme';
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
 /* ---------- Product logos ---------- */
-const logo = (product, cls = '', src = product.logo) => {
+/* The supplied Dex logo carries the line "Knowledge assistant" under its name, drawn at 45% opacity. Agents is more
+   than a knowledge assistant, so a product marked `logoDescriptor: false` is shown with a copy of its logo without
+   that line: the line is removed, the name moves down to the middle of the icon, and the canvas is cropped to what is
+   left (the name ends at x 67.2). The supplied file is not changed; the copy is written by the build. */
+const plainLogo = { shift: 7.55, width: 70 };
+const logoPath = product => product.logoDescriptor === false ? `assets/logos/on-light/${product.id}-logo.svg` : product.logo;
+function logoSvg(product) {
   const svg = fs.readFileSync(path.join(root, product.logo), 'utf8');
-  const [, width, height] = svg.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
+  if (product.logoDescriptor !== false) return svg;
+  return svg
+    .replace(/<path\b[^>]*fill-opacity="0\.45"[^>]*>\s*/g, '')
+    // The icon is drawn in the first 30px; everything to its right is the name.
+    .replace(/<path\b[^>]*>/g, tag => Number(tag.match(/\sd="M([\d.]+)/)?.[1]) >= 30 ? tag.replace('<path', `<path transform="translate(0 ${plainLogo.shift})"`) : tag)
+    .replace(/<svg width="[\d.]+" height="([\d.]+)" viewBox="0 0 [\d.]+ /, `<svg width="${plainLogo.width}" height="$1" viewBox="0 0 ${plainLogo.width} `);
+}
+const logo = (product, cls = '', src = logoPath(product)) => {
+  const [, width, height] = logoSvg(product).match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
   return `<img class="product-logo ${cls}" src="${escape(src)}" width="${width}" height="${height}" alt="${escape(product.name)}" loading="lazy" decoding="async">`;
 };
 
@@ -27,16 +41,24 @@ const darkLogoColours = [['#1C1A33', '#F4F4F6'], ['#1D1F25', '#F4F4F6'], ['#7776
 const darkLogoPath = product => `assets/logos/on-dark/${product.id}-logo.svg`;
 function darkLogo(product) {
   let keep = 0;
-  return fs.readFileSync(path.join(root, product.logo), 'utf8').replace(/<path\b[^>]*>/g, tag => {
+  return logoSvg(product).replace(/<path\b[^>]*>/g, tag => {
     if (keep > 0) { keep -= 1; return tag; }
     if (Number(tag.match(/\sd="M([\d.]+)/)?.[1]) < 30) return tag;
     if (/\sd="M[\d.]+ 2\.2202\d*H/.test(tag)) keep = 2;
     return darkLogoColours.reduce((svg, [from, to]) => svg.replace(new RegExp(from, 'gi'), to), tag);
   });
 }
-function renderDarkLogos() {
-  fs.mkdirSync(path.join(root, 'assets', 'logos', 'on-dark'), { recursive: true });
-  for (const product of products) fs.writeFileSync(path.join(root, darkLogoPath(product)), darkLogo(product), 'utf8');
+/* Writes the generated logos: a dark-theme copy of every logo and, where the supplied logo is not shown as it is, the
+   light-theme copy. */
+function renderLogos() {
+  const write = (file, svg) => {
+    fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
+    fs.writeFileSync(path.join(root, file), svg, 'utf8');
+  };
+  for (const product of products) {
+    write(darkLogoPath(product), darkLogo(product));
+    if (logoPath(product) !== product.logo) write(logoPath(product), logoSvg(product));
+  }
 }
 const themedLogo = product => logo(product, 'logo-on-light') + logo(product, 'logo-on-dark', darkLogoPath(product));
 
@@ -118,6 +140,6 @@ function head({ title, description, stylesheets = [], scripts = [] }) {
 }
 
 module.exports = {
-  content, escape, icons, head, wordmark, themedLogo, darkLogo, darkLogoPath, renderDarkLogos, themeKey,
+  content, escape, icons, head, wordmark, themedLogo, logoSvg, logoPath, darkLogo, darkLogoPath, renderLogos, themeKey,
   external, demoButton, shotMedia, screenFigure, lightbox, backToTop, githubTab
 };

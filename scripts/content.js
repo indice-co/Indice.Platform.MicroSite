@@ -3,12 +3,12 @@
 /* All copy for the INDICE Platform site, in page order. Edit here, then run `npm run build`.
 
    The page presents the platform's three pillars:
-     01 Platform Foundation  the mortar   open-source libraries and engineering expertise
-     02 Platform Suite       the bricks   six ready-made products
-     03 Platform Services    the builder  development, integration, support, cloud practices, fintech experience
+     01 Platform Foundation  open-source libraries and engineering expertise
+     02 Platform Suite       six ready-made products
+     03 Platform Services    development, integration, DevOps, support, fintech experience
 
-   Product facts come from the product documents (Indice.Platform/docs/*-Product.md) and, for Agents and Workers,
-   from the Indice.Platform repository. Features the documents mark "next release" are left out. */
+   Product facts come from the product documents (Indice.Platform/docs/*-Product.md). Features the documents mark
+   "next release" are left out. */
 
 const site = {
   title: 'INDICE Platform',
@@ -25,17 +25,17 @@ const hero = {
   lede: 'INDICE Platform brings together what that takes: an open-source foundation, a suite of six ready-made products, and the engineers who build alongside you. Start small and scale, in the cloud or on your own infrastructure.',
   primary: 'Explore the platform',
   secondary: 'Request a demo',
-  /* The three pillars, linked from the hero. `id` is the section each one opens. */
+  /* The three pillars, linked from the hero. `id` is the section each one opens; `role` says what the pillar is. */
   pillars: [
-    { id: 'platform', name: 'Platform Foundation', role: 'The mortar', text: 'Open-source Indice libraries and years of engineering practice, under everything we build.' },
-    { id: 'products', name: 'Platform Suite', role: 'The bricks', text: 'Agents, Cases, IAM, Messaging, Risk and Workers: six ready-made products for common business needs.' },
-    { id: 'services', name: 'Platform Services', role: 'The builder', text: 'Our engineers develop, integrate and support alongside your team, from first build to daily operation.' }
+    { id: 'platform', name: 'Platform Foundation', role: 'Open-source libraries', text: 'Open-source Indice libraries and years of engineering practice, under everything we build.' },
+    { id: 'products', name: 'Platform Suite', role: 'Six ready-made products', text: 'Agents, Cases, IAM, Messaging, Risk and Workers: six ready-made products for common business needs.' },
+    { id: 'services', name: 'Platform Services', role: 'Engineering and DevOps', text: 'Our engineers develop, integrate, release and support alongside your team, from first build to daily operation.' }
   ],
   facts: [
     { label: 'Deploy anywhere', value: 'Cloud or on-premises, on any OS, environment or orchestrator' },
     { label: 'Your data stores', value: 'PostgreSQL, SQL Server, Redis, Elastic' },
     { label: 'Observability', value: 'First-class OpenTelemetry' },
-    { label: 'AI built in', value: 'Assistants that answer from your own knowledge, with sources' },
+    { label: 'AI built in', value: 'Create, configure and automate AI agents and workflows' },
     { label: 'Built with', value: '.NET and Angular' }
   ]
 };
@@ -73,7 +73,7 @@ const foundation = {
 const plate = {
   label: 'Plate I',
   title: 'One foundation under every product.',
-  text: 'Mortar and bricks. Every product in the suite is assembled from the same open-source Indice libraries, so the product you add next, or the one you build yourself, joins the same identity, hosting and extension patterns.',
+  text: 'Every product in the suite is assembled from the same open-source Indice libraries, so the product you add next, or the one you build yourself, joins the same identity, hosting and extension patterns.',
   core: ['Indice', 'Platform'],
   /* Short labels: they turn around the core, and a long one runs into it. */
   ring: ['.NET', 'Angular', 'OpenID Connect', 'OTel', 'OpenAPI']
@@ -83,38 +83,42 @@ const plate = {
 const suite = {
   label: 'Platform Suite',
   title: 'Six products. No project starts from scratch.',
-  intro: 'Ready-made products for common business needs: AI assistants, case workflows, identity, messaging, risk scoring and background processing. Adopt one, combine several, or build your own product on top of them.',
+  intro: 'Ready-made products for common business needs: AI agents, case workflows, identity, messaging, risk scoring and background processing. Adopt one, combine several, or build your own product on top of them.',
   guideLabel: 'Product by product',
   guideTitle: 'What each product does',
   guideIntro: 'What each product does, the features that set it apart and what it looks like in use.'
 };
 
-/* Listed in page order. Each product: what it does (`summary`, `does`), its standout features and its screens. */
+/* Listed in page order. Each product: what it does (`summary`, `does`), its standout features and its screens.
+   Optional: `technical` (a short technical summary, IAM only), `partner` and `destination` (a technical reference page). */
 const products = [
   {
     id: 'agents',
     name: 'Agents',
     logo: 'assets/logos/dex logo.svg',
+    /* The supplied logo reads "Dex, Knowledge assistant". Agents is more than that, so the site shows a generated copy
+       without the second line. Remove this flag to show the supplied logo as it is. */
+    logoDescriptor: false,
     icon: 'assets/logos/dex icon.svg',
     color: '#E3272A',
-    tagline: 'AI assistants grounded in your own knowledge',
-    action: 'Give customers and staff an AI assistant that answers from your own documentation, with sources.',
-    summary: 'Agents brings Dex, an AI assistant, to your web and mobile apps. It answers questions from your organisation’s own documentation, cites the sources it used, and says so when the sources do not cover a question.',
+    tagline: 'AI agents for assistants, self-service and automation',
+    action: 'Create, configure and automate AI agents and workflows, then put them in front of customers and staff.',
+    summary: 'Agents is a product for creating, configuring and automating AI agents and workflows, and putting them in front of people. A router picks the right agent for every message: to answer from your documents, act in other systems through tools, or guide someone through a multi-step flow. Dex, the assistant in the screens below, is built with it.',
     does: [
-      'Your documentation is ingested, split into passages and indexed for retrieval.',
-      'Each message is routed to the agent best suited to handle it, such as the knowledge agent.',
-      'The agent retrieves the most relevant passages and writes an answer with numbered citations.',
-      'The answer streams to the user as it is written, and the conversation is saved so it can be continued or searched later.'
+      'Create an agent or a multi-step workflow and register it with a description of what it does. It is routed, served and listed like the built-in agents.',
+      'People write in one conversation, in the ready-made chat application, the embeddable widget or your own interface. A router reads each message and picks the agent that fits.',
+      'The agent answers from your documents and shows its sources, or calls tools to look things up and carry out tasks in other systems.',
+      'When a workflow needs a person, it pauses to ask for a choice, a one-time code or a confirmation, and continues from the same point when the answer arrives.'
     ],
     features: [
-      { title: 'Cited answers', text: 'Every answer lists the source sections it drew from, so readers can check it.' },
-      { title: 'Strict grounding', text: 'On by default: when your documentation is not enough, the assistant declines instead of guessing.' },
-      { title: 'Specialised agents', text: 'An intent router sends each message to the right agent. Auto lets it choose.' },
-      { title: 'Connected to your systems', text: 'Through MCP, an operator agent can look up cases and case types, with one-time codes for sensitive steps.' },
-      { title: 'Web and mobile, ready-made', text: 'A web chat app, plus iOS and Android SDKs that include a finished chat interface.' },
-      { title: 'Rich replies', text: 'Markdown, code, diagrams, images, multiple choice, callouts and confirmations, not only plain text.' }
+      { title: 'Register an agent, get a product', text: 'A new agent is its own logic plus a description. Routing, streaming, history, the chat interface and usage limits are already there.' },
+      { title: 'Human in the loop', text: 'A workflow pauses for a choice, a one-time code or a confirmation. The pause survives restarts and resumes when the answer comes.' },
+      { title: 'Tools through MCP', text: 'Agents act on other systems through Model Context Protocol servers. Cases and IAM already work as tool servers.' },
+      { title: 'Settings, not code', text: 'Prompts, the assistant’s identity and usage limits are templates and settings. So is the model: Azure OpenAI, Azure AI Foundry, OpenAI or one you host.' },
+      { title: 'Grounded, cited answers', text: 'The knowledge agent answers from the documents you ingest, lists its sources, and declines when they cannot support an answer.' },
+      { title: 'Built to face customers', text: 'Guests get a real, short-lived token. A one-time code comes before any personal record, and personal data is masked before it reaches the model.' }
     ],
-    stack: ['.NET', 'Azure OpenAI', 'Angular', 'Swift and Kotlin SDKs'],
+    stack: ['.NET', 'Microsoft Agent Framework (MAF)', 'Model Context Protocol (MCP)', 'Azure OpenAI, OpenAI or local models', 'Angular'],
     screens: [
       { title: 'New chat', text: 'Ask Dex a question, or start from a suggested prompt. Auto lets the router pick the agent; earlier conversations are listed and searchable on the left.', image: 'assets/uis/agents/01.agents.indice.gr_.png', alt: 'Dex web chat start screen with the question box, the agent selector set to Auto, suggested prompts and an empty conversation list' },
       { title: 'Answer with sources', text: 'A streamed answer drawn from your documentation, with numbered citations in the text and the source sections it used listed below.', image: 'assets/uis/agents/02.agents.indice.gr_ (2).png', alt: 'Dex answer about Indice.Platform with inline citations and two linked source sections below it' },
@@ -177,7 +181,23 @@ const products = [
       { title: 'GovGr and social sign-in', text: 'GovGr (TaxisNet), Apple, Google, Microsoft and Facebook built in, plus any standard OpenID Connect provider.' },
       { title: 'Sign-in pages you own', text: 'Themed per client application and replaceable page by page, without forking.' }
     ],
-    stack: ['.NET', 'Duende IdentityServer', 'OpenID Connect and OAuth2', 'Angular'],
+    stack: ['.NET', 'Duende IdentityServer', 'ASP.NET Core Identity', 'OpenID Connect and OAuth2', 'Angular'],
+    /* IAM is a security product, so its entry keeps a short technical summary; the other entries have none.
+       Text between backticks is set as code. */
+    technical: {
+      title: 'Security in detail',
+      items: [
+        { term: 'Standards', text: 'OpenID Connect and OAuth2, served by Duende IdentityServer, with users stored in ASP.NET Core Identity.' },
+        { term: 'Custom grants', text: 'Five grant types on top of the standard flows: `totp` and `mfa` for step-up, `device_authentication` for registered devices, `delegation` to act on behalf of a user, and `urn:indice:guest` for anonymous app installs.' },
+        { term: 'Sessions', text: 'Server-side sessions: the cookie holds only a reference, so a session is revoked by deleting it. A single active session per user can be enforced.' },
+        { term: 'Rate limiting', text: 'A rule per endpoint, each with its own limit and window. The reference template ships 20, covering login, registration, forgot-password, one-time codes and every account change.' },
+        { term: 'Bots and lockout', text: 'reCAPTCHA v3 on login, registration and forgot-password, falling back to the v2 checkbox on a low score. Repeated failed attempts lock the account.' },
+        { term: 'Passwords', text: 'Length and character rules, history, expiry, a blacklist and a common-password check. A password change can revoke the user’s refresh tokens, reference tokens and consents.' },
+        { term: 'Tunable defaults', text: 'Device trust after 48 hours, impossible travel above 400 km/h, and sign-in logs kept for 90 days.' },
+        { term: 'Keys and data', text: 'Tokens are signed with your own certificate. Users, configuration, grants and both audit logs live in five databases that you host.' },
+        { term: 'Extension points', text: 'Interfaces such as `IExtensionGrantValidator` and `IIdentityValidationActivity` let you add grants, post-login steps, MFA methods and log fields as C# classes in your own host.' }
+      ]
+    },
     partner: {
       label: 'Official partner',
       name: 'Duende Software',
@@ -264,7 +284,7 @@ const products = [
     does: [
       'Developers write a job once and trigger it on a schedule or from a queue.',
       'Work is retried when it fails, and messages that keep failing move to a poison queue instead of blocking the rest.',
-      'Each worker reports a heartbeat, so the dashboard shows which servers are alive.',
+      'A distributed lock keeps a singleton task to one run at a time, however many instances are deployed.',
       'Operators requeue messages, run or pause tasks and release locks from the dashboard.'
     ],
     features: [
@@ -272,7 +292,7 @@ const products = [
       { title: 'Poison queues', text: 'Messages that exceed their retry limit are set aside, ready to inspect, edit and requeue.' },
       { title: 'Transactional enqueue', text: 'Messages are enqueued in the same transaction as your data, so the two never disagree.' },
       { title: 'Run now, pause, resume', text: 'Each scheduled task shows its last and next run, its last error and the state it keeps between runs.' },
-      { title: 'Health checks and metrics', text: 'Health checks for poison messages and stuck tasks, and metrics ready for OpenTelemetry.' },
+      { title: 'Health checks', text: 'Report poison messages above a threshold, and tasks that run too long or miss their schedule.' },
       { title: 'SQL Server or PostgreSQL', text: 'Queues, tasks, servers and locks live in the relational database you already run.' }
     ],
     stack: ['.NET', 'Quartz', 'SQL Server or PostgreSQL', 'Angular'],
@@ -285,31 +305,162 @@ const products = [
 ];
 
 /* ---------- 03 Platform Services ---------- */
+/* The chapter opens with the offer and Plate II, then the five services and the path an engagement follows. Every point
+   under a service is something the foundation or a product document already states, or a practice the team names as
+   its own (cloud, release management, monitoring); nothing here is a figure, a client name or a contractual term. */
 const services = {
   label: 'Platform Services',
   title: 'A partner from first build to daily operation.',
-  intro: 'We help you build your own solutions beside the platform or on top of it, integrate with whatever your business needs, and keep it all running. Consult with us, design with us, and create added value together.',
+  intro: 'The team behind the foundation and the suite works on your project. We build your own solutions on top of the platform or beside it, connect them to the systems you already have, release them to the cloud or to your own infrastructure, and keep everything running after go-live.',
+  /* Plate II: the products stacked on the foundation, drawn from the product list. The next place is the client's. */
+  plate: {
+    label: 'Plate II',
+    text: 'Six products stand on one foundation. The next one is yours, and we build it with you.',
+    foundation: 'Platform Foundation',
+    yours: 'Your product'
+  },
+  listLabel: 'What we do',
+  listTitle: 'Five services, one team.',
+  listIntro: 'What the partnership covers, and what each part gives you. All of it stands on the foundation and the products described above.',
+  /* `pointsLabel` heads what a service gives: a list of `points` beside it, or `groups` of points set across the row
+     below it. DevOps has groups, one for each part of the practice. */
   items: [
-    { title: 'Software development', text: 'Software tailored to your needs, built on the same foundation as our own products.' },
-    { title: 'Integration', text: 'The Platform Suite products connected to your systems and processes.' },
-    { title: 'Ongoing support', text: 'New features, regular security updates with CVE patching, and immediate technical assistance.' },
-    { title: 'Cloud practices', text: 'Proven methods for deploying applications and monitoring them continuously, so they remain stable and available.' },
-    { title: 'Fintech experience', text: 'In-depth knowledge of the sector’s requirements, regulations and particularities.' }
-  ]
+    {
+      title: 'Software development',
+      tagline: 'Tailored to you, built on what already works.',
+      text: 'Software designed around your needs, on the same foundation as our own products. Identity, messaging, workflows and background jobs are already solved, so the effort goes into what is specific to your business.',
+      pointsLabel: 'What you get',
+      points: [
+        'Your own product, SaaS or ecosystem, on top of the suite or beside it',
+        'A single modular application to start, split into services as you grow',
+        'Multitenant design, for one organisation or many',
+        'AI agents and automated workflows, where they help'
+      ]
+    },
+    {
+      title: 'Integration',
+      tagline: 'The suite, working inside your systems.',
+      text: 'The Platform Suite products connected to your systems and processes, and shaped to the way your organisation works, without forking them.',
+      pointsLabel: 'What you get',
+      points: [
+        'Products fitted to your processes through extension points: risk rules, workflow steps, sign-in steps and message providers',
+        'An integration SDK for Apple, GovGR and EU services, and for email, SMS and push providers',
+        'APIs described with OpenAPI 3.1, for your own applications to call',
+        'Cases and IAM available as tools for your AI agents'
+      ]
+    },
+    {
+      title: 'DevOps',
+      tagline: 'Released with care, monitored continuously.',
+      text: 'How software reaches production matters as much as how it is written. Our DevOps practice covers cloud infrastructure, release management and monitoring: proven methods that keep your applications stable and available, in the cloud or on your own infrastructure.',
+      pointsLabel: 'What it covers',
+      groups: [
+        {
+          title: 'Cloud',
+          points: [
+            'Kubernetes, AKS, EKS, Azure Container Apps and Azure Web Apps',
+            'Your own infrastructure as well: IIS or Nginx, on any operating system',
+            'Several instances side by side, kept in step by distributed locks and leader election'
+          ]
+        },
+        {
+          title: 'Release management',
+          points: [
+            'Repeatable releases, from development through to production',
+            'Database changes delivered as versioned migrations, product by product',
+            'Limits, workflows and templates that operators change without a release'
+          ]
+        },
+        {
+          title: 'Monitoring',
+          points: [
+            'Traces, metrics and logs through OpenTelemetry, into the monitoring tools you already use',
+            'Health checks on databases, storage and queues',
+            'A warning when messages keep failing, or a scheduled task runs long or misses its schedule'
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Ongoing support',
+      tagline: 'Still with you after go-live.',
+      text: 'Going live is where daily operation starts. We keep your software current and secure, and we are there when something needs attention.',
+      pointsLabel: 'What you get',
+      points: [
+        'New features as your requirements change',
+        'Regular security updates, with CVE patching',
+        'Immediate technical assistance'
+      ]
+    },
+    {
+      title: 'Fintech experience',
+      tagline: 'We know the rules you work under.',
+      text: 'In-depth knowledge of the sector’s requirements, regulations and particularities. It shows in the platform itself.',
+      pointsLabel: 'Where it shows',
+      points: [
+        'PSD2 and mTLS extensions in the foundation',
+        'Multi-factor authentication, device trust and impossible-travel detection in IAM',
+        'A risk score before a payment, transfer or login is committed, in Risk',
+        'Maker-checker approval and a full history of every case, in Cases'
+      ]
+    }
+  ],
+  process: {
+    label: 'How we work',
+    title: 'Consult with us, design with us, build with us.',
+    intro: 'Start with a single product or with a whole solution. The path is the same, and it does not end at go-live.',
+    steps: [
+      { title: 'Consult', text: 'We start from what you want to build, the systems you already have and the regulations you work under.' },
+      { title: 'Design', text: 'Together we shape the solution: which products fit, what is integrated and what is built new.' },
+      { title: 'Build', text: 'Our engineers develop and integrate, alongside your team or delivering the whole solution.' },
+      { title: 'Launch', text: 'We release it to the cloud or to your own infrastructure, monitored from the first day.' },
+      { title: 'Operate', text: 'We stay on with new features, security updates and technical assistance.' }
+    ]
+  }
 };
 
+/* Not a list of quick answers: four questions a decision turns on, each answered at length. A question has the answer
+   in one line (`short`), the reasoning (`paragraphs`) and the part of the page that shows it (`see`). The chapter has
+   no title: its label is its heading, and the first question follows. Add a `title` to give it one. */
 const faq = {
   label: 'Questions',
-  title: 'What teams ask first',
   items: [
-    { q: 'Is this a SaaS?', a: 'No. You deploy the platform in your own environment, in the cloud or on premises, and your data stays with you. It is also what you can build your own SaaS on: multitenant design is part of the foundation.' },
-    { q: 'Can we start with one product?', a: 'Yes. Each product stands on its own. Every product you add reuses the same hosting, identity and extension patterns, so the second is easier than the first.' },
-    { q: 'Can we build our own product on it?', a: 'Yes. The foundation libraries are open source, and our engineers can build alongside your team or deliver the whole solution.' },
-    { q: 'Where can it run?', a: 'On any operating system, environment or orchestrator: IIS, Nginx, Kubernetes, AKS, EKS, Azure Container Apps and Azure Web Apps.' },
-    { q: 'Which data stores does it use?', a: 'The ones you already run: major relational databases such as PostgreSQL and SQL Server, and document stores such as Redis and Elastic.' },
-    { q: 'Where does AI fit in?', a: 'Agents is the suite’s AI product: assistants that answer from your own documentation with cited sources, and connect to your systems. It is built on the same foundation as the rest of the suite.' },
-    { q: 'How do we customise a product without forking it?', a: 'Through extension points registered in your own application, such as risk rules, workflow activities, sign-in steps and message providers, and by replacing pages and interface text.' },
-    { q: 'What does INDICE do after go-live?', a: 'Ongoing support: new features, regular security updates with CVE patching, immediate technical assistance, and new development as your requirements change.' }
+    {
+      q: 'Do we adopt a product, or build our own?',
+      short: 'Both, in whichever order suits you.',
+      paragraphs: [
+        'Each product in the suite stands on its own, so you can start with one: IAM for sign-in, Cases for a back-office process, Messaging for notifications. You fit it to your organisation without forking it, through configuration and through extension points such as risk rules, workflow steps, sign-in steps and message providers, and by replacing pages and interface text.',
+        'What is specific to your business is built new, on the same open-source foundation the products are built on. Every product you add, and everything you build, reuses the same hosting, identity and extension patterns, so the second step is easier than the first.'
+      ],
+      see: { href: '#products', label: 'See the Platform Suite' }
+    },
+    {
+      q: 'How much of it stays in our hands?',
+      short: 'Where it runs, where the data lives and which vendors it talks to are your decisions.',
+      paragraphs: [
+        'The platform runs in the cloud or on your own infrastructure, on any operating system, environment or orchestrator. It keeps its data in databases you host: PostgreSQL or SQL Server, with Redis and Elastic where a document store fits. In IAM, tokens are signed with your own certificate. In Risk, IP addresses are resolved on your own servers and lookups never leave the host.',
+        'The foundation libraries are open source, published on NuGet and npm and developed in the open. The products speak open standards, OpenID Connect and OAuth2, OpenAPI 3.1, OpenTelemetry and the Model Context Protocol, so standard applications and tools connect to them. Email, SMS and push providers are settings, and so is the AI model.'
+      ],
+      see: { href: '#platform', label: 'See the Platform Foundation' }
+    },
+    {
+      q: 'Where does AI fit in, and how far can we trust it?',
+      short: 'Agents is the suite’s AI product, and it is built to face customers.',
+      paragraphs: [
+        'Agents is a tool for creating, configuring and automating AI agents and workflows. A router picks the right agent for each message: to answer from your documents and list its sources, to act in your systems through tools, or to guide someone through a multi-step flow. Cases and IAM already work as its tools, and you choose the model: Azure OpenAI, Azure AI Foundry, OpenAI or one you host.',
+        'The controls matter as much as the model. The knowledge agent declines when your documents cannot support an answer. A workflow pauses for a person when it needs a choice, a one-time code or a confirmation. A one-time code comes before any personal record, personal data is masked before it reaches the model, and usage limits are settings.'
+      ],
+      see: { href: '#spec-agents', label: 'See Agents' }
+    },
+    {
+      q: 'What happens after go-live?',
+      short: 'We stay on, and much of the daily change never needs a release.',
+      paragraphs: [
+        'Day-to-day change is in the hands of your own operators. They adjust risk limits from the console, design and publish workflows in the browser, edit message templates beside a live preview, and requeue or pause background work from a dashboard.',
+        'The rest we carry with you: releases, monitoring, new features as your requirements change, regular security updates with CVE patching, and immediate technical assistance. Traces, metrics and logs go through OpenTelemetry into the monitoring tools you already use, so your team sees what ours sees.'
+      ],
+      see: { href: '#services', label: 'See Platform Services' }
+    }
   ]
 };
 

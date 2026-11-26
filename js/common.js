@@ -73,12 +73,16 @@
   // data-parallax="speed": positive values lag behind the page, negative values move ahead of it.
   const parallax = [...document.querySelectorAll('[data-parallax]')]
     .map(element => ({ element, speed: Number.parseFloat(element.dataset.parallax) || 0.15 }));
-  // data-scrub: --scrub runs from 0 (element enters at the bottom) to 1 (element leaves at the top).
-  const scrubs = [...document.querySelectorAll('[data-scrub]')];
+  // data-scrub marks a block that holds a sticky element (data-scrub-pin). --scrub is how far that element has
+  // travelled down the block: 0 until it sticks, 1 when the end of the block releases it.
+  const scrubs = [...document.querySelectorAll('[data-scrub]')]
+    .map(track => ({ track, pin: track.querySelector('[data-scrub-pin]') })).filter(({ pin }) => pin);
   function update() {
     frame = 0;
     const y = scrollY;
-    root.classList.toggle('is-scrolled', y > 8);
+    // Two thresholds, so a page resting at one of them cannot switch the masthead back and forth.
+    if (y > 12) root.classList.add('is-scrolled');
+    else if (y < 4) root.classList.remove('is-scrolled');
     const max = root.scrollHeight - innerHeight;
     const fraction = max > 0 ? clamp(y / max, 0, 1) : 0;
     if (progress) progress.style.setProperty('--progress', fraction.toFixed(4));
@@ -90,9 +94,12 @@
       if (box.bottom < -innerHeight || box.top > innerHeight * 2) return;
       element.style.setProperty('--parallax', `${((box.top + box.height / 2 - innerHeight / 2) * -speed).toFixed(1)}px`);
     });
-    scrubs.forEach(element => {
-      const box = element.getBoundingClientRect();
-      element.style.setProperty('--scrub', clamp((innerHeight - box.top) / (innerHeight + box.height), 0, 1).toFixed(4));
+    scrubs.forEach(({ track, pin }) => {
+      const box = track.getBoundingClientRect();
+      if (box.bottom < -innerHeight || box.top > innerHeight * 2) return;
+      const travel = box.height - pin.offsetHeight;
+      const travelled = pin.getBoundingClientRect().top - box.top;
+      track.style.setProperty('--scrub', travel > 1 ? clamp(travelled / travel, 0, 1).toFixed(4) : '0');
     });
   }
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -100,7 +107,7 @@
   on(window, 'resize', schedule, { passive: true });
   on(reducedMotion, 'change', () => {
     parallax.forEach(({ element }) => element.style.removeProperty('--parallax'));
-    scrubs.forEach(element => element.style.removeProperty('--scrub'));
+    scrubs.forEach(({ track }) => track.style.removeProperty('--scrub'));
     schedule();
   });
   update();

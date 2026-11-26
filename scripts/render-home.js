@@ -29,7 +29,7 @@ const words = (text, accent = []) => escape(text).split(' ')
 const lastWord = text => [text.split(' ').length - 1];
 
 const toc = cls => `<ol class="${cls}">${chapters.map((chapter, index) => `<li style="--i:${index}">
-          <a href="#${chapter.id}"><span class="pb-toc-no">${pad(index + 1)}</span><span class="pb-toc-title">${escape(chapter.title)}</span><span class="pb-toc-text">${escape(chapter.text)}</span></a>${chapter.id === 'products' ? `
+          <a href="#${chapter.id}"><span class="pb-toc-no">${pad(index + 1)}</span><span class="pb-toc-title">${escape(chapter.title)}</span>${chapter.text ? `<span class="pb-toc-text">${escape(chapter.text)}</span>` : ''}</a>${chapter.id === 'products' ? `
           <ul class="pb-toc-sub">${products.map((p, i) => `<li><a href="#spec-${p.id}"><span>${entryNumber(i)}</span> ${escape(p.name)}</a></li>`).join('')}</ul>` : ''}
         </li>`).join('')}</ol>`;
 
@@ -51,10 +51,18 @@ const masthead = () => `<header class="pb-masthead">
     </div>
   </dialog>`;
 
-const chapterHead = (id, headingId, title) => `<header class="pb-chapter-head" data-reveal>
-        <p class="pb-chapter-label"><span class="pb-chapter-no">§ ${chapterNumber(id)}</span>${escape(chapters.find(chapter => chapter.id === id).title)}</p>
+/* A chapter opens with its label and its title. A chapter without a title (Questions) has its label as its heading. */
+const chapterHead = (id, headingId, title) => {
+  const label = `<span class="pb-chapter-no">§ ${chapterNumber(id)}</span>${escape(chapters.find(chapter => chapter.id === id).title)}`;
+  return title
+    ? `<header class="pb-chapter-head" data-reveal>
+        <p class="pb-chapter-label">${label}</p>
         <h2 id="${headingId}">${words(title)}</h2>
+      </header>`
+    : `<header class="pb-chapter-head pb-chapter-head-bare" data-reveal>
+        <h2 class="pb-chapter-label" id="${headingId}">${label}</h2>
       </header>`;
+};
 
 /* The hero states the offer, then hands over to the three pillars. */
 const hero = () => `<section class="pb-hero" id="hero" aria-labelledby="pb-hero-title" tabindex="-1">
@@ -123,11 +131,19 @@ const partner = p => `
             ${S.external(p.href, `${escape(p.site)}${icons.arrowUpRight}`, 'pb-partner-link')}
           </aside>`;
 
+/* A short technical summary, for a product that has one (IAM): a specification list. Text between backticks in the
+   copy is set as code. */
+const inlineCode = text => escape(text).replace(/`([^`]+)`/g, '<code>$1</code>');
+const technical = t => `
+          <h5>${escape(t.title)}</h5>
+          <dl class="pb-entry-specs">${t.items.map(item => `<div><dt>${escape(item.term)}</dt><dd>${inlineCode(item.text)}</dd></div>`).join('')}</dl>`;
+
 /* One entry per product: what it does and its standout features. The aside and body share their own grid, so the
-   sticky aside stops before the full-width screen library. */
-const entry = (p, index) => `<article class="pb-entry" id="spec-${p.id}" aria-labelledby="pb-entry-${p.id}" style="--tone:${p.color}" tabindex="-1" data-scrub>
-        <div class="pb-entry-main">
-        <aside class="pb-entry-aside">
+   sticky aside stops before the full-width screen library. The meter in the aside fills as the aside travels down
+   that grid (data-scrub and data-scrub-pin): empty when the text starts, full when it ends. */
+const entry = (p, index) => `<article class="pb-entry" id="spec-${p.id}" aria-labelledby="pb-entry-${p.id}" style="--tone:${p.color}" tabindex="-1">
+        <div class="pb-entry-main" data-scrub>
+        <aside class="pb-entry-aside" data-scrub-pin>
           <span class="pb-entry-meter" aria-hidden="true"></span>
           <p class="pb-entry-no">${entryNumber(index)}</p>
           <div class="pb-entry-logo">${S.themedLogo(p)}</div>
@@ -142,7 +158,7 @@ const entry = (p, index) => `<article class="pb-entry" id="spec-${p.id}" aria-la
           <h5>${ui.does}</h5>
           <ol class="pb-entry-steps">${p.does.map((step, i) => `<li style="--i:${i}">${escape(step)}</li>`).join('')}</ol>
           <h5>${ui.features}</h5>
-          <ul class="pb-entry-features">${p.features.map(feature => `<li><b>${escape(feature.title)}</b><span>${escape(feature.text)}</span></li>`).join('')}</ul>
+          <ul class="pb-entry-features">${p.features.map(feature => `<li><b>${escape(feature.title)}</b><span>${escape(feature.text)}</span></li>`).join('')}</ul>${p.technical ? technical(p.technical) : ''}
         </div>
         </div>
         ${gallery(p)}
@@ -227,15 +243,101 @@ const suite = () => `<section class="pb-chapter pb-suite" id="products" aria-lab
       </section>
     </section>`;
 
-const services = () => `<section class="pb-chapter pb-services" id="services" aria-labelledby="pb-services-title" tabindex="-1">
-      ${chapterHead('services', 'pb-services-title', c.services.title)}
-      <p class="pb-standfirst" data-reveal>${escape(c.services.intro)}</p>
-      <ol class="pb-service-list">${c.services.items.map((item, index) => `<li data-reveal style="--i:${index}"><span class="pb-service-no" aria-hidden="true">${pad(index + 1)}</span><h3>${escape(item.title)}</h3><p>${escape(item.text)}</p></li>`).join('')}</ol>
-    </section>`;
+/* Plate II: the products stacked on the foundation. The foundation is the slab and the bed the blocks sit in. Each
+   product is a block, placed from the bottom in rows of two and three so the joints never line up. The next block, the
+   client's, hangs above its place; any place left in that row stays open. Positions come from the product list. */
+const wallArt = () => {
+  const height = 60, joint = 10, left = 25, span = 590, lift = 46;
+  const places = [];
+  for (let course = 0; places.length <= products.length; course++) {
+    const count = course % 2 ? 3 : 2;
+    const width = (span - (count - 1) * joint) / count;
+    for (let i = 0; i < count; i++) places.push({ course, x: left + i * (width + joint), width });
+  }
+  const courses = places.at(-1).course + 1;
+  const y = place => lift + (courses - 1 - place.course) * (height + joint);
+  const rect = (cls, place) => `<rect class="${cls}" x="${place.x}" y="${y(place)}" width="${place.width}" height="${height}" rx="6"/>`;
+  // The bed is half a joint wider than each placed block; the beds meet, so the joints are filled.
+  const bed = place => `<rect x="${place.x - joint / 2}" y="${y(place) - joint / 2}" width="${place.width + joint}" height="${height + joint}"/>`;
+  const laid = places.slice(0, products.length);
+  const [next, ...open] = places.slice(products.length);
+  const slab = y(places[0]) + height + joint / 2;
+  return `<svg class="pb-wall-svg" viewBox="0 0 ${span + 2 * left} ${slab + 62}" aria-hidden="true" focusable="false">
+            <g class="pb-wall-bed">${laid.map(bed).join('')}</g>
+            <rect class="pb-wall-slab" x="0" y="${slab}" width="${span + 2 * left}" height="56" rx="6"/>
+            <text class="pb-wall-slab-text" x="${span / 2 + left}" y="${slab + 33}">${escape(c.services.plate.foundation)}</text>
+            ${laid.map((place, index) => `<g class="pb-block" style="--i:${index};--tone:${products[index].color}">${rect('pb-block-face', place)}<image href="${escape(products[index].icon)}" x="${place.x + 20}" y="${y(place) + 17}" width="26" height="26"/><text class="pb-block-name" x="${place.x + 58}" y="${y(place) + 36}">${escape(products[index].name)}</text></g>`).join('')}
+            ${rect('pb-block-place', next)}${open.map(place => `${rect('pb-block-open', place)}<path class="pb-block-plus" d="M${place.x + place.width / 2 - 9} ${y(place) + height / 2}h18m-9-9v18"/>`).join('')}
+            <g class="pb-block" style="--i:${products.length + 1}"><g class="pb-block-yours">${rect('pb-block-face', next)}<text class="pb-block-name" x="${next.x + next.width / 2}" y="${y(next) + 36}">${escape(c.services.plate.yours)}</text></g></g>
+          </svg>`;
+};
 
+/* §03: the offer beside Plate II, the five services with what each one gives, and the path an engagement follows.
+   A service lists its points beside its text; one with `groups` (DevOps) sets them across the row, a column a group. */
+const services = () => {
+  const s = c.services;
+  const points = list => `<ul>${list.map(point => `<li>${escape(point)}</li>`).join('')}</ul>`;
+  const gives = item => item.groups
+    ? `<div class="pb-service-groups">
+              <h5>${escape(item.pointsLabel)}</h5>
+              <ul>${item.groups.map(group => `<li><h6>${escape(group.title)}</h6>${points(group.points)}</li>`).join('')}</ul>
+            </div>`
+    : `<div class="pb-service-points">
+              <h5>${escape(item.pointsLabel)}</h5>
+              ${points(item.points)}
+            </div>`;
+  const part = (id, label, title, intro) => `<header class="pb-guide-head" data-reveal>
+          <p class="pb-chapter-label"><span class="pb-chapter-no">§ ${chapterNumber('services')}</span>${escape(label)}</p>
+          <h3 class="pb-guide-title" id="${id}">${words(title)}</h3>
+          <p class="pb-standfirst">${escape(intro)}</p>
+        </header>`;
+  return `<section class="pb-chapter pb-services" id="services" aria-labelledby="pb-services-title" tabindex="-1">
+      ${chapterHead('services', 'pb-services-title', s.title)}
+      <div class="pb-services-lead">
+        <p class="pb-standfirst" data-reveal>${escape(s.intro)}</p>
+        <figure class="pb-wall" data-reveal>
+          ${wallArt()}
+          <figcaption><span class="pb-plate-label">${escape(s.plate.label)}</span><span>${escape(s.plate.text)}</span></figcaption>
+        </figure>
+      </div>
+      <section class="pb-services-part" aria-labelledby="pb-service-list-title">
+        ${part('pb-service-list-title', s.listLabel, s.listTitle, s.listIntro)}
+        <ol class="pb-service-list">${s.items.map((item, index) => `
+          <li class="pb-service${item.groups ? ' pb-service-wide' : ''}" data-reveal>
+            <span class="pb-service-no" aria-hidden="true">${pad(index + 1)}</span>
+            <div class="pb-service-main">
+              <h4>${escape(item.title)}</h4>
+              <p class="pb-service-tagline">${escape(item.tagline)}</p>
+              <p>${escape(item.text)}</p>
+            </div>
+            ${gives(item)}
+          </li>`).join('')}
+        </ol>
+      </section>
+      <section class="pb-services-part pb-services-path" aria-labelledby="pb-process-title">
+        ${part('pb-process-title', s.process.label, s.process.title, s.process.intro)}
+        <ol class="pb-process">${s.process.steps.map((step, index) => `<li data-reveal style="--i:${index}"><span class="pb-process-no" aria-hidden="true">${pad(index + 1)}</span><h4>${escape(step.title)}</h4><p>${escape(step.text)}</p></li>`).join('')}</ol>
+      </section>
+    </section>`;
+};
+
+/* Four questions, each answered at length: the question, the answer in one line, the reasoning, and a link to the
+   part of the page that shows it. */
 const faq = () => `<section class="pb-chapter pb-faq" id="faq" aria-labelledby="pb-faq-title" tabindex="-1">
       ${chapterHead('faq', 'pb-faq-title', c.faq.title)}
-      <dl class="pb-qa">${c.faq.items.map((item, index) => `<div data-reveal style="--i:${index % 2}"><dt>${escape(item.q)}</dt><dd>${escape(item.a)}</dd></div>`).join('')}</dl>
+      <ol class="pb-questions">${c.faq.items.map((item, index) => `
+        <li class="pb-question" data-reveal>
+          <div class="pb-question-head">
+            <span class="pb-question-no" aria-hidden="true">Q${index + 1}</span>
+            <h3>${escape(item.q)}</h3>
+          </div>
+          <div class="pb-question-body">
+            <p class="pb-question-short">${escape(item.short)}</p>
+            ${item.paragraphs.map(text => `<p>${escape(text)}</p>`).join('\n            ')}
+            <a class="pb-question-link" href="${escape(item.see.href)}">${escape(item.see.label)}${icons.arrowRight}</a>
+          </div>
+        </li>`).join('')}
+      </ol>
     </section>`;
 
 /* A ticker of the product names that runs faster, or backwards, with the scroll (data-velocity). Decorative. */

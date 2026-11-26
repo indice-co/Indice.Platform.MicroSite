@@ -116,10 +116,12 @@
     border-bottom: 1px solid var(--rule);
     background: color-mix(in srgb, var(--bg) 86%, transparent);
     -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
-    transition: padding .35s var(--ease-out);
+    transition: padding .35s var(--ease-out), margin .35s var(--ease-out);
   }
-  /* Sticky: a little tighter once the page has scrolled. */
-  .is-scrolled .pb-masthead { padding-top: 12px; padding-bottom: 10px; }
+  /* Sticky: a little tighter once the page has scrolled. The margin gives back the 14px the padding loses, so the
+     masthead takes the same room in the page either way. Without it the page gets shorter, the browser moves the
+     scroll position to compensate, and near the top that undoes "scrolled" again: the masthead flickers. */
+  .is-scrolled .pb-masthead { padding-top: 12px; padding-bottom: 10px; margin-bottom: 14px; }
   .pb-masthead::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--rule);
     transform-origin: left; animation: pb-draw 1.3s var(--ease-out) both;
@@ -250,7 +252,7 @@
   .pb-index-name { font-size: 30px; font-weight: 300; line-height: 1.1; letter-spacing: -.035em; transition: transform .45s var(--ease-out); }
   .pb-index a:hover .pb-index-name { transform: translateX(6px); }
   .pb-index-text { font-size: 14px; line-height: 1.45; color: var(--fg-muted); }
-  /* The three pillars: a larger index, each pillar with its role (mortar, bricks, builder) above its description. */
+  /* The three pillars: a larger index, each pillar with what it is above its description. */
   .pb-pillars a { gap: 6px 14px; padding: 26px 24px 28px; }
   .pb-pillars a::after { background: var(--accent-mark); }
   .pb-pillars .pb-index-no { grid-row: span 3; }
@@ -274,6 +276,11 @@
     max-width: 18ch; margin-top: 26px; font-weight: 300;
     font-size: clamp(38px, 5.2vw, 76px); line-height: 1.02; letter-spacing: -.045em; text-wrap: balance;
   }
+  /* A chapter without a title: the label is the heading, and it keeps the label's size. The content's own top rule
+     follows directly, so the label draws no rule of its own. */
+  .pb-chapter-head-bare { margin-bottom: 22px; }
+  .pb-chapter-head-bare .pb-chapter-label::after { display: none; }
+  .pb-chapter-head h2.pb-chapter-label { max-width: none; margin-top: 0; font-size: 12px; font-weight: 700; line-height: inherit; letter-spacing: .16em; }
   .pb-standfirst {
     max-width: 780px; font-size: clamp(21px, 2vw, 27px); font-weight: 400; line-height: 1.4; letter-spacing: -.015em;
     color: var(--fg); text-wrap: pretty;
@@ -291,14 +298,16 @@
   /* ---------- §01 best practices: the capabilities the libraries carry, in groups ---------- */
   .pb-practices { margin-top: clamp(72px, 9vw, 112px); }
   .pb-practice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
-  .pb-practice-grid > li { position: relative; padding: 28px 28px 30px 0; border-bottom: 1px solid var(--border); }
-  .pb-practice-grid > li:not(:nth-child(3n + 1)) { padding-left: 28px; border-left: 1px solid var(--border); }
+  /* Hover bars (practice groups and product cards): a short rule starts at the cell's left edge and, on hover, grows
+     to the cell's right edge. --bar-edge is that left edge: -1px where the cell has a left border, so the bar starts
+     on the border and not after it. */
+  .pb-practice-grid > li { --bar-edge: 0px; position: relative; padding: 28px 28px 30px 0; border-bottom: 1px solid var(--border); }
+  .pb-practice-grid > li:not(:nth-child(3n + 1)) { --bar-edge: -1px; padding-left: 28px; border-left: 1px solid var(--border); }
   .pb-practice-grid > li::before {
-    content: ''; position: absolute; top: -1px; left: 0; width: 48px; height: 3px; background: var(--accent-mark);
+    content: ''; position: absolute; top: -1px; left: var(--bar-edge); width: 48px; height: 3px; background: var(--accent-mark);
     transition: width .7s var(--ease-out);
   }
-  .pb-practice-grid > li:not(:nth-child(3n + 1))::before { left: 28px; }
-  .pb-practice-grid > li:hover::before { width: calc(100% - 28px); }
+  .pb-practice-grid > li:hover::before { width: calc(100% - var(--bar-edge)); }
   .pb-practice-grid h4 { font-size: 24px; font-weight: 300; line-height: 1.15; letter-spacing: -.03em; }
   .pb-practice-grid ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
   .pb-practice-grid ul li {
@@ -309,14 +318,13 @@
   /* ---------- §02 suite cards ---------- */
   .pb-suite-intro { max-width: none; margin-bottom: 48px; }
   .pb-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
-  .pb-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 34px 36px 30px 0; border-bottom: 1px solid var(--border); }
-  .pb-card:nth-child(even) { padding: 34px 0 30px 36px; border-left: 1px solid var(--border); }
+  .pb-card { --bar-edge: 0px; position: relative; display: flex; flex-direction: column; gap: 12px; padding: 34px 36px 30px 0; border-bottom: 1px solid var(--border); }
+  .pb-card:nth-child(even) { --bar-edge: -1px; padding: 34px 0 30px 36px; border-left: 1px solid var(--border); }
   .pb-card::before {
-    content: ''; position: absolute; top: -1px; left: 0; width: 56px; height: 3px; background: var(--tone);
+    content: ''; position: absolute; top: -1px; left: var(--bar-edge); width: 56px; height: 3px; background: var(--tone);
     transition: width .7s var(--ease-out);
   }
-  .pb-card:nth-child(even)::before { left: 36px; }
-  .pb-card:hover::before { width: calc(100% - 36px); }
+  .pb-card:hover::before { width: calc(100% - var(--bar-edge)); }
   .pb-card-fig { font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--fg-subtle); }
   .pb-card-logo .product-logo { width: auto; height: 38px; transition: transform .5s var(--ease-out); }
   .pb-card:hover .pb-card-logo .product-logo { transform: translateX(6px); }
@@ -347,7 +355,8 @@
   .pb-entry + .pb-entry { margin-top: 80px; }
   .pb-entry-main { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 32px; }
   .pb-entry-aside { position: sticky; top: calc(var(--mast-h) + 28px); grid-column: 1 / span 4; align-self: start; padding-left: 22px; }
-  /* Fills as the entry is read (data-scrub sets --scrub on the entry). */
+  /* Fills as the entry is read: --scrub is how far the sticky aside has travelled down the entry's text (data-scrub),
+     so the meter is empty when the text starts and full when it ends. */
   .pb-entry-meter { position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px; background: var(--border); }
   .pb-entry-meter::after {
     content: ''; position: absolute; inset: 0; background: var(--tone);
@@ -407,6 +416,18 @@
   .pb-entry-features li::before { content: ''; position: absolute; left: 0; top: 23px; width: 8px; height: 8px; border-radius: 50%; background: var(--tone); }
   .pb-entry-features b { font-size: 17px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; }
   .pb-entry-features span { font-size: 15px; line-height: 1.5; color: var(--fg-muted); }
+  /* Technical summary (IAM only): a specification list, each term beside its description, identifiers set as code. */
+  .pb-entry-specs { border-bottom: 1px solid var(--border); }
+  .pb-entry-specs > div {
+    display: grid; grid-template-columns: 172px minmax(0, 1fr); gap: 4px 24px; padding: 14px 0 15px;
+    border-top: 1px solid var(--border);
+  }
+  .pb-entry-specs dt { font-size: 15px; font-weight: 700; line-height: 1.55; letter-spacing: -.005em; }
+  .pb-entry-specs dd { font-size: 15px; line-height: 1.55; color: var(--fg-muted); }
+  .pb-entry-specs code {
+    padding: 1px 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-raised);
+    font-size: .86em; color: var(--fg); overflow-wrap: anywhere;
+  }
 
   /* ---------- Screen libraries: a full-width strip under each entry ---------- */
   .pb-gallery {
@@ -478,33 +499,116 @@
   .pb-lightbox .lightbox-button:hover { background: var(--fg); color: var(--bg); }
   .pb-lightbox .lightbox-figure .shot-media { border: 1px solid var(--border); box-shadow: 0 50px 120px -50px var(--shadow); }
 
-  /* ---------- Services ---------- */
-  .pb-services > .pb-standfirst { max-width: none; margin-bottom: 48px; }
-  /* Five services on a six-column grid: the first two span three columns each, the other three span two. */
-  .pb-service-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
-  .pb-service-list li { grid-column: span 2; padding: 30px 32px 34px; border-left: 1px solid var(--border); }
-  .pb-service-list li:nth-child(-n + 2) { grid-column: span 3; }
-  .pb-service-list li:nth-child(1), .pb-service-list li:nth-child(3) { padding-left: 0; border-left: 0; }
-  .pb-service-list li:nth-child(n + 3) { border-top: 1px solid var(--border); }
-  .pb-service-list li:nth-child(-n + 2) p { max-width: 44ch; }
+  /* ---------- §03 services ---------- */
+  /* The chapter opens with the offer beside Plate II: the products stacked on the foundation. */
+  .pb-services-lead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 32px; align-items: center; }
+  .pb-services-lead .pb-standfirst { grid-column: 1 / span 5; }
+  .pb-wall { grid-column: 6 / -1; margin-left: 32px; }
+  .pb-wall-svg { width: 100%; height: auto; overflow: visible; font-family: var(--font-sans); }
+  .pb-wall figcaption {
+    display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 8px 16px;
+    margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.5; color: var(--fg-muted);
+  }
+  /* The foundation is the slab and the bed the blocks sit in; a product is a block in its own colour. */
+  .pb-wall-bed { fill: color-mix(in srgb, var(--accent-mark) 46%, var(--bg)); }
+  .pb-wall-slab { fill: var(--accent-mark); }
+  .pb-wall-slab-text { fill: #fff; font-size: 14px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; text-anchor: middle; }
+  .pb-block-face { fill: var(--surface-raised); stroke: var(--tone); stroke-width: 2; }
+  .pb-block-name { fill: var(--fg); font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+  .pb-block-place { fill: none; stroke: var(--fg-subtle); stroke-dasharray: 2 5; }
+  .pb-block-open { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; stroke-dasharray: 4 5; }
+  .pb-block-plus { fill: none; stroke: var(--fg-subtle); stroke-width: 2; stroke-linecap: round; }
+  /* The next block is the client's: it hangs above its place in the stack. Without motion it sits in place. */
+  .pb-block-yours { animation: pb-lay 3.2s ease-in-out infinite alternate; }
+  .pb-block-yours .pb-block-face { fill: color-mix(in srgb, var(--accent-mark) 16%, var(--bg)); stroke: var(--accent-mark); stroke-dasharray: 7 5; }
+  .pb-block-yours .pb-block-name { fill: var(--accent); text-anchor: middle; }
+  @keyframes pb-lay { from { translate: 0 -34px; } to { translate: 0 -14px; } }
+  /* The stack is built block by block as it comes into view. */
+  .pb-block { transition: opacity .5s var(--ease-out) calc(.2s + var(--i) * 110ms), translate .7s var(--ease-out) calc(.2s + var(--i) * 110ms); }
+  .reveal-ready .pb-wall:not(.is-revealed) .pb-block { opacity: 0; translate: 0 -28px; }
+
+  .pb-services-part { margin-top: clamp(72px, 9vw, 112px); }
+  .pb-services-part .pb-guide-title { max-width: 22ch; text-wrap: balance; }
+  /* Narrow enough that "Consult with us, design with us, build with us." sets one clause to a line. */
+  .pb-services-path .pb-guide-title { max-width: 13ch; }
+  /* Each service is a row: its number, what it is, and what it gives. The bar above a row grows like the other hover
+     bars, from the row's left edge to its right edge. */
+  .pb-service-list { border-top: 1px solid var(--rule); }
+  .pb-service {
+    position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 32px; align-items: start;
+    padding: 40px 0 46px; border-bottom: 1px solid var(--border);
+  }
+  .pb-service::before {
+    content: ''; position: absolute; top: -1px; left: 0; width: 56px; height: 3px; background: var(--accent-mark);
+    transition: width .7s var(--ease-out);
+  }
+  .pb-service:hover::before { width: 100%; }
   .pb-service-no {
-    display: block; font-size: 72px; font-weight: 200; line-height: 1; letter-spacing: -.05em; color: var(--accent);
+    grid-column: 1 / span 2; font-size: 72px; font-weight: 200; line-height: .9; letter-spacing: -.05em; color: var(--accent);
     transition: transform .6s var(--ease-out), font-weight .6s;
   }
-  .pb-service-list li:hover .pb-service-no { transform: translateX(8px); font-weight: 500; }
-  .pb-service-list h3 { margin-top: 22px; font-size: 30px; font-weight: 300; line-height: 1.08; letter-spacing: -.035em; }
-  .pb-service-list p { margin-top: 12px; font-size: 16px; color: var(--fg-muted); }
+  .pb-service:hover .pb-service-no { transform: translateX(8px); font-weight: 500; }
+  .pb-service-main { grid-column: 3 / span 5; }
+  .pb-service h4 { font-size: clamp(30px, 3vw, 40px); font-weight: 300; line-height: 1.06; letter-spacing: -.04em; }
+  .pb-service-tagline { margin-top: 12px; font-size: 19px; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; }
+  .pb-service-main p:not(.pb-service-tagline) { margin-top: 12px; font-size: 16.5px; color: var(--fg-muted); }
+  .pb-service-points { grid-column: 8 / -1; }
+  .pb-service h5 { margin: 10px 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--fg-subtle); }
+  .pb-service-points li { position: relative; padding: 11px 0 11px 24px; border-top: 1px solid var(--border); font-size: 15.5px; line-height: 1.45; }
+  .pb-service-points li::before { content: ''; position: absolute; left: 0; top: 21px; width: 11px; height: 2px; background: var(--accent-mark); }
+  /* A service with groups of points (DevOps): its text runs wider, and the groups are set across the row below it, a
+     column a group, each under a rule in the accent colour. */
+  .pb-service-wide .pb-service-main { grid-column: 3 / -1; max-width: 62ch; }
+  .pb-service-groups { grid-column: 3 / -1; margin-top: 26px; }
+  .pb-service-groups > ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
+  .pb-service-groups > ul > li { padding-top: 16px; border-top: 2px solid var(--accent-mark); }
+  .pb-service h6 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.2; letter-spacing: -.02em; }
+  .pb-service-groups li ul { margin-top: 12px; }
+  .pb-service-groups li li { position: relative; padding: 11px 0 11px 24px; border-top: 1px solid var(--border); font-size: 15.5px; line-height: 1.45; }
+  .pb-service-groups li li::before { content: ''; position: absolute; left: 0; top: 21px; width: 11px; height: 2px; background: var(--accent-mark); }
+
+  /* The path an engagement follows: five steps along one line, each marked where it starts. The line is drawn step by
+     step as the steps come into view, and fades out after the last one: operation goes on. */
+  .pb-process { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 28px; }
+  .pb-process li { position: relative; padding-top: 36px; }
+  .pb-process li::before {
+    content: ''; position: absolute; z-index: 1; top: 0; left: 0; width: 13px; height: 13px; border: 2px solid var(--accent-mark);
+    border-radius: 50%; background: var(--bg); transition: background .3s, scale .4s var(--ease-out);
+  }
+  .pb-process li:hover::before { background: var(--accent-mark); scale: 1.3; }
+  .pb-process li::after {
+    content: ''; position: absolute; top: 6px; left: 13px; right: -28px; height: 1px; background: var(--rule);
+    transform-origin: left top; transition: transform 1s var(--ease-out) calc(.3s + var(--i) * 90ms);
+  }
+  .pb-process li:last-child::after { right: 0; background: linear-gradient(90deg, var(--rule), transparent); }
+  .reveal-ready .pb-process li:not(.is-revealed)::after { transform: scale(0); }
+  .pb-process-no { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--accent); }
+  .pb-process h4 { margin-top: 8px; font-size: clamp(26px, 2.5vw, 36px); font-weight: 300; line-height: 1.05; letter-spacing: -.04em; }
+  .pb-process p { margin-top: 12px; font-size: 15.5px; line-height: 1.55; color: var(--fg-muted); }
 
   /* ---------- Questions ---------- */
-  .pb-qa { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
-  .pb-qa > div { position: relative; padding: 28px 0 32px; border-top: 1px solid var(--rule); }
-  .pb-qa > div::before {
-    content: ''; position: absolute; top: -2px; left: 0; width: 48px; height: 3px; background: var(--accent-mark);
-    transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out);
+  /* Four questions, each answered at length. The question stays in view on the left while its answer is read on the
+     right: the answer in one line, then the reasoning, then a link to the part of the page that shows it. The bar
+     above a question grows like the other hover bars. */
+  .pb-questions { border-top: 1px solid var(--rule); }
+  .pb-question {
+    position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 32px; align-items: start;
+    padding: 48px 0 56px; border-bottom: 1px solid var(--border);
   }
-  .pb-qa > div:hover::before { transform: none; }
-  .pb-qa dt { font-size: clamp(22px, 2.1vw, 28px); font-weight: 400; line-height: 1.2; letter-spacing: -.025em; }
-  .pb-qa dd { margin-top: 12px; font-size: 16px; color: var(--fg-muted); }
+  .pb-question::before {
+    content: ''; position: absolute; top: -1px; left: 0; width: 56px; height: 3px; background: var(--accent-mark);
+    transition: width .7s var(--ease-out);
+  }
+  .pb-question:hover::before { width: 100%; }
+  .pb-question-head { grid-column: 1 / span 5; position: sticky; top: calc(var(--mast-h) + 32px); }
+  .pb-question-no { display: block; font-size: 13px; font-weight: 700; letter-spacing: .16em; color: var(--accent); }
+  .pb-question h3 { margin-top: 14px; max-width: 15ch; font-size: clamp(32px, 3.5vw, 50px); font-weight: 300; line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
+  .pb-question-body { grid-column: 7 / -1; }
+  .pb-question-short { font-size: clamp(22px, 2.1vw, 28px); font-weight: 500; line-height: 1.25; letter-spacing: -.025em; text-wrap: balance; }
+  .pb-question-body p:not(.pb-question-short) { margin-top: 18px; font-size: 17px; line-height: 1.65; color: var(--fg-muted); }
+  .pb-question-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; font-size: 15px; font-weight: 700; color: var(--accent); }
+  .pb-question-link .icon-arrow { transition: transform .3s var(--ease-out); }
+  .pb-question-link:hover .icon-arrow { transform: translateX(4px); }
 
   /* ---------- Ticker ---------- */
   .pb-ticker {
@@ -695,22 +799,33 @@
     .pb-platform-body .pb-standfirst, .pb-points { grid-column: 1 / -1; position: static; }
     .pb-points { margin-top: 36px; }
     .pb-practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pb-practice-grid > li:nth-child(n) { padding: 26px 24px 28px 0; border-left: 0; }
-    .pb-practice-grid > li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--border); }
-    .pb-practice-grid > li:nth-child(n)::before { left: 0; }
-    .pb-practice-grid > li:nth-child(even)::before { left: 24px; }
-    .pb-practice-grid > li:hover::before { width: calc(100% - 24px); }
+    .pb-practice-grid > li:nth-child(n) { --bar-edge: 0px; padding: 26px 24px 28px 0; border-left: 0; }
+    .pb-practice-grid > li:nth-child(even) { --bar-edge: -1px; padding-left: 24px; border-left: 1px solid var(--border); }
     .pb-cards { grid-template-columns: minmax(0, 1fr); }
-    .pb-card, .pb-card:nth-child(even) { padding: 30px 0; border-left: 0; }
-    .pb-card:nth-child(even)::before { left: 0; }
-    .pb-card:hover::before { width: 100%; }
+    .pb-card, .pb-card:nth-child(even) { --bar-edge: 0px; padding: 30px 0; border-left: 0; }
     .pb-entry-aside, .pb-entry-body { grid-column: 1 / -1; position: relative; top: auto; }
+    /* The aside no longer sticks, so its meter has nothing to measure: it becomes a rule in the product's colour. */
+    .pb-entry-meter::after { transform: none; }
     .pb-entry-body { margin-top: 12px; }
     .pb-gallery-hint { flex-basis: 100%; }
-    .pb-service-list { grid-template-columns: minmax(0, 1fr); }
-    .pb-service-list li:nth-child(n) { grid-column: 1; padding: 28px 0; border-left: 0; }
-    .pb-service-list li + li { border-top: 1px solid var(--border); }
-    .pb-qa { grid-template-columns: minmax(0, 1fr); }
+    .pb-services-lead { grid-template-columns: minmax(0, 1fr); }
+    .pb-services-lead .pb-standfirst, .pb-wall { grid-column: 1; margin-left: 0; }
+    .pb-wall { max-width: 640px; }
+    .pb-service { grid-template-columns: 76px minmax(0, 1fr); gap: 0 16px; padding: 30px 0 34px; }
+    .pb-service-no { grid-column: 1; font-size: 52px; }
+    .pb-service-main, .pb-service-wide .pb-service-main, .pb-service-points, .pb-service-groups { grid-column: 2; }
+    .pb-service-points { margin-top: 18px; }
+    .pb-service-groups > ul { grid-template-columns: minmax(0, 1fr); }
+    /* The steps run down the page, so the line does too. */
+    .pb-process { grid-template-columns: minmax(0, 1fr); }
+    .pb-process li { padding: 0 0 32px 38px; }
+    .pb-process li:last-child { padding-bottom: 0; }
+    .pb-process li::after, .pb-process li:last-child::after { top: 13px; bottom: 0; left: 6px; right: auto; width: 1px; height: auto; }
+    .pb-process li:last-child::after { display: none; }
+    .pb-question { grid-template-columns: minmax(0, 1fr); padding: 36px 0 42px; }
+    .pb-question-head, .pb-question-body { grid-column: 1; position: static; }
+    .pb-question h3 { max-width: 20ch; }
+    .pb-question-body { margin-top: 22px; }
     .pb-colophon { grid-template-columns: minmax(0, 1fr); }
     .pb-toc > li > a { grid-template-columns: 44px 1fr; }
     .pb-toc-text { grid-column: 2; }
@@ -727,9 +842,8 @@
     .pb-index li:nth-child(n + 2) { border-top: 1px solid var(--border); }
     .pb-entry-features { grid-template-columns: minmax(0, 1fr); }
     .pb-practice-grid { grid-template-columns: minmax(0, 1fr); }
-    .pb-practice-grid > li:nth-child(n) { padding: 24px 0 26px; border-left: 0; }
-    .pb-practice-grid > li:nth-child(n)::before { left: 0; }
-    .pb-practice-grid > li:hover::before { width: 100%; }
+    .pb-practice-grid > li:nth-child(n) { --bar-edge: 0px; padding: 24px 0 26px; border-left: 0; }
+    .pb-entry-specs > div { grid-template-columns: minmax(0, 1fr); }
     .pb-partner { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
     .pb-partner-link { grid-column: 1; }
     .pb-chip { font-size: 13px; }
@@ -741,6 +855,15 @@
     .pb-toc-compact { grid-template-columns: minmax(0, 1fr); }
     .pb-to-top { width: 46px; padding: 0; justify-content: center; }
     .pb-to-top span { display: none; }
+    .pb-wall figcaption { grid-template-columns: minmax(0, 1fr); }
+    .pb-service { grid-template-columns: minmax(0, 1fr); }
+    .pb-service-no, .pb-service-main, .pb-service-wide .pb-service-main, .pb-service-points, .pb-service-groups { grid-column: 1; }
+    .pb-service-main { margin-top: 16px; }
+  }
+  /* Plate II scales with the column, so its lettering is set larger on a phone to stay readable. */
+  @media (max-width: 480px) {
+    .pb-block-name { font-size: 21px; }
+    .pb-wall-slab-text { font-size: 20px; }
   }
   @media (max-width: 700px) {
     .pb-gh, .pb-gh:hover { border-radius: 50%; box-shadow: 0 14px 30px -14px var(--shadow); padding: 0; }
