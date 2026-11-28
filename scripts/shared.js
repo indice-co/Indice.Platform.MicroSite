@@ -119,8 +119,25 @@ const githubTab = cls => external(site.github,
 /* Runs before first paint: the visitor's stored choice, otherwise the default theme. */
 const themeBootstrap = defaultTheme => `<script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('${themeKey}')}catch(e){}if(t!=='light'&&t!=='dark')t='${defaultTheme}';d.setAttribute('data-theme',t);d.classList.add('js')})()</script>`;
 
+/* Open Graph and Twitter tags: what Teams, Slack, LinkedIn, WhatsApp and others show when a page's link is shared.
+   They need absolute URLs. The image is Plate I, so its description names the products in the same order. */
+const previewTags = ({ title, description, page }) => {
+  const image = site.previewImage;
+  const imageUrl = new URL(image.src, site.url).href;
+  const alt = `${site.title}: the platform core with ${new Intl.ListFormat('en-GB').format(products.map(p => p.name))} around it.`;
+  return [
+    ['og:type', 'website'], ['og:site_name', site.title], ['og:title', title], ['og:description', description],
+    ['og:url', new URL(page === 'index.html' ? '' : page, site.url).href],
+    ['og:image', imageUrl], ['og:image:type', 'image/png'], ['og:image:width', image.width], ['og:image:height', image.height],
+    ['og:image:alt', alt]
+  ].map(([property, value]) => `<meta property="${property}" content="${escape(value)}">`)
+    .concat([['twitter:card', 'summary_large_image'], ['twitter:image:alt', alt]]
+      .map(([name, value]) => `<meta name="${name}" content="${escape(value)}">`))
+    .join('\n  ');
+};
+
 const defaultTheme = 'dark';
-function head({ title, description, stylesheets = [], scripts = [] }) {
+function head({ title, description, page, stylesheets = [], scripts = [] }) {
   return `<!doctype html>
 <html lang="en" data-default-theme="${defaultTheme}">
 <head>
@@ -130,6 +147,7 @@ function head({ title, description, stylesheets = [], scripts = [] }) {
   <meta name="theme-color" content="#0f1115">
   <meta name="description" content="${escape(description)}">
   <title>${escape(title)}</title>
+  ${previewTags({ title, description, page })}
   ${themeBootstrap(defaultTheme)}
   <link rel="icon" type="image/svg+xml" href="${escape(site.icon)}">
   <link rel="preload" href="assets/fonts/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>

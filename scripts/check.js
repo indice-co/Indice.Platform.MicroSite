@@ -29,6 +29,8 @@ function checkPage(file) {
   }
   for (const [, ref] of html.matchAll(/\b(?:src|href)="((?:assets|css|js)\/[^"#]+)"/g)) assert(exists(ref), `${file}: local file exists: ${ref}`);
   for (const [, url] of html.matchAll(/url\('([^']+)'\)/g)) assert(exists(url), `${file}: mask image exists: ${url}`);
+  const preview = html.match(/<meta property="og:image" content="https:\/\/[^/"]+\/([^"?]+)(?:\?[^"]*)?">/);
+  assert(preview && exists(preview[1]), `${file}: link preview image is an absolute URL to a local file`);
   for (const [, attrs] of html.matchAll(/<button\b([^>]*)>/g)) assert(/\btype="button"/.test(attrs), `${file}: buttons do not submit`);
   for (const [, attrs] of html.matchAll(/<img\b([^>]*)>/g)) assert(/\balt="/.test(attrs), `${file}: images have alt text`);
   for (const [tag] of html.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)) {

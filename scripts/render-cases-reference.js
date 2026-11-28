@@ -68,6 +68,7 @@ module.exports = function renderCasesReference() {
   return `${S.head({
     title: `Cases technical reference — ${site.title}`,
     description: cases.referenceLede,
+    page: site.casesReference,
     stylesheets: ['css/cases-reference.css'],
     scripts: ['https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.min.js', 'js/cases-article.js']
   })}

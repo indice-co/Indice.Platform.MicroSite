@@ -14,6 +14,13 @@ const site = {
   title: 'INDICE Platform',
   logo: 'assets/logos/indice platform grey.svg',
   icon: 'assets/logos/indice icon.svg',
+  // The home page's description for search results and link previews. It is read on its own, away from the page, so it
+  // does not lean on the hero title the way the hero lede does.
+  description: 'Explore INDICE Platform: six ready-made products, an open-source foundation and engineers who help you build your own product, SaaS or ecosystem.',
+  // The link preview shown by Teams, Slack, LinkedIn and others. Preview tags need absolute URLs, so they are built
+  // from url. The image is Plate I on the dark theme, 1200 x 630.
+  url: 'https://platform.indice.gr/',
+  previewImage: { src: 'assets/og-image.png', width: 1200, height: 630 },
   github: 'https://github.com/indice-co/Indice.Platform',
   githubLabel: 'indice-co',
   casesReference: 'cases-reference.html'

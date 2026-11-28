@@ -370,7 +370,7 @@ const colophon = () => `<footer class="pb-colophon">
   </footer>`;
 
 module.exports = function renderHome() {
-  return `${S.head({ title: site.title, description: c.hero.lede, scripts: ['js/plate.js'] })}
+  return `${S.head({ title: site.title, description: site.description, page: 'index.html', scripts: ['js/plate.js'] })}
 <body class="pb">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="pb-progress" data-progress aria-hidden="true"></div>
